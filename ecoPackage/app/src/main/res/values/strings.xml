@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">EcoPack</string>
-    <string name="title_pontos">Pontos</string>
-    <string name="title_arvore">Árvore</string>
-    <string name="title_mapa">Mapa</string>
-    <string name="title_contribuir">Contribuir</string>
-    <string name="title_perfil">Perfil</string>
-</resources>
