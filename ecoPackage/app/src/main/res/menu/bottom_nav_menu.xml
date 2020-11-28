@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_points"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_pontos" />
+
+    <item
+        android:id="@+id/navigation_tree"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_arvore" />
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_mapa" />
+
+    <item
+        android:id="@+id/navigation_contribuir"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_contribuir" />
+
+    <item
+        android:id="@+id/navigation_perfil"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_perfil" />
+
+</menu>
