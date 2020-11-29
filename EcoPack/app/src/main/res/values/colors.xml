@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+
     <!-- CORES DA PRINCIPAIS DA APLICAÇÃO -->
     <color name="darkMenta">#679E76</color>
     <color name="menta">#8DC59C</color>
     <color name="paleBeige">#E2DEDA</color>
     <color name="darkGrey">#252525</color>
+    <color name="white">#ffffff</color>
 
 </resources>
