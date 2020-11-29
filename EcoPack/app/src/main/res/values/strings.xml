@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">EcoPack</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="points">Pontos</string>
+    <string name="tree">Arvore</string>
+    <string name="map">Mapa</string>
+    <string name="contribute">Contribuir</string>
+    <string name="profile">Perfil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
