@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen"
-    android:background="@color/menta">
+    android:background="@color/mint"
+    tools:context=".SplashActivity">
 
     <ImageView
-        android:id="@+id/imgLog2"
+        android:id="@+id/image_logo"
         android:layout_width="0dp"
         android:layout_height="177dp"
         android:layout_marginStart="10dp"
@@ -16,7 +16,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/ic_ecopack_log_2"
+        android:src="@drawable/ic_ecopack_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,14 +24,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/image_package"
         android:layout_width="370dp"
         android:layout_height="269dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="152dp"
         android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_eco_pack_splash"
-        app:layout_constraintBottom_toTopOf="@+id/imgLog2"
+        android:src="@drawable/ic_ecopack_package"
+        app:layout_constraintBottom_toTopOf="@+id/image_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
