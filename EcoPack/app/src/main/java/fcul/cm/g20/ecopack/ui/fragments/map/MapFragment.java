@@ -23,7 +23,7 @@ import fcul.cm.g20.ecopack.R;
 
 public class MapFragment extends Fragment {
 
-    private GoogleMap mMap;
+    private GoogleMap map;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
 
@@ -38,7 +38,7 @@ public class MapFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                mMap = googleMap;
+                map = googleMap;
             }
         });
 

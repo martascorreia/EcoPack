@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.map.MarkersInfoFragment"
-    android:id="@+id/fragment_markers">
+    android:id="@+id/fragment_markers"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
-            android:background="@color/dark_mint">
+            android:background="@color/mint">
 
             <ImageButton
                 android:id="@+id/backButton"
@@ -62,7 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Embalagens de Plástico"
-                    android:textSize="@dimen/_15sdp"/>
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -78,7 +80,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Embalagens de Papel"
-                    android:textSize="@dimen/_15sdp"/>
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -94,7 +97,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Embalagens de Vidro"
-                    android:textSize="@dimen/_15sdp"/>
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -110,7 +114,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Embalagens de Casa"
-                    android:textSize="@dimen/_15sdp"/>
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout
@@ -125,7 +130,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Embalagens Biodegradáveis"
-                    android:textSize="@dimen/_15sdp"/>
+                    android:textSize="@dimen/_15sdp"
+                    android:textColor="@color/black"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
