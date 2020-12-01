@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.ui.fragments.tree;
+package fcul.cm.g20.ecopack.ui.fragments;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import fcul.cm.g20.ecopack.R;
 
@@ -25,6 +27,8 @@ public class TreeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FloatingActionButton histBt;
+    private FloatingActionButton infoBt;
 
     public TreeFragment() {
         // Required empty public constructor
@@ -58,9 +62,47 @@ public class TreeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tree, container, false);
+        // INFLATE THE LAYOUT TO THID BUTTON
+        View view = inflater.inflate(R.layout.fragment_tree, container, false);
+        //HISTORY BUTTON
+        historyPage(view);
+        //HISTORY BUTTON
+       informationPage(view);
+
+
+        return view;
     }
+
+    //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
+    private void historyPage(final View view){
+        histBt = view.findViewById(R.id.floating_action_history);
+
+        histBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragmentI = new HistoricoSemanal();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tree, fragmentI).commit();
+
+            }
+        });
+    }
+
+    //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
+    private void informationPage(final View view){
+       infoBt = view.findViewById(R.id.floating_action_info);
+
+        infoBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragmentI = new InformationFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tree, fragmentI).commit();
+
+            }
+        });
+    }
+
 }
