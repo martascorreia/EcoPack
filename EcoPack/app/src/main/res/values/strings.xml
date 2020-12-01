@@ -18,4 +18,12 @@
     <string name="visited_places">Locais Visitados</string>
     <string name="published_opinions">Opiniões Publicadas</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cinco_Rs">Política dos 5 Rs</string>
+    <string name="cinco_Titulo">O que são os 5 Rs?</string>
+    <string name="granel_Titulo">Lojas a Granel</string>
+    <string name="granel">Lojas a Granel</string>
+    <string name="emabalagens_eco">Embalagens Ecológicas</string>
+    <string name="almentacao">Alimentação</string>
+    <string name="text_R">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum imperdiet est, vitae ornare ligula gravida eu. Donec malesuada arcu sit amet eros volutpat, eu convallis elit pulvinar. Suspendisse pellentesque ornare magna, ac efficitur nisi blandit ut. Aliquam at euismod lacus. Sed mattis arcu id elit elementum, sit amet consequat mauris condimentum. Fusce quis purus molestie, vehicula nulla ut, pellentesque ante. Praesent mauris felis, lobortis accumsan dui non, pharetra posuere ante. Curabitur malesuada tortor erat, nec euismod velit mattis at.
+            Proin tempor ornare justo, et convallis odio aliquam ac. Quisque gravida felis sed luctus efficitur. Nullam et fringilla arcu, ac eleifend ligula. Maecenas eget interdum ante, et imperdiet justo. Pellentesque sodales gravida tellus at convallis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam dapibus, augue ut dictum luctus, nisi nulla pulvinar tortor, a condimentum tortor nulla sed ipsum. Ut pellentesque, velit quis tristique sagittis, eros massa dapibus nulla, vel maximus erat neque at metus. Nullam ornare nisl in porta cursus. Quisque et mattis ligula, et lacinia dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc cursus enim nec nunc porta, vel congue nisi lacinia. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</string>
 </resources>
