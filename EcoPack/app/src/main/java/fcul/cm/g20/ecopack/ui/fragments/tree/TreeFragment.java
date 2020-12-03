@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.ui.fragments;
+package fcul.cm.g20.ecopack.ui.fragments.tree;
 
 import android.os.Bundle;
 
@@ -83,8 +83,8 @@ public class TreeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Fragment fragmentI = new HistoricoSemanal();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tree, fragmentI).commit();
+                //Fragment fragmentI = new HistoricoSemanal();
+                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tree, fragmentI).commit();
 
             }
         });
@@ -98,8 +98,8 @@ public class TreeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Fragment fragmentI = new InformationFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tree, fragmentI).commit();
+                Fragment fragmentI = new fcul.cm.g20.ecopack.ui.fragments.InformationFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_tree, fragmentI).commit();
 
             }
         });
