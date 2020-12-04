@@ -26,7 +26,7 @@
 <!--        tools:layout="@layout/fragment_contribute" />-->
     <fragment
         android:id="@+id/navigation_contribute"
-        android:name="fcul.cm.g20.ecopack.ui.fragments.companyProfile.CompanyProfile"
+        android:name="fcul.cm.g20.ecopack.ui.fragments.company.companyProfile.CompanyProfile"
         android:label="companyProfile"
         tools:layout="@layout/fragment_company_profile" />
     <fragment

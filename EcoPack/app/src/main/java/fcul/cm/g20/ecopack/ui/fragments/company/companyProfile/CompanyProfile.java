@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.ui.fragments.companyProfile;
+package fcul.cm.g20.ecopack.ui.fragments.company.companyProfile;
 
 import android.os.Bundle;
 

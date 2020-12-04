@@ -2,6 +2,8 @@ package fcul.cm.g20.ecopack.ui.fragments.tree;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.ui.fragments.tree.information.InformationFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,46 +22,14 @@ import fcul.cm.g20.ecopack.R;
  */
 public class TreeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private FloatingActionButton histBt;
     private FloatingActionButton infoBt;
 
-    public TreeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TreeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TreeFragment newInstance(String param1, String param2) {
         TreeFragment fragment = new TreeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -66,43 +37,48 @@ public class TreeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // INFLATE THE LAYOUT TO THID BUTTON
         View view = inflater.inflate(R.layout.fragment_tree, container, false);
-        //HISTORY BUTTON
-        historyPage(view);
-        //HISTORY BUTTON
-       informationPage(view);
-
-
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        historyPage();
+        informationPage();
+    }
+
     //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
-    private void historyPage(final View view){
-        histBt = view.findViewById(R.id.floating_action_history);
+    private void historyPage(){
+        histBt = getView().findViewById(R.id.floating_action_history);
 
         histBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            //   getView().findViewById(R.id.floating_action_info).setVisibility(View.INVISIBLE);
+            //   getView().findViewById(R.id.floating_action_history).setVisibility(View.INVISIBLE);
 
-                //Fragment fragmentI = new HistoricoSemanal();
-                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tree, fragmentI).commit();
-
+            //Fragment fragmentI = new HistoricoSemanal();
+            //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tree, fragmentI).commit();
             }
         });
     }
 
     //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
-    private void informationPage(final View view){
-       infoBt = view.findViewById(R.id.floating_action_info);
+    private void informationPage(){
+       infoBt = getView().findViewById(R.id.floating_action_info);
 
         infoBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getView().findViewById(R.id.floating_action_info).setVisibility(View.INVISIBLE);
+                getView().findViewById(R.id.floating_action_history).setVisibility(View.INVISIBLE);
 
-                Fragment fragmentI = new fcul.cm.g20.ecopack.ui.fragments.InformationFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_tree, fragmentI).commit();
-
+                InformationFragment fragmentInfo = new InformationFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_tree, fragmentInfo)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
-
 }

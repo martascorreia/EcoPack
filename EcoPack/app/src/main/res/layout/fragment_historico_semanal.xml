@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".HistoricoSemanal"
     android:background="@color/white"
-    android:id="@+id/info_pegada">
+    android:id="@+id/fragment_info">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

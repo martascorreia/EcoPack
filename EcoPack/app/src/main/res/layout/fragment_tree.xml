@@ -6,7 +6,6 @@
     tools:context=".ui.fragments.tree.TreeFragment"
     android:id="@+id/fragment_tree">
 
-    <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/image_package"
         android:layout_width="400dp"
@@ -17,25 +16,27 @@
         android:src="@drawable/ic_tree_temp"
         android:contentDescription="@string/tree" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:layout_marginTop="@dimen/_80sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:backgroundTint="@color/dark_mint"
-        android:src="@drawable/ic_history_1500" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
         android:backgroundTint="@color/dark_mint"
-        android:src="@drawable/ic_icons8_info" />
+        android:src="@drawable/ic_info" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="@dimen/_65sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:backgroundTint="@color/dark_mint"
+        android:src="@drawable/ic_history" />
 
 
 

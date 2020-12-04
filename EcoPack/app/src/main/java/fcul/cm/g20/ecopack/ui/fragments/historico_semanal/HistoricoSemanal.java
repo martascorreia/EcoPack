@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.ui.fragments;
+package fcul.cm.g20.ecopack.ui.fragments.historico_semanal;
 
 import android.os.Bundle;
 
