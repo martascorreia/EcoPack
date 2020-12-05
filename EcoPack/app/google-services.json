@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "410136343156",
+    "project_id": "ecopack-297222",
+    "storage_bucket": "ecopack-297222.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410136343156:android:1f443a3421d38685539721",
+        "android_client_info": {
+          "package_name": "fcul.cm.g20.ecopack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410136343156-1jo59vr79uqsl8s9ovjqkhasuusk8gi7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fcul.cm.g20.ecopack",
+            "certificate_hash": "f3905a5a8a913b50f8e53f633c7648ec030d02ec"
+          }
+        },
+        {
+          "client_id": "410136343156-uhfjeunbqgh7jcon4eol14puv5o6a8ms.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7stZUZOHm7dNyzrX3vSoAjiUthEuI3jw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410136343156-uhfjeunbqgh7jcon4eol14puv5o6a8ms.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
