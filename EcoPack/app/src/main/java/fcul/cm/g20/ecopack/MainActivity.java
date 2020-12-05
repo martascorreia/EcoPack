@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -42,28 +43,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+        //TODO corrigir o erro de só está a entrar no primeiro if
         if(findViewById(R.id.fragment_markers) != null){
-            MapFragment mapFragment = new MapFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_markers, mapFragment)
-                    .commit();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.popBackStack ("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
-        if(findViewById(R.id.fragment_map) != null){
-            findViewById(R.id.markers_info_button).setVisibility(View.VISIBLE);
-        }
-
-        /*
         if(findViewById(R.id.fragment_info) != null){
-            TreeFragment treeFragment = new TreeFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_info, treeFragment)
-                    .commit();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.popBackStack ("info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
-
-        if(findViewById(R.id.fragment_tree) != null){
-            findViewById(R.id.floating_action_info).setVisibility(View.VISIBLE);
-            findViewById(R.id.floating_action_history).setVisibility(View.VISIBLE);
-        }*/
     }
 }

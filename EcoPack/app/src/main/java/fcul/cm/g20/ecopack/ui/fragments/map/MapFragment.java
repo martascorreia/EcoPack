@@ -49,6 +49,11 @@ public class MapFragment extends Fragment implements
     SearchView searchView;
     private static final int Request_User_Location_Code = 99;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Nullable
     @Override
@@ -101,21 +106,11 @@ public class MapFragment extends Fragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        buttonMarkers();
+        searchView();
+    }
 
-        markersInfo = getView().findViewById(R.id.markers_info_button);
-        markersInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MarkersInfoFragment markersFragment = new MarkersInfoFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_map, markersFragment)
-                            .addToBackStack(null)
-                            .commit();
-
-                getView().findViewById(R.id.markers_info_button).setVisibility(View.INVISIBLE);
-            }
-        });
-
+    private void searchView() {
         searchView = getView().findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -128,8 +123,8 @@ public class MapFragment extends Fragment implements
                     try{
                         addressList = geocoder.getFromLocationName(location, 1);
                     } catch(IOException e){
-                       System.out.println("oh oh, that location doesn't exist in my bd...");
-                       return false;
+                        System.out.println("oh oh, that location doesn't exist in my bd...");
+                        return false;
                     }
 
                     Address address = addressList.get(0);
@@ -145,11 +140,22 @@ public class MapFragment extends Fragment implements
                 return false;
             }
         });
-
     }
 
-    ///// PERMISSIONS /////
-    // PERMISSIONS CHECK ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private void buttonMarkers() {
+        markersInfo = getView().findViewById(R.id.markers_info_button);
+        markersInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MarkersInfoFragment markersFragment = new MarkersInfoFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_map, markersFragment)
+                        .addToBackStack("map")
+                        .commit();
+            }
+        });
+    }
+
     public boolean checkUserLocationPermission(){
         if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)){
@@ -165,16 +171,13 @@ public class MapFragment extends Fragment implements
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 }

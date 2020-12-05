@@ -5,15 +5,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.ui.fragments.tree.granel.GranelFragment;
-import fcul.cm.g20.ecopack.ui.fragments.tree.reciclagem.PoliticaRsFragment;
+import fcul.cm.g20.ecopack.ui.fragments.tree.recycling.PoliticaRsFragment;
 
 public class InformationFragment extends Fragment {
 
@@ -21,6 +23,7 @@ public class InformationFragment extends Fragment {
     private RelativeLayout granelL;
     private RelativeLayout ecoP;
     private RelativeLayout alm;
+    private ImageButton backButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +40,20 @@ public class InformationFragment extends Fragment {
         cincoPage();
         //Granel R
         granelPage();
+
+        backButton();
+    }
+
+    private void backButton() {
+        backButton = getView().findViewById(R.id.backButtonInfo);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack ("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        });
     }
 
     //METODO PARA MUDAR PARA O FRAGMENTO DO 5RS
@@ -46,7 +63,9 @@ public class InformationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment fragmentR = new PoliticaRsFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_info, fragmentR).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_info, fragmentR)
+                        .addToBackStack("info").commit();
             }
         });
     }
@@ -58,7 +77,9 @@ public class InformationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment fragmentG = new GranelFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_info, fragmentG).addToBackStack(null).commit();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_info, fragmentG)
+                        .addToBackStack("info").commit();
             }
         });
     }

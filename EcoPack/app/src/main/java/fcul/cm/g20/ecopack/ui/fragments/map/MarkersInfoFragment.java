@@ -5,14 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
 
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import fcul.cm.g20.ecopack.R;
@@ -32,16 +29,17 @@ public class MarkersInfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        backButton();
+    }
 
-        backButton = getView().findViewById(R.id.backButton);
+    private void backButton() {
+        backButton = getView().findViewById(R.id.backButtonMarkers);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MapFragment mapFragment = new MapFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_markers, mapFragment)
-                        .addToBackStack(null)
-                        .commit();
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack ("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
     }
