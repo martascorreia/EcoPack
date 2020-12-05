@@ -11,6 +11,13 @@
     <color name="pale_beige">#E2DEDA</color>
     <color name="dark_grey">#252525</color>
 
+    <!-- MARKERS COLORS -->
+    <color name="plastic">#DC9E22 </color>
+    <color name="home">#D14124</color>
+    <color name="glass">#44CA53</color>
+    <color name="paper">#2964CA </color>
+    <color name="bio">#915520</color>
+
     <!-- COLOR LIST -->
     <color name="white">#FFFFFF</color>
     <color name="ivory">#FFFFF0</color>
