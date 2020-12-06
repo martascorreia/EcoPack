@@ -45,6 +45,7 @@ public class PointsFragment extends Fragment {
         addPointsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Permissions
                 if (ContextCompat.checkSelfPermission(getContext(),Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
                 }

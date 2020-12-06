@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.profile.ProfileFragment">
+    tools:context=".ui.fragments.profile.ProfileFragment"
+    android:id="@+id/fragment_profile">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,6 +15,26 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/settingsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/logoutButton"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_settings"
+                android:backgroundTint="#00FFFFFF"/>
+
+            <ImageButton
+                android:id="@+id/logoutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settingsButton"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="#00FFFFFF"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/ic_logout" />
 
             <RelativeLayout
                 android:id="@+id/profile_header"
