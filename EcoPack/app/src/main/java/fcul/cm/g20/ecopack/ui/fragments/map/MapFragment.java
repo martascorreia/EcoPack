@@ -123,14 +123,17 @@ public class MapFragment extends Fragment implements
                     try{
                         addressList = geocoder.getFromLocationName(location, 1);
                     } catch(IOException e){
-                        System.out.println("oh oh, that location doesn't exist in my bd...");
                         return false;
                     }
 
-                    Address address = addressList.get(0);
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    map.addMarker(new MarkerOptions().position(latLng).title(location));
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                    if(addressList.size() > 0) {
+                        Address address = addressList.get(0);
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        map.addMarker(new MarkerOptions().position(latLng).title(location));
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    } else{
+                        return false;
+                    }
                 }
                 return false;
             }
