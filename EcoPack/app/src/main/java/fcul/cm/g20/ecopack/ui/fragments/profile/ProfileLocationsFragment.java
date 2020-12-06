@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.LinkedList;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.recyclerview.LocationAdapter;
+import fcul.cm.g20.ecopack.ui.fragments.profile.recyclerview.LocationAdapter;
 
 public class ProfileLocationsFragment extends Fragment {
     public ProfileLocationsFragment() {

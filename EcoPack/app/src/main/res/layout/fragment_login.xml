@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mint"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".ui.fragments.login.LoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_75sdp"
+            android:src="@drawable/ic_ecopack_logo_2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/login_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_oval"
+                android:drawableStart="@drawable/ic_plus"
+                android:drawablePadding="@dimen/_10sdp"
+                android:hint="@string/username"
+                android:inputType="text"
+                android:padding="@dimen/_12sdp"
+                android:shadowColor="@android:color/transparent"
+                android:textColor="@color/pale_beige"
+                android:textColorHighlight="@color/pale_beige"
+                android:textColorHint="@color/pale_beige" />
+
+            <EditText
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/shape_oval"
+                android:drawableStart="@drawable/ic_plus"
+                android:drawablePadding="@dimen/_10sdp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="@dimen/_12sdp"
+                android:shadowColor="@android:color/transparent"
+                android:textColor="@color/pale_beige"
+                android:textColorHighlight="@color/pale_beige"
+                android:textColorHint="@color/pale_beige" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_button"
+                android:padding="@dimen/_12sdp"
+                android:shadowColor="@color/pale_beige"
+                android:text="@string/login"
+                android:textColor="@color/pale_beige"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/sign_up_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@drawable/shape_button"
+                android:padding="@dimen/_12sdp"
+                android:shadowColor="@color/pale_beige"
+                android:text="@string/sign_up"
+                android:textColor="@color/pale_beige"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

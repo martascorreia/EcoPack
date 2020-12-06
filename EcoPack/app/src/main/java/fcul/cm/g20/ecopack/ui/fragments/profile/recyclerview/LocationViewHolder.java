@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.recyclerview;
+package fcul.cm.g20.ecopack.ui.fragments.profile.recyclerview;
 
 import android.view.View;
 import android.widget.TextView;
