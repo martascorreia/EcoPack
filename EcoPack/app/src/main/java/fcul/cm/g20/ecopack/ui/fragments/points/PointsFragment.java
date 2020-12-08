@@ -1,9 +1,13 @@
 package fcul.cm.g20.ecopack.ui.fragments.points;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -18,6 +22,8 @@ import fcul.cm.g20.ecopack.ui.fragments.map.MarkersInfoFragment;
 public class PointsFragment extends Fragment {
 
     FloatingActionButton addPointsButton;
+
+    final int CAMERA_REQUEST_CODE = 98;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,11 @@ public class PointsFragment extends Fragment {
         addPointsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Permissions
+                if (ContextCompat.checkSelfPermission(getContext(),Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+                }
+
                 CameraFragment cameraFragment = new CameraFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_points, cameraFragment)

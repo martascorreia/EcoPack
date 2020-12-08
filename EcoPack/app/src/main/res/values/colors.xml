@@ -10,6 +10,7 @@
     <color name="mint">#8DC59C</color>
     <color name="pale_beige">#E2DEDA</color>
     <color name="dark_grey">#252525</color>
+    <color name="darker_grey">#121212</color>
 
     <!-- MARKERS COLORS -->
     <color name="plastic">#DC9E22 </color>

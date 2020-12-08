@@ -29,7 +29,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_marker_home" />
+                    android:src="@drawable/ic_user_empty" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_marker_home" />
+                    android:src="@drawable/ic_email" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_marker_home" />
+                    android:src="@drawable/ic_phone" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -161,7 +161,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_marker_home" />
+                    android:src="@drawable/ic_gender" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_marker_home" />
+                    android:src="@drawable/ic_birthday" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -249,7 +249,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_marker_home" />
+                    android:src="@drawable/ic_city" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -293,7 +293,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_marker_home" />
+                    android:src="@drawable/ic_marker_empty" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -337,7 +337,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_marker_home" />
+                    android:src="@drawable/ic_comment" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"

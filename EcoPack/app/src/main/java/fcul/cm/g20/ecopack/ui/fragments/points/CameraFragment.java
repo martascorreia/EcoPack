@@ -47,7 +47,6 @@ public class CameraFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         codeScanner();
         backButton();
-
     }
 
     private void backButton() {
