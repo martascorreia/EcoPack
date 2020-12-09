@@ -80,6 +80,38 @@ public class MapFragment extends Fragment implements
                 LatLng lisbon = new LatLng(38.71667, -9.13333);
                 map.moveCamera(CameraUpdateFactory.newLatLng(lisbon));
 
+                //ADIÇÃO DE UM MARKER - LOURES
+                final LatLng Loures = new LatLng(38.8315,-9.1741);
+                //final LatLng melbourneLocation = new LatLng(-37.813, 144.962);
+                Marker mLoures = map.addMarker(
+                        new MarkerOptions()
+                                .position(Loures)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        // Creating a marker
+                        MarkerOptions markerOptions = new MarkerOptions();
+
+                        // Setting the position for the marker
+                        markerOptions.position(latLng);
+
+                        // Setting the title for the marker.
+                        // This will be displayed on taping the marker
+                        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+                        // Clears the previously touched position
+                       map.clear();
+
+                        // Animating to the touched position
+                        map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                        // Placing a marker on the touched position
+                        map.addMarker(markerOptions);
+                    }
+                });
+
             }
         });
 
