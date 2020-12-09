@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.tree.granel.GranelFragment"
+    tools:context=".ui.fragments.tree.recycling.PoliticaRsFragment"
     android:background="@color/white">
+
     <!-- TODO: Update blank fragment layout -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/backButtonGranel"
+                android:id="@+id/backButtonPolitica"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
@@ -35,11 +36,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="13dp"
-                android:text="Lojas a Granel"
+                android:text="Política dos 5 Rs"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_17sdp">
 
             </TextView>
+
         </LinearLayout>
         <ScrollView android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_50sdp"
@@ -63,7 +65,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/_25sdp"
-                    android:text="@string/granel"
+                    android:text="@string/cinco_Titulo"
                     android:textColor="@color/dark_grey"
                     android:textSize="@dimen/_20sdp"
                     android:textStyle="bold"/>
@@ -86,15 +88,17 @@
                     android:layout_below="@+id/multiAutoCompleteTextView"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_40sdp"
                     android:layout_marginBottom="@dimen/_50sdp"
-                    android:src="@drawable/loja_granel"
+                    android:src="@drawable/recycle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </RelativeLayout>
 
         </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>
