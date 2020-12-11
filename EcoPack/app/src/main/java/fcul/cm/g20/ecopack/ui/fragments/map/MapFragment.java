@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,26 +27,30 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.List;
 
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class MapFragment extends Fragment implements
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener
-{
+        GoogleApiClient.OnConnectionFailedListener{
 
-        private GoogleMap map;
+    private GoogleMap map;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-
     FloatingActionButton markersInfo;
     SearchView searchView;
     private static final int Request_User_Location_Code = 99;
@@ -52,8 +58,9 @@ public class MapFragment extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
+
+
 
     @Nullable
     @Override
@@ -70,11 +77,12 @@ public class MapFragment extends Fragment implements
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
+                
                 if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                     buildGoogleApiClient();
                     map.setMyLocationEnabled(true);
                     locationButton();
-                    return;
+                    //return; //NÃO PODE ESTAR AQUI PORQUE IMPEDE O FUNCIONAMENTO DA ADIÇÃO DE UM MARKER POR TOQUE
                 }
                 // DEFAULT LOCATION
                 LatLng lisbon = new LatLng(38.71667, -9.13333);
@@ -87,7 +95,7 @@ public class MapFragment extends Fragment implements
                         new MarkerOptions()
                                 .position(Loures)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
+                //-------------------------------------------PASSAR PARA LONG PRESS------------------------------------------
                 map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(LatLng latLng) {
@@ -102,7 +110,7 @@ public class MapFragment extends Fragment implements
                         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
 
                         // Clears the previously touched position
-                       map.clear();
+                       //map.clear();
 
                         // Animating to the touched position
                         map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -112,8 +120,13 @@ public class MapFragment extends Fragment implements
                     }
                 });
 
+
             }
+
+
+
         });
+
 
         return view;
     }
@@ -155,17 +168,14 @@ public class MapFragment extends Fragment implements
                     try{
                         addressList = geocoder.getFromLocationName(location, 1);
                     } catch(IOException e){
+                        System.out.println("oh oh, that location doesn't exist in my bd...");
                         return false;
                     }
 
-                    if(addressList.size() > 0) {
-                        Address address = addressList.get(0);
-                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                        map.addMarker(new MarkerOptions().position(latLng).title(location));
-                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                    } else{
-                        return false;
-                    }
+                    Address address = addressList.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    map.addMarker(new MarkerOptions().position(latLng).title(location));
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                 }
                 return false;
             }
@@ -215,4 +225,7 @@ public class MapFragment extends Fragment implements
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
+
+
+
 }
