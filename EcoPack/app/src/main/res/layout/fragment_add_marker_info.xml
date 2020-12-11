@@ -24,7 +24,6 @@
                 android:tint="@color/white"
                 android:background="#00000000"
                 android:padding="@dimen/_20sdp">
-
             </ImageButton>
 
             <TextView
@@ -71,8 +70,8 @@
                         android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_width="33dp"
-                        android:layout_height="69dp"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_one"/>
 
                     <TextView
@@ -105,8 +104,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <ImageView
-                        android:layout_width="33dp"
-                        android:layout_height="69dp"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_two" />
 
                     <TextView
@@ -140,8 +139,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <ImageView
-                        android:layout_width="33dp"
-                        android:layout_height="69dp"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_three"/>
 
                     <TextView
@@ -170,8 +169,8 @@
                     android:paddingStart="@dimen/_20sdp"
                     android:paddingEnd="@dimen/_20sdp">
                     <ImageView
-                        android:layout_width="33dp"
-                        android:layout_height="69dp"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:src="@drawable/ic_four" />
 
