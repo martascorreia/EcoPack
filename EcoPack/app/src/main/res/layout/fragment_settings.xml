@@ -56,7 +56,7 @@
                 android:background="#00000000"
                 android:padding="@dimen/_10sdp"
                 android:src="@drawable/ic_save"
-                android:text="@string/Save"
+                android:text="@string/save"
                 android:textColor="@color/white"
                 android:tint="@color/white" />
         </RelativeLayout>
@@ -460,7 +460,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/DeleteAccount"
+                            android:text="@string/deleteAccount"
                             android:drawableLeft="@drawable/ic_delete"
                             android:background="@color/white"
                             style="?android:attr/borderlessButtonStyle">
