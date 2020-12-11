@@ -46,6 +46,7 @@ public class MapFragment extends Fragment implements
     private LocationRequest locationRequest;
 
     FloatingActionButton markersInfo;
+    FloatingActionButton contribute;
     SearchView searchView;
     private static final int Request_User_Location_Code = 99;
 
@@ -107,7 +108,22 @@ public class MapFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         buttonMarkers();
+        buttonContribute();
         searchView();
+    }
+
+    private void buttonContribute() {
+        contribute = getView().findViewById(R.id.add_marker_info_button);
+        contribute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddMarkerInfoFragment addMarkerInfoFragment = new AddMarkerInfoFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_map, addMarkerInfoFragment)
+                        .addToBackStack("map")
+                        .commit();
+            }
+        });
     }
 
     private void searchView() {
