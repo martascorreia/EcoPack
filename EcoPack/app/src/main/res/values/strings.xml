@@ -35,9 +35,9 @@
     <string name="settings">Definições</string>
     <string name="deleteAccount">apagar conta</string>
     <string name="save">Guardar</string>
-    <string name="step1">Voltar atrás para o mapa.</string>
-    <string name="step2">Colocar o endereço do local que quer adicionar na barra de pesquisa.</string>
-    <string name="step3">Pressionar o local onde quer colocar o marcador durante alguns segundos.</string>
+    <string name="step1">Volte atrás para o mapa.</string>
+    <string name="step2">Coloque o endereço do local que quer adicionar na barra de pesquisa.</string>
+    <string name="step3">Pressione o local onde quer colocar o marcador durante alguns segundos.</string>
     <string name="step4">Preencha as informações adicionais sobre o local e submeta o formulário.</string>
     <string name="done">Feito!</string>
     <string name="steps">Conhece um local que ainda não faz parte do mapa? Adicione-o e ajude-nos a expandir o mapa!</string>
