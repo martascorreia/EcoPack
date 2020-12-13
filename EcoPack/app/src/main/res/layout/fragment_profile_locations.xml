@@ -3,8 +3,7 @@
     android:id="@+id/locations_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="never"
-    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginStart="@dimen/_10sdp"
     android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginEnd="@dimen/_8sdp"
-    android:background="@color/white" />
+    android:layout_marginEnd="@dimen/_10sdp"
+    android:overScrollMode="never" />

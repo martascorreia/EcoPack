@@ -2,10 +2,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.profile.ProfileFragment"
-    android:id="@+id/fragment_profile">
+    android:background="@color/white_smoke"
+    tools:context=".ui.fragments.profile.ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,19 +22,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignEnd="@id/logoutButton"
-                android:layout_marginRight="@dimen/_40sdp"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/ic_settings"
-                android:backgroundTint="#00FFFFFF"/>
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_35sdp"
+                android:backgroundTint="@color/white_smoke"
+                android:src="@drawable/ic_settings" />
 
             <ImageButton
                 android:id="@+id/logoutButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/settingsButton"
-                android:layout_alignParentEnd="true"
-                android:backgroundTint="#00FFFFFF"
                 android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="@color/white_smoke"
                 android:src="@drawable/ic_logout" />
 
             <RelativeLayout
@@ -52,7 +56,7 @@
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_80sdp"
                         android:src="@drawable/image_placeholder_avatar"
-                        app:civ_border_color="@color/gray"
+                        app:civ_border_color="@color/dark_mint"
                         app:civ_border_width="@dimen/_2sdp" />
                 </LinearLayout>
 
@@ -68,7 +72,7 @@
                     android:singleLine="true"
                     android:text="danielcbmachado"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_18sdp"
+                    android:textSize="@dimen/_16sdp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -79,8 +83,9 @@
                     android:layout_centerHorizontal="true"
                     android:text="Lisboa, Portugal"
                     android:textAllCaps="true"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_10sdp" />
+                    android:textColor="@color/dark_mint"
+                    android:textSize="@dimen/_9sdp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -119,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/layout_profile_tabs"
                     android:layout_marginBottom="@dimen/_40sdp"
-                    android:background="@color/white" />
+                    android:background="@color/white_smoke" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".ui.fragments.map.CreateStoreFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_75sdp"
+                android:src="@drawable/ic_ecopack_logo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/create_store_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_marker_empty"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:enabled="false"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:singleLine="true"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/create_store_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_plus"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:hint="Nome"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+
+                <EditText
+                    android:id="@+id/create_store_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:hint="Endereço de Email"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/create_store_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:hint="Contacto Telefónico"
+                    android:inputType="phone"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <Button
+                    android:id="@+id/create_store_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/shape_button_white"
+                    android:padding="@dimen/_12sdp"
+                    android:shadowColor="@color/dark_mint"
+                    android:text="CARREGAR FOTOGRAFIAS"
+                    android:textColor="@color/dark_mint"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/create_store_register_button"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_55sdp"
+                android:background="@drawable/shape_button_dark_mint"
+                android:padding="@dimen/_12sdp"
+                android:shadowColor="@color/dark_mint"
+                android:text="REGISTAR"
+                android:textColor="@color/white_smoke"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
