@@ -26,13 +26,8 @@
     <string name="almentacao">Alimentação</string>
     <string name="text_R">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum imperdiet est, vitae ornare ligula gravida eu. Donec malesuada arcu sit amet eros volutpat, eu convallis elit pulvinar. Suspendisse pellentesque ornare magna, ac efficitur nisi blandit ut. Aliquam at euismod lacus. Sed mattis arcu id elit elementum, sit amet consequat mauris condimentum. Fusce quis purus molestie, vehicula nulla ut, pellentesque ante. Praesent mauris felis, lobortis accumsan dui non, pharetra posuere ante. Curabitur malesuada tortor erat, nec euismod velit mattis at.
             Proin tempor ornare justo, et convallis odio aliquam ac. Quisque gravida felis sed luctus efficitur. Nullam et fringilla arcu, ac eleifend ligula. Maecenas eget interdum ante, et imperdiet justo. Pellentesque sodales gravida tellus at convallis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam dapibus, augue ut dictum luctus, nisi nulla pulvinar tortor, a condimentum tortor nulla sed ipsum. Ut pellentesque, velit quis tristique sagittis, eros massa dapibus nulla, vel maximus erat neque at metus. Nullam ornare nisl in porta cursus. Quisque et mattis ligula, et lacinia dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc cursus enim nec nunc porta, vel congue nisi lacinia. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="login">Entrar</string>
-    <string name="sign_up">Registar</string>
-    <string name="nome">Nome</string>
-    <string name="confirm_password">Confirmar Password</string>
-    <string name="settings">Definições</string>
-    <string name="DeleteAccount">apagar conta</string>
-    <string name="Save">Guardar</string>
+    <string name="pop_Titulo">Adição de um Marker</string>
+    <string name="pop_Texto">Tem a certeza que quer adicionar um restaurante/loja?</string>
+    <string name="pop_sim">Sim</string>
+    <string name="pop_nao">Não</string>
 </resources>
