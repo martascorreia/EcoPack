@@ -1,18 +1,20 @@
 package fcul.cm.g20.ecopack.ui.fragments.map;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,12 +24,10 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -42,8 +42,6 @@ import java.util.List;
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 public class MapFragment extends Fragment implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
@@ -53,7 +51,9 @@ public class MapFragment extends Fragment implements
     private LocationRequest locationRequest;
     FloatingActionButton markersInfo;
     FloatingActionButton contribute;
+
     SearchView searchView;
+    LatLng newL;
     private static final int Request_User_Location_Code = 99;
 
     @Override
@@ -64,7 +64,7 @@ public class MapFragment extends Fragment implements
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        final View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         // PERMISSIONS
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -94,28 +94,32 @@ public class MapFragment extends Fragment implements
                         new MarkerOptions()
                                 .position(Loures)
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                //-------------------------------------------PASSAR PARA LONG PRESS------------------------------------------
-                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+
+                googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
-                    public void onMapClick(LatLng latLng) {
-                        // Creating a marker
-                        MarkerOptions markerOptions = new MarkerOptions();
-
-                        // Setting the position for the marker
-                        markerOptions.position(latLng);
-
-                        // Setting the title for the marker.
-                        // This will be displayed on taping the marker
-                        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-
-                        // Clears the previously touched position
-                       //map.clear();
-
-                        // Animating to the touched position
-                        map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-
-                        // Placing a marker on the touched position
-                        map.addMarker(markerOptions);
+                    public void onMapLongClick(LatLng latLng) {
+                        newL = latLng;
+                        new AlertDialog.Builder(getActivity(), R.style.AlertDialogMap)
+                                .setTitle(R.string.pop_Titulo)
+                                .setMessage(R.string.pop_Texto)
+                                .setPositiveButton(R.string.pop_sim, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Creating a marker
+                                        MarkerOptions markerOptions = new MarkerOptions();
+                                        // Setting the position for the marker
+                                        markerOptions.position(newL);
+                                        // Setting the title for the marker.
+                                        // This will be displayed on taping the marker
+                                        markerOptions.title(newL.latitude + " : " + newL.longitude);
+                                        // Animating to the touched position
+                                        map.animateCamera(CameraUpdateFactory.newLatLng(newL));
+                                        // Placing a marker on the touched position
+                                        map.addMarker(markerOptions);
+                                    }
+                                })
+                                .setNegativeButton(R.string.pop_nao, null)
+                                .show();
                     }
                 });
             }
@@ -123,6 +127,7 @@ public class MapFragment extends Fragment implements
 
         return view;
     }
+
 
     public void locationButton(){
         View locationButton = ((View) getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
@@ -149,7 +154,7 @@ public class MapFragment extends Fragment implements
         searchView();
     }
 
-     private void buttonContribute() {
+    private void buttonContribute() {
         contribute = getView().findViewById(R.id.add_marker_info_button);
         contribute.setOnClickListener(new View.OnClickListener() {
             @Override

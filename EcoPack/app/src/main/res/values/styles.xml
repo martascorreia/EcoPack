@@ -22,4 +22,10 @@
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
     </style>
+
+    <!-- Estilo do dialogo de alerta -->
+    <style name="AlertDialogMap" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/dark_mint</item>
+        <item name="android:textColorPrimary">@color/dark_grey</item>
+    </style>
 </resources>
