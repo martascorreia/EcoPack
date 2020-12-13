@@ -69,14 +69,14 @@ public class AlimentacaoFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_alimentacao, container, false);
     }
 
-    /*@Override
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         backButton();
     }
 
     private void backButton() {
-        backButton = getView().findViewById(R.id.backButtonGranel);
+        backButton = getView().findViewById(R.id.backButtonAlimentacao);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,5 +85,5 @@ public class AlimentacaoFragment extends Fragment {
                 fm.popBackStack ("info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
-    }*/
+    }
 }

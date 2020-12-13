@@ -19,16 +19,6 @@
         android:name="fcul.cm.g20.ecopack.ui.fragments.map.MapFragment"
         android:label="@string/map"
         tools:layout="@layout/fragment_map" />
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_contribute"-->
-<!--        android:name="fcul.cm.g20.ecopack.ui.fragments.contribute.ContributeFragment"-->
-<!--        android:label="@string/contribute"-->
-<!--        tools:layout="@layout/fragment_contribute" />-->
-    <fragment
-        android:id="@+id/navigation_contribute"
-        android:name="fcul.cm.g20.ecopack.ui.fragments.company.companyProfile.CompanyProfile"
-        android:label="companyProfile"
-        tools:layout="@layout/fragment_company_profile" />
     <fragment
         android:id="@+id/navigation_profile"
         android:name="fcul.cm.g20.ecopack.ui.fragments.map.CreateStoreFragment"
