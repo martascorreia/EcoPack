@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/backButtonPolitica"
+                android:id="@+id/backButtonPackage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="13dp"
-                android:text="Política dos 5 Rs"
+                android:text="@string/emabalagens_eco"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_17sdp">
 
@@ -65,7 +65,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/_25sdp"
-                    android:text="@string/cinco_Titulo"
+                    android:text="@string/emabalagens_eco"
                     android:textColor="@color/dark_grey"
                     android:textSize="@dimen/_20sdp"
                     android:textStyle="bold"/>
@@ -92,7 +92,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_40sdp"
                     android:layout_marginBottom="@dimen/_50sdp"
-                    android:src="@drawable/recycle"
+                    android:src="@drawable/glass_container"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </RelativeLayout>

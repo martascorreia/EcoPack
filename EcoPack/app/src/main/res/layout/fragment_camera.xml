@@ -52,12 +52,4 @@
         app:frameSize="0.75"
         app:frameThickness="2dp"
         app:maskColor="#77000000"/>
-
-    <!--<com.google.android.material.button.MaterialButton
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="wrap_content"
-        android:text="Código"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_10sdp"/>-->
 </RelativeLayout>

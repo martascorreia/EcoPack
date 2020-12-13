@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.ui.fragments.tree.EcoPackageFragment;
+import fcul.cm.g20.ecopack.ui.fragments.tree.alimentacao.AlimentacaoFragment;
 import fcul.cm.g20.ecopack.ui.fragments.tree.granel.GranelFragment;
 import fcul.cm.g20.ecopack.ui.fragments.tree.recycling.PoliticaRsFragment;
 
@@ -38,10 +40,15 @@ public class InformationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //CINCO R
         cincoPage();
-        //Granel R
+        //GRANEL
         granelPage();
-
+        //ALIMENTACAO
+        alimentacao();
+        //ECOPACKAGE
+        ecoPackage();
+        //Back button
         backButton();
+
     }
 
     private void backButton() {
@@ -79,6 +86,34 @@ public class InformationFragment extends Fragment {
                 Fragment fragmentG = new GranelFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_info, fragmentG)
+                        .addToBackStack("info").commit();
+            }
+        });
+    }
+
+    //METODO PARA MUDAR PARA O FRAGMENTO DO GRANEL
+    private void alimentacao(){
+        granelL = getView().findViewById(R.id.alimentacao);
+        granelL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragmentA = new AlimentacaoFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_info, fragmentA)
+                        .addToBackStack("info").commit();
+            }
+        });
+    }
+
+    //METODO PARA MUDAR PARA O FRAGMENTO DO EcoPackage
+    private void ecoPackage(){
+        granelL = getView().findViewById(R.id.produtos_Eco);
+        granelL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragmentE = new EcoPackageFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_info, fragmentE)
                         .addToBackStack("info").commit();
             }
         });

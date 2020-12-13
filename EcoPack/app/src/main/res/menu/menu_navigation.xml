@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/ic_marker_empty"
+        android:title="@string/map" />
+    <item
         android:id="@+id/navigation_points"
         android:icon="@drawable/ic_points_empty"
         android:title="@string/points" />
@@ -9,14 +13,6 @@
         android:id="@+id/navigation_tree"
         android:icon="@drawable/ic_tree_empty"
         android:title="@string/tree" />
-    <item
-        android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_marker_empty"
-        android:title="@string/map" />
-    <item
-        android:id="@+id/navigation_contribute"
-        android:icon="@drawable/ic_plus_empty"
-        android:title="@string/contribute" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_user_empty"

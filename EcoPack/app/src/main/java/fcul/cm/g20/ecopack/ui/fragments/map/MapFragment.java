@@ -1,6 +1,9 @@
 package fcul.cm.g20.ecopack.ui.fragments.map;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -9,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 
@@ -20,45 +24,47 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.List;
 
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 
 public class MapFragment extends Fragment implements
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener
-{
+        GoogleApiClient.OnConnectionFailedListener{
 
-        private GoogleMap map;
+    private GoogleMap map;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-
     FloatingActionButton markersInfo;
+    FloatingActionButton contribute;
+
     SearchView searchView;
+    LatLng newL;
     private static final int Request_User_Location_Code = 99;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        final View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         // PERMISSIONS
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -70,21 +76,58 @@ public class MapFragment extends Fragment implements
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
+                
                 if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                     buildGoogleApiClient();
                     map.setMyLocationEnabled(true);
                     locationButton();
-                    return;
+                    //return; //NÃO PODE ESTAR AQUI PORQUE IMPEDE O FUNCIONAMENTO DA ADIÇÃO DE UM MARKER POR TOQUE
                 }
                 // DEFAULT LOCATION
                 LatLng lisbon = new LatLng(38.71667, -9.13333);
                 map.moveCamera(CameraUpdateFactory.newLatLng(lisbon));
 
+                //ADIÇÃO DE UM MARKER - LOURES
+                final LatLng Loures = new LatLng(38.8315,-9.1741);
+                //final LatLng melbourneLocation = new LatLng(-37.813, 144.962);
+                Marker mLoures = map.addMarker(
+                        new MarkerOptions()
+                                .position(Loures)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                    @Override
+                    public void onMapLongClick(LatLng latLng) {
+                        newL = latLng;
+                        new AlertDialog.Builder(getActivity(), R.style.AlertDialogMap)
+                                .setTitle(R.string.pop_Titulo)
+                                .setMessage(R.string.pop_Texto)
+                                .setPositiveButton(R.string.pop_sim, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Creating a marker
+                                        MarkerOptions markerOptions = new MarkerOptions();
+                                        // Setting the position for the marker
+                                        markerOptions.position(newL);
+                                        // Setting the title for the marker.
+                                        // This will be displayed on taping the marker
+                                        markerOptions.title(newL.latitude + " : " + newL.longitude);
+                                        // Animating to the touched position
+                                        map.animateCamera(CameraUpdateFactory.newLatLng(newL));
+                                        // Placing a marker on the touched position
+                                        map.addMarker(markerOptions);
+                                    }
+                                })
+                                .setNegativeButton(R.string.pop_nao, null)
+                                .show();
+                    }
+                });
             }
         });
 
         return view;
     }
+
 
     public void locationButton(){
         View locationButton = ((View) getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
@@ -107,7 +150,22 @@ public class MapFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         buttonMarkers();
+        buttonContribute();
         searchView();
+    }
+
+    private void buttonContribute() {
+        contribute = getView().findViewById(R.id.add_marker_info_button);
+        contribute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddMarkerInfoFragment addMarkerInfoFragment = new AddMarkerInfoFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_map, addMarkerInfoFragment)
+                        .addToBackStack("map")
+                        .commit();
+            }
+        });
     }
 
     private void searchView() {
@@ -123,17 +181,14 @@ public class MapFragment extends Fragment implements
                     try{
                         addressList = geocoder.getFromLocationName(location, 1);
                     } catch(IOException e){
+                        System.out.println("oh oh, that location doesn't exist in my bd...");
                         return false;
                     }
 
-                    if(addressList.size() > 0) {
-                        Address address = addressList.get(0);
-                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                        map.addMarker(new MarkerOptions().position(latLng).title(location));
-                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                    } else{
-                        return false;
-                    }
+                    Address address = addressList.get(0);
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                    map.addMarker(new MarkerOptions().position(latLng).title(location));
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                 }
                 return false;
             }
@@ -183,4 +238,7 @@ public class MapFragment extends Fragment implements
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
+
+
+
 }

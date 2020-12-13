@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_points,
                 R.id.navigation_tree,
                 R.id.navigation_map,
-                R.id.navigation_contribute,
                 R.id.navigation_profile
         ).build();
 
