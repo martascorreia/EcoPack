@@ -2,19 +2,19 @@ package fcul.cm.g20.ecopack.ui.fragments.map;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,158 +38,113 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
-import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 
-public class MapFragment extends Fragment implements
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener{
-
+public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
-    private LocationRequest locationRequest;
-    FloatingActionButton markersInfo;
-    FloatingActionButton contribute;
-
-    SearchView searchView;
-    LatLng newL;
-    private static final int Request_User_Location_Code = 99;
+    private LatLng currentCoordinates;
+    private Marker userLastLocationMarker;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED)
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_map, container, false);
+        final View mapFragment = inflater.inflate(R.layout.fragment_map, container, false);
 
-        // PERMISSIONS
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            checkUserLocationPermission();
-        }
+        setupGoogleMap();
+        setupSearchView(mapFragment);
+        setupMarkerInformationButton(mapFragment);
+        setupCreateStoreInformationButton(mapFragment);
+        setupCenterMap(mapFragment);
 
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+        return mapFragment;
+    }
+
+    private void setupGoogleMap() {
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_fragment);
+        Objects.requireNonNull(supportMapFragment).getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
-                
-                if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     buildGoogleApiClient();
                     map.setMyLocationEnabled(true);
-                    locationButton();
-                    //return; //NÃO PODE ESTAR AQUI PORQUE IMPEDE O FUNCIONAMENTO DA ADIÇÃO DE UM MARKER POR TOQUE
-                }
-                // DEFAULT LOCATION
-                LatLng lisbon = new LatLng(38.71667, -9.13333);
-                map.moveCamera(CameraUpdateFactory.newLatLng(lisbon));
 
-                //ADIÇÃO DE UM MARKER - LOURES
-                final LatLng Loures = new LatLng(38.8315,-9.1741);
-                //final LatLng melbourneLocation = new LatLng(-37.813, 144.962);
-                Marker mLoures = map.addMarker(
-                        new MarkerOptions()
-                                .position(Loures)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    // TODO: FAZER MELHOR GESTÃO DO SERVIÇO DA LOCALIZAÇÃO ESTAR DESATIVADO
+                    LatLng defaultCoordinates = new LatLng(38.71667, -9.13333);
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinates, 16.0f));
+                } else {
+                    showToast("Não foi possível obter a sua localização. Por favor, dê as permissões necessárias.");
+                    LatLng defaultCoordinates = new LatLng(38.71667, -9.13333);
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinates, 16.0f));
+                }
 
                 googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
-                    public void onMapLongClick(LatLng latLng) {
-                        newL = latLng;
+                    public void onMapLongClick(final LatLng latLng) {
                         new AlertDialog.Builder(getActivity(), R.style.AlertDialogMap)
-                                .setTitle(R.string.pop_Titulo)
-                                .setMessage(R.string.pop_Texto)
-                                .setPositiveButton(R.string.pop_sim, new DialogInterface.OnClickListener() {
+                                .setTitle("Registar loja")
+                                .setMessage("Tem a certeza que quer registar uma loja neste local?")
+                                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // Creating a marker
-                                        MarkerOptions markerOptions = new MarkerOptions();
-                                        // Setting the position for the marker
-                                        markerOptions.position(newL);
-                                        // Setting the title for the marker.
-                                        // This will be displayed on taping the marker
-                                        markerOptions.title(newL.latitude + " : " + newL.longitude);
-                                        // Animating to the touched position
-                                        map.animateCamera(CameraUpdateFactory.newLatLng(newL));
-                                        // Placing a marker on the touched position
-                                        map.addMarker(markerOptions);
+                                        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+                                        try {
+                                            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                                            getActivity()
+                                                    .getSupportFragmentManager()
+                                                    .beginTransaction()
+                                                    .replace(R.id.fragment_map, new CreateStoreFragment(latLng.latitude, latLng.longitude, addresses.get(0).getAddressLine(0)))
+                                                    .addToBackStack(null)
+                                                    .commit();
+                                        } catch (IOException e) {
+                                            showToast("Ocorreu um erro. " + e.getMessage());
+                                        }
                                     }
                                 })
-                                .setNegativeButton(R.string.pop_nao, null)
+                                .setNegativeButton("Não", null)
                                 .show();
                     }
                 });
             }
         });
-
-        return view;
     }
 
-
-    public void locationButton(){
-        View locationButton = ((View) getView().findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
-        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        rlp.setMargins(0, 0, 0, 200);
-    }
-
-    protected synchronized void buildGoogleApiClient(){
-        googleApiClient = new GoogleApiClient.Builder(getContext())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        googleApiClient.connect();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        buttonMarkers();
-        buttonContribute();
-        searchView();
-    }
-
-    private void buttonContribute() {
-        contribute = getView().findViewById(R.id.add_marker_info_button);
-        contribute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddMarkerInfoFragment addMarkerInfoFragment = new AddMarkerInfoFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_map, addMarkerInfoFragment)
-                        .addToBackStack("map")
-                        .commit();
-            }
-        });
-    }
-
-    private void searchView() {
-        searchView = getView().findViewById(R.id.searchView);
+    private void setupSearchView(View mapFragment) {
+        final SearchView searchView = mapFragment.findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                String location = searchView.getQuery().toString();
-                List<Address> addressList = null;
+                String addressInput = searchView.getQuery().toString();
 
-                if (location != null || !location.equals("")) {
+                if (!addressInput.equals("")) {
                     Geocoder geocoder = new Geocoder(getContext());
-                    try{
-                        addressList = geocoder.getFromLocationName(location, 1);
-                    } catch(IOException e){
-                        System.out.println("oh oh, that location doesn't exist in my bd...");
+                    try {
+                        List<Address> addressList = geocoder.getFromLocationName(addressInput, 1);
+                        if (addressList == null || addressList.size() == 0) showToast("Não foi possível obter localização. Localização não existente.");
+                        else {
+                            Address address = addressList.get(0);
+                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(address.getLatitude(), address.getLongitude()), 20));
+                        }
+                    } catch (IOException e) {
+                        showToast(e.getMessage());
                         return false;
                     }
-
-                    Address address = addressList.get(0);
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    map.addMarker(new MarkerOptions().position(latLng).title(location));
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                 }
+
                 return false;
             }
 
@@ -200,45 +155,83 @@ public class MapFragment extends Fragment implements
         });
     }
 
-    private void buttonMarkers() {
-        markersInfo = getView().findViewById(R.id.markers_info_button);
-        markersInfo.setOnClickListener(new View.OnClickListener() {
+    private void setupMarkerInformationButton(View mapFragment) {
+        mapFragment.findViewById(R.id.marker_information_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MarkersInfoFragment markersFragment = new MarkersInfoFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_map, markersFragment)
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_map, new MarkerInformationFragment())
                         .addToBackStack("map")
                         .commit();
             }
         });
     }
 
-    public boolean checkUserLocationPermission(){
-        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION)){
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
-            } else{
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Request_User_Location_Code);
+    private void setupCreateStoreInformationButton(View mapFragment) {
+        mapFragment.findViewById(R.id.create_store_information_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_map, new CreateStoreInformationFragment())
+                        .addToBackStack("map")
+                        .commit();
             }
-            return false;
-        } else{
-            return true;
-        }
+        });
+    }
+
+    private void setupCenterMap(View mapFragment) {
+        mapFragment.findViewById(R.id.center_map_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentCoordinates != null) map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, 16.0f));
+            }
+        });
+    }
+
+    private synchronized void buildGoogleApiClient() {
+        googleApiClient = new GoogleApiClient.Builder(getContext())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        if (userLastLocationMarker != null) userLastLocationMarker.remove();
+        currentCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, 16.0f));
+        userLastLocationMarker = map.addMarker(new MarkerOptions().position(currentCoordinates).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(1100);
+        locationRequest.setFastestInterval(1100);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setMaxWaitTime(2000);
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
+
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
-
-
-
 }

@@ -1,6 +1,5 @@
 package fcul.cm.g20.ecopack.ui.fragments.points;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,12 +16,9 @@ import android.widget.Toast;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.Result;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.ui.fragments.map.MapFragment;
-import fcul.cm.g20.ecopack.ui.fragments.map.MarkersInfoFragment;
 
 public class CameraFragment extends Fragment {
 

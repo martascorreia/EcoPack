@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.ui.fragments.map.MarkersInfoFragment;
 import fcul.cm.g20.ecopack.ui.fragments.tree.information.InformationFragment;
 
 public class TreeFragment extends Fragment {

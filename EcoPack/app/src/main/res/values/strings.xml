@@ -41,8 +41,4 @@
     <string name="step4">Preencha as informações adicionais sobre o local e submeta o formulário.</string>
     <string name="done">Feito!</string>
     <string name="steps">Conhece um local que ainda não faz parte do mapa? Adicione-o e ajude-nos a expandir o mapa!</string>
-    <string name="pop_Titulo">Adição de um Marker</string>
-    <string name="pop_Texto">Tem a certeza que quer adicionar um restaurante/loja?</string>
-    <string name="pop_sim">Sim</string>
-    <string name="pop_nao">Não</string>
 </resources>

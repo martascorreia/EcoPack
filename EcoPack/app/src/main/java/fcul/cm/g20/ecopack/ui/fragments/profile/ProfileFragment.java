@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.tabs.TabLayout;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.ui.fragments.map.MarkersInfoFragment;
 
 public class ProfileFragment extends Fragment {
     public ProfileFragment() {

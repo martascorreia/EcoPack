@@ -35,16 +35,20 @@ import java.util.Objects;
 import fcul.cm.g20.ecopack.R;
 
 public class CreateStoreFragment extends Fragment {
+    private String address;
+    private double latitude;
+    private double longitude;
     private FirebaseFirestore database;
-    private String address = "Rua Ali de Baixo";        // TODO: CHANGE
-    private float lat = 30.032f;       // TODO: CHANGE
-    private float lng = -12.234f;       // TODO: CHANGE
     private LinkedList<String> photos = new LinkedList<>();
-
-    // CreateStoreFragment(/* COORDENATES AND STREET NAME */) {}
 
     public CreateStoreFragment() {
 
+    }
+
+    public CreateStoreFragment(double latitude, double longitude, String address) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.address = address;
     }
 
     @Nullable
@@ -55,7 +59,7 @@ public class CreateStoreFragment extends Fragment {
         View createStoreFragment = inflater.inflate(R.layout.fragment_create_shop, container, false);
 
         final EditText addressText = createStoreFragment.findViewById(R.id.create_store_address);
-        addressText.setText((CharSequence) address);
+        addressText.setText(address);
 
         final EditText[] inputs = new EditText[]{
                 createStoreFragment.findViewById(R.id.create_store_name),
@@ -88,8 +92,8 @@ public class CreateStoreFragment extends Fragment {
 
                     Map<String, Object> store = new HashMap<>();
                     store.put("address", address);
-                    store.put("lat", lat);
-                    store.put("lng", lng);
+                    store.put("lat", latitude);
+                    store.put("lng", longitude);
                     store.put("name", inputs[0].getText().toString());
                     if (inputs[1].getText().toString().equals("")) store.put("email", "N/A");
                     else store.put("email", inputs[1].getText().toString());

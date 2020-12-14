@@ -92,7 +92,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_40sdp"
                     android:layout_marginBottom="@dimen/_50sdp"
-                    android:src="@drawable/hippie_bowl_1"
+                    android:src="@drawable/image_hippie_bowl"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
