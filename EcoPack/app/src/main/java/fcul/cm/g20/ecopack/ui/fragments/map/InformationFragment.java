@@ -14,32 +14,36 @@ import android.widget.ImageButton;
 
 import fcul.cm.g20.ecopack.R;
 
-public class MarkerInformationFragment extends Fragment {
+public class InformationFragment extends Fragment {
+    int layoutID;
+
+    public InformationFragment() {
+
+    }
+
+    public InformationFragment(int layoutID) {
+        this.layoutID = layoutID;
+    }
 
     ImageButton backButton;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_markers_info, container, false);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(layoutID, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        backButton();
-    }
 
-    private void backButton() {
+        // TODO:
         backButton = getView().findViewById(R.id.backButtonMarkers);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                fm.popBackStack ("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
     }

@@ -38,7 +38,7 @@
             app:elevation="@dimen/_2sdp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_store_information_button"
+            android:id="@+id/create_information_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/marker_information_button"
@@ -54,7 +54,7 @@
             android:id="@+id/center_map_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/create_store_information_button"
+            android:layout_below="@+id/create_information_button"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
