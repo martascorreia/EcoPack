@@ -41,9 +41,7 @@ import java.util.Objects;
 
 import fcul.cm.g20.ecopack.R;
 
-// TODO: ADICIONAR UM FLOATING ACTION BUTTON QUE ABRE UM MENU COM OS 3 OU 4 BOTÕES DO ECRÃ
-// TODO: COLAPSAR O SEARCH, PARA QUE SÓ APAREÇA QUANDO CARREGADO NUM BOTÃO
-// TODO: CRIAR LISTENER PARA RETER AS COORDENADAS E A STRING PROCURADA NA ROTAÇÃO
+// TODO: TRATAR DA ROTAÇÃO, DO LAYOUT EM LANDSCAPE E CRIAR LISTENER PARA RETER AS COORDENADAS E A STRING PROCURADA NA ROTAÇÃO
 
 public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private int DEFAULT_MAP_ZOOM = 16;
@@ -51,6 +49,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     private GoogleApiClient googleApiClient;
     private LatLng currentCoordinates;
     private Marker userLastLocationMarker;
+    private boolean isSearchVisible = false;
+    private boolean isMenuOpen = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,32 +65,11 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View mapFragment = inflater.inflate(R.layout.fragment_map, container, false);
-
-        setupGoogleMap();
-        setupSearchView(mapFragment);
-        mapFragment.findViewById(R.id.marker_information_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createFragment(new InformationFragment(R.layout.fragment_markers_info));
-            }
-        });
-        mapFragment.findViewById(R.id.create_information_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createFragment(new InformationFragment(R.layout.fragment_add_marker_info));
-            }
-        });
-        mapFragment.findViewById(R.id.center_map_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentCoordinates != null) map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, DEFAULT_MAP_ZOOM));
-            }
-        });
-
+        setupFragment(mapFragment);
         return mapFragment;
     }
 
-    private void setupGoogleMap() {
+    private void setupFragment(final View mapFragment) {
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_fragment);
         Objects.requireNonNull(supportMapFragment).getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -129,9 +108,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                 });
             }
         });
-    }
 
-    private void setupSearchView(View mapFragment) {
         final SearchView searchView = mapFragment.findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -159,6 +136,59 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        mapFragment.findViewById(R.id.marker_information_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createFragment(new InformationFragment(R.layout.fragment_markers_info));
+            }
+        });
+
+        mapFragment.findViewById(R.id.create_information_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createFragment(new InformationFragment(R.layout.fragment_add_marker_info));
+            }
+        });
+
+        mapFragment.findViewById(R.id.center_map_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentCoordinates != null) map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, DEFAULT_MAP_ZOOM));
+            }
+        });
+
+        mapFragment.findViewById(R.id.search_map_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isSearchVisible) {
+                    isSearchVisible = false;
+                    mapFragment.findViewById(R.id.search_view).setVisibility(View.INVISIBLE);
+                } else {
+                    isSearchVisible = true;
+                    mapFragment.findViewById(R.id.search_view).setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        mapFragment.findViewById(R.id.menu_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isMenuOpen) {
+                    isMenuOpen = false;
+                    mapFragment.findViewById(R.id.marker_information_button).setVisibility(View.INVISIBLE);
+                    mapFragment.findViewById(R.id.create_information_button).setVisibility(View.INVISIBLE);
+                    mapFragment.findViewById(R.id.center_map_button).setVisibility(View.INVISIBLE);
+                    mapFragment.findViewById(R.id.search_map_button).setVisibility(View.INVISIBLE);
+                } else {
+                    isMenuOpen = true;
+                    mapFragment.findViewById(R.id.marker_information_button).setVisibility(View.VISIBLE);
+                    mapFragment.findViewById(R.id.create_information_button).setVisibility(View.VISIBLE);
+                    mapFragment.findViewById(R.id.center_map_button).setVisibility(View.VISIBLE);
+                    mapFragment.findViewById(R.id.search_map_button).setVisibility(View.VISIBLE);
+                }
             }
         });
     }
