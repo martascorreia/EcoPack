@@ -10,84 +10,79 @@
     android:orientation="vertical"
     tools:context=".ui.fragments.map.MapFragment">
 
-    <RelativeLayout
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@color/mint"
+        android:elevation="@dimen/_1sdp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Procurar..."
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_55sdp"
+        android:elevation="@dimen/_1sdp"
+        android:gravity="bottom|end"
         android:orientation="vertical">
 
-        <SearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:background="@color/mint"
-            android:elevation="@dimen/_2sdp"
-            android:iconifiedByDefault="false"
-            android:queryHint="Procurar..."
-            android:visibility="invisible"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/marker_information_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/dark_mint"
+            android:clickable="true"
+            android:src="@drawable/ic_info"
+            android:visibility="invisible" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_55sdp"
-            android:elevation="@dimen/_2sdp"
-            android:gravity="bottom|end"
-            android:orientation="vertical">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create_information_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:backgroundTint="@color/dark_mint"
+            android:clickable="true"
+            android:src="@drawable/ic_plus_empty"
+            android:visibility="invisible" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/marker_information_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:backgroundTint="@color/dark_mint"
-                android:clickable="true"
-                android:src="@drawable/ic_info" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/center_map_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:backgroundTint="@color/dark_mint"
+            android:clickable="true"
+            android:src="@drawable/ic_marker_empty_white"
+            android:visibility="invisible" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/create_information_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:visibility="invisible"
-                android:backgroundTint="@color/dark_mint"
-                android:clickable="true"
-                android:src="@drawable/ic_plus_empty" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/search_map_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:backgroundTint="@color/dark_mint"
+            android:clickable="true"
+            android:src="@drawable/ic_marker_empty_white"
+            android:visibility="invisible" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/center_map_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:backgroundTint="@color/dark_mint"
-                android:clickable="true"
-                android:src="@drawable/ic_marker_empty_white" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:backgroundTint="@color/dark_mint"
+            android:clickable="true"
+            android:src="@drawable/ic_plus" />
+    </LinearLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/search_map_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:visibility="invisible"
-                android:backgroundTint="@color/dark_mint"
-                android:clickable="true"
-                android:src="@drawable/ic_marker_empty_white" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/menu_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:backgroundTint="@color/dark_mint"
-                android:clickable="true"
-                android:src="@drawable/ic_plus" />
-        </LinearLayout>
-
-        <fragment
-            android:id="@+id/map_fragment"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>

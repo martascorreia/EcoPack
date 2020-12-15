@@ -32,10 +32,12 @@
     <string name="settings">Definições</string>
     <string name="deleteAccount">apagar conta</string>
     <string name="save">Guardar</string>
-    <string name="step1">Volte atrás para o mapa.</string>
-    <string name="step2">Coloque o endereço do local que quer adicionar na barra de pesquisa.</string>
-    <string name="step3">Pressione o local onde quer colocar o marcador durante alguns segundos.</string>
-    <string name="step4">Preencha as informações adicionais sobre o local e submeta o formulário.</string>
-    <string name="done">Feito!</string>
-    <string name="steps">Conhece um local que ainda não faz parte do mapa? Adicione-o e ajude-nos a expandir o mapa!</string>
+    <string name="steps">Conhece um estabelecimento que ainda não faça parte do nosso mapa? Então, ajude-nos!</string>
+    <string name="step1">Volte para o mapa.</string>
+    <string name="step2">Na barra de pesquisa, coloque a morada do estabelecimento que pretende adicionar.</string>
+    <string name="step3">No local do estabelecimento, pressione durante alguns segundos.</string>
+    <string name="step4">Preencha as informações necessárias sobre o estabelecimento e submeta o formulário.</string>
+    <string name="done">Obrigado!</string>
+    <string name="markers_type">Tipos de Embalagens</string>
+    <string name="contribute">Contribuir</string>
 </resources>

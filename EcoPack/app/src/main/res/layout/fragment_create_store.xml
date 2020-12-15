@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_smoke"
+    android:elevation="@dimen/_2sdp"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".ui.fragments.map.CreateStoreFragment">
@@ -11,18 +12,22 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:overScrollMode="never">
+        android:layout_gravity="center_vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_75sdp"
-                android:src="@drawable/ic_ecopack_logo" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:text="Por favor, preencha os seguintes campos:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:background="@drawable/shape_oval_mint"
-                    android:drawableStart="@drawable/ic_plus"
+                    android:drawableStart="@drawable/ic_shop_name"
                     android:drawablePadding="@dimen/_10sdp"
                     android:hint="Nome"
                     android:inputType="text"
@@ -64,7 +69,6 @@
                     android:textColorHighlight="@color/dark_mint"
                     android:textColorHint="@color/dark_mint"
                     android:textSize="@dimen/_12sdp" />
-
 
                 <EditText
                     android:id="@+id/create_store_email"

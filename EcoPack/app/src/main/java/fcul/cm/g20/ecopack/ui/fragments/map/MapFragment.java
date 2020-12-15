@@ -41,7 +41,7 @@ import java.util.Objects;
 
 import fcul.cm.g20.ecopack.R;
 
-// TODO: TRATAR DA ROTAÇÃO, DO LAYOUT EM LANDSCAPE E CRIAR LISTENER PARA RETER AS COORDENADAS E A STRING PROCURADA NA ROTAÇÃO
+// TODO: TRATAR DA ROTAÇÃO E CRIAR LISTENER PARA RETER AS COORDENADAS (NO CREATE STORE FRAGMENT) E A STRING PROCURADA NA ROTAÇÃO
 
 public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private int DEFAULT_MAP_ZOOM = 16;
@@ -87,8 +87,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                     @Override
                     public void onMapLongClick(final LatLng latLng) {
                         new AlertDialog.Builder(getActivity(), R.style.AlertDialogMap)
-                                .setTitle("Registar loja")
-                                .setMessage("Tem a certeza que quer registar uma loja neste local?")
+                                .setTitle("Registar estabelecimento")
+                                .setMessage("Tem a certeza que quer registar um estabelecimento neste local?")
                                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -98,7 +98,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                                             String address = addresses.get(0).getAddressLine(0);
                                             createFragment(new CreateStoreFragment(latLng.latitude, latLng.longitude, address));
                                         } catch (IOException e) {
-                                            showToast("Não foi possível criar a loja. Por favor, verifique a sua conexão à Internet.");
+                                            showToast("Não foi possível registar o estabelecimento. Por favor, verifique a sua conexão à Internet.");
                                         }
                                     }
                                 })
@@ -142,14 +142,14 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
         mapFragment.findViewById(R.id.marker_information_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createFragment(new InformationFragment(R.layout.fragment_markers_info));
+                createFragment(new MarkersInformationFragment());
             }
         });
 
         mapFragment.findViewById(R.id.create_information_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createFragment(new InformationFragment(R.layout.fragment_add_marker_info));
+                createFragment(new CreateInformationFragment());
             }
         });
 
@@ -178,6 +178,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
             public void onClick(View v) {
                 if (isMenuOpen) {
                     isMenuOpen = false;
+                    isSearchVisible = false;
+                    mapFragment.findViewById(R.id.search_view).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.marker_information_button).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.create_information_button).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.center_map_button).setVisibility(View.INVISIBLE);

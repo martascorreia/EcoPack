@@ -7,7 +7,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:background="?android:attr/windowBackground"
         android:theme="@style/NavigationBarTheme.ActionBar"

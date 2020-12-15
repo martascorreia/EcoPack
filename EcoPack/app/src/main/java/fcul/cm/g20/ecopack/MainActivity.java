@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
+        /*
         //TODO corrigir o erro de só está a entrar no primeiro if
         if(findViewById(R.id.fragment_markers) != null){
             FragmentManager fm = getSupportFragmentManager();
@@ -53,5 +54,6 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fm = getSupportFragmentManager();
             fm.popBackStack ("info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+         */
     }
 }
