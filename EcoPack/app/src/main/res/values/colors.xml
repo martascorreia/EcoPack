@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TODO: CHANGE AND USE (!!!) THESE VALUES -->
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-
     <!-- MAIN COLORS -->
     <color name="dark_mint">#639772</color>
     <color name="mint">#8DC59C</color>
@@ -13,10 +8,10 @@
     <color name="darker_grey">#121212</color>
 
     <!-- MARKERS COLORS -->
-    <color name="plastic">#DC9E22 </color>
+    <color name="plastic">#DC9E22</color>
     <color name="home">#D14124</color>
     <color name="glass">#44CA53</color>
-    <color name="paper">#2964CA </color>
+    <color name="paper">#2964CA</color>
     <color name="bio">#915520</color>
 
     <!-- COLOR LIST -->

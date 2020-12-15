@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:text="Críticas"
                     android:textSize="@dimen/_20sdp"
-                    android:background="@drawable/top_bottom_line"/>
+                    android:background="@drawable/shape_top_bottom_line"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="@dimen/_60sdp"
                         android:layout_height="@dimen/_60sdp"
-                        android:src="@drawable/temp_person1"
+                        android:src="@drawable/image_temp_6"
                         app:civ_border_color="@color/gray"
                         app:civ_border_width="@dimen/_2sdp"
                         android:layout_marginHorizontal="@dimen/_10sdp"/>
@@ -103,7 +103,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="@dimen/_60sdp"
                         android:layout_height="@dimen/_60sdp"
-                        android:src="@drawable/temp_person2"
+                        android:src="@drawable/image_temp_7"
                         app:civ_border_color="@color/gray"
                         app:civ_border_width="@dimen/_2sdp"
                         android:layout_marginHorizontal="@dimen/_10sdp"/>
@@ -138,7 +138,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="@dimen/_60sdp"
                         android:layout_height="@dimen/_60sdp"
-                        android:src="@drawable/temp_person3"
+                        android:src="@drawable/image_temp_8"
                         app:civ_border_color="@color/gray"
                         app:civ_border_width="@dimen/_2sdp"
                         android:layout_marginHorizontal="@dimen/_10sdp"/>

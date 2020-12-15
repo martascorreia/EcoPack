@@ -73,7 +73,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_one" />
+                            android:src="@drawable/ic_text_one" />
 
                         <TextView
                             android:id="@+id/step1_text"
@@ -91,7 +91,7 @@
                         android:layout_width="@dimen/_200sdp"
                         android:layout_height="@dimen/_100sdp"
                         android:layout_gravity="center"
-                        android:src="@drawable/step1" />
+                        android:src="@drawable/image_step_1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -109,7 +109,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_two" />
+                            android:src="@drawable/ic_text_two" />
 
                         <TextView
                             android:id="@+id/step2_text"
@@ -127,7 +127,7 @@
                         android:layout_width="@dimen/_200sdp"
                         android:layout_height="@dimen/_100sdp"
                         android:layout_gravity="center"
-                        android:src="@drawable/step2" />
+                        android:src="@drawable/image_step_2" />
 
                 </LinearLayout>
 
@@ -146,7 +146,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_three" />
+                            android:src="@drawable/ic_text_three" />
 
                         <TextView
                             android:id="@+id/step3_text"
@@ -164,7 +164,7 @@
                         android:layout_width="@dimen/_200sdp"
                         android:layout_height="@dimen/_170sdp"
                         android:layout_gravity="center"
-                        android:src="@drawable/step3" />
+                        android:src="@drawable/image_step_3" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -178,7 +178,7 @@
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/ic_four" />
+                        android:src="@drawable/ic_text_four" />
 
                     <TextView
                         android:id="@+id/step4_text"

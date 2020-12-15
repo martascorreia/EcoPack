@@ -98,7 +98,7 @@
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="@dimen/_80sdp"
                             android:layout_height="@dimen/_80sdp"
-                            android:src="@drawable/image_placeholder_avatar"
+                            android:src="@drawable/image_temp_avatar"
                             app:civ_border_color="@color/gray"
                             app:civ_border_width="@dimen/_2sdp" />
 
@@ -108,7 +108,7 @@
                             android:layout_height="@dimen/_80sdp"
                             android:layout_centerInParent="true"
                             android:src="@drawable/ic_camera"
-                            android:background="@drawable/roundcorner"/>
+                            android:background="@drawable/shape_round_corner"/>
                     </RelativeLayout>
                 </LinearLayout>
 

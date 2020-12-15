@@ -1,5 +1,5 @@
 <resources>
-    <!-- Base application theme. -->
+    <!-- BASE APPLICATION THEME -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/dark_mint</item>
         <item name="colorPrimaryDark">@color/mint</item>
@@ -12,18 +12,18 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-
     <style name="NavigationBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/dark_grey</item>
         <item name="colorAccent">@color/pale_beige</item>
     </style>
+
     <style name="NavigationBarTheme.ActionBar">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
     </style>
 
-    <!-- Estilo do dialogo de alerta -->
+    <!-- ALERT DIALOG -->
     <style name="AlertDialogMap" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:textColor">@color/dark_mint</item>
         <item name="android:textColorPrimary">@color/dark_grey</item>

@@ -90,7 +90,7 @@
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_50sdp"
-                    android:src="@drawable/loja_granel"
+                    android:src="@drawable/image_granel"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
             </RelativeLayout>

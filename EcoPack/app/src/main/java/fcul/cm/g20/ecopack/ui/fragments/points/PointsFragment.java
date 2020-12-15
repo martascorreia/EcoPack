@@ -11,15 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.LinkedList;
@@ -28,7 +25,6 @@ import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.ui.fragments.points.model.Prize;
 import fcul.cm.g20.ecopack.ui.fragments.points.recyclerview.GridItemDecorator;
 import fcul.cm.g20.ecopack.ui.fragments.points.recyclerview.PrizesAdapter;
-import fcul.cm.g20.ecopack.ui.fragments.profile.recyclerview.LocationAdapter;
 
 public class PointsFragment extends Fragment {
 
@@ -56,7 +52,7 @@ public class PointsFragment extends Fragment {
 
         // TODO: LOAD FROM FIREBASE
 
-        Bitmap example = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.image1);
+        Bitmap example = BitmapFactory.decodeResource(getActivity().getApplicationContext().getResources(), R.drawable.image_temp_1);
 
         LinkedList<Prize> prizes = new LinkedList<>();
         prizes.add(new Prize("Pizza", 5 , example));
