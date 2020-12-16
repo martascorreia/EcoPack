@@ -48,4 +48,6 @@
     <string name="internet_adress">Segunda-Sábado das 10:00-19:00</string>
     <string name="numero_t">Número de Telefone</string>
     <string name="telefone_n">+351211351896</string>
+    <string name="general_view">Vista Geral</string>
+    <string name="comment">Comentar...</string>
 </resources>
