@@ -40,4 +40,12 @@
     <string name="done">Obrigado!</string>
     <string name="markers_type">Tipos de Embalagens</string>
     <string name="contribute">Contribuir</string>
+    <string name="maria_granel">Maria Granel</string>
+    <string name="morada">Morada do Estabelecimento</string>
+    <string name="horario">Horário de Funcionamento </string>
+    <string name="horario_loja">Segunda-Sábado das 10:00-19:00</string>
+    <string name="internet">WebSite </string>
+    <string name="internet_adress">Segunda-Sábado das 10:00-19:00</string>
+    <string name="numero_t">Número de Telefone</string>
+    <string name="telefone_n">+351211351896</string>
 </resources>
