@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.fragments.map.company.CompanyFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="@dimen/_325sdp"
+                    android:layout_height="@dimen/_210sdp"
+                    android:src="@drawable/maria_granel" />
+
+                <ImageView
+                    android:layout_width="220sp"
+                    android:layout_height="274sp"
+                    android:src="@drawable/ic_caminho_98" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/maria_granel"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_20sdp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/_95sdp"
+                    android:padding="@dimen/_5sdp"/>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_header"
+                android:layout_marginTop="@dimen/_10sdp">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/layout_company_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_general_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/general_view" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_company_opinions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/opinions" />
+            </com.google.android.material.tabs.TabLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
