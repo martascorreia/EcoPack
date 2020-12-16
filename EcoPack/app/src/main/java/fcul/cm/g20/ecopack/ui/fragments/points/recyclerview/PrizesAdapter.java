@@ -29,6 +29,10 @@ public class PrizesAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
         this.onPrizeClickListener = onPrizeClickListener;
     }
 
+    public Prize getPrize(int position) {
+        return this.prizes.get(position);
+    }
+
     @NonNull
     @Override
     public PrizeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
