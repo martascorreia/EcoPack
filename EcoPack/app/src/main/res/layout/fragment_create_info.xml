@@ -157,7 +157,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_100sdp"
+                        android:layout_height="@dimen/_150sdp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:src="@drawable/image_step_3" />

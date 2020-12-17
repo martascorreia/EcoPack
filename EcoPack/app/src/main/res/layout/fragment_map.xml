@@ -18,7 +18,6 @@
         android:elevation="@dimen/_1sdp"
         android:iconifiedByDefault="false"
         android:queryHint="Procurar..."
-        android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -51,16 +50,6 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/center_map_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:backgroundTint="@color/dark_mint"
-            android:clickable="true"
-            android:src="@drawable/ic_marker_empty_white"
-            android:visibility="invisible" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/search_map_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"

@@ -71,7 +71,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:singleLine="true"
-                            android:text="Embalagens de Plástico"
+                            android:text="Plástico"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />
@@ -111,7 +111,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:singleLine="true"
-                            android:text="Embalagens de Papel"
+                            android:text="Papel"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />
@@ -151,47 +151,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:singleLine="true"
-                            android:text="Embalagens de Vidro"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_13sdp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
-                            android:textColor="@color/dark_mint"
-                            android:textSize="@dimen/_11sdp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_marker_home" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:singleLine="true"
-                            android:text="Embalagens de Casa"
+                            android:text="Reutilizável"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />
@@ -231,7 +191,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:singleLine="true"
-                            android:text="Embalagens Biodegradáveis"
+                            android:text="Biodegradáveis"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />
@@ -271,7 +231,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:singleLine="true"
-                            android:text="Embalagens de Plástico e Casa"
+                            android:text="Plástico e de Casa"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />
@@ -311,7 +271,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:singleLine="true"
-                            android:text="Embalagens de Papel e de Casa"
+                            android:text="Papel e de Casa"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />
@@ -351,7 +311,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:singleLine="true"
-                            android:text="Embalagens de Vidro e de Casa"
+                            android:text="Reutilizável e de Casa"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />
@@ -392,7 +352,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:singleLine="true"
-                            android:text="Embalagens Biodegradáveis e de Casa"
+                            android:text="Biodegradáveis e de Casa"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />

@@ -125,6 +125,7 @@ public class CreateStoreFragment extends Fragment {
                         for (String photo : photos) photosMap.put("photo" + i++, photo);
                         store.put("photos", photosMap);
                     } else store.put("photos", null);
+                    Map<String, Integer> counters = new HashMap<>();
                     store.put("comments", null);
                     store.put("register_date", System.currentTimeMillis());
 

@@ -40,16 +40,16 @@ import java.util.Locale;
 import java.util.Objects;
 
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.ui.fragments.map.company.CompanyFragment;
 
 // TODO: TRATAR DA ROTAÇÃO E CRIAR LISTENER PARA RETER AS COORDENADAS (NO CREATE STORE FRAGMENT) E A STRING PROCURADA NA ROTAÇÃO
 
-public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, GoogleMap.OnMarkerClickListener {
     private int DEFAULT_MAP_ZOOM = 16;
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
     private LatLng currentCoordinates;
     private Marker userLastLocationMarker;
-    private boolean isSearchVisible = false;
     private boolean isMenuOpen = false;
 
     @Override
@@ -106,6 +106,9 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                                 .show();
                     }
                 });
+
+                // TODO: REMOVE DUMMY CODE:
+                map.addMarker(new MarkerOptions().position(new LatLng(38.997347532379166, -9.005860090255737)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             }
         });
 
@@ -160,36 +163,20 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
             }
         });
 
-        mapFragment.findViewById(R.id.search_map_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isSearchVisible) {
-                    isSearchVisible = false;
-                    mapFragment.findViewById(R.id.search_view).setVisibility(View.INVISIBLE);
-                } else {
-                    isSearchVisible = true;
-                    mapFragment.findViewById(R.id.search_view).setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
         mapFragment.findViewById(R.id.menu_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isMenuOpen) {
                     isMenuOpen = false;
-                    isSearchVisible = false;
                     mapFragment.findViewById(R.id.search_view).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.marker_information_button).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.create_information_button).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.center_map_button).setVisibility(View.INVISIBLE);
-                    mapFragment.findViewById(R.id.search_map_button).setVisibility(View.INVISIBLE);
                 } else {
                     isMenuOpen = true;
                     mapFragment.findViewById(R.id.marker_information_button).setVisibility(View.VISIBLE);
                     mapFragment.findViewById(R.id.create_information_button).setVisibility(View.VISIBLE);
                     mapFragment.findViewById(R.id.center_map_button).setVisibility(View.VISIBLE);
-                    mapFragment.findViewById(R.id.search_map_button).setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -245,5 +232,11 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        createFragment(new CompanyFragment());
+        return false;
     }
 }

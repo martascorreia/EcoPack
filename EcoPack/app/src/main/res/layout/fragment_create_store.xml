@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,128 +10,281 @@
     android:focusableInTouchMode="true"
     tools:context=".ui.fragments.map.CreateStoreFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/mint">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:background="@color/mint"
+                android:src="@drawable/ic_back_arrow"
+                android:tint="@color/white_smoke" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:text="Por favor, preencha os seguintes campos:"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:layout_gravity="center_vertical"
+                android:text="Registar Estabelecimento"
+                android:textColor="@color/white_smoke"
+                android:textSize="@dimen/_16sdp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/create_store_address"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_oval_mint"
-                    android:drawableStart="@drawable/ic_marker_empty"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:enabled="false"
-                    android:padding="@dimen/_10sdp"
-                    android:shadowColor="@android:color/transparent"
-                    android:singleLine="true"
-                    android:textColor="@color/dark_mint"
-                    android:textColorHighlight="@color/dark_mint"
-                    android:textColorHint="@color/dark_mint"
-                    android:textSize="@dimen/_12sdp" />
-
-                <EditText
-                    android:id="@+id/create_store_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:background="@drawable/shape_oval_mint"
-                    android:drawableStart="@drawable/ic_shop_name"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:hint="Nome"
-                    android:inputType="text"
-                    android:padding="@dimen/_10sdp"
-                    android:shadowColor="@android:color/transparent"
-                    android:textColor="@color/dark_mint"
-                    android:textColorHighlight="@color/dark_mint"
-                    android:textColorHint="@color/dark_mint"
-                    android:textSize="@dimen/_12sdp" />
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/create_store_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:background="@drawable/shape_oval_mint"
-                    android:drawableStart="@drawable/ic_email"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:hint="Endereço de Email"
-                    android:inputType="textEmailAddress"
-                    android:padding="@dimen/_10sdp"
-                    android:shadowColor="@android:color/transparent"
-                    android:textColor="@color/dark_mint"
-                    android:textColorHighlight="@color/dark_mint"
-                    android:textColorHint="@color/dark_mint"
-                    android:textSize="@dimen/_12sdp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Por favor, preencha os seguintes campos:"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
 
-                <EditText
-                    android:id="@+id/create_store_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:background="@drawable/shape_oval_mint"
-                    android:drawableStart="@drawable/ic_phone"
-                    android:drawablePadding="@dimen/_10sdp"
-                    android:hint="Contacto Telefónico"
-                    android:inputType="phone"
-                    android:padding="@dimen/_10sdp"
-                    android:shadowColor="@android:color/transparent"
-                    android:textColor="@color/dark_mint"
-                    android:textColorHighlight="@color/dark_mint"
-                    android:textColorHint="@color/dark_mint"
-                    android:textSize="@dimen/_12sdp" />
+                    <EditText
+                        android:id="@+id/create_store_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@drawable/shape_oval_mint"
+                        android:drawableStart="@drawable/ic_marker_empty"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:enabled="false"
+                        android:padding="@dimen/_10sdp"
+                        android:shadowColor="@android:color/transparent"
+                        android:singleLine="true"
+                        android:textColor="@color/dark_mint"
+                        android:textColorHighlight="@color/dark_mint"
+                        android:textColorHint="@color/dark_mint"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <EditText
+                        android:id="@+id/create_store_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@drawable/shape_oval_mint"
+                        android:drawableStart="@drawable/ic_shop_name"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:hint="Nome"
+                        android:inputType="text"
+                        android:padding="@dimen/_10sdp"
+                        android:shadowColor="@android:color/transparent"
+                        android:textColor="@color/dark_mint"
+                        android:textColorHighlight="@color/dark_mint"
+                        android:textColorHint="@color/dark_mint"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <EditText
+                        android:id="@+id/create_store_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@drawable/shape_oval_mint"
+                        android:drawableStart="@drawable/ic_email"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:hint="Endereço de Email"
+                        android:inputType="textEmailAddress"
+                        android:padding="@dimen/_10sdp"
+                        android:shadowColor="@android:color/transparent"
+                        android:textColor="@color/dark_mint"
+                        android:textColorHighlight="@color/dark_mint"
+                        android:textColorHint="@color/dark_mint"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <EditText
+                        android:id="@+id/create_store_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:background="@drawable/shape_oval_mint"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:hint="Contacto Telefónico"
+                        android:inputType="phone"
+                        android:padding="@dimen/_10sdp"
+                        android:shadowColor="@android:color/transparent"
+                        android:textColor="@color/dark_mint"
+                        android:textColorHighlight="@color/dark_mint"
+                        android:textColorHint="@color/dark_mint"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:text="Por favor, selecione o(s) tipo(s) de embalagem que o estabelecimento utiliza:"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:orientation="horizontal">
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/_70sdp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/option_reusable"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:src="@drawable/ic_marker_glass_round" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Reutilizável"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_9sdp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/option_bio"
+                                        android:layout_width="@dimen/_60sdp"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:src="@drawable/ic_marker_leaf_round" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Biodegradável"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_9sdp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/option_paper"
+                                        android:layout_width="@dimen/_60sdp"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:src="@drawable/ic_marker_paper_round" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Papel"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_9sdp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/option_plastic"
+                                        android:layout_width="@dimen/_60sdp"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="2"
+                                        android:src="@drawable/ic_marker_plastic_round" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Plástico"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_9sdp" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:text="Clientes podem utilizar embalagens de casa."
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <Button
+                        android:id="@+id/create_store_upload"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:background="@drawable/shape_button_white"
+                        android:padding="@dimen/_12sdp"
+                        android:shadowColor="@color/dark_mint"
+                        android:text="CARREGAR FOTOGRAFIAS"
+                        android:textColor="@color/dark_mint"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <Button
-                    android:id="@+id/create_store_upload"
-                    android:layout_width="match_parent"
+                    android:id="@+id/create_store_register_button"
+                    android:layout_width="@dimen/_150sdp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@drawable/shape_button_white"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_55sdp"
+                    android:background="@drawable/shape_button_dark_mint"
                     android:padding="@dimen/_12sdp"
                     android:shadowColor="@color/dark_mint"
-                    android:text="CARREGAR FOTOGRAFIAS"
-                    android:textColor="@color/dark_mint"
+                    android:text="REGISTAR"
+                    android:textColor="@color/white_smoke"
                     android:textStyle="bold" />
             </LinearLayout>
+        </ScrollView>
 
-            <Button
-                android:id="@+id/create_store_register_button"
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginBottom="@dimen/_55sdp"
-                android:background="@drawable/shape_button_dark_mint"
-                android:padding="@dimen/_12sdp"
-                android:shadowColor="@color/dark_mint"
-                android:text="REGISTAR"
-                android:textColor="@color/white_smoke"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 </FrameLayout>
