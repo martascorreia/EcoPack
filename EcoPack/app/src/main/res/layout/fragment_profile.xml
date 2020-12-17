@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_smoke"
-    tools:context=".ui.fragments.profile.ProfileFragment">
+    tools:context=".fragments.profile.ProfileFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                     android:text="Lisboa, Portugal"
                     android:textAllCaps="true"
                     android:textColor="@color/dark_mint"
-                    android:textSize="@dimen/_9sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
             </RelativeLayout>
 

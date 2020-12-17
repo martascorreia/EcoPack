@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/dark_mint</item>
         <item name="colorPrimaryDark">@color/mint</item>
         <item name="colorAccent">@color/pale_beige</item>
+        <item name="android:textColorHint">@android:color/black</item>
     </style>
 
     <!-- USED TO PREVENT THE APP FROM USING THE NATIVE ACTIONBAR CLASS TO PROVIDE THE TOOLBAR -->

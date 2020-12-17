@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/_40sdp"
     android:background="@color/white_smoke"
-    tools:context=".ui.fragments.points.PointsFragment">
+    tools:context=".fragments.points.PointsFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_points_button"

@@ -6,22 +6,22 @@
     app:startDestination="@+id/navigation_map">
     <fragment
         android:id="@+id/navigation_points"
-        android:name="fcul.cm.g20.ecopack.ui.fragments.points.PointsFragment"
+        android:name="fcul.cm.g20.ecopack.fragments.points.PointsFragment"
         android:label="@string/points"
         tools:layout="@layout/fragment_points" />
     <fragment
         android:id="@+id/navigation_tree"
-        android:name="fcul.cm.g20.ecopack.ui.fragments.tree.TreeFragment"
+        android:name="fcul.cm.g20.ecopack.fragments.tree.TreeFragment"
         android:label="@string/tree"
         tools:layout="@layout/fragment_tree" />
     <fragment
         android:id="@+id/navigation_map"
-        android:name="fcul.cm.g20.ecopack.ui.fragments.map.MapFragment"
+        android:name="fcul.cm.g20.ecopack.fragments.map.MapFragment"
         android:label="@string/map"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="fcul.cm.g20.ecopack.ui.fragments.profile.ProfileFragment"
+        android:name="fcul.cm.g20.ecopack.fragments.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

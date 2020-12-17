@@ -8,16 +8,23 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".ui.fragments.map.MapFragment">
+    tools:context=".fragments.map.MapFragment">
 
     <SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:background="@color/mint"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:background="@drawable/shape_round_search_view"
+        android:backgroundTint="@color/mint"
         android:elevation="@dimen/_1sdp"
         android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
         android:queryHint="Procurar..."
+        android:searchIcon="@drawable/ic_marker_paper_round"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout

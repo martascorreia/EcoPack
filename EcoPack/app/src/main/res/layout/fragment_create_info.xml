@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_smoke"
     android:elevation="@dimen/_2sdp"
-    tools:context=".ui.fragments.map.CreateInformationFragment">
+    tools:context=".fragments.map.CreateInformationFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

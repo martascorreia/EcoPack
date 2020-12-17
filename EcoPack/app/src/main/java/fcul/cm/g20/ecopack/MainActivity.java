@@ -1,19 +1,14 @@
 package fcul.cm.g20.ecopack;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import fcul.cm.g20.ecopack.ui.fragments.map.MapFragment;
-import fcul.cm.g20.ecopack.ui.fragments.tree.TreeFragment;
 
 public class MainActivity extends AppCompatActivity {
     @Override

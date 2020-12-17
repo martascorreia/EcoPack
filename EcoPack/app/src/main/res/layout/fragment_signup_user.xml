@@ -6,7 +6,7 @@
     android:background="@color/mint"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".ui.fragments.login.SignUpUserFragment">
+    tools:context=".fragments.login.SignUpUserFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

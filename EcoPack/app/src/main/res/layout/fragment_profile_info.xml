@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.profile.ProfileInfoFragment">
+    tools:context=".fragments.profile.ProfileInfoFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,8 +26,8 @@
 
                 <ImageView
                     android:id="@+id/profile_info_name_image"
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="@dimen/_22sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_user_empty" />
 
@@ -45,7 +45,7 @@
                         android:singleLine="true"
                         android:text="@string/complete_name"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -56,7 +56,7 @@
                         android:singleLine="true"
                         android:text="Daniel Cardoso de Barros Machado"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -70,8 +70,8 @@
 
                 <ImageView
                     android:id="@+id/profile_info_email_image"
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="@dimen/_22sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_email" />
 
@@ -89,7 +89,7 @@
                         android:singleLine="true"
                         android:text="@string/email"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -100,7 +100,7 @@
                         android:singleLine="true"
                         android:text="danielcbmachadopersonal@gmail.com"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -114,8 +114,8 @@
 
                 <ImageView
                     android:id="@+id/profile_info_phone_image"
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="@dimen/_22sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_phone" />
 
@@ -133,7 +133,7 @@
                         android:singleLine="true"
                         android:text="@string/phone_number"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -144,7 +144,7 @@
                         android:singleLine="true"
                         android:text="919191919"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -158,8 +158,8 @@
 
                 <ImageView
                     android:id="@+id/profile_info_gender_image"
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="@dimen/_22sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_gender" />
 
@@ -177,7 +177,7 @@
                         android:singleLine="true"
                         android:text="@string/gender"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -188,7 +188,7 @@
                         android:singleLine="true"
                         android:text="Masculino"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -202,8 +202,8 @@
 
                 <ImageView
                     android:id="@+id/profile_info_birthday_image"
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="@dimen/_22sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_birthday" />
 
@@ -221,7 +221,7 @@
                         android:singleLine="true"
                         android:text="@string/birthday"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -232,7 +232,7 @@
                         android:singleLine="true"
                         android:text="07-03-1998"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -246,8 +246,8 @@
 
                 <ImageView
                     android:id="@+id/profile_info_city_image"
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="@dimen/_22sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_city" />
 
@@ -265,7 +265,7 @@
                         android:singleLine="true"
                         android:text="@string/city"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -276,7 +276,7 @@
                         android:singleLine="true"
                         android:text="Lisboa, Portugal"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -290,8 +290,8 @@
 
                 <ImageView
                     android:id="@+id/profile_info_locations_image"
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="@dimen/_22sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_marker_empty" />
 
@@ -309,7 +309,7 @@
                         android:singleLine="true"
                         android:text="@string/visited_places"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -320,7 +320,7 @@
                         android:singleLine="true"
                         android:text="125"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </RelativeLayout>
 
@@ -334,8 +334,8 @@
 
                 <ImageView
                     android:id="@+id/profile_info_opinions_image"
-                    android:layout_width="@dimen/_22sdp"
-                    android:layout_height="@dimen/_22sdp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_comment" />
 
@@ -353,7 +353,7 @@
                         android:singleLine="true"
                         android:text="@string/published_opinions"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_9sdp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -364,7 +364,7 @@
                         android:singleLine="true"
                         android:text="120"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>

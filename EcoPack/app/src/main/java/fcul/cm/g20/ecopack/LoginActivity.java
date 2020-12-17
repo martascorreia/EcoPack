@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import fcul.cm.g20.ecopack.ui.fragments.login.LoginFragment;
+import fcul.cm.g20.ecopack.fragments.login.LoginFragment;
 
 public class LoginActivity extends AppCompatActivity {
     @Override
