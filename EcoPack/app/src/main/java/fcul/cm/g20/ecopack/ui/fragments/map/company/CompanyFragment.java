@@ -8,7 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.tabs.TabLayout;
+
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.ui.fragments.profile.ProfileInfoFragment;
+import fcul.cm.g20.ecopack.ui.fragments.profile.ProfileLocationsFragment;
+import fcul.cm.g20.ecopack.ui.fragments.profile.ProfileOpinionsFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +65,36 @@ public class CompanyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_company, container, false);
+
+        TabLayout tabLayout = view.findViewById(R.id.layout_company_tabs);
+        tabLayout.setOnTabSelectedListener(handleTabItemClick());
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tab_content, new CompanyGeneralViewFragment()).commit();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_company, container, false);
+        return view;
+    }
+
+    private TabLayout.OnTabSelectedListener handleTabItemClick() {
+        return new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Fragment fragment;
+
+                int position = tab.getPosition();
+                if (position == 0) fragment = new CompanyGeneralViewFragment();
+                else fragment = new CompanyOpinionsFragment();
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tab_content, fragment).commit();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        };
     }
 }

@@ -64,6 +64,14 @@
                         android:layout_height="wrap_content"
                         android:text="@string/opinions" />
                 </com.google.android.material.tabs.TabLayout>
+
+                <FrameLayout
+                    android:id="@+id/tab_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_company_tabs"
+                    android:layout_marginBottom="@dimen/_40sdp"
+                    android:background="@color/white_smoke" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
