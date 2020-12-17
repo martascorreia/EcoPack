@@ -44,7 +44,7 @@ import fcul.cm.g20.ecopack.ui.fragments.map.company.CompanyFragment;
 
 // TODO: TRATAR DA ROTAÇÃO E CRIAR LISTENER PARA RETER AS COORDENADAS (NO CREATE STORE FRAGMENT) E A STRING PROCURADA NA ROTAÇÃO
 
-public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, GoogleMap.OnMarkerClickListener {
+public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private int DEFAULT_MAP_ZOOM = 16;
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
@@ -82,6 +82,14 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                 // LOCALIZAÇÃO TEMPORÁRIA, NO CASO DO UTILIZADOR TER O SERVIÇO DE LOCALIZAÇÃO DESLIGADO, A LOCALIZAÇÃO NÃO TER SIDO AINDA CALCULADA OU NÃO HAVER PERMISSÕES
                 LatLng defaultCoordinates = new LatLng(38.71667, -9.13333);
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinates, DEFAULT_MAP_ZOOM));
+
+                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        createFragment(new CompanyFragment());
+                        return false;
+                    }
+                });
 
                 googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
@@ -232,11 +240,5 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-        createFragment(new CompanyFragment());
-        return false;
     }
 }
