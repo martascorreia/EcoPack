@@ -7,14 +7,11 @@
     android:background="@color/white_smoke"
     tools:context=".fragments.map.company.CompanyFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -27,13 +24,13 @@
 
                 <ImageView
                     android:layout_width="220sp"
-                    android:layout_height="274sp"
-                    android:src="@drawable/ic_caminho_98" />
+                    android:layout_height="@dimen/_210sdp"
+                    android:src="@drawable/ic_caminho_98"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_95sdp"
+                    android:layout_marginTop="@dimen/_80sdp"
                     android:padding="@dimen/_5sdp"
                     android:text="@string/maria_granel"
                     android:textColor="@color/white"
@@ -42,10 +39,9 @@
             </FrameLayout>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/profile_header"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/profile_header">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/layout_company_tabs"
@@ -68,11 +64,9 @@
                 <FrameLayout
                     android:id="@+id/tab_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_315sdp"
                     android:layout_below="@id/layout_company_tabs"
-                    android:layout_marginBottom="@dimen/_40sdp"
-                    android:background="@color/white_smoke" />
+                    android:background="@color/white_smoke"/>
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
 </FrameLayout>

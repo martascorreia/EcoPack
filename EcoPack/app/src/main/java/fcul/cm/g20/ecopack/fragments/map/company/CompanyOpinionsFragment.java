@@ -73,13 +73,13 @@ public class CompanyOpinionsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        scroll = getView().findViewById(R.id.scroll_icons);
+        //scroll = getView().findViewById(R.id.scroll_icons);
 
-        scroll.post(new Runnable() {
+        /*scroll.post(new Runnable() {
             @Override
             public void run() {
                 scroll.fullScroll(View.FOCUS_DOWN);
             }
-        });
+        });*/
     }
 }

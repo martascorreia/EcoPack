@@ -24,7 +24,7 @@
         android:iconifiedByDefault="false"
         android:queryBackground="@android:color/transparent"
         android:queryHint="Procurar..."
-        android:searchIcon="@drawable/ic_marker_paper_round"
+        android:searchIcon="@drawable/ic_baseline_search"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -37,22 +37,22 @@
         android:orientation="vertical">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create_information_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/dark_mint"
+            android:clickable="true"
+            android:src="@drawable/ic_add_map"
+            android:visibility="invisible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/marker_information_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/dark_mint"
+            android:layout_marginTop="@dimen/_15sdp"
             android:clickable="true"
             android:src="@drawable/ic_info"
-            android:visibility="invisible" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_information_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:backgroundTint="@color/dark_mint"
-            android:clickable="true"
-            android:src="@drawable/ic_plus_empty"
             android:visibility="invisible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -62,7 +62,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:backgroundTint="@color/dark_mint"
             android:clickable="true"
-            android:src="@drawable/ic_marker_empty_white"
+            android:src="@drawable/ic_location"
             android:visibility="invisible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

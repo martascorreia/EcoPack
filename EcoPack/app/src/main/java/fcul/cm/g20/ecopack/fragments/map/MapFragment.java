@@ -210,7 +210,6 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
             public void onClick(View v) {
                 if (isMenuOpen) {
                     isMenuOpen = false;
-                    mapFragment.findViewById(R.id.search_view).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.marker_information_button).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.create_information_button).setVisibility(View.INVISIBLE);
                     mapFragment.findViewById(R.id.center_map_button).setVisibility(View.INVISIBLE);
