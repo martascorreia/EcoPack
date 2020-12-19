@@ -7,11 +7,11 @@
     android:background="@color/white_smoke"
     tools:context=".fragments.map.company.CompanyFragment">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center_horizontal">
+            android:orientation="vertical">
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -24,13 +24,13 @@
 
                 <ImageView
                     android:layout_width="220sp"
-                    android:layout_height="@dimen/_210sdp"
-                    android:src="@drawable/ic_caminho_98"/>
+                    android:layout_height="274sp"
+                    android:src="@drawable/ic_caminho_98" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_95sdp"
                     android:padding="@dimen/_5sdp"
                     android:text="@string/maria_granel"
                     android:textColor="@color/white"
@@ -39,8 +39,8 @@
             </FrameLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/profile_header">
 
                 <com.google.android.material.tabs.TabLayout
@@ -64,7 +64,7 @@
                 <FrameLayout
                     android:id="@+id/tab_content"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_315sdp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/layout_company_tabs"
                     android:background="@color/white_smoke"/>
             </RelativeLayout>
