@@ -1,6 +1,8 @@
 package fcul.cm.g20.ecopack;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.animation.AnimationUtils;
 
@@ -21,8 +23,9 @@ public class SplashActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                // startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                SharedPreferences preferences = getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
+                if (preferences.contains("username")) startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                else startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }
         }, 2200);

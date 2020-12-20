@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.fragments.map.company;
+package fcul.cm.g20.ecopack.fragments.map.store;
 
 import android.os.Bundle;
 
@@ -15,10 +15,10 @@ import fcul.cm.g20.ecopack.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CompanyOpinionsFragment#newInstance} factory method to
+ * Use the {@link StoreOpinionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CompanyOpinionsFragment extends Fragment {
+public class StoreOpinionsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +31,7 @@ public class CompanyOpinionsFragment extends Fragment {
 
     ScrollView scroll;
 
-    public CompanyOpinionsFragment() {
+    public StoreOpinionsFragment() {
         // Required empty public constructor
     }
 
@@ -44,8 +44,8 @@ public class CompanyOpinionsFragment extends Fragment {
      * @return A new instance of fragment CompanyOpinionsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CompanyOpinionsFragment newInstance(String param1, String param2) {
-        CompanyOpinionsFragment fragment = new CompanyOpinionsFragment();
+    public static StoreOpinionsFragment newInstance(String param1, String param2) {
+        StoreOpinionsFragment fragment = new StoreOpinionsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

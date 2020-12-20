@@ -2,8 +2,12 @@ package fcul.cm.g20.ecopack.fragments.map;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -29,13 +33,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -44,14 +48,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.company.CompanyFragment;
+import fcul.cm.g20.ecopack.fragments.map.store.StoreFragment;
 
 // TODO: TRATAR DA ROTAÇÃO E CRIAR LISTENER PARA RETER AS COORDENADAS (NO CREATE STORE FRAGMENT) E A STRING PROCURADA NA ROTAÇÃO
-// TODO: VER OS TIPOS DE EXCEÇÃO E ERROS DE CONECTIVIDADE NO ONCREATE() E ONCREATEVIEW() NA OBTENÇÃO DAS LOJAS
 
 public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private int DEFAULT_MAP_ZOOM = 16;
@@ -61,7 +63,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     private LatLng currentCoordinates;
     private Marker userLastLocationMarker;
     private boolean isMenuOpen = false;
-    private HashMap<String, DocumentSnapshot> markersMap;
+    private HashMap<String, DocumentSnapshot> storesMap;
     private List<DocumentSnapshot> stores;
 
     @Override
@@ -89,29 +91,45 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
 
-                markersMap = new HashMap<>();
-                try {
-                    database.collection("stores")
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        stores = task.getResult().getDocuments();
-                                        for (DocumentSnapshot store : stores) {
-                                            LatLng storeCoordinates = new LatLng((double) store.get("lat"), (double) store.get("lng"));
+                // TAL COMO O MAPA, OS MARKERS SÃO GUARDADOS EM CACHE
+                storesMap = new HashMap<>();
+                database.collection("stores")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    stores = task.getResult().getDocuments();
+                                    for (DocumentSnapshot store : stores) {
+                                        LatLng storeCoordinates = new LatLng((double) store.get("lat"), (double) store.get("lng"));
+                                        Marker currMarker = map.addMarker(new MarkerOptions().position(storeCoordinates));
 
-                                            // TODO: ADICIONAR IFS PARA OS COUNTERS
+                                        long[] counters = new long[5];
+                                        HashMap<String, Long> countersMap = (HashMap<String, Long>) store.get("counters");
+                                        counters[0] = countersMap.get("reusable");
+                                        counters[1] = countersMap.get("bio");
+                                        counters[2] = countersMap.get("paper");
+                                        counters[3] = countersMap.get("plastic");
+                                        counters[4] = countersMap.get("home");
 
-                                            Marker currMarker = map.addMarker(new MarkerOptions().position(storeCoordinates).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                                            markersMap.put(currMarker.getId(), store);
+                                        long mostFrequentIndex = getMostFrequentPackageType(counters);
+                                        if (counters[4] == 1) {
+                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_glass_home));
+                                            else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_bio_home));
+                                            else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_paper_home));
+                                            else if (mostFrequentIndex == 3) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_plastic_home));
+                                        } else {
+                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_glass));
+                                            else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_bio));
+                                            else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_paper));
+                                            else if (mostFrequentIndex == 3) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_plastic));
                                         }
-                                    } else showToast("A: " + Objects.requireNonNull(task.getException()).toString());
-                                }
-                            });
-                } catch (Exception e) {
-                    showToast("B: " + e.getMessage());
-                }
+
+                                        storesMap.put(currMarker.getId(), store);
+                                    }
+                                } else showToast("Não foi possível obter os estabelecimentos existentes. Por favor, tente mais tarde.");
+                            }
+                        });
 
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) buildGoogleApiClient();
                 else showToast("Não foi possível obter a sua localização. Por favor, dê as permissões necessárias.");
@@ -123,7 +141,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        createFragment(new CompanyFragment());
+                        createFragment(new StoreFragment(storesMap.get(marker.getId())));
                         return false;
                     }
                 });
@@ -235,6 +253,28 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private long getMostFrequentPackageType(long[] counters) {
+        long max = counters[0], index = 0;
+
+        for (int i = 0; i < counters.length; i++) {
+            if (max < counters[i]) {
+                max = counters[i];
+                index = i;
+            }
+        }
+
+        return index;
+    }
+
+    private BitmapDescriptor drawableToBitmap(Context context, int markerID) {
+        Drawable marker = ContextCompat.getDrawable(context, markerID);
+        marker.setBounds(0, 0, marker.getIntrinsicWidth(), marker.getIntrinsicHeight());
+        Bitmap markerBitmap = Bitmap.createBitmap(marker.getIntrinsicWidth(), marker.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(markerBitmap);
+        marker.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(markerBitmap);
     }
 
     private void createFragment(Fragment fragment) {

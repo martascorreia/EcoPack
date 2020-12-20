@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:elevation="@dimen/_2sdp"
     android:background="@color/white_smoke"
-    tools:context=".fragments.map.company.CompanyFragment">
+    tools:context=".fragments.map.store.StoreFragment">
 
     <ScrollView
         android:layout_width="match_parent"

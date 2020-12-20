@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.fragments.map.company;
+package fcul.cm.g20.ecopack.fragments.map.store;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import fcul.cm.g20.ecopack.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CompanyGeneralViewFragment#newInstance} factory method to
+ * Use the {@link StoreInfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CompanyGeneralViewFragment extends Fragment {
+public class StoreInfoFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class CompanyGeneralViewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public CompanyGeneralViewFragment() {
+    public StoreInfoFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class CompanyGeneralViewFragment extends Fragment {
      * @return A new instance of fragment CompanyGeneralViewFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CompanyGeneralViewFragment newInstance(String param1, String param2) {
-        CompanyGeneralViewFragment fragment = new CompanyGeneralViewFragment();
+    public static StoreInfoFragment newInstance(String param1, String param2) {
+        StoreInfoFragment fragment = new StoreInfoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

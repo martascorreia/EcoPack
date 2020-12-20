@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_smoke"
     android:elevation="@dimen/_2sdp"
-    tools:context=".fragments.map.company.CompanyOpinionsFragment">
+    tools:context=".fragments.map.store.StoreOpinionsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -227,7 +227,7 @@
                     android:layout_marginTop="@dimen/_2sdp"
                     android:backgroundTint="@color/white"
                     android:clickable="true"
-                    android:src="@drawable/ic_marker_leaf_round"
+                    android:src="@drawable/ic_marker_bio_round"
                     android:visibility="visible"
                     app:maxImageSize="57dp" />
 

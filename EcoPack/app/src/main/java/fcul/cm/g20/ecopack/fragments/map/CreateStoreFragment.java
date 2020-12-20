@@ -55,7 +55,6 @@ public class CreateStoreFragment extends Fragment {
     private LinkedList<String> photos = new LinkedList<>();
 
     public CreateStoreFragment() {
-
     }
 
     public CreateStoreFragment(double latitude, double longitude, String address) {
