@@ -18,10 +18,10 @@
             android:layout_height="wrap_content">
 
             <ImageButton
-                android:id="@+id/settingsButton"
+                android:id="@+id/settings_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@id/logoutButton"
+                android:layout_alignEnd="@id/logout_button"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_35sdp"
@@ -29,10 +29,10 @@
                 android:src="@drawable/ic_settings" />
 
             <ImageButton
-                android:id="@+id/logoutButton"
+                android:id="@+id/logout_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/settingsButton"
+                android:layout_below="@+id/settings_button"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -47,30 +47,29 @@
                 android:layout_marginTop="@dimen/_20sdp">
 
                 <LinearLayout
-                    android:id="@+id/profile_header_avatar"
+                    android:id="@+id/edit_user_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_80sdp"
-                        android:src="@drawable/image_avatar_daniel"
                         app:civ_border_color="@color/dark_mint"
                         app:civ_border_width="@dimen/_2sdp" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/profile_header_username"
+                    android:id="@+id/profile_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_header_avatar"
+                    android:layout_below="@+id/edit_user_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:singleLine="true"
-                    android:text="danielcbmachado"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_16sdp"
                     android:textStyle="bold" />
@@ -79,9 +78,9 @@
                     android:id="@+id/profile_header_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profile_header_username"
+                    android:layout_below="@+id/profile_username"
                     android:layout_centerHorizontal="true"
-                    android:text="Lisboa, Portugal"
+                    android:singleLine="true"
                     android:textAllCaps="true"
                     android:textColor="@color/dark_mint"
                     android:textSize="@dimen/_10sdp"

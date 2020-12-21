@@ -8,17 +8,15 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import fcul.cm.g20.ecopack.R;
 
 public class ProfileOpinionsFragment extends Fragment {
-    public ProfileOpinionsFragment() {
-    }
+    private DocumentSnapshot userDocument;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // TODO: MAKE THE FIREBASE CALLS IN ORDER TO RETRIEVE THE USER'S SHARED OPINIONS
+    public ProfileOpinionsFragment(DocumentSnapshot userDocument) {
+        this.userDocument = userDocument;
     }
 
     @Override

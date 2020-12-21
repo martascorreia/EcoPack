@@ -36,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -56,7 +57,6 @@ public class CreateStoreFragment extends Fragment {
     private LinkedList<String> photos = new LinkedList<>();
 
     public CreateStoreFragment() {
-
     }
 
     public CreateStoreFragment(double latitude, double longitude, String address) {
@@ -245,7 +245,7 @@ public class CreateStoreFragment extends Fragment {
                     } else store.put("photos", null);
 
                     // COMMENTS
-                    store.put("comments", null);
+                    store.put("comments", new ArrayList<>());
 
                     // REGISTER DATE
                     store.put("register_date", System.currentTimeMillis());

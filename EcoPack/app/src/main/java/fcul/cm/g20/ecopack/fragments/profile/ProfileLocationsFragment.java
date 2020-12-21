@@ -12,20 +12,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import java.util.LinkedList;
 
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.profile.recyclerview.LocationAdapter;
 
 public class ProfileLocationsFragment extends Fragment {
-    public ProfileLocationsFragment() {
-    }
+    DocumentSnapshot userDocument;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // TODO: MAKE THE FIREBASE CALLS IN ORDER TO RETRIEVE THE USER'S LOCATION HISTORY
+    public ProfileLocationsFragment(DocumentSnapshot userDocument) {
+        this.userDocument = userDocument;
     }
 
     @Override

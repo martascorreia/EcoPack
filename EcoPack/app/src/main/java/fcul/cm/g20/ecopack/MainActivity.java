@@ -2,6 +2,7 @@ package fcul.cm.g20.ecopack;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -11,10 +12,14 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    private ApplicationState applicationState = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (applicationState == null) applicationState = new ApplicationState();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -30,25 +35,24 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        // TODO: CHANGE THIS TO A METHOD CALL IN EACH FRAGMENT, DEPENDING ON ITS USE
         getSupportActionBar().hide();
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        // SERIALIZE THE APPLICATION STATE OBJECT
 
-        /*
-        //TODO corrigir o erro de só está a entrar no primeiro if
-        if(findViewById(R.id.fragment_markers) != null){
-            FragmentManager fm = getSupportFragmentManager();
-            fm.popBackStack ("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
+        super.onSaveInstanceState(outState);
+    }
 
-        if(findViewById(R.id.fragment_info) != null){
-            FragmentManager fm = getSupportFragmentManager();
-            fm.popBackStack ("info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-         */
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        // DESERIALIZE THE APPLICATION STATE OBJECT
+
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    public ApplicationState getApplicationState() {
+        return applicationState;
     }
 }

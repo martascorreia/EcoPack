@@ -50,4 +50,5 @@
     <string name="telefone_n">+351211351896</string>
     <string name="general_view">Vista Geral</string>
     <string name="comment">Comentar...</string>
+    <string name="register_date">Data de Registo</string>
 </resources>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke"
+    android:elevation="@dimen/_2sdp"
+    tools:context=".fragments.profile.ProfileSettingsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/mint"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:background="@color/mint"
+                android:src="@drawable/ic_back_arrow"
+                android:tint="@color/white_smoke" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/settings"
+                android:textColor="@color/white_smoke"
+                android:textSize="@dimen/_16sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_10sdp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/save_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/mint"
+                    android:src="@drawable/ic_save"
+                    android:text="@string/save"
+                    android:textColor="@color/white"
+                    android:tint="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_55sdp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/edit_user_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/edit_user_picture"
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="@dimen/_80sdp"
+                            app:civ_border_color="@color/gray"
+                            app:civ_border_width="@dimen/_2sdp" />
+
+                        <ImageButton
+                            android:id="@+id/change_profile_image"
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/shape_round_corner"
+                            android:src="@drawable/ic_camera" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/edit_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_user_image"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_user_empty"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/edit_user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_user_name"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/edit_user_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_user_email"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="phone"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/edit_user_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_user_phone"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_gender"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/edit_user_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_user_gender"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_birthday"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/edit_user_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_user_birthday"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_city"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/edit_user_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_user_city"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_password"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+            </RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>
