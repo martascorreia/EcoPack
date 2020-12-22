@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_smoke"
@@ -15,8 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/_60sdp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,11 +39,12 @@
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
                         android:layout_marginLeft="@dimen/_10sdp" />
+
                     <TextView
+                        android:id="@+id/company_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:text="R. José Duro 22, 1700-261 Lisboa"
                         android:textSize="@dimen/_12sdp"/>
 
                 </LinearLayout>
@@ -73,9 +73,9 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"/>
                     <TextView
+                        android:id="@+id/company_schedule"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/horario_loja"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:textSize="@dimen/_12sdp"/>
@@ -104,9 +104,9 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"/>
                     <TextView
+                        android:id="@+id/company_website"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/internet_adress"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:textSize="@dimen/_12sdp"/>
@@ -135,23 +135,20 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"/>
                     <TextView
+                        android:id="@+id/company_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/telefone_n"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:textSize="@dimen/_12sdp"/>
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_200sdp"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/maria_granel_2"/>
-            </LinearLayout>
+                android:layout_height="@dimen/_250sdp"
+                android:layout_marginBottom="@dimen/_60sdp"/>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
