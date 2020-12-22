@@ -50,14 +50,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!--<de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/ic_marker_paper_round"
+                    app:maxImageSize="58dp"
+                    android:elevation="0dp"
+                    android:clickable="false"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />-->
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout

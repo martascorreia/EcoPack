@@ -218,7 +218,8 @@
                     android:textColor="@color/dark_mint"
                     android:textColorHighlight="@color/dark_mint"
                     android:textColorHint="@color/dark_mint"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"/>
             </RelativeLayout>
         </ScrollView>
     </LinearLayout>

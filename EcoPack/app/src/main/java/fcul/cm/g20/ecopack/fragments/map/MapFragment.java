@@ -91,6 +91,9 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
 
+                // DISABLES COMPASS -> WE COULD ALSO JUST MOVE IT DOWN A BIT ¯\_(ツ)_/¯
+                map.getUiSettings().setCompassEnabled(false);
+
                 // TAL COMO O MAPA, OS MARKERS SÃO GUARDADOS EM CACHE
                 storesMap = new HashMap<>();
                 database.collection("stores")
