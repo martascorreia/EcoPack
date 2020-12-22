@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.fragments.map.store;
+package fcul.cm.g20.ecopack.fragments.map.store.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -14,7 +14,7 @@ public class ImageAdapter extends PagerAdapter {
     private Context context;
     private int[] images;
 
-    ImageAdapter(Context cont, int[] imgs) {
+    public ImageAdapter(Context cont, int[] imgs) {
         context = cont;
         images = imgs;
     }

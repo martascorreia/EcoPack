@@ -16,18 +16,25 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.provider.Settings;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,14 +45,21 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.fragments.map.store.adapter.Comment;
+import fcul.cm.g20.ecopack.fragments.map.store.adapter.CommentAdapter;
+import fcul.cm.g20.ecopack.fragments.profile.recyclerview.LocationAdapter;
 
 public class StoreOpinionsFragment extends Fragment {
 
@@ -53,6 +67,8 @@ public class StoreOpinionsFragment extends Fragment {
     ScrollView scroll;
     DocumentSnapshot storeDocument;
     DocumentSnapshot userDocument;
+    LinkedList<Comment> rv_comments;
+    RecyclerView recyclerView;
 
     public StoreOpinionsFragment() {
     }
@@ -95,22 +111,11 @@ public class StoreOpinionsFragment extends Fragment {
     private void setupFragment() {
         final EditText text = getView().findViewById(R.id.comment);
 
-        // GET CURRENT USER
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
-        final String username = sharedPreferences.getString("username", "");
+        // ADD OLD COMMENTS
+        addComments();
 
         // GET USER DOCUMENT
-        database.collection("users")
-                .whereEqualTo("username", username)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            userDocument = task.getResult().getDocuments().get(0);
-                        }
-                    }
-                });
+        updateUserDocument();
 
         // PUBLISH COMMENT
         getView().findViewById(R.id.send_button).setOnClickListener(new View.OnClickListener() {
@@ -136,9 +141,12 @@ public class StoreOpinionsFragment extends Fragment {
 
                     // NEW COMMENT
                     final Map<String, Object> comment = new HashMap<>();
-                    comment.put("user", userDocument.getId());
+                    comment.put("user", userDocument.get("username"));
+                    comment.put("name", userDocument.get("name"));
+                    comment.put("picture", userDocument.get("picture"));
                     comment.put("date", System.currentTimeMillis());
                     comment.put("comment", text.getText().toString());
+                    // TODO: ADD MARKER
                     comments.add(comment);
 
                     final Map<String, Object> store = new HashMap<>();
@@ -165,20 +173,12 @@ public class StoreOpinionsFragment extends Fragment {
                                         showToast("Comentário publicado com sucesso!");
                                         text.setText("");
 
+                                        // ADD COMMENT TO LAYOUT
                                         addComment(comment);
 
                                         //UPDATE STORE DOCUMENT
-                                        database.collection("stores")
-                                                .whereEqualTo("name", storeDocument.get("name"))
-                                                .get()
-                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            storeDocument = task.getResult().getDocuments().get(0);
-                                                        }
-                                                    }
-                                                });
+                                        updateStoreDocument();
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -195,17 +195,71 @@ public class StoreOpinionsFragment extends Fragment {
                 }
             }
         });
+    }
 
+    private void updateUserDocument() {
+        // GET CURRENT USER
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
+        final String username = sharedPreferences.getString("username", "");
+
+        // GET USER DOCUMENT
+        database.collection("users")
+                .whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            userDocument = task.getResult().getDocuments().get(0);
+                        }
+                    }
+                });
+    }
+
+    private void updateStoreDocument() {
+        database.collection("stores")
+                .whereEqualTo("name", storeDocument.get("name"))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            storeDocument = task.getResult().getDocuments().get(0);
+                        }
+                    }
+                });
+    }
+
+    private void addComments() {
+        recyclerView = getView().findViewById(R.id.comments_container);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv_comments = new LinkedList<>();
+        CommentAdapter commentAdapter = new CommentAdapter(getContext(), rv_comments);
+        recyclerView.setAdapter(commentAdapter);
+
+        // GET OLD COMMENTS
+        List<Map<String, Object>> oldComments = (List<Map<String, Object>>) storeDocument.get("comments");
+        if (!oldComments.isEmpty()) {
+            for (int i = 0; i < oldComments.size(); i++) {
+                Map<String, Object> oldComment = oldComments.get(i);
+                rv_comments.add(new Comment(oldComment.get("comment").toString(), "", oldComment.get("picture").toString(),
+                        oldComment.get("user").toString(), oldComment.get("date").toString(), oldComment.get("name").toString()));
+            }
+        }
     }
 
     private void addComment(Map<String, Object> comment) {
         String user = (String) comment.get("user");
         String com = (String) comment.get("comment");
+        String date = String.valueOf(comment.get("date"));
+        String avatar = (String) comment.get("picture");
+        String name = (String) comment.get("name");
+        rv_comments.add(new Comment(com, "", avatar, user, date, name));
+    }
 
-        LinearLayout root = getView().findViewById(R.id.comments);
-        ConstraintLayout set = new ConstraintLayout(getContext());
-        set.setId(View.generateViewId());
-        
+
+    private int getAvatar(String user) {
+        return 0;
     }
 
     private void showToast(String message) {
