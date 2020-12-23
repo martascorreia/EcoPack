@@ -66,6 +66,9 @@ public class StoreInfoFragment extends Fragment {
                             TextView schedule = getView().findViewById(R.id.company_schedule);
                             schedule.setText((String) storeDocument.get("schedule"));
 
+                            TextView email = getView().findViewById(R.id.company_email);
+                            email.setText((String) storeDocument.get("email"));
+
                             TextView website = getView().findViewById(R.id.company_website);
                             website.setText((String) storeDocument.get("website"));
 
