@@ -13,14 +13,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fcul.cm.g20.ecopack.R;
@@ -71,6 +75,29 @@ public class StoreFragment extends Fragment {
                         }
                     }
                 });
+
+        long[] counters = new long[5];
+        HashMap<String, Long> countersMap = (HashMap<String, Long>) storeDocument.get("counters");
+        counters[0] = countersMap.get("reusable");
+        counters[1] = countersMap.get("bio");
+        counters[2] = countersMap.get("paper");
+        counters[3] = countersMap.get("plastic");
+        counters[4] = countersMap.get("home");
+
+        long mostFrequentIndex = getMostFrequentPackageType(counters);
+        FloatingActionButton marker_icon = storeFragmentView.findViewById(R.id.marker_icon);
+
+        if (counters[4] == 1) {
+            if (mostFrequentIndex == 0) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_reusable_home_round));
+            else if (mostFrequentIndex == 1) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_bio_home_round));
+            else if (mostFrequentIndex == 2) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_paper_home_round));
+            else if (mostFrequentIndex == 3) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_plastic_home_round));
+        } else {
+            if (mostFrequentIndex == 0) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_reusable_round));
+            else if (mostFrequentIndex == 1) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_bio_round));
+            else if (mostFrequentIndex == 2) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_paper_round));
+            else if (mostFrequentIndex == 3) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_plastic_round));
+        }
     }
 
     private void showToast(String message) {
@@ -98,5 +125,18 @@ public class StoreFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         };
+    }
+
+    private long getMostFrequentPackageType(long[] counters) {
+        long max = counters[0], index = 0;
+
+        for (int i = 0; i < counters.length; i++) {
+            if (max < counters[i]) {
+                max = counters[i];
+                index = i;
+            }
+        }
+
+        return index;
     }
 }

@@ -178,7 +178,7 @@
                     android:layout_marginTop="@dimen/_2sdp"
                     android:backgroundTint="@color/white"
                     android:clickable="true"
-                    android:src="@drawable/ic_marker_glass_round"
+                    android:src="@drawable/ic_marker_reusable_round"
                     android:visibility="visible"
                     app:maxImageSize="57dp" />
 

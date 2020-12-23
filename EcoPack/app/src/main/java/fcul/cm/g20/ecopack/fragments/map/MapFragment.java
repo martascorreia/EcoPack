@@ -117,12 +117,12 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 
                                         long mostFrequentIndex = getMostFrequentPackageType(counters);
                                         if (counters[4] == 1) {
-                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_glass_home));
+                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_reusable_home));
                                             else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_bio_home));
                                             else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_paper_home));
                                             else if (mostFrequentIndex == 3) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_plastic_home));
                                         } else {
-                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_glass));
+                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_reusable));
                                             else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_bio));
                                             else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_paper));
                                             else if (mostFrequentIndex == 3) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_plastic));

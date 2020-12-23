@@ -2,11 +2,8 @@ package fcul.cm.g20.ecopack.fragments.map.store;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,56 +11,36 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import android.provider.Settings;
-import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Field;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.adapter.Comment;
 import fcul.cm.g20.ecopack.fragments.map.store.adapter.CommentAdapter;
-import fcul.cm.g20.ecopack.fragments.profile.recyclerview.LocationAdapter;
 
 public class StoreOpinionsFragment extends Fragment {
 
@@ -194,8 +171,8 @@ public class StoreOpinionsFragment extends Fragment {
             public void onClick(View v) {
                 icon_button = getView().findViewById(R.id.icon_button);
                 icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
-                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_glass_round));
-                currentIcon = "ic_marker_glass_round";
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_reusable_round));
+                currentIcon = "ic_marker_reusable_round";
             }
         });
 
@@ -262,7 +239,7 @@ public class StoreOpinionsFragment extends Fragment {
                     comment.put("picture", userDocument.get("picture"));
                     comment.put("date", System.currentTimeMillis());
                     comment.put("comment", text.getText().toString());
-                    comment.put("marker", currentIcon.toString());
+                    comment.put("marker", currentIcon);
                     comments.add(comment);
 
                     final Map<String, Object> store = new HashMap<>();
@@ -359,8 +336,11 @@ public class StoreOpinionsFragment extends Fragment {
             for (int i = 0; i < oldComments.size(); i++) {
                 Map<String, Object> oldComment = oldComments.get(i);
 
-                int id = getResources().getIdentifier((String) oldComment.get("marker"), "drawable", getActivity().getPackageName());
-                Drawable drawable = getResources().getDrawable(id);
+                Drawable drawable = null;
+                if(!oldComment.get("marker").equals("ic_plus")){
+                    int id = getResources().getIdentifier((String) oldComment.get("marker"), "drawable", getActivity().getPackageName());
+                    drawable = getResources().getDrawable(id);
+                }
 
                 rv_comments.add(new Comment(oldComment.get("comment").toString(), drawable, oldComment.get("picture").toString(),
                         oldComment.get("user").toString(), oldComment.get("date").toString(), oldComment.get("name").toString()));
@@ -374,9 +354,13 @@ public class StoreOpinionsFragment extends Fragment {
         String date = String.valueOf(comment.get("date"));
         String avatar = (String) comment.get("picture");
         String name = (String) comment.get("name");
+        String marker = (String) comment.get("marker");
 
-        int id = getResources().getIdentifier((String) comment.get("marker"), "drawable", getActivity().getPackageName());
-        Drawable drawable = getResources().getDrawable(id);
+        Drawable drawable = null;
+        if(!marker.equals("ic_plus")){
+            int id = getResources().getIdentifier(marker, "drawable", getActivity().getPackageName());
+            drawable = getResources().getDrawable(id);
+        }
 
         rv_comments.add(new Comment(com, drawable, avatar, user, date, name));
     }

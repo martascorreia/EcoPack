@@ -84,9 +84,7 @@ public class StoreInfoFragment extends Fragment {
         viewPager.setAdapter(imageAdapter);
     }
 
-
     private void showToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
-
 }

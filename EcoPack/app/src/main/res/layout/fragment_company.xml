@@ -51,9 +51,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/marker_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:backgroundTint="@color/white"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/ic_marker_paper_round"

@@ -110,7 +110,7 @@ public class CreateStoreFragment extends Fragment {
             public void onClick(View v) {
                 if (!storeOptions[0]) {
                     storeOptions[0] = true;
-                    ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.glass)));
+                    ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.reusable)));
                 } else {
                     storeOptions[0] = false;
                     ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dark_gray)));
