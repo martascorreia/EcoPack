@@ -125,6 +125,33 @@ public class StoreOpinionsFragment extends Fragment {
                 icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
                 icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_paper_home_round));
                 currentIcon = "ic_marker_paper_home_round";
+                scroll.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        // PLASTIC + HOME
+        getView().findViewById(R.id.plastic_home_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_plastic_home_round));
+                currentIcon = "ic_marker_plastic_home_round";
+                scroll.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        // REUSABLE + HOME
+        getView().findViewById(R.id.reusable_home_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_reusable_home_round));
+                currentIcon = "ic_marker_reusable_home_round";
+                scroll.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -137,6 +164,7 @@ public class StoreOpinionsFragment extends Fragment {
                 icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
                 icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_bio_home_round));
                 currentIcon = "ic_marker_bio_home_round";
+                scroll.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -149,6 +177,7 @@ public class StoreOpinionsFragment extends Fragment {
                 icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
                 icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_home_round));
                 currentIcon = "ic_marker_home_round";
+                scroll.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -161,6 +190,7 @@ public class StoreOpinionsFragment extends Fragment {
                 icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
                 icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_bio_round));
                 currentIcon = "ic_marker_bio_round";
+                scroll.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -173,6 +203,7 @@ public class StoreOpinionsFragment extends Fragment {
                 icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
                 icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_reusable_round));
                 currentIcon = "ic_marker_reusable_round";
+                scroll.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -185,6 +216,7 @@ public class StoreOpinionsFragment extends Fragment {
                 icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
                 icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_paper_round));
                 currentIcon = "ic_marker_paper_round";
+                scroll.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -197,6 +229,7 @@ public class StoreOpinionsFragment extends Fragment {
                 icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
                 icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_plastic_round));
                 currentIcon = "ic_marker_plastic_round";
+                scroll.setVisibility(View.INVISIBLE);
             }
         });
     }

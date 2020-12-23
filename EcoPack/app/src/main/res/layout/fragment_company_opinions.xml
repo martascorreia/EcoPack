@@ -128,6 +128,28 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/bio_home_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:backgroundTint="@color/white"
+                    android:clickable="true"
+                    android:src="@drawable/ic_marker_bio_home_round"
+                    android:visibility="visible"
+                    app:maxImageSize="57dp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/reusable_home_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:backgroundTint="@color/white"
+                    android:clickable="true"
+                    android:src="@drawable/ic_marker_reusable_home_round"
+                    android:visibility="visible"
+                    app:maxImageSize="57dp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/paper_home_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -139,13 +161,13 @@
                     app:maxImageSize="57dp" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/bio_home_button"
+                    android:id="@+id/plastic_home_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:backgroundTint="@color/white"
                     android:clickable="true"
-                    android:src="@drawable/ic_marker_bio_home_round"
+                    android:src="@drawable/ic_marker_plastic_home_round"
                     android:visibility="visible"
                     app:maxImageSize="57dp" />
 
