@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,6 +50,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +73,8 @@ public class StoreOpinionsFragment extends Fragment {
     DocumentSnapshot userDocument;
     LinkedList<Comment> rv_comments;
     RecyclerView recyclerView;
+    FloatingActionButton icon_button;
+    String currentIcon;
 
     public StoreOpinionsFragment() {
     }
@@ -95,20 +101,130 @@ public class StoreOpinionsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //scroll = getView().findViewById(R.id.scroll_icons);
+        // OLD COMMENTS + NEW COMMENT
+        comments();
 
-        /*scroll.post(new Runnable() {
+        // MARKERS "EMOJI"
+        markerIcons();
+    }
+
+    private void markerIcons() {
+        // FOR THE SCROLL TO BE BOTTOM -> TOP
+        scroll = getView().findViewById(R.id.scroll_icons);
+
+        scroll.post(new Runnable() {
             @Override
             public void run() {
                 scroll.fullScroll(View.FOCUS_DOWN);
             }
-        });*/
+        });
 
-        setupFragment();
+        //  ICON BUTTON
+        icon_button = getView().findViewById(R.id.icon_button);
+        icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dark_mint)));
+        currentIcon = "ic_plus";
+
+        icon_button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                scroll = getView().findViewById(R.id.scroll_icons);
+
+                if(scroll.getVisibility() == View.VISIBLE){
+                    scroll.setVisibility(View.INVISIBLE);
+                } else {
+                    scroll.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        // ICONS
+        // PAPER + HOME
+        getView().findViewById(R.id.paper_home_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_paper_home_round));
+                currentIcon = "ic_marker_paper_home_round";
+            }
+        });
+
+        // BIO + HOME
+        getView().findViewById(R.id.bio_home_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_bio_home_round));
+                currentIcon = "ic_marker_bio_home_round";
+            }
+        });
+
+        // HOME
+        getView().findViewById(R.id.home_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_home_round));
+                currentIcon = "ic_marker_home_round";
+            }
+        });
+
+        // BIO
+        getView().findViewById(R.id.bio_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_bio_round));
+                currentIcon = "ic_marker_bio_round";
+            }
+        });
+
+        // REUSABLE
+        getView().findViewById(R.id.reusable_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_glass_round));
+                currentIcon = "ic_marker_glass_round";
+            }
+        });
+
+        // PAPER
+        getView().findViewById(R.id.paper_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_paper_round));
+                currentIcon = "ic_marker_paper_round";
+            }
+        });
+
+        // PLASTIC
+        getView().findViewById(R.id.plastic_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                icon_button = getView().findViewById(R.id.icon_button);
+                icon_button.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.white)));
+                icon_button.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_plastic_round));
+                currentIcon = "ic_marker_plastic_round";
+            }
+        });
     }
 
-
-    private void setupFragment() {
+    private void comments() {
         final EditText text = getView().findViewById(R.id.comment);
 
         // ADD OLD COMMENTS
@@ -146,7 +262,7 @@ public class StoreOpinionsFragment extends Fragment {
                     comment.put("picture", userDocument.get("picture"));
                     comment.put("date", System.currentTimeMillis());
                     comment.put("comment", text.getText().toString());
-                    // TODO: ADD MARKER
+                    comment.put("marker", currentIcon.toString());
                     comments.add(comment);
 
                     final Map<String, Object> store = new HashMap<>();
@@ -242,7 +358,11 @@ public class StoreOpinionsFragment extends Fragment {
         if (!oldComments.isEmpty()) {
             for (int i = 0; i < oldComments.size(); i++) {
                 Map<String, Object> oldComment = oldComments.get(i);
-                rv_comments.add(new Comment(oldComment.get("comment").toString(), "", oldComment.get("picture").toString(),
+
+                int id = getResources().getIdentifier((String) oldComment.get("marker"), "drawable", getActivity().getPackageName());
+                Drawable drawable = getResources().getDrawable(id);
+
+                rv_comments.add(new Comment(oldComment.get("comment").toString(), drawable, oldComment.get("picture").toString(),
                         oldComment.get("user").toString(), oldComment.get("date").toString(), oldComment.get("name").toString()));
             }
         }
@@ -254,7 +374,11 @@ public class StoreOpinionsFragment extends Fragment {
         String date = String.valueOf(comment.get("date"));
         String avatar = (String) comment.get("picture");
         String name = (String) comment.get("name");
-        rv_comments.add(new Comment(com, "", avatar, user, date, name));
+
+        int id = getResources().getIdentifier((String) comment.get("marker"), "drawable", getActivity().getPackageName());
+        Drawable drawable = getResources().getDrawable(id);
+
+        rv_comments.add(new Comment(com, drawable, avatar, user, date, name));
     }
 
 

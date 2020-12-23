@@ -1,5 +1,6 @@
 package fcul.cm.g20.ecopack.fragments.map.store.adapter;
 
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import java.sql.Timestamp;
@@ -9,9 +10,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Comment {
 
-    private String avatar, marker, comment, username, date, name;
+    private String avatar, comment, username, date, name;
+    private Drawable marker;
 
-    public Comment(String comment, String marker, String uimg, String user, String date, String name) {
+    public Comment(String comment, Drawable marker, String uimg, String user, String date, String name) {
         this.comment = comment;
         this.username = user;
         this.date = date;
@@ -52,11 +54,11 @@ public class Comment {
         this.date = timestamp;
     }
 
-    public String getMarker(){
+    public Drawable getMarker(){
         return marker;
     }
 
-    public void setMarker(String marker){
+    public void setMarker(Drawable marker){
         this.marker = marker;
     }
 

@@ -3,6 +3,7 @@ package fcul.cm.g20.ecopack.fragments.map.store.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
@@ -40,7 +42,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         Comment currentItem = comments.get(position);
         holder.getComment().setText(currentItem.getComment());
         holder.getUsername().setText(currentItem.getName());
-        // holder.getMarker().setImageResource(currentItem.getMarker());
+        holder.getMarker().setImageDrawable(currentItem.getMarker());
 
         //PICTURE
         String picture = currentItem.getAvatar();
@@ -59,6 +61,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         holder.getDate().setText(day + "-" + month + "-" + year);
+
     }
 
     @Override
