@@ -17,6 +17,8 @@ import fcul.cm.g20.ecopack.R;
 public class StoreFragment extends Fragment {
     DocumentSnapshot storeDocument;
 
+    public StoreFragment(){};
+
     public StoreFragment(DocumentSnapshot storeDocument) {
         this.storeDocument = storeDocument;
     }
