@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -61,6 +62,7 @@ public class StoreFragment extends Fragment {
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tab_content, new StoreInfoFragment(storeDocument)).commit();
 
+        // TODO: trocar para id
         database.collection("stores")
                 .whereEqualTo("name", storeDocument.get("name"))
                 .get()

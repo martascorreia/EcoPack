@@ -59,8 +59,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+        String min = (minutes < 10) ? "0" + minutes : minutes + "";
 
-        holder.getDate().setText(day + "-" + month + "-" + year);
+        holder.getDate().setText(day + "-" + month + "-" + year + "  " + hour + ":" + min);
 
     }
 
