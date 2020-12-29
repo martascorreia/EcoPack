@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import fcul.cm.g20.ecopack.Mappers.UserMapper;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.Models.Prize;
@@ -74,8 +75,11 @@ public class RedeemFragment extends Fragment {
                 .setPositiveButton("Comprar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         boolean success = userModel.buyPrize(prizeModel);
-                        if(success)
+                        if(success) {
                             changeToPrizeCodeFragment();
+                            //save user
+                            UserMapper.updateUser(userModel, getContext());
+                        }
                         else
                             Utils.showToast("Não tem pontos suficientes para comprar este cupão!", getContext());
                     }
@@ -92,7 +96,7 @@ public class RedeemFragment extends Fragment {
 
     private void changeToPrizeCodeFragment() {
         // go to redeem view
-        PrizeCodeFragment prizeCodeFragment = new PrizeCodeFragment();
+        PrizeCodeFragment prizeCodeFragment = new PrizeCodeFragment(userModel, prizeModel, backCallback);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_points_redeem, prizeCodeFragment)
                 .addToBackStack("pointsRedeem")
@@ -124,5 +128,11 @@ public class RedeemFragment extends Fragment {
         });
     }
 
-
+    @Override
+    public void onResume() {
+        // TODO: this was done to avoid crash, find better solution
+        if(userModel == null || prizeModel == null)
+            backButton();
+        super.onResume();
+    }
 }

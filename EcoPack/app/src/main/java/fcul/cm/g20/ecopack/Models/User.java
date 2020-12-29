@@ -1,13 +1,14 @@
 package fcul.cm.g20.ecopack.Models;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fcul.cm.g20.ecopack.utils.Utils;
 
@@ -25,13 +26,15 @@ public class User {
     private long register_date; // SHOULD BE LOCALDATE
     private Bitmap picture;
     private int points;
-    private List<Prize> redeemedPrizes;
+    private ArrayList<String> redeemedPrizesIds;
+
+    // firebase
+    private final String fireBasePath;
 
     //region Constructors
     public User(DocumentSnapshot snapshot) {
 
         //List<Prize> list = snapshot.get("redeemed_prizes_ids");
-
         this(
                 (String) snapshot.get("username"),
                 (String) snapshot.get("email"),
@@ -44,13 +47,14 @@ public class User {
                 getIntFrom(snapshot.get("visits")),
                 getIntFrom(snapshot.get("comments")),
                 getLongFrom(snapshot.get("register_date")),
-                Utils.stringToBitmap((String) snapshot.get("points")),
+                Utils.stringToBitmap((String) snapshot.get("picture")),
                 getIntFrom(snapshot.get("points")),
-                new ArrayList<>()
+                (ArrayList<String>) snapshot.get("redeemed_prizes_ids"),
+                snapshot.getReference().getPath()
         );
     }
 
-    public User(String userName, String email, String password, String name, String phone, String gender, String birthday, String city, int visits, int comments, long register_date, Bitmap picture, int points, List<Prize> redeemedPrizes) {
+    public User(String userName, String email, String password, String name, String phone, String gender, String birthday, String city, int visits, int comments, long register_date, Bitmap picture, int points, ArrayList<String> redeemedPrizesIds, String fireBasePath) {
         this.userName = userName;
         this.email = email;
         this.password = password;
@@ -64,7 +68,8 @@ public class User {
         this.register_date = register_date;
         this.picture = picture;
         this.points = points;
-        this.redeemedPrizes = redeemedPrizes;
+        this.redeemedPrizesIds = redeemedPrizesIds;
+        this.fireBasePath = fireBasePath;
     }
     //endregion
 
@@ -77,15 +82,42 @@ public class User {
         boolean validPurchase = pointsLeft >= 0;
         if(validPurchase){
             this.points = pointsLeft;
-            redeemedPrizes.add(prizeModel);
+            redeemedPrizesIds.add(prizeModel.getTitle()); //CHANGE TO ID!!!!
         }
         return validPurchase;
     }
 
+    @SuppressLint("NewApi")
+    public Map<String, Object> getHashMap() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("userName", this.userName);
+        result.put("email", this.email);
+        result.put("password", this.password);
+        result.put("name", this.name);
+        result.put("phone", this.phone);
+        result.put("gender", this.gender);
+        result.put("birthday", this.birthday);
+        result.put("city", this.city);
+        result.put("visits", this.visits);
+        result.put("comments", this.comments);
+        result.put("register_date", this.register_date);
+        result.put("picture", (this.picture == null)? "N/A":Utils.bitmapToString(this.picture)); //I DON'T LIKE THIS
+        result.put("points", this.points);
+        result.put("redeemed_prizes_ids",  this.redeemedPrizesIds);
+        return result;
+    }
 
     //region Static methods
     private static int getIntFrom(Object o){
-        return (o != null)? (int)o : 0;
+        int result = 0;
+        if(o != null){
+            if(o instanceof Integer)
+                result = (int)o;
+            else if(o instanceof Long) {
+                result = ((Long)o).intValue();
+            }
+        }
+        return result;
     }
 
     private static long getLongFrom(Object o){
@@ -147,8 +179,12 @@ public class User {
         return points;
     }
 
-    public List<Prize> getRedeemedPrizes() {
-        return redeemedPrizes;
+    public List<String> getRedeemedPrizesIds() {
+        return redeemedPrizesIds;
+    }
+
+    public String getFireBasePath() {
+        return fireBasePath;
     }
     //endregion
 

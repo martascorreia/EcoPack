@@ -30,6 +30,7 @@ public class PrizeMapper {
         void onSuccess(List<Prize> prizes);
     }
 
+    // TODO: CHECK FOR NETWORK
     public static void getPrizes(final PrizeMapper.OnCompleteSuccessful callback){
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         database.collection("prizes")
@@ -50,6 +51,7 @@ public class PrizeMapper {
                 });
     }
 
+    // TODO: CHECK FOR NETWORK
     public static void savePrizes(List<Prize> prizes){
         List<Map<String, Object>> prizesMap = getHashMapList(prizes);
         FirebaseFirestore database = FirebaseFirestore.getInstance();

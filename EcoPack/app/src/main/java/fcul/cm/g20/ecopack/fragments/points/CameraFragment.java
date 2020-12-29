@@ -18,19 +18,30 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
+import fcul.cm.g20.ecopack.Mappers.UserMapper;
+import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.utils.Utils;
 
 public class CameraFragment extends Fragment {
 
+    // TODO: Very silly solution to avoid simple QR codes
+    private final static String PLASTIC_CODE = "MEsjlz8/icY3IkBimNebBI3UPhuD8XKfFXRCmKfkAus=";
+    private final static String PAPER_CODE = "AKXmbDmQMvAd55PbfzYQwIflLQw1M/bbTEahSb24CPw=";
+    private final static String REUSABLE_CODE = "zkI4Yz/RbxUvlXMz5BAAE04GCdPAIrynFT2ktn79o2M=";
+    private final static String BIO_CODE = "UZBxg+j7ZlI8n+6VUyugr1o0bxZPiELUHHKKmImXHPc=";
+
     private final int CAMERA_REQUESTE_CODE = 101;
     private CodeScanner codeScanner;
-    ImageButton backButton;
+    private ImageButton backButton;
 
-    OnBackButtonPressed backCallback;
+    private OnBackButtonPressed backCallback;
+    private User userModel;
 
-    public CameraFragment(OnBackButtonPressed callback) {
+    public CameraFragment(User user, OnBackButtonPressed callback) {
         backCallback = callback;
-     }
+        userModel = user;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,13 +69,13 @@ public class CameraFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                fm.popBackStack ("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 backCallback.onBack(null);
             }
         });
     }
 
-    public void codeScanner(){
+    public void codeScanner() {
         CodeScannerView scannerView = getView().findViewById(R.id.scanner_view);
         codeScanner = new CodeScanner(getContext(), scannerView);
 
@@ -74,7 +85,16 @@ public class CameraFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), result.getText(), Toast.LENGTH_SHORT).show();
+                        int points = decodePointsCode(result.getText());
+                        // UPDATE User
+                        if(userModel != null){
+                            userModel.addPoints(points);
+                            //save user
+                            UserMapper.updateUser(userModel, getContext());
+                        }
+                        Utils.showToast("Por usar este tipo de embalagem acabou de ganhar " + points + " pontos!!", getContext());
+
+                        //TODO: PERGUNTAR AO GRUPO SE QUEREM QUE A APP VOLTE PARA TRAS APOS A LEITURA DE QR CODE!
                     }
                 });
             }
@@ -87,10 +107,31 @@ public class CameraFragment extends Fragment {
         });
     }
 
+    private int decodePointsCode(String text) {
+        int result = 0;
+        if (text.equals(PLASTIC_CODE))
+            result = 1;
+        else if (text.equals(PAPER_CODE))
+            result = 2;
+        else if (text.equals(REUSABLE_CODE))
+            result = 4;
+        else if (text.equals(BIO_CODE))
+            result = 3;
+        return result;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         codeScanner.startPreview();
+        if(userModel==null){
+            // goBack
+            FragmentManager fm = getActivity()
+                    .getSupportFragmentManager();
+            fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            backCallback.onBack(null);
+        }
+
     }
 
     @Override

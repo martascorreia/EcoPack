@@ -1,5 +1,6 @@
 package fcul.cm.g20.ecopack;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -55,4 +56,12 @@ public class MainActivity extends AppCompatActivity {
     public ApplicationState getApplicationState() {
         return applicationState;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                 Intent resultData) {
+        // THIS WILL CALL THE onActivityResult(...) IN THE FRAGMENT THAT INITIATED THE ACTIVITY
+        super.onActivityResult(requestCode, resultCode, resultData);
+    }
+
 }

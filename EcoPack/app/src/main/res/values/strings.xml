@@ -51,4 +51,10 @@
     <string name="general_view">Vista Geral</string>
     <string name="comment">Comentar...</string>
     <string name="register_date">Data de Registo</string>
+
+
+    <string name="prize_code_email_text">Parabés </string>
+    <string name="prize_code_email_subject">Codigo de produto: </string>
+
+
 </resources>

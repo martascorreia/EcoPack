@@ -46,6 +46,9 @@ public class PrizesAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
         holder.getTitle().setText(currentItem.getTitle());
         holder.getImage().setImageBitmap(currentItem.getImage());
         holder.getCost().setText(currentItem.getCost()+" Pontos");
+        if(currentItem.isDisabled()){
+            holder.disable();
+        }
     }
 
     @Override
