@@ -43,7 +43,6 @@ import fcul.cm.g20.ecopack.utils.Utils;
 public class PointsFragment extends Fragment {
 
     private FloatingActionButton addPointsButton;
-    private int userPoints = 0;
     private final int CAMERA_REQUEST_CODE = 98;
 
     View pointsFragmentView;
@@ -72,7 +71,7 @@ public class PointsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LoadCameraFragment();
+        //LoadCameraFragment();
     }
 
     private void LoadCameraFragment(){
@@ -85,11 +84,7 @@ public class PointsFragment extends Fragment {
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
                 }
 
-                // FOR DEBUG
-                if(user!=null)
-                    user.addPoints(10);
-
-                CameraFragment cameraFragment = new CameraFragment(backListener);
+                CameraFragment cameraFragment = new CameraFragment(user, backListener);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_points, cameraFragment)
                         .addToBackStack("points")
@@ -105,17 +100,20 @@ public class PointsFragment extends Fragment {
             // filter all prizes already bought
             List<Prize> prizesToShow = prizes.stream()
                     .filter(prize ->
-                            user.getRedeemedPrizes() == null ||
-                            user.getRedeemedPrizes().isEmpty() ||
-                            user.getRedeemedPrizes()
+                            user.getRedeemedPrizesIds() == null ||
+                            user.getRedeemedPrizesIds().isEmpty() ||
+                            user.getRedeemedPrizesIds()
                                     .stream()
-                                    .anyMatch(redeemedPrize -> ! redeemedPrize.getTitle().equals(prize.getTitle())))
+                                    .allMatch(redeemedPrizeId ->!redeemedPrizeId.equals(prize.getTitle())))
                     .collect(Collectors.toList());
+
+            // Disable prizes that the user can't buy
+            prizesToShow.forEach(prize -> prize.setIsDisable( prize.getCost() > user.getPoints() ));
 
             // get the reference of RecyclerView
             RecyclerView gridRecyclerView = (RecyclerView) pointsFragmentView.findViewById(R.id.grid_points_prizes_container);
 
-            // set a GridLayoutManager with 3 number of columns , horizontal gravity and false value for reverseLayout to show the items from start to end
+            // set a GridLayoutManager with 2 number of columns , horizontal gravity and false value for reverseLayout to show the items from start to end
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
             gridRecyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
 
@@ -154,7 +152,6 @@ public class PointsFragment extends Fragment {
         prizeModels.add(new Prize("Pizza", 4, pizza_Icon));
         prizeModels.add(new Prize("Starbucks", 3, starbucks_Icon));
 
-        userPoints = 16;
         return prizeModels;
     }
 
@@ -177,7 +174,7 @@ public class PointsFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
         final String username = sharedPreferences.getString("username", "");
 
-        UserMapper.getUserByUserName(username, new UserMapper.OnCompleteSuccessful() {
+        UserMapper.getUserByUserName(username, getContext(), new UserMapper.OnCompleteSuccessful() {
             @Override
             public void onSuccess(User u) {
                 if (u == null)
@@ -189,21 +186,22 @@ public class PointsFragment extends Fragment {
                     userWalletValue.setText(user.getPoints() + " Pontos");
                     // get prizes for user
                     getPrizes();
+                    // set camera
+                    LoadCameraFragment();
                 }
             }
         });
     }
 
     private void onBackActions(User u) {
-        if(u!=null)
-            this.user = u;
+        // get user again from firebase;
+        getUserInfo();
+    }
 
-        if(this.user != null){
-            // set user wallet info
-            TextView userWalletValue = getView().findViewById(R.id.points_userWalletValue);
-            userWalletValue.setText(user.getPoints() + " Pontos");
-        } else{
-            getUserInfo();
-        }
+    @Override
+    public void onResume() {
+        // get user again from firebase;
+        getUserInfo();
+        super.onResume();
     }
 }

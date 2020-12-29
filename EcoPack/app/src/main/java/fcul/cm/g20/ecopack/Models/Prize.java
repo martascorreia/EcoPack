@@ -21,6 +21,7 @@ public class Prize {
     private String title;
     private Bitmap image;
     private int cost;
+    private boolean isDisable;
 
     @SuppressLint("NewApi")
     public Prize(DocumentSnapshot snapshot) {
@@ -35,6 +36,7 @@ public class Prize {
         this.title = title;
         this.image = image;
         this.cost = cost;
+        this.isDisable = false;
     }
 
     public String getTitle() {
@@ -68,5 +70,22 @@ public class Prize {
         result.put("image", Utils.bitmapToString(image));
 
         return result;
+    }
+
+    public String generateCode() {
+        // TODO: Encrypt ?
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.title + "\n");
+        builder.append("Company: SunnyDelight" + "\n");
+        builder.append("ValidationDate: 01/02/21"+ "\n");
+        return builder.toString();
+    }
+
+    public boolean isDisabled() {
+        return this.isDisable;
+    }
+
+    public void setIsDisable(boolean value) {
+        this.isDisable = value;
     }
 }

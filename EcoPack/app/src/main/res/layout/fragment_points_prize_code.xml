@@ -97,10 +97,11 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/points_prizeCode_codeText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="OUA0S9D89S8898%$DADSALID09AA0S9DA9ÇASKDÇSADSADA"
+                android:text=""
                 android:textSize="@dimen/_16sdp"
                 android:textStyle="bold" />
         </LinearLayout>

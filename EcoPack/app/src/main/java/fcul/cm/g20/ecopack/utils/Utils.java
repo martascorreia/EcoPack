@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.widget.Toast;
 
@@ -53,7 +55,21 @@ public class Utils {
         return android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT);
     }
 
+    // MAYBE CHANGE TO OTHER CLASS?
     public static void showToast(String message, Context ctx) {
         Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivity == null) return false;
+        else {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            for (NetworkInfo networkInfo : info)
+                if (networkInfo.getState() == NetworkInfo.State.CONNECTED) return true;
+        }
+
+        return false;
     }
 }
