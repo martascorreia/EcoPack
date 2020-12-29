@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import fcul.cm.g20.ecopack.Models.User;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,12 +22,22 @@ public class TreeFragment extends Fragment {
 
     private FloatingActionButton histBt;
     private FloatingActionButton infoBt;
+    private User user;
+    private TextView pontosArvore;
+    private ImageView img;
+    private int value = -50;//VARIÁVEL QUE ESTÁ A DAR PONTOS TEMPORARIAMENTE -> PASSAR PARA O VALOR QUE VEM DA FIREBASE DEPOIS
+    private String data;
+    private String nivel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // INFLATE THE LAYOUT TO THIS BUTTON
         View view = inflater.inflate(R.layout.fragment_tree, container, false);
+        /*pontosArvore = view.findViewById(R.id.pontosarvore);
+        nivel = "";
+        data = nivel;
+        pontosArvore.setText(data);//VAI DISPOR NO ECRÃ OS PONTOS NO ECRÃ*/
         return view;
     }
 
@@ -33,7 +46,11 @@ public class TreeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         historyPage();
         informationPage();
+        mudaArvore();
+
     }
+
+
 
     //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
     private void historyPage(){
@@ -64,5 +81,40 @@ public class TreeFragment extends Fragment {
                         .commit();
             }
         });
+    }
+
+    private void mudaArvore(){
+        //TEXT COM OS PONTOS
+        pontosArvore = getView().findViewById(R.id.pontosarvore);
+        img = getView().findViewById(R.id.image_tree);
+        if (value > 0 && value <=50){
+            nivel = "Muito bem! Vais num bom caminho.";
+
+            data = nivel;
+            pontosArvore.setText(data);
+            img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorep));
+
+        }else if (value < 0 && value >= -50){
+            nivel = "Não tens optado pelas melhores escolhas, mas ainda vais a tempo de mudar!";
+
+            data = nivel;
+            pontosArvore.setText(data);
+            img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorene));
+        } else if (value < -50){
+            nivel = "Esta semana não estás a fazer as escolhas mais corretas. Vamos mudar isso?";
+
+            data = nivel;
+            pontosArvore.setText(data);
+            img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvoreh));
+        }else if (value >50){
+            nivel = "Excelente! Continua assim!";
+            data = nivel;
+            pontosArvore.setText(data);
+            img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorep));//ALTERAR DEPOIS PARA O NOME DA IMAGEM ALTERADA DO NÍVEL EXCELENTE
+
+        }
+
+
+
     }
 }

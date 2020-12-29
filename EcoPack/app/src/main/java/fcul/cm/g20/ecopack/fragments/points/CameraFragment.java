@@ -26,6 +26,12 @@ public class CameraFragment extends Fragment {
     private CodeScanner codeScanner;
     ImageButton backButton;
 
+    OnBackButtonPressed backCallback;
+
+    public CameraFragment(OnBackButtonPressed callback) {
+        backCallback = callback;
+     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +59,7 @@ public class CameraFragment extends Fragment {
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
                 fm.popBackStack ("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                backCallback.onBack(null);
             }
         });
     }

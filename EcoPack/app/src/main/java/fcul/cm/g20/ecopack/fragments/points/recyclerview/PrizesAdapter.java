@@ -8,9 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.points.model.Prize;
+import fcul.cm.g20.ecopack.Models.Prize;
 
 public class PrizesAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
     public interface OnPrizeClickListener {
@@ -18,10 +19,10 @@ public class PrizesAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
     }
 
     private OnPrizeClickListener onPrizeClickListener;
-    private LinkedList<Prize> prizes;
+    private List<Prize> prizeModels;
 
-    public PrizesAdapter(LinkedList<Prize> Prizes) {
-        this.prizes = Prizes;
+    public PrizesAdapter(List<Prize> prizeModels) {
+        this.prizeModels = prizeModels;
     }
 
     public void setOnPrizeClickListener(OnPrizeClickListener onPrizeClickListener) {
@@ -29,7 +30,7 @@ public class PrizesAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
     }
 
     public Prize getPrize(int position) {
-        return this.prizes.get(position);
+        return this.prizeModels.get(position);
     }
 
     @NonNull
@@ -41,7 +42,7 @@ public class PrizesAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PrizeViewHolder holder, int position) {
-        Prize currentItem = prizes.get(position);
+        Prize currentItem = prizeModels.get(position);
         holder.getTitle().setText(currentItem.getTitle());
         holder.getImage().setImageBitmap(currentItem.getImage());
         holder.getCost().setText(currentItem.getCost()+" Pontos");
@@ -49,6 +50,6 @@ public class PrizesAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
 
     @Override
     public int getItemCount() {
-        return prizes.size();
+        return prizeModels.size();
     }
 }

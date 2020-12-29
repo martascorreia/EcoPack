@@ -8,14 +8,28 @@
     android:id="@+id/fragment_tree">
 
     <ImageView
-        android:id="@+id/image_package"
-        android:layout_width="400dp"
-        android:layout_height="530dp"
+        android:id="@+id/image_tree"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="152dp"
         android:layout_marginEnd="5dp"
-        android:src="@drawable/ic_tree_temp"
+        android:src="@drawable/ic_arvoren"
         android:contentDescription="@string/tree" />
+
+
+    <TextView
+        android:id="@+id/pontosarvore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_55sdp"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="normal"
+
+        android:layout_gravity="top|center"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_info"

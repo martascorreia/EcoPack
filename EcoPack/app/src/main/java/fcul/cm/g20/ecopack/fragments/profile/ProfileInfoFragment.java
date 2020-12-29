@@ -17,6 +17,8 @@ import fcul.cm.g20.ecopack.R;
 public class ProfileInfoFragment extends Fragment {
     DocumentSnapshot userDocument;
 
+    public ProfileInfoFragment(){};
+
     public ProfileInfoFragment(DocumentSnapshot userDocument) {
         this.userDocument = userDocument;
     }

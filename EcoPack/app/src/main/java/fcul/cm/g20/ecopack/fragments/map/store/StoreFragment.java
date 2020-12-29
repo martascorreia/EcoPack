@@ -38,7 +38,7 @@ public class StoreFragment extends Fragment {
     FirebaseFirestore database;
 
     public StoreFragment() {}
-
+    
     public StoreFragment(DocumentSnapshot storeDocument) {
         this.storeDocument = storeDocument;
     }
