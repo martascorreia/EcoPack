@@ -13,11 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.adapter.ImageAdapter;
@@ -40,7 +39,7 @@ public class StoreInfoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View storeFragment = inflater.inflate(R.layout.fragment_company_general_view, container, false);
+        View storeFragment = inflater.inflate(R.layout.fragment_store_info_view, container, false);
         return storeFragment;
     }
 
@@ -51,40 +50,36 @@ public class StoreInfoFragment extends Fragment {
     }
 
     private void setupFragment() {
-        database.collection("stores")
-                .whereEqualTo("name", storeDocument.get("name"))
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            storeDocument = task.getResult().getDocuments().get(0);
 
-                            TextView address = getView().findViewById(R.id.company_address);
-                            address.setText((String) storeDocument.get("address"));
+        TextView address = getView().findViewById(R.id.store_address);
+        address.setText((String) storeDocument.get("address"));
 
-                            TextView schedule = getView().findViewById(R.id.company_schedule);
-                            schedule.setText((String) storeDocument.get("schedule"));
+        TextView schedule = getView().findViewById(R.id.store_schedule);
+        schedule.setText((String) storeDocument.get("schedule"));
 
-                            TextView email = getView().findViewById(R.id.company_email);
-                            email.setText((String) storeDocument.get("email"));
+        TextView email = getView().findViewById(R.id.store_email);
+        email.setText((String) storeDocument.get("email"));
 
-                            TextView website = getView().findViewById(R.id.company_website);
-                            website.setText((String) storeDocument.get("website"));
+        TextView website = getView().findViewById(R.id.store_website);
+        website.setText((String) storeDocument.get("website"));
 
-                            TextView phone = getView().findViewById(R.id.company_phone);
-                            phone.setText((String) storeDocument.get("phone"));
-                        }
-                    }
-                });
+        TextView phone = getView().findViewById(R.id.store_phone);
+        phone.setText((String) storeDocument.get("phone"));
 
-        int [] images = new int[] {R.drawable.maria_granel, R.drawable.maria_granel_2,  R.drawable.maria_granel_3,  R.drawable.maria_granel_4};
+        Map<String, Object> photos = (Map<String, Object>) storeDocument.get("photos");
+
+        // either puts the photos or a text N/A
         ViewPager viewPager = getView().findViewById(R.id.view_pager);
-        ImageAdapter imageAdapter = new ImageAdapter(getContext(), images);
-        viewPager.setAdapter(imageAdapter);
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        TextView photosText = getView().findViewById(R.id.store_photos);
+        if(photos != null){
+            viewPager.setVisibility(View.VISIBLE);
+            photosText.setVisibility(View.INVISIBLE);
+            ImageAdapter imageAdapter = new ImageAdapter(getContext(), photos);
+            viewPager.setAdapter(imageAdapter);
+        } else {
+            viewPager.setVisibility(View.INVISIBLE);
+            photosText.setVisibility(View.VISIBLE);
+            photosText.setText("N/A");
+        }
     }
 }

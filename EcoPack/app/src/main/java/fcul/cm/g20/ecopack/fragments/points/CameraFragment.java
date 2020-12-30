@@ -43,8 +43,6 @@ public class CameraFragment extends Fragment {
         userModel = user;
     }
 
-    OnBackButtonPressed backCallback;
-
     public CameraFragment(OnBackButtonPressed callback) {
         backCallback = callback;
      }

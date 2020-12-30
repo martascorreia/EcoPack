@@ -8,20 +8,22 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import java.util.Map;
+
 import fcul.cm.g20.ecopack.R;
 
 public class ImageAdapter extends PagerAdapter {
     private Context context;
-    private int[] images;
+    private Map<String, Object> images;
 
-    public ImageAdapter(Context cont, int[] imgs) {
+    public ImageAdapter(Context cont, Map<String, Object> imgs) {
         context = cont;
         images = imgs;
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        return images.size();
     }
 
     @Override
@@ -34,7 +36,7 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(images[position]);
+        imageView.setImageResource(Integer.parseInt((String) images.get("photo" + position)));
         container.addView(imageView, 0);
         return imageView;
     }

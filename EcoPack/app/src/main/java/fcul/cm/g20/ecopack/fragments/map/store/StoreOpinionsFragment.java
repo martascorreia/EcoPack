@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,6 +40,7 @@ import java.util.Map;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.adapter.Comment;
 import fcul.cm.g20.ecopack.fragments.map.store.adapter.CommentAdapter;
+import fcul.cm.g20.ecopack.utils.Utils;
 
 public class StoreOpinionsFragment extends Fragment {
 
@@ -57,7 +57,7 @@ public class StoreOpinionsFragment extends Fragment {
     }
 
     public StoreOpinionsFragment(DocumentSnapshot storeDoc) {
-       storeDocument = storeDoc;
+        storeDocument = storeDoc;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class StoreOpinionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_company_opinions, container, false);
+        View view = inflater.inflate(R.layout.fragment_store_opinions, container, false);
         return view;
     }
 
@@ -77,6 +77,9 @@ public class StoreOpinionsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // GETS USER DOCUMENT
+        updateUserDocument();
 
         // OLD COMMENTS + NEW COMMENT
         comments();
@@ -236,19 +239,15 @@ public class StoreOpinionsFragment extends Fragment {
 
     private void comments() {
         final EditText text = getView().findViewById(R.id.comment);
-
         // ADD OLD COMMENTS
         addComments();
-
-        // GET USER DOCUMENT
-        updateUserDocument();
 
         // PUBLISH COMMENT
         getView().findViewById(R.id.send_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (text.getText().toString().length() == 0)
-                    showToast("Por favor, faça um comentário antes de publicar...");
+                    Utils.showToast("Por favor, faça um comentário antes de publicar...", getContext());
                 else {
                     final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
                     progressDialog.setMessage("A public comentário...");
@@ -259,7 +258,7 @@ public class StoreOpinionsFragment extends Fragment {
                     // GET OLD COMMENTS
                     List<Map<String, Object>> comments = new ArrayList<>();
                     List<Map<String, Object>> oldComments = (List<Map<String, Object>>) storeDocument.get("comments");
-                    if (!oldComments.isEmpty()){
+                    if (oldComments != null){
                         for(int i = 0; i < oldComments.size(); i++){
                             comments.add(oldComments.get(i));
                         }
@@ -296,33 +295,30 @@ public class StoreOpinionsFragment extends Fragment {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         progressDialog.dismiss();
-                                        showToast("Comentário publicado com sucesso!");
+                                        Utils.showToast("Comentário publicado com sucesso!", getContext());
                                         text.setText("");
 
                                         // ADD COMMENT TO LAYOUT
                                         addComment(comment);
-
-                                        //UPDATE STORE DOCUMENT
-                                        updateStoreDocument();
-
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         progressDialog.dismiss();
-                                        showToast("Não foi possível publicar o seu comentário. Por favor, tente mais tarde.");
+                                        Utils.showToast("Não foi possível publicar o seu comentário. Por favor, tente mais tarde.", getContext());
                                     }
                                 });
                     } else {
                         progressDialog.dismiss();
-                        showToast("Não foi possível publicar o seu comentário. Por favor, verifique a sua conexão à Internet.");
+                        Utils.showToast("Não foi possível publicar o seu comentário. Por favor, verifique a sua conexão à Internet.", getContext());
                     }
                 }
             }
         });
     }
 
+    // colocar no construtor
     private void updateUserDocument() {
         // GET CURRENT USER
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
@@ -342,20 +338,6 @@ public class StoreOpinionsFragment extends Fragment {
                 });
     }
 
-    private void updateStoreDocument() {
-        database.collection("stores")
-                .whereEqualTo("name", storeDocument.get("name"))
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            storeDocument = task.getResult().getDocuments().get(0);
-                        }
-                    }
-                });
-    }
-
     private void addComments() {
         recyclerView = getView().findViewById(R.id.comments_container);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -365,7 +347,7 @@ public class StoreOpinionsFragment extends Fragment {
 
         // GET OLD COMMENTS
         List<Map<String, Object>> oldComments = (List<Map<String, Object>>) storeDocument.get("comments");
-        if (!oldComments.isEmpty()) {
+        if (oldComments != null) {
             for (int i = 0; i < oldComments.size(); i++) {
                 Map<String, Object> oldComment = oldComments.get(i);
 
@@ -396,15 +378,6 @@ public class StoreOpinionsFragment extends Fragment {
         }
 
         rv_comments.add(new Comment(com, drawable, avatar, user, date, name));
-    }
-
-
-    private int getAvatar(String user) {
-        return 0;
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public boolean isNetworkAvailable(Context context) {

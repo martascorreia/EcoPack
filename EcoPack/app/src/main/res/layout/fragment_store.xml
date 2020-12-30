@@ -38,7 +38,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/company_title"
+                    android:id="@+id/store_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -72,7 +72,7 @@
                 android:layout_below="@id/profile_header">
 
                 <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/layout_company_tabs"
+                    android:id="@+id/layout_store_tabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -83,7 +83,7 @@
                         android:text="@string/general_view" />
 
                     <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_company_opinions"
+                        android:id="@+id/tab_store_opinions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/opinions" />
@@ -93,7 +93,7 @@
                     android:id="@+id/tab_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_company_tabs"
+                    android:layout_below="@id/layout_store_tabs"
                     android:background="@color/white_smoke"/>
             </RelativeLayout>
         </LinearLayout>

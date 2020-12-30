@@ -49,7 +49,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/company_address"
+                        android:id="@+id/store_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/store_info_address_1"
@@ -92,7 +92,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/company_schedule"
+                        android:id="@+id/store_schedule"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/store_info_schedule_1"
@@ -135,7 +135,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/company_email"
+                        android:id="@+id/store_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/store_info_email_1"
@@ -178,7 +178,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/company_phone"
+                        android:id="@+id/store_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/store_info_phone_1"
@@ -221,7 +221,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/company_website"
+                        android:id="@+id/store_website"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/store_info_website_1"
@@ -255,6 +255,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_250sdp"
                     android:layout_marginBottom="@dimen/_60sdp"/>
+
+                <TextView
+                    android:id="@+id/store_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/store_info_galery_text"
+                    android:maxLines="2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

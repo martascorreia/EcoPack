@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,9 @@ import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,6 +47,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.fragments.map.store.adapter.ImageAdapter;
+import fcul.cm.g20.ecopack.fragments.map.store.adapter.PreviewImageAdapter;
 
 // TODO: TRATAR DA ROTAÇÃO E CRIAR LISTENER PARA RETER AS COORDENADAS E A ADDRESS
 // TODO: ARRANJAR FORMA DO UTILIZADOR NÃO PODER FAZER ONBACKPRESSED DEPOIS DE ENVIAR O PEDIDO À FIREBASE
@@ -245,7 +251,7 @@ public class CreateStoreFragment extends Fragment {
                     } else store.put("photos", null);
 
                     // COMMENTS
-                    store.put("comments", new ArrayList<>());
+                    store.put("comments", null);
 
                     // REGISTER DATE
                     store.put("register_date", System.currentTimeMillis());
@@ -313,6 +319,12 @@ public class CreateStoreFragment extends Fragment {
                 ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
                 while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
                 photos.add(android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT));
+
+                RecyclerView recyclerView = getView().findViewById(R.id.photos_container);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos);
+                recyclerView.setAdapter(previewImageAdapter);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
