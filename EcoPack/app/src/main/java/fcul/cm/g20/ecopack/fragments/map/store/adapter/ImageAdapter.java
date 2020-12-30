@@ -1,6 +1,8 @@
 package fcul.cm.g20.ecopack.fragments.map.store.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,7 +38,12 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(Integer.parseInt((String) images.get("photo" + position)));
+
+        byte[] photo = android.util.Base64.decode((String) images.get("photo" + position), android.util.Base64.DEFAULT);
+
+        Bitmap bmp = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false));
+
         container.addView(imageView, 0);
         return imageView;
     }
