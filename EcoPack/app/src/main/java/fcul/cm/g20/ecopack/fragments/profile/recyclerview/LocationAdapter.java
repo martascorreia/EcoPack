@@ -1,14 +1,16 @@
 package fcul.cm.g20.ecopack.fragments.profile.recyclerview;
 
-import android.util.Pair;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import fcul.cm.g20.ecopack.R;
 
@@ -17,15 +19,13 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
         void onLocationClick(int position);
     }
 
+    private Context context;
     private OnLocationClickListener onLocationClickListener;
-    private LinkedList<Pair<String, String>> locationsList;
+    private ArrayList<HashMap<String, String>> userVisits;
 
-    public LocationAdapter(LinkedList<Pair<String, String>> locationsList) {
-        this.locationsList = locationsList;
-    }
-
-    public void setOnLocationClickListener(OnLocationClickListener onLocationClickListener) {
-        this.onLocationClickListener = onLocationClickListener;
+    public LocationAdapter(Context context, ArrayList<HashMap<String, String>> userVisits) {
+        this.context = context;
+        this.userVisits = userVisits;
     }
 
     @NonNull
@@ -37,13 +37,28 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-        Pair<String, String> currentItem = locationsList.get(position);
-        holder.getLocationName().setText(currentItem.first);
-        holder.getVisitDate().setText(currentItem.second);
+        HashMap<String, String> currentItem = userVisits.get(position);
+
+        holder.getLocationName().setText(currentItem.get("store_name"));
+        holder.getLocationDate().setText(currentItem.get("visit_date"));
+
+        String marker = currentItem.get("visit_marker");
+        if (marker.equals("0")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_home_round));
+        else if (marker.equals("1")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_home_round));
+        else if (marker.equals("2")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_home_round));
+        else if (marker.equals("3")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_home_round));
+        else if (marker.equals("4")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_round));
+        else if (marker.equals("5")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_round));
+        else if (marker.equals("6")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_round));
+        else if (marker.equals("7")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_round));
     }
 
     @Override
     public int getItemCount() {
-        return locationsList.size();
+        return userVisits.size();
+    }
+
+    public void setOnLocationClickListener(OnLocationClickListener onLocationClickListener) {
+        this.onLocationClickListener = onLocationClickListener;
     }
 }

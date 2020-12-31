@@ -43,11 +43,6 @@ import fcul.cm.g20.ecopack.R;
 
 public class ProfileSettingsFragment extends Fragment {
     private FirebaseFirestore database;
-    private DocumentSnapshot userDocument;
-
-    public ProfileSettingsFragment(DocumentSnapshot userDocument) {
-        this.userDocument = userDocument;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,6 +58,7 @@ public class ProfileSettingsFragment extends Fragment {
     }
 
     private void setupFragment(View profileSettingsFragment) {
+        /*
         String picture = (String) userDocument.get("picture");
         CircleImageView circleImageView = profileSettingsFragment.findViewById(R.id.edit_user_picture);
         if (picture.equals("N/A")) circleImageView.setImageResource(R.drawable.ic_user_empty);
@@ -163,6 +159,7 @@ public class ProfileSettingsFragment extends Fragment {
                         .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
+         */
     }
 
     private void showToast(String message) {

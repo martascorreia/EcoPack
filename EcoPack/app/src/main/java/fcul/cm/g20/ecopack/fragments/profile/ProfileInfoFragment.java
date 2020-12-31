@@ -6,16 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.firebase.firestore.DocumentSnapshot;
+import java.util.Calendar;
 
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 
-// TODO: HANDLE VISITS/COMMENTS HASHMAP
-
 public class ProfileInfoFragment extends Fragment {
-    DocumentSnapshot userDocument;
+    private MainActivity mainActivity;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,30 +32,43 @@ public class ProfileInfoFragment extends Fragment {
 
     private void setupFragment(View profileInfoFragment) {
         TextView name = profileInfoFragment.findViewById(R.id.profile_info_name_text);
-        name.setText((String) userDocument.get("name"));
+        name.setText(mainActivity.userName);
 
         TextView email = profileInfoFragment.findViewById(R.id.profile_info_email_text);
-        email.setText((String) userDocument.get("email"));
+        email.setText(mainActivity.userEmail);
 
         TextView phone = profileInfoFragment.findViewById(R.id.profile_info_phone_text);
-        phone.setText((String) userDocument.get("phone"));
+        phone.setText(mainActivity.userPhone);
 
         TextView gender = profileInfoFragment.findViewById(R.id.profile_info_gender_text);
-        gender.setText((String) userDocument.get("gender"));
+        gender.setText(mainActivity.userGender);
 
         TextView birthday = profileInfoFragment.findViewById(R.id.profile_info_birthday_text);
-        birthday.setText((String) userDocument.get("birthday"));
+        birthday.setText(mainActivity.userBirthday);
 
         TextView city = profileInfoFragment.findViewById(R.id.profile_info_city_text);
-        city.setText((String) userDocument.get("city"));
+        city.setText(mainActivity.userCity);
 
         TextView visits = profileInfoFragment.findViewById(R.id.profile_info_visits_text);
-        visits.setText("0");
+        visits.setText(mainActivity.userVisits.size() + "");
 
         TextView comments = profileInfoFragment.findViewById(R.id.profile_info_comments_text);
-        comments.setText("1");
+        comments.setText(mainActivity.userComments.size() + "");
 
         TextView registerDate = profileInfoFragment.findViewById(R.id.profile_info_register_text);
-        registerDate.setText(String.valueOf((long) userDocument.get("register_date")));
+        StringBuilder stringBuilder = new StringBuilder();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(mainActivity.userRegisterDate);
+        stringBuilder.append(calendar.get(Calendar.DAY_OF_MONTH));
+        stringBuilder.append("/");
+        stringBuilder.append(calendar.get(Calendar.MONTH));
+        stringBuilder.append("/");
+        stringBuilder.append(calendar.get(Calendar.YEAR));
+        stringBuilder.append(" ");
+        stringBuilder.append(calendar.get(Calendar.HOUR_OF_DAY));
+        stringBuilder.append(":");
+        int minutes = calendar.get(Calendar.MINUTE);
+        stringBuilder.append((minutes < 10) ? "0" + minutes : minutes + "");
+        registerDate.setText(stringBuilder.toString());
     }
 }

@@ -1,6 +1,5 @@
 package fcul.cm.g20.ecopack;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,15 +11,49 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+// TODO: userVisits: ID DA LOJA, MARKER, DATA
+// TODO: userComments: ID DO COMENTÁRIO (PRESENTE NUMA DADA LOJA), ID DO USER, ID DA LOJA, CONTEÚDO, DATA, MARKER
+
 public class MainActivity extends AppCompatActivity {
-    private ApplicationState applicationState = null;
+    public String userPicture;
+    public String userUsername;
+    public String userPassword;
+    public String userName;
+    public String userEmail;
+    public String userPhone;
+    public String userGender;
+    public String userBirthday;
+    public String userCity;
+    public long userRegisterDate;
+    public long userPoints;
+    public ArrayList<String> userRedeemedPrizes;
+    public ArrayList<HashMap<String, String>> userVisits;
+    public ArrayList<HashMap<String, String>> userComments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (applicationState == null) applicationState = new ApplicationState();
+        if (savedInstanceState != null) {
+            userPicture = savedInstanceState.getString("userPicture");
+            userUsername = savedInstanceState.getString("userUsername");
+            userPassword = savedInstanceState.getString("userPassword");
+            userName = savedInstanceState.getString("userName");
+            userEmail = savedInstanceState.getString("userEmail");
+            userPhone = savedInstanceState.getString("userPhone");
+            userGender = savedInstanceState.getString("userGender");
+            userBirthday = savedInstanceState.getString("userBirthday");
+            userCity = savedInstanceState.getString("userCity");
+            userRegisterDate = savedInstanceState.getLong("userRegisterDate");
+            userPoints = savedInstanceState.getLong("userPoints");
+            userRedeemedPrizes = (ArrayList<String>) savedInstanceState.getSerializable("userRedeemedPrizes");
+            userVisits = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userVisits");
+            userComments = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userComments");
+        }
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -41,27 +74,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        // SERIALIZE THE APPLICATION STATE OBJECT
-
+        outState.putString("userPicture", userPicture);
+        outState.putString("userUsername", userUsername);
+        outState.putString("userPassword", userPassword);
+        outState.putString("userName", userName);
+        outState.putString("userEmail", userEmail);
+        outState.putString("userPhone", userPhone);
+        outState.putString("userGender", userGender);
+        outState.putString("userBirthday", userBirthday);
+        outState.putString("userCity", userCity);
+        outState.putLong("userRegisterDate", userRegisterDate);
+        outState.putLong("userPoints", userPoints);
+        outState.putSerializable("userRedeemedPrizes", userRedeemedPrizes);
+        outState.putSerializable("userVisits", userVisits);
+        outState.putSerializable("userComments", userComments);
         super.onSaveInstanceState(outState);
     }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        // DESERIALIZE THE APPLICATION STATE OBJECT
-
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    public ApplicationState getApplicationState() {
-        return applicationState;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode,
-                                 Intent resultData) {
-        // THIS WILL CALL THE onActivityResult(...) IN THE FRAGMENT THAT INITIATED THE ACTIVITY
-        super.onActivityResult(requestCode, resultCode, resultData);
-    }
-
 }

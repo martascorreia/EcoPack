@@ -24,21 +24,24 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import fcul.cm.g20.ecopack.LoginActivity;
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
-// TODO (OPTIMIZATION): RETRIEVE INFORMATION FROM DOCUMENT THAT IS LOADED ON LOGIN OR WHEN ENTERING THE MAP, IDK
-
 public class ProfileFragment extends Fragment {
+    private MainActivity mainActivity;
     private FirebaseFirestore database;
-    private DocumentSnapshot userDocument;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
         database = FirebaseFirestore.getInstance();
     }
 
@@ -59,7 +62,7 @@ public class ProfileFragment extends Fragment {
                 getActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_profile, new ProfileSettingsFragment(userDocument))
+                        .replace(R.id.fragment_profile, new ProfileSettingsFragment())
                         .addToBackStack("profile")
                         .commit();
             }
@@ -91,9 +94,23 @@ public class ProfileFragment extends Fragment {
                         if (task.isSuccessful()) {
                             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 
-                            userDocument = task.getResult().getDocuments().get(0);
+                            DocumentSnapshot userDocument = task.getResult().getDocuments().get(0);
+                            mainActivity.userPicture = (String) userDocument.get("picture");
+                            mainActivity.userUsername = (String) userDocument.get("username");
+                            mainActivity.userPassword = (String) userDocument.get("password");
+                            mainActivity.userName = (String) userDocument.get("name");
+                            mainActivity.userEmail = (String) userDocument.get("email");
+                            mainActivity.userPhone = (String) userDocument.get("phone");
+                            mainActivity.userGender = (String) userDocument.get("gender");
+                            mainActivity.userBirthday = (String) userDocument.get("birthday");
+                            mainActivity.userCity = (String) userDocument.get("city");
+                            mainActivity.userRegisterDate = (long) userDocument.get("register_date");
+                            mainActivity.userPoints = (long) userDocument.get("points");
+                            mainActivity.userRedeemedPrizes = (ArrayList<String>) userDocument.get("redeemed_prizes");
+                            mainActivity.userVisits = (ArrayList<HashMap<String, String>>) userDocument.get("visits");
+                            mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
 
-                            String picture = (String) userDocument.get("picture");
+                            String picture = mainActivity.userPicture;
                             CircleImageView circleImageView = profileFragment.findViewById(R.id.profile_image);
                             if (picture.equals("N/A")) circleImageView.setImageResource(R.drawable.ic_user_empty);
                             else {
@@ -101,12 +118,10 @@ public class ProfileFragment extends Fragment {
                                 Bitmap pictureBitmap = BitmapFactory.decodeByteArray(pictureArray, 0, pictureArray.length);
                                 circleImageView.setImageBitmap(pictureBitmap);
                             }
-
                             TextView username = profileFragment.findViewById(R.id.profile_username);
-                            username.setText((String) userDocument.get("username"));
-
+                            username.setText(mainActivity.userUsername);
                             TextView city = profileFragment.findViewById(R.id.profile_header_city);
-                            city.setText((String) userDocument.get("city"));
+                            city.setText(mainActivity.userCity);
 
                             getActivity()
                                     .getSupportFragmentManager()
@@ -129,8 +144,8 @@ public class ProfileFragment extends Fragment {
 
                 int position = tab.getPosition();
                 if (position == 0) fragment = new ProfileInfoFragment();
-                else if (position == 1) fragment = new ProfileLocationsFragment(userDocument);
-                else fragment = new ProfileOpinionsFragment(userDocument);
+                else if (position == 1) fragment = new ProfileLocationsFragment();
+                else fragment = new ProfileCommentsFragment();
 
                 getActivity()
                         .getSupportFragmentManager()

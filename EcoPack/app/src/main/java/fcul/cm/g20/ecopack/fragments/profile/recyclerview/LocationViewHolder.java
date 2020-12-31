@@ -1,6 +1,7 @@
 package fcul.cm.g20.ecopack.fragments.profile.recyclerview;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -9,20 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import fcul.cm.g20.ecopack.R;
 
 public class LocationViewHolder extends RecyclerView.ViewHolder {
+    private ImageView locationMarker;
     private TextView locationName;
-    private TextView visitDate;
+    private TextView locationDate;
 
     public LocationViewHolder(@NonNull View itemView, final LocationAdapter.OnLocationClickListener onLocationClickListener) {
         super(itemView);
 
-        // TODO: ADD THE MARKER SETTER BASED ON THE LOCATION INFO
+        locationMarker = itemView.findViewById(R.id.item_location_marker);
         locationName = itemView.findViewById(R.id.item_location_name);
-        visitDate = itemView.findViewById(R.id.item_location_date);
+        locationDate = itemView.findViewById(R.id.item_location_date);
 
-        setDrawingClickListener(itemView, onLocationClickListener);
+        setLocationClickListener(itemView, onLocationClickListener);
     }
 
-    private void setDrawingClickListener(@NonNull View itemView, final LocationAdapter.OnLocationClickListener onLocationClickListener) {
+    private void setLocationClickListener(@NonNull View itemView, final LocationAdapter.OnLocationClickListener onLocationClickListener) {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,11 +35,15 @@ public class LocationViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
+    public ImageView getLocationMarker() {
+        return locationMarker;
+    }
+
     public TextView getLocationName() {
         return locationName;
     }
 
-    public TextView getVisitDate() {
-        return visitDate;
+    public TextView getLocationDate() {
+        return locationDate;
     }
 }

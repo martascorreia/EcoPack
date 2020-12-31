@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -170,9 +172,11 @@ public class SignUpFragment extends Fragment {
                     user.put("gender", "N/A");
                     user.put("birthday", "N/A");
                     user.put("city", "N/A");
-                    user.put("visits", null);
-                    user.put("comments", null);
+                    user.put("points", 0);
                     user.put("register_date", System.currentTimeMillis());
+                    user.put("redeemed_prizes", new ArrayList<String>());
+                    user.put("visits", new ArrayList<HashMap<String, String>>());
+                    user.put("comments", new ArrayList<HashMap<String, String>>());
 
                     if (isNetworkAvailable(SignUpFragment.this.getContext())) {
                         database.collection("users")

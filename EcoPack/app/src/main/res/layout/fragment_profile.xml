@@ -111,10 +111,10 @@
                         android:text="@string/locations" />
 
                     <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_opinions"
+                        android:id="@+id/tab_comments"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/opinions" />
+                        android:text="@string/comments" />
                 </com.google.android.material.tabs.TabLayout>
 
                 <FrameLayout
