@@ -9,222 +9,221 @@
     android:elevation="@dimen/_2sdp"
     tools:context=".fragments.map.store.StoreOpinionsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_45sdp">
-
-        <ScrollView
-            android:id="@+id/scrollView"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_5sdp"
-            app:layout_constraintBottom_toTopOf="@+id/comment_card_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
-
-            <LinearLayout
-                android:id="@+id/comments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/comments_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </ScrollView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/comment_card_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_45sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
+            <ScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:background="@color/white_smoke"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/comment_card_view"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="@dimen/_45sdp"
+                android:paddingBottom="@dimen/_5sdp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
+                    android:id="@+id/comments"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/comment"
-                        android:layout_width="@dimen/_180sdp"
-                        android:layout_height="match_parent"
-                        android:hint="@string/comment"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/icon_button"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/comments_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </ScrollView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/comment_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/white_smoke"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <EditText
+                            android:id="@+id/comment"
+                            android:layout_width="@dimen/_180sdp"
+                            android:layout_height="match_parent"
+                            android:hint="@string/comment"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/icon_button"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/icon_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:src="@drawable/ic_plus"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/send_button"
+                            app:layout_constraintStart_toEndOf="@id/comment"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:maxImageSize="57dp" />
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/send_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:backgroundTint="@color/dark_mint"
+                            android:clickable="true"
+                            android:src="@drawable/ic_paper_plane"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ScrollView
+                android:id="@+id/scroll_icons"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_135sdp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:elevation="@dimen/_5sdp"
+                android:visibility="invisible"
+                android:layout_alignBottom="@+id/comment_card_view">
+
+                <LinearLayout
+                    android:id="@+id/icons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="bottom|end"
+                    android:orientation="vertical">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/icon_button"
+                        android:id="@+id/bio_home_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
                         android:clickable="true"
-                        android:src="@drawable/ic_plus"
+                        android:src="@drawable/ic_marker_bio_home_round"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/send_button"
-                        app:layout_constraintStart_toEndOf="@id/comment"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:maxImageSize="57dp" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/send_button"
+                        android:id="@+id/reusable_home_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:backgroundTint="@color/dark_mint"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
                         android:clickable="true"
-                        android:src="@drawable/ic_paper_plane"
+                        android:src="@drawable/ic_marker_reusable_home_round"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:maxImageSize="57dp" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/paper_home_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:src="@drawable/ic_marker_paper_home_round"
+                        android:visibility="visible"
+                        app:maxImageSize="57dp" />
 
-        <ScrollView
-            android:id="@+id/scroll_icons"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_135sdp"
-            android:layout_marginBottom="3dp"
-            android:elevation="@dimen/_5sdp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@+id/scrollView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.76"
-            app:layout_constraintStart_toStartOf="parent">
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/plastic_home_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:src="@drawable/ic_marker_plastic_home_round"
+                        android:visibility="visible"
+                        app:maxImageSize="57dp" />
 
-            <LinearLayout
-                android:id="@+id/icons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="bottom|end"
-                android:orientation="vertical">
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/home_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:src="@drawable/ic_marker_home_round"
+                        android:visibility="visible"
+                        app:maxImageSize="57dp" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/bio_home_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_bio_home_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/bio_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:src="@drawable/ic_marker_bio_round"
+                        android:visibility="visible"
+                        app:maxImageSize="57dp" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/reusable_home_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_reusable_home_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/reusable_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:src="@drawable/ic_marker_reusable_round"
+                        android:visibility="visible"
+                        app:maxImageSize="57dp" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/paper_home_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_paper_home_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/paper_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:src="@drawable/ic_marker_paper_round"
+                        android:visibility="visible"
+                        app:maxImageSize="57dp" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/plastic_home_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_plastic_home_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/home_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_home_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/bio_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_bio_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/reusable_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_reusable_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/paper_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_paper_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/plastic_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="true"
-                    android:src="@drawable/ic_marker_plastic_round"
-                    android:visibility="visible"
-                    app:maxImageSize="57dp" />
-            </LinearLayout>
-        </ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/plastic_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:src="@drawable/ic_marker_plastic_round"
+                        android:visibility="visible"
+                        app:maxImageSize="57dp" />
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
 </FrameLayout>

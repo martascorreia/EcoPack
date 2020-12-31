@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,7 +38,7 @@ public class StoreInfoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View storeFragment = inflater.inflate(R.layout.fragment_store_info_view, container, false);
+        View storeFragment = inflater.inflate(R.layout.fragment_store_info, container, false);
         return storeFragment;
     }
 
@@ -78,6 +77,7 @@ public class StoreInfoFragment extends Fragment {
             viewPager.setAdapter(imageAdapter);
         } else {
             viewPager.setVisibility(View.INVISIBLE);
+            viewPager.getLayoutParams().height = 0;
             photosText.setVisibility(View.VISIBLE);
             photosText.setText("N/A");
         }
