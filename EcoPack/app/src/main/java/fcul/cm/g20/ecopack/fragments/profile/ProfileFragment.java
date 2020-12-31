@@ -3,6 +3,7 @@ package fcul.cm.g20.ecopack.fragments.profile;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,12 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +28,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import fcul.cm.g20.ecopack.LoginActivity;
 import fcul.cm.g20.ecopack.R;
 
-// TODO (NOTA): OS DOCUMENTOS SÃO TODOS GUARDADOS EM CACHE! PORTANTO, SE NÃO HOUVER INTERNET, ELE VAI BUSCAR LOCALMENTE
+import static fcul.cm.g20.ecopack.utils.Utils.showToast;
+
+// TODO (OPTIMIZATION): RETRIEVE INFORMATION FROM DOCUMENT THAT IS LOADED ON LOGIN OR WHEN ENTERING THE MAP, IDK
 
 public class ProfileFragment extends Fragment {
     private FirebaseFirestore database;
@@ -49,6 +50,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setupFragment(final View profileFragment) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
+
         ImageButton settingsButton = profileFragment.findViewById(R.id.settings_button);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +69,7 @@ public class ProfileFragment extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
 
@@ -79,16 +81,16 @@ public class ProfileFragment extends Fragment {
         TabLayout tabLayout = profileFragment.findViewById(R.id.layout_profile_tabs);
         tabLayout.setOnTabSelectedListener(handleTabItemClick());
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
-        final String username = sharedPreferences.getString("username", "");
-
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         database.collection("users")
-                .whereEqualTo("username", username)
+                .whereEqualTo("username", sharedPreferences.getString("username", ""))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
                             userDocument = task.getResult().getDocuments().get(0);
 
                             String picture = (String) userDocument.get("picture");
@@ -106,14 +108,17 @@ public class ProfileFragment extends Fragment {
                             TextView city = profileFragment.findViewById(R.id.profile_header_city);
                             city.setText((String) userDocument.get("city"));
 
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tab_content, new ProfileInfoFragment(userDocument)).commit();
-                        } else showToast("Não foi possível obter a informação do utilizador. Por favor, tente mais tarde.");
+                            getActivity()
+                                    .getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.tab_content, new ProfileInfoFragment())
+                                    .commit();
+                        } else {
+                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                            showToast("Não foi possível obter a informação do utilizador. Por favor, tente mais tarde.", getContext());
+                        }
                     }
                 });
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     private TabLayout.OnTabSelectedListener handleTabItemClick() {
@@ -123,11 +128,15 @@ public class ProfileFragment extends Fragment {
                 Fragment fragment;
 
                 int position = tab.getPosition();
-                if (position == 0) fragment = new ProfileInfoFragment(userDocument);
+                if (position == 0) fragment = new ProfileInfoFragment();
                 else if (position == 1) fragment = new ProfileLocationsFragment(userDocument);
                 else fragment = new ProfileOpinionsFragment(userDocument);
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tab_content, fragment).commit();
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.tab_content, fragment)
+                        .commit();
             }
 
             @Override

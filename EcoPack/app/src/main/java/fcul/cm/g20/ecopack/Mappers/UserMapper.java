@@ -39,8 +39,7 @@ public class UserMapper {
                             } else callback.onSuccess(null);
                         }
                     });
-        }
-        else {
+        } else {
             Utils.showToast("Falha ao obter utilizador, não é possivel aceder a internet.", ctx);
         }
     }
@@ -58,8 +57,7 @@ public class UserMapper {
                             Utils.showToast("Utilizador gravado com sucesso!", ctx);
                         }
                     });
-        }
-        else {
+        } else {
             Utils.showToast("Falha ao gravar utilizador, não é possivel aceder a internet.", ctx);
         }
     }

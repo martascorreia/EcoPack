@@ -17,12 +17,6 @@ import fcul.cm.g20.ecopack.R;
 public class ProfileInfoFragment extends Fragment {
     DocumentSnapshot userDocument;
 
-    public ProfileInfoFragment(){};
-
-    public ProfileInfoFragment(DocumentSnapshot userDocument) {
-        this.userDocument = userDocument;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View profileInfoFragment = inflater.inflate(R.layout.fragment_profile_info, container, false);
