@@ -18,8 +18,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         findViewById(R.id.image_package).setAnimation(AnimationUtils.loadAnimation(this, R.anim.top_animation));
         findViewById(R.id.image_logo).setAnimation(AnimationUtils.loadAnimation(this, R.anim.bottom_animation));
 

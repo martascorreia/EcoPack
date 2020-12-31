@@ -48,23 +48,13 @@ public class SignUpFragment extends Fragment {
 
     private OnSignUpDialogStateListener onSignUpDialogStateListener;
     private OnSignUpFragmentActiveListener onSignUpFragmentActiveListener;
-    private String signUpUsername;
-    private String signUpPassword;
-    private String signUpConfirmPassword;
+    private LoginActivity loginActivity;
     private FirebaseFirestore database;
-
-    public SignUpFragment() {
-    }
-
-    public SignUpFragment(String signUpUsername, String signUpPassword, String signUpConfirmPassword) {
-        this.signUpUsername = signUpUsername;
-        this.signUpPassword = signUpPassword;
-        this.signUpConfirmPassword = signUpConfirmPassword;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginActivity = (LoginActivity) getActivity();
         database = FirebaseFirestore.getInstance();
         onSignUpFragmentActiveListener.onSignUpFragmentActive(true);
     }
@@ -82,14 +72,16 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onSignUpFragmentActiveListener.onSignUpFragmentActive(false);
-                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getActivity()
+                        .getSupportFragmentManager()
+                        .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
         final EditText[] inputs = new EditText[3];
 
         EditText signUpUsernameEditText = signUpFragment.findViewById(R.id.create_user_username);
-        if (signUpUsername != null) signUpUsernameEditText.setText(signUpUsername);
+        if (loginActivity.signUpUsername != null) signUpUsernameEditText.setText(loginActivity.signUpUsername);
         signUpUsernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -103,14 +95,13 @@ public class SignUpFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LoginActivity loginActivity = (LoginActivity) getActivity();
-                loginActivity.setSignUpUsername(s.toString());
+                loginActivity.signUpUsername = s.toString();
             }
         });
         inputs[0] = signUpUsernameEditText;
 
         EditText signUpPasswordEditText = signUpFragment.findViewById(R.id.create_user_password);
-        if (signUpPassword != null) signUpPasswordEditText.setText(signUpPassword);
+        if (loginActivity.signUpPassword != null) signUpPasswordEditText.setText(loginActivity.signUpPassword);
         signUpPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -124,14 +115,13 @@ public class SignUpFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LoginActivity loginActivity = (LoginActivity) getActivity();
-                loginActivity.setSignUpPassword(s.toString());
+                loginActivity.signUpPassword = s.toString();
             }
         });
         inputs[1] = signUpPasswordEditText;
 
         EditText signUpConfirmPasswordEditText = signUpFragment.findViewById(R.id.create_user_confirm_password);
-        if (signUpConfirmPassword != null) signUpConfirmPasswordEditText.setText(signUpConfirmPassword);
+        if (loginActivity.signUpConfirmPassword != null) signUpConfirmPasswordEditText.setText(loginActivity.signUpConfirmPassword);
         signUpConfirmPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -145,8 +135,7 @@ public class SignUpFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LoginActivity loginActivity = (LoginActivity) getActivity();
-                loginActivity.setSignUpConfirmPassword(s.toString());
+                loginActivity.signUpConfirmPassword = s.toString();
             }
         });
         inputs[2] = signUpConfirmPasswordEditText;

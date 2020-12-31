@@ -9,14 +9,14 @@ import fcul.cm.g20.ecopack.fragments.login.LoginFragment;
 import fcul.cm.g20.ecopack.fragments.login.SignUpFragment;
 
 public class LoginActivity extends AppCompatActivity implements LoginFragment.OnLoginDialogStateListener, SignUpFragment.OnSignUpDialogStateListener, SignUpFragment.OnSignUpFragmentActiveListener {
-    private boolean isLoginDialogOpen = false;
-    private boolean isSignUpDialogOpen = false;
+    public boolean isLoginDialogOpen = false;
+    public boolean isSignUpDialogOpen = false;
     public boolean isSignUpFragmentActive = false;
-    private String loginUsername;
-    private String loginPassword;
-    private String signUpUsername;
-    private String signUpPassword;
-    private String signUpConfirmPassword;
+    public String loginUsername;
+    public String loginPassword;
+    public String signUpUsername;
+    public String signUpPassword;
+    public String signUpConfirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.login_content, new LoginFragment(loginUsername, loginPassword, signUpUsername, signUpPassword, signUpConfirmPassword))
+                .replace(R.id.login_content, new LoginFragment())
                 .commit();
     }
 
@@ -70,25 +70,5 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
             isSignUpFragmentActive = false;
             super.onBackPressed();
         }
-    }
-
-    public void setLoginUsername(String loginUsername) {
-        this.loginUsername = loginUsername;
-    }
-
-    public void setLoginPassword(String loginPassword) {
-        this.loginPassword = loginPassword;
-    }
-
-    public void setSignUpUsername(String signUpUsername) {
-        this.signUpUsername = signUpUsername;
-    }
-
-    public void setSignUpPassword(String signUpPassword) {
-        this.signUpPassword = signUpPassword;
-    }
-
-    public void setSignUpConfirmPassword(String signUpConfirmPassword) {
-        this.signUpConfirmPassword = signUpConfirmPassword;
     }
 }

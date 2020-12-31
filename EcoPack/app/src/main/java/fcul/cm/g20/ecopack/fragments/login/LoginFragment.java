@@ -38,27 +38,13 @@ public class LoginFragment extends Fragment {
     }
 
     private OnLoginDialogStateListener onLoginDialogStateListener;
-    private String loginUsername;
-    private String loginPassword;
-    private String signUpUsername;
-    private String signUpPassword;
-    private String signUpConfirmPassword;
+    private LoginActivity loginActivity;
     private FirebaseFirestore database;
-
-    public LoginFragment() {
-    }
-
-    public LoginFragment(String loginUsername, String loginPassword, String signUpUsername, String signUpPassword, String signUpConfirmPassword) {
-        this.loginUsername = loginUsername;
-        this.loginPassword = loginPassword;
-        this.signUpUsername = signUpUsername;
-        this.signUpPassword = signUpPassword;
-        this.signUpConfirmPassword = signUpConfirmPassword;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginActivity = (LoginActivity) getActivity();
         database = FirebaseFirestore.getInstance();
     }
 
@@ -74,12 +60,11 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LoginActivity loginActivity = (LoginActivity) getActivity();
-        if (Objects.requireNonNull(loginActivity).isSignUpFragmentActive) {
+        if (loginActivity.isSignUpFragmentActive) {
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.login_content, new SignUpFragment(signUpUsername, signUpPassword, signUpConfirmPassword))
+                    .replace(R.id.login_content, new SignUpFragment())
                     .addToBackStack(null)
                     .commit();
         }
@@ -89,7 +74,7 @@ public class LoginFragment extends Fragment {
         final EditText[] inputs = new EditText[2];
 
         EditText loginUsernameEditText = loginFragment.findViewById(R.id.login_username);
-        if (loginUsername != null) loginUsernameEditText.setText(loginUsername);
+        if (loginActivity.loginUsername != null) loginUsernameEditText.setText(loginActivity.loginUsername);
         loginUsernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -103,14 +88,13 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LoginActivity loginActivity = (LoginActivity) getActivity();
-                loginActivity.setLoginUsername(s.toString());
+                loginActivity.loginUsername = s.toString();
             }
         });
         inputs[0] = loginUsernameEditText;
 
         EditText loginPasswordEditText = loginFragment.findViewById(R.id.login_password);
-        if (loginPassword != null) loginPasswordEditText.setText(loginPassword);
+        if (loginActivity.loginPassword != null) loginPasswordEditText.setText(loginActivity.loginPassword);
         loginPasswordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -124,8 +108,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                LoginActivity loginActivity = (LoginActivity) getActivity();
-                loginActivity.setLoginPassword(s.toString());
+                loginActivity.loginPassword = s.toString();
             }
         });
         inputs[1] = loginPasswordEditText;
@@ -206,7 +189,12 @@ public class LoginFragment extends Fragment {
         loginFragment.findViewById(R.id.sign_up_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_content, new SignUpFragment()).addToBackStack(null).commit();
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.login_content, new SignUpFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
