@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -154,13 +153,13 @@ public class SignUpFragment extends Fragment {
                 if (empty != 0) showToast("Por favor, preencha todos os campos.", SignUpFragment.this.getContext());
                 else if (!inputs[1].getText().toString().equals(inputs[2].getText().toString())) showToast("Passwords não coincidem. Por favor, tente novamente.", SignUpFragment.this.getContext());
                 else {
-                    final ProgressDialog progressDialog = new ProgressDialog(SignUpFragment.this.getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
+                    final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
                     progressDialog.setMessage("A registar utilizador...");
                     progressDialog.setIndeterminate(true);
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
                     onSignUpDialogStateListener.onSignUpDialogState(true);
-                    SignUpFragment.this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                     final Map<String, Object> user = new HashMap<>();
                     user.put("username", inputs[0].getText().toString());
@@ -178,7 +177,7 @@ public class SignUpFragment extends Fragment {
                     user.put("visits", new ArrayList<HashMap<String, String>>());
                     user.put("comments", new ArrayList<HashMap<String, String>>());
 
-                    if (isNetworkAvailable(SignUpFragment.this.getContext())) {
+                    if (isNetworkAvailable(getContext())) {
                         database.collection("users")
                                 .whereEqualTo("username", inputs[0].getText().toString())
                                 .get()
@@ -232,7 +231,7 @@ public class SignUpFragment extends Fragment {
                         progressDialog.dismiss();
                         onSignUpDialogStateListener.onSignUpDialogState(false);
                         SignUpFragment.this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-                        showToast("Não foi possível registar o utilizador. Por favor, verifique a sua conexão à Internet.", SignUpFragment.this.getContext());
+                        showToast("Não foi possível registar o utilizador. Por favor, verifique a sua conexão à Internet.", getContext());
                     }
                 }
 

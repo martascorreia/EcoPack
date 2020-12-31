@@ -52,6 +52,20 @@ public class ProfileFragment extends Fragment {
         return profileFragment;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (mainActivity.isProfileSettingsFragmentActive) {
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_profile, new ProfileSettingsFragment())
+                    .addToBackStack("profile")
+                    .commit();
+        }
+    }
+
     private void setupFragment(final View profileFragment) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
 
@@ -59,6 +73,15 @@ public class ProfileFragment extends Fragment {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mainActivity.editPicture = mainActivity.userPicture;
+                mainActivity.editName = mainActivity.userName;
+                mainActivity.editEmail = mainActivity.userEmail;
+                mainActivity.editPhone = mainActivity.userPhone;
+                mainActivity.editGender = mainActivity.userGender;
+                mainActivity.editBirthday = mainActivity.userBirthday;
+                mainActivity.editCity = mainActivity.userCity;
+                mainActivity.editPassword = mainActivity.userPassword;
+
                 getActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
@@ -109,17 +132,20 @@ public class ProfileFragment extends Fragment {
                             mainActivity.userRedeemedPrizes = (ArrayList<String>) userDocument.get("redeemed_prizes");
                             mainActivity.userVisits = (ArrayList<HashMap<String, String>>) userDocument.get("visits");
                             mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
+                            mainActivity.userDocumentID = userDocument.getReference().getPath();
 
                             String picture = mainActivity.userPicture;
                             CircleImageView circleImageView = profileFragment.findViewById(R.id.profile_image);
                             if (picture.equals("N/A")) circleImageView.setImageResource(R.drawable.ic_user_empty);
                             else {
-                                byte[] pictureArray = android.util.Base64.decode((String) userDocument.get("picture"), android.util.Base64.DEFAULT);
+                                byte[] pictureArray = android.util.Base64.decode(picture, android.util.Base64.DEFAULT);
                                 Bitmap pictureBitmap = BitmapFactory.decodeByteArray(pictureArray, 0, pictureArray.length);
                                 circleImageView.setImageBitmap(pictureBitmap);
                             }
+
                             TextView username = profileFragment.findViewById(R.id.profile_username);
                             username.setText(mainActivity.userUsername);
+
                             TextView city = profileFragment.findViewById(R.id.profile_header_city);
                             city.setText(mainActivity.userCity);
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -14,10 +15,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
+
 // TODO: userVisits: ID DA LOJA, MARKER, DATA
 // TODO: userComments: ID DO COMENTÁRIO (PRESENTE NUMA DADA LOJA), ID DO USER, ID DA LOJA, CONTEÚDO, DATA, MARKER
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProfileSettingsFragment.OnEditProfileDialogStateListener, ProfileSettingsFragment.OnProfileSettingsFragmentActiveListener {
+    public boolean isEditProfileDialogOpen = false;
+    public boolean isProfileSettingsFragmentActive = false;
+
     public String userPicture;
     public String userUsername;
     public String userPassword;
@@ -32,6 +38,16 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<String> userRedeemedPrizes;
     public ArrayList<HashMap<String, String>> userVisits;
     public ArrayList<HashMap<String, String>> userComments;
+    public String userDocumentID;
+
+    public String editPicture;
+    public String editName;
+    public String editEmail;
+    public String editPhone;
+    public String editGender;
+    public String editBirthday;
+    public String editCity;
+    public String editPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState != null) {
+            isProfileSettingsFragmentActive = savedInstanceState.getBoolean("isProfileSettingsFragmentActive");
+
             userPicture = savedInstanceState.getString("userPicture");
             userUsername = savedInstanceState.getString("userUsername");
             userPassword = savedInstanceState.getString("userPassword");
@@ -53,6 +71,16 @@ public class MainActivity extends AppCompatActivity {
             userRedeemedPrizes = (ArrayList<String>) savedInstanceState.getSerializable("userRedeemedPrizes");
             userVisits = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userVisits");
             userComments = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userComments");
+            userDocumentID = savedInstanceState.getString("userDocumentID");
+
+            editPicture = savedInstanceState.getString("editPicture");
+            editName = savedInstanceState.getString("editName");
+            editEmail = savedInstanceState.getString("editEmail");
+            editPhone = savedInstanceState.getString("editPhone");
+            editGender = savedInstanceState.getString("editGender");
+            editBirthday = savedInstanceState.getString("editBirthday");
+            editCity = savedInstanceState.getString("editCity");
+            editPassword = savedInstanceState.getString("editPassword");
         }
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -73,7 +101,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onEditProfileDialogState(boolean isEditProfileDialogOpen) {
+        this.isEditProfileDialogOpen = isEditProfileDialogOpen;
+    }
+
+    @Override
+    public void onProfileSettingsFragmentActive(boolean isProfileSettingsFragmentActive) {
+        this.isProfileSettingsFragmentActive = isProfileSettingsFragmentActive;
+    }
+
+    @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBoolean("isProfileSettingsFragmentActive", isProfileSettingsFragmentActive);
+
         outState.putString("userPicture", userPicture);
         outState.putString("userUsername", userUsername);
         outState.putString("userPassword", userPassword);
@@ -88,6 +128,35 @@ public class MainActivity extends AppCompatActivity {
         outState.putSerializable("userRedeemedPrizes", userRedeemedPrizes);
         outState.putSerializable("userVisits", userVisits);
         outState.putSerializable("userComments", userComments);
+        outState.putString("userDocumentID", userDocumentID);
+
+        outState.putString("editPicture", editPicture);
+        outState.putString("editName", editName);
+        outState.putString("editEmail", editEmail);
+        outState.putString("editPhone", editPhone);
+        outState.putString("editGender", editGender);
+        outState.putString("editBirthday", editBirthday);
+        outState.putString("editCity", editCity);
+        outState.putString("editPassword", editPassword);
+
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!isEditProfileDialogOpen) {
+            if (isProfileSettingsFragmentActive) {
+                editPicture = null;
+                editName = null;
+                editEmail = null;
+                editPhone = null;
+                editGender = null;
+                editBirthday = null;
+                editCity = null;
+                editPassword = null;
+                isProfileSettingsFragmentActive = false;
+                this.getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } else super.onBackPressed();
+        }
     }
 }
