@@ -82,7 +82,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
+                            android:text="Usa embalagens de plástico"
                             android:textColor="@color/dark_mint"
                             android:textSize="@dimen/_11sdp" />
                     </LinearLayout>
@@ -122,7 +122,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
+                            android:text="Usa embalagens de papel"
                             android:textColor="@color/dark_mint"
                             android:textSize="@dimen/_11sdp" />
                     </LinearLayout>
@@ -138,7 +138,7 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_marker_info_glass" />
+                        android:src="@drawable/ic_marker_info_reusable" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -162,7 +162,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
+                            android:text="Usa embalagens reutilizáveis"
                             android:textColor="@color/dark_mint"
                             android:textSize="@dimen/_11sdp" />
                     </LinearLayout>
@@ -202,7 +202,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
+                            android:text="Usa embalagens biodegradáveis"
                             android:textColor="@color/dark_mint"
                             android:textSize="@dimen/_11sdp" />
                     </LinearLayout>
@@ -242,7 +242,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
+                            android:text="Usa embalagens de plástico ou aceita embalagens trazidas de casa"
                             android:textColor="@color/dark_mint"
                             android:textSize="@dimen/_11sdp" />
                     </LinearLayout>
@@ -282,7 +282,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
+                            android:text="Usa embalagens de papel ou aceita embalagens trazidas de casa"
                             android:textColor="@color/dark_mint"
                             android:textSize="@dimen/_11sdp" />
                     </LinearLayout>
@@ -298,7 +298,7 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_50sdp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_marker_info_glass_home" />
+                        android:src="@drawable/ic_marker_info_reusable_home" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -322,7 +322,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
+                            android:text="Usa embalagens reutilizáveis ou aceita embalagens trazidas de casa"
                             android:textColor="@color/dark_mint"
                             android:textSize="@dimen/_11sdp" />
                     </LinearLayout>
@@ -363,7 +363,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/_15sdp"
                             android:maxLines="2"
-                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. "
+                            android:text="Usa embalagens biodegradáveis ou aceita embalagens trazidas de casa"
                             android:textColor="@color/dark_mint"
                             android:textSize="@dimen/_11sdp" />
                     </LinearLayout>

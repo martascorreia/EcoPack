@@ -1,15 +1,19 @@
 package fcul.cm.g20.ecopack.fragments.map.store;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,8 +25,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.fragments.map.store.adapter.ImageAdapter;
 
 // TODO: HANDLE CONNECTION ON SENDING COMMENT
 
@@ -59,7 +65,18 @@ public class StoreFragment extends Fragment {
         TextView name = storeFragmentView.findViewById(R.id.store_title);
         name.setText((String) storeDocument.get("name"));
 
-        // SET MARKER
+        // PHOTO
+        Map<String, Object> photos = (Map<String, Object>) storeDocument.get("photos");
+        ImageView photo = storeFragmentView.findViewById(R.id.store_photo);
+        if(photos != null){
+            byte[] firstPhoto = android.util.Base64.decode((String) photos.get("photo" + 0), android.util.Base64.DEFAULT);
+            Bitmap bmp = BitmapFactory.decodeByteArray(firstPhoto, 0, firstPhoto.length);
+            photo.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth() , bmp.getHeight(), false));
+        } else {
+            photo.setBackgroundColor(getContext().getResources().getColor(R.color.mint));
+        }
+
+        // MARKER
         long[] counters = new long[5];
         HashMap<String, Long> countersMap = (HashMap<String, Long>) storeDocument.get("counters");
         counters[0] = countersMap.get("reusable");

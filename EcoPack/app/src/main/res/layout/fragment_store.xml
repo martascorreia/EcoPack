@@ -14,25 +14,25 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/store_photo"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_210sdp"
-                    android:src="@drawable/maria_granel"
+                    android:layout_height="@dimen/_180sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <ImageView
+                    android:id="@+id/store_rectangle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:src="@drawable/ic_rectangle"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintEnd_toStartOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
