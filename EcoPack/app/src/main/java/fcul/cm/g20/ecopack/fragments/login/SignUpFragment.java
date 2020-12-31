@@ -4,16 +4,15 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,24 +27,46 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import fcul.cm.g20.ecopack.LoginActivity;
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 
-// TODO: PERCEBER SE VALE MESMO A PENA TER UMA VERSÃO PARA EMPRESA
+import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
+import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
 public class SignUpFragment extends Fragment {
+    public interface OnSignUpDialogStateListener {
+        void onSignUpDialogState(boolean isSignUpDialogOpen);
+    }
+
+    public interface OnSignUpFragmentActiveListener {
+        void onSignUpFragmentActive(boolean isSignUpFragmentActive);
+    }
+
+    private OnSignUpDialogStateListener onSignUpDialogStateListener;
+    private OnSignUpFragmentActiveListener onSignUpFragmentActiveListener;
+    private String signUpUsername;
+    private String signUpPassword;
+    private String signUpConfirmPassword;
     private FirebaseFirestore database;
+
+    public SignUpFragment() {
+    }
+
+    public SignUpFragment(String signUpUsername, String signUpPassword, String signUpConfirmPassword) {
+        this.signUpUsername = signUpUsername;
+        this.signUpPassword = signUpPassword;
+        this.signUpConfirmPassword = signUpConfirmPassword;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = FirebaseFirestore.getInstance();
+        onSignUpFragmentActiveListener.onSignUpFragmentActive(true);
     }
 
     @Nullable
@@ -60,17 +81,75 @@ public class SignUpFragment extends Fragment {
         signUpFragment.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity()
-                        .getSupportFragmentManager()
-                        .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                onSignUpFragmentActiveListener.onSignUpFragmentActive(false);
+                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
-        final EditText[] inputs = new EditText[]{
-                signUpFragment.findViewById(R.id.create_user_username),
-                signUpFragment.findViewById(R.id.create_user_password),
-                signUpFragment.findViewById(R.id.create_user_confirm_password)
-        };
+        final EditText[] inputs = new EditText[3];
+
+        EditText signUpUsernameEditText = signUpFragment.findViewById(R.id.create_user_username);
+        if (signUpUsername != null) signUpUsernameEditText.setText(signUpUsername);
+        signUpUsernameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LoginActivity loginActivity = (LoginActivity) getActivity();
+                loginActivity.setSignUpUsername(s.toString());
+            }
+        });
+        inputs[0] = signUpUsernameEditText;
+
+        EditText signUpPasswordEditText = signUpFragment.findViewById(R.id.create_user_password);
+        if (signUpPassword != null) signUpPasswordEditText.setText(signUpPassword);
+        signUpPasswordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LoginActivity loginActivity = (LoginActivity) getActivity();
+                loginActivity.setSignUpPassword(s.toString());
+            }
+        });
+        inputs[1] = signUpPasswordEditText;
+
+        EditText signUpConfirmPasswordEditText = signUpFragment.findViewById(R.id.create_user_confirm_password);
+        if (signUpConfirmPassword != null) signUpConfirmPasswordEditText.setText(signUpConfirmPassword);
+        signUpConfirmPasswordEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LoginActivity loginActivity = (LoginActivity) getActivity();
+                loginActivity.setSignUpConfirmPassword(s.toString());
+            }
+        });
+        inputs[2] = signUpConfirmPasswordEditText;
 
         final Button registerButton = signUpFragment.findViewById(R.id.register_button);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -81,14 +160,16 @@ public class SignUpFragment extends Fragment {
                 int empty = 0;
                 for (EditText input : inputs) if (input.getText().toString().equals("")) empty++;
 
-                if (empty != 0) showToast("Por favor, preencha todos os campos.");
-                else if (!inputs[1].getText().toString().equals(inputs[2].getText().toString())) showToast("Passwords não coincidem. Por favor, tente novamente.");
+                if (empty != 0) showToast("Por favor, preencha todos os campos.", SignUpFragment.this.getContext());
+                else if (!inputs[1].getText().toString().equals(inputs[2].getText().toString())) showToast("Passwords não coincidem. Por favor, tente novamente.", SignUpFragment.this.getContext());
                 else {
-                    final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
+                    final ProgressDialog progressDialog = new ProgressDialog(SignUpFragment.this.getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
                     progressDialog.setMessage("A registar utilizador...");
                     progressDialog.setIndeterminate(true);
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
+                    onSignUpDialogStateListener.onSignUpDialogState(true);
+                    SignUpFragment.this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                     final Map<String, Object> user = new HashMap<>();
                     user.put("username", inputs[0].getText().toString());
@@ -104,7 +185,7 @@ public class SignUpFragment extends Fragment {
                     user.put("comments", null);
                     user.put("register_date", System.currentTimeMillis());
 
-                    if (isNetworkAvailable(getContext())) {
+                    if (isNetworkAvailable(SignUpFragment.this.getContext())) {
                         database.collection("users")
                                 .whereEqualTo("username", inputs[0].getText().toString())
                                 .get()
@@ -118,7 +199,7 @@ public class SignUpFragment extends Fragment {
                                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                             @Override
                                                             public void onSuccess(DocumentReference documentReference) {
-                                                                showToast("Utilizador criado com sucesso!");
+                                                                showToast("Utilizador criado com sucesso!", getContext());
 
                                                                 SharedPreferences preferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
                                                                 SharedPreferences.Editor editor = preferences.edit();
@@ -134,22 +215,31 @@ public class SignUpFragment extends Fragment {
                                                         .addOnFailureListener(new OnFailureListener() {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
-                                                                showToast("Não foi possível registar o utilizador. Por favor, tente mais tarde.");
+                                                                progressDialog.dismiss();
+                                                                onSignUpDialogStateListener.onSignUpDialogState(false);
+                                                                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                                                                showToast("Não foi possível registar o utilizador. Por favor, tente mais tarde.", getContext());
                                                             }
                                                         });
                                             } else {
                                                 progressDialog.dismiss();
-                                                showToast("Não foi possível registar o utilizador. Já existe um utilizador com este username.");
+                                                onSignUpDialogStateListener.onSignUpDialogState(false);
+                                                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                                                showToast("Não foi possível registar o utilizador. Já existe um utilizador com este username.", getContext());
                                             }
                                         } else {
                                             progressDialog.dismiss();
-                                            showToast("Não foi possível registar o utilizador. Por favor, tente mais tarde.");
+                                            onSignUpDialogStateListener.onSignUpDialogState(false);
+                                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                                            showToast("Não foi possível registar o utilizador. Por favor, tente mais tarde.", getContext());
                                         }
                                     }
                                 });
                     } else {
                         progressDialog.dismiss();
-                        showToast("Não foi possível registar o utilizador. Por favor, verifique a sua conexão à Internet.");
+                        onSignUpDialogStateListener.onSignUpDialogState(false);
+                        SignUpFragment.this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                        showToast("Não foi possível registar o utilizador. Por favor, verifique a sua conexão à Internet.", SignUpFragment.this.getContext());
                     }
                 }
 
@@ -158,20 +248,21 @@ public class SignUpFragment extends Fragment {
         });
     }
 
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            onSignUpDialogStateListener = (OnSignUpDialogStateListener) context;
+            onSignUpFragmentActiveListener = (OnSignUpFragmentActiveListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement listener");
+        }
     }
 
-    public boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (connectivity == null) return false;
-        else {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            for (NetworkInfo networkInfo : info)
-                if (networkInfo.getState() == NetworkInfo.State.CONNECTED) return true;
-        }
-
-        return false;
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        onSignUpDialogStateListener = null;
+        onSignUpFragmentActiveListener = null;
     }
 }

@@ -3,6 +3,7 @@ package fcul.cm.g20.ecopack;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.animation.AnimationUtils;
 
@@ -16,6 +17,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         findViewById(R.id.image_package).setAnimation(AnimationUtils.loadAnimation(this, R.anim.top_animation));
         findViewById(R.id.image_logo).setAnimation(AnimationUtils.loadAnimation(this, R.anim.bottom_animation));
