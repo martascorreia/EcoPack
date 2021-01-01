@@ -3,15 +3,15 @@ package fcul.cm.g20.ecopack.fragments.map;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,7 +29,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,65 +40,41 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
 
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.adapter.ImageAdapter;
-import fcul.cm.g20.ecopack.fragments.map.store.adapter.PreviewImageAdapter;
+import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.PreviewImageAdapter;
 
-// TODO: TRATAR DA ROTAÇÃO E CRIAR LISTENER PARA RETER AS COORDENADAS E A ADDRESS
-// TODO: ARRANJAR FORMA DO UTILIZADOR NÃO PODER FAZER ONBACKPRESSED DEPOIS DE ENVIAR O PEDIDO À FIREBASE
-// TODO: DELETE MAP FRAGMENT FROM BACKSTACK AND CREATE NEW MAP FRAGMENT
+import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
+import static fcul.cm.g20.ecopack.utils.Utils.showToast;
+
+// TODO: QUANDO CRIAMOS A LOJA, A LOJA CRIADA AINDA NÃO APARECE NO MAPA
+// TODO: ADICIONAR ACUMULADOR DE IMAGE SIZE PARA AS IMAGENS QUE SÃO CARREGADAS (DEFINIR UM THRESHOLD)
 
 public class CreateStoreFragment extends Fragment {
-    private double latitude;
-    private double longitude;
-    private String address;
+    private MainActivity mainActivity;
     private FirebaseFirestore database;
-    private boolean[] storeOptions;
-    private LinkedList<String> photos = new LinkedList<>();
-
-    public CreateStoreFragment() {
-    }
-
-    public CreateStoreFragment(double latitude, double longitude, String address) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.address = address;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
         database = FirebaseFirestore.getInstance();
-        storeOptions = new boolean[5];
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View createStoreFragment = inflater.inflate(R.layout.fragment_create_store, container, false);
+        View createStoreFragment = inflater.inflate(R.layout.fragment_map_create_store, container, false);
         setupFragment(createStoreFragment);
         return createStoreFragment;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        view.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
-    }
-
     private void setupFragment(View createStoreFragment) {
         final EditText addressText = createStoreFragment.findViewById(R.id.create_store_address);
-        addressText.setText(address);
+        addressText.setText(mainActivity.createStoreAddress);
 
         final EditText[] inputs = new EditText[]{
                 createStoreFragment.findViewById(R.id.create_store_name),
@@ -111,66 +85,88 @@ public class CreateStoreFragment extends Fragment {
         };
 
         final ImageView reusableImageView = createStoreFragment.findViewById(R.id.option_reusable);
+        final ImageView bioImageView = createStoreFragment.findViewById(R.id.option_bio);
+        final ImageView paperImageView = createStoreFragment.findViewById(R.id.option_paper);
+        final ImageView plasticImageView = createStoreFragment.findViewById(R.id.option_plastic);
+        final CheckBox homeCheckbox = createStoreFragment.findViewById(R.id.home_checkbox);
+
+        if (mainActivity.createStoreOptions == null) mainActivity.createStoreOptions = new boolean[5];
+        else {
+            if (mainActivity.createStoreOptions[0]) ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.reusable)));
+            else ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+            if (mainActivity.createStoreOptions[1]) ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.bio)));
+            else ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+            if (mainActivity.createStoreOptions[2]) ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.paper)));
+            else ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+            if (mainActivity.createStoreOptions[3]) ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.plastic)));
+            else ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+            if (mainActivity.createStoreOptions[4]) homeCheckbox.setChecked(true);
+            else homeCheckbox.setChecked(false);
+        }
+
+        if (mainActivity.createStorePhotos != null && mainActivity.createStorePhotos.size() != 0) {
+            RecyclerView recyclerView = createStoreFragment.findViewById(R.id.photos_container);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos);
+            recyclerView.setAdapter(previewImageAdapter);
+        }
+
         reusableImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!storeOptions[0]) {
-                    storeOptions[0] = true;
-                    ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.reusable)));
+                if (!mainActivity.createStoreOptions[0]) {
+                    mainActivity.createStoreOptions[0] = true;
+                    ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.reusable)));
                 } else {
-                    storeOptions[0] = false;
-                    ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dark_gray)));
+                    mainActivity.createStoreOptions[0] = false;
+                    ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
                 }
             }
         });
 
-        final ImageView bioImageView = createStoreFragment.findViewById(R.id.option_bio);
         bioImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!storeOptions[1]) {
-                    storeOptions[1] = true;
-                    ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.bio)));
+                if (!mainActivity.createStoreOptions[1]) {
+                    mainActivity.createStoreOptions[1] = true;
+                    ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.bio)));
                 } else {
-                    storeOptions[1] = false;
-                    ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dark_gray)));
+                    mainActivity.createStoreOptions[1] = false;
+                    ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
                 }
             }
         });
 
-        final ImageView paperImageView = createStoreFragment.findViewById(R.id.option_paper);
         paperImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!storeOptions[2]) {
-                    storeOptions[2] = true;
-                    ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.paper)));
+                if (!mainActivity.createStoreOptions[2]) {
+                    mainActivity.createStoreOptions[2] = true;
+                    ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.paper)));
                 } else {
-                    storeOptions[2] = false;
-                    ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dark_gray)));
+                    mainActivity.createStoreOptions[2] = false;
+                    ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
                 }
             }
         });
 
-        final ImageView plasticImageView = createStoreFragment.findViewById(R.id.option_plastic);
         plasticImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!storeOptions[3]) {
-                    storeOptions[3] = true;
-                    ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.plastic)));
+                if (!mainActivity.createStoreOptions[3]) {
+                    mainActivity.createStoreOptions[3] = true;
+                    ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.plastic)));
                 } else {
-                    storeOptions[3] = false;
-                    ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.dark_gray)));
+                    mainActivity.createStoreOptions[3] = false;
+                    ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
                 }
             }
         });
 
-        final CheckBox homeCheckbox = createStoreFragment.findViewById(R.id.home_checkbox);
         homeCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storeOptions[4] = !storeOptions[4];
+                mainActivity.createStoreOptions[4] = !mainActivity.createStoreOptions[4];
             }
         });
 
@@ -193,13 +189,14 @@ public class CreateStoreFragment extends Fragment {
             public void onClick(View v) {
                 v.setEnabled(false);
 
-                if (inputs[0].getText().toString().equals("")) showToast("Por favor, insira o nome.");
+                if (inputs[0].getText().toString().equals("")) showToast("Por favor, insira o nome do estabelecimento.", getContext());
                 else {
                     int selected = 0;
-                    for (int i = 0; i < storeOptions.length - 1; i++) if (storeOptions[i]) selected++;
+                    for (int i = 0; i < mainActivity.createStoreOptions.length - 1; i++)
+                        if (mainActivity.createStoreOptions[i]) selected++;
 
                     if (selected == 0) {
-                        showToast("Por favor, escolha um tipo de embalagem.");
+                        showToast("Por favor, escolha um tipo de embalagem.", getContext());
                         v.setEnabled(true);
                         return;
                     }
@@ -210,13 +207,17 @@ public class CreateStoreFragment extends Fragment {
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.setCancelable(false);
                     progressDialog.show();
+                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                     Map<String, Object> store = new HashMap<>();
 
+                    // OWNER
+                    store.put("owner", mainActivity.userDocumentID);
+
                     // ADDRESS-RELATED
-                    store.put("address", address);
-                    store.put("lat", latitude);
-                    store.put("lng", longitude);
+                    store.put("address", mainActivity.createStoreAddress);
+                    store.put("lat", mainActivity.createStoreLatitude);
+                    store.put("lng", mainActivity.createStoreLongitude);
 
                     // BASIC INFORMATION
                     store.put("name", inputs[0].getText().toString());
@@ -231,58 +232,74 @@ public class CreateStoreFragment extends Fragment {
 
                     // MARKER COUNTERS
                     Map<String, Integer> counters = new HashMap<>();
-                    if (storeOptions[0]) counters.put("reusable", 1);
+                    if (mainActivity.createStoreOptions[0]) counters.put("reusable", 1);
                     else counters.put("reusable", 0);
-                    if (storeOptions[1]) counters.put("bio", 1);
+                    if (mainActivity.createStoreOptions[1]) counters.put("bio", 1);
                     else counters.put("bio", 0);
-                    if (storeOptions[2]) counters.put("paper", 1);
+                    if (mainActivity.createStoreOptions[2]) counters.put("paper", 1);
                     else counters.put("paper", 0);
-                    if (storeOptions[3]) counters.put("plastic", 1);
+                    if (mainActivity.createStoreOptions[3]) counters.put("plastic", 1);
                     else counters.put("plastic", 0);
-                    if (storeOptions[4]) counters.put("home", 1);
+                    if (mainActivity.createStoreOptions[4]) counters.put("home", 1);
                     else counters.put("home", 0);
                     store.put("counters", counters);
 
                     // IMAGES
-                    if (photos.size() != 0) {
-                        Map<String, Object> photosMap = new HashMap<>();
-                        int i = 0;
-                        for (String photo : photos) photosMap.put("photo" + i++, photo);
-                        store.put("photos", photosMap);
-                    } else store.put("photos", null);
+                    if (mainActivity.createStorePhotos.size() != 0) store.put("photos", mainActivity.createStorePhotos);
+                    else store.put("photos", null);
 
                     // COMMENTS
-                    store.put("comments", null);
+                    store.put("comments", new ArrayList<HashMap<String, String>>());
 
                     // REGISTER DATE
                     store.put("register_date", System.currentTimeMillis());
 
-                    // A ÚNICA FORMA DE CONTORNAR O COMPORTAMENTO DO FIREBASE/FIRESTORE NO QUE TOCA A PEDIDOS ENVIADOS SEM INTERNET É VER PELA CONEXÃO DO DISPOSITIVO
                     if (isNetworkAvailable(getContext())) {
                         database.collection("stores")
                                 .add(store)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
+                                        showToast("Estabelecimento registado com sucesso!", getContext());
+
+                                        mainActivity.createStoreOptions = null;
+                                        mainActivity.createStorePhotos = new ArrayList<>();
+
                                         progressDialog.dismiss();
-                                        showToast("Estabelecimento registado com sucesso!");
-                                        getActivity().getSupportFragmentManager().popBackStack();
+                                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                                        getActivity()
+                                                .getSupportFragmentManager()
+                                                .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         progressDialog.dismiss();
-                                        showToast("Não foi possível registar o estabelecimento. Por favor, tente mais tarde.");
+                                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                                        showToast("Não foi possível registar o estabelecimento. Por favor, tente mais tarde.", getContext());
                                     }
                                 });
                     } else {
                         progressDialog.dismiss();
-                        showToast("Não foi possível registar o estabelecimento. Por favor, verifique a sua conexão à Internet.");
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                        showToast("Não foi possível registar o estabelecimento. Por favor, verifique a sua conexão à Internet.", getContext());
                     }
                 }
 
                 v.setEnabled(true);
+            }
+        });
+
+        createStoreFragment.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.createStoreOptions = null;
+                mainActivity.createStorePhotos = new ArrayList<>();
+
+                getActivity()
+                        .getSupportFragmentManager()
+                        .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
     }
@@ -293,39 +310,32 @@ public class CreateStoreFragment extends Fragment {
         startActivityForResult(intent, 1001);
     }
 
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    public boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (connectivity == null) return false;
-        else {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            for (NetworkInfo networkInfo : info)
-                if (networkInfo.getState() == NetworkInfo.State.CONNECTED) return true;
-        }
-
-        return false;
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             try {
+                Uri selectedImage = data.getData();
+                Cursor selectedCursor = mainActivity.getContentResolver().query(selectedImage, null, null, null, null);
+                int sizeIndex = selectedCursor.getColumnIndex(OpenableColumns.SIZE);
+                selectedCursor.moveToFirst();
+                long imageSize = selectedCursor.getLong(sizeIndex);
+
+                if (imageSize > 200000) {
+                    showToast("A imagem que está a tentar carregar é demasiado grande.", getContext());
+                    return;
+                }
+
                 int length = 0;
-                InputStream inputStream = getContext().getContentResolver().openInputStream(data.getData());
-                byte[] buffer = new byte[6291456];
+                InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
+                byte[] buffer = new byte[(int) imageSize];
                 ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
                 while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
-                photos.add(android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT));
+                mainActivity.createStorePhotos.add(android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT));
 
                 RecyclerView recyclerView = getView().findViewById(R.id.photos_container);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos);
+                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos);
                 recyclerView.setAdapter(previewImageAdapter);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

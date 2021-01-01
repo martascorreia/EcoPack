@@ -58,7 +58,7 @@ public class SignUpFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View signUpFragment = inflater.inflate(R.layout.fragment_signup, container, false);
+        View signUpFragment = inflater.inflate(R.layout.fragment_login_signup, container, false);
         setupFragment(signUpFragment);
         return signUpFragment;
     }
@@ -135,8 +135,8 @@ public class SignUpFragment extends Fragment {
                 int empty = 0;
                 for (EditText input : inputs) if (input.getText().toString().equals("")) empty++;
 
-                if (empty != 0) showToast("Por favor, preencha todos os campos.", SignUpFragment.this.getContext());
-                else if (!inputs[1].getText().toString().equals(inputs[2].getText().toString())) showToast("Passwords não coincidem. Por favor, tente novamente.", SignUpFragment.this.getContext());
+                if (empty != 0) showToast("Por favor, preencha todos os campos.", getContext());
+                else if (!inputs[1].getText().toString().equals(inputs[2].getText().toString())) showToast("Passwords não coincidem. Por favor, tente novamente.", getContext());
                 else {
                     final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
                     progressDialog.setMessage("A registar utilizador...");
@@ -211,7 +211,7 @@ public class SignUpFragment extends Fragment {
                                 });
                     } else {
                         progressDialog.dismiss();
-                        SignUpFragment.this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         showToast("Não foi possível registar o utilizador. Por favor, verifique a sua conexão à Internet.", getContext());
                     }
                 }

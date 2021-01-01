@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,7 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.adapter.ImageAdapter;
+import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.ImageAdapter;
 
 public class StoreInfoFragment extends Fragment {
     DocumentSnapshot storeDocument;

@@ -3,7 +3,6 @@ package fcul.cm.g20.ecopack;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.animation.AnimationUtils;
 

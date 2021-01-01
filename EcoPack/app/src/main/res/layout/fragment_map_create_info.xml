@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_smoke"
+    android:clickable="true"
     android:elevation="@dimen/_2sdp"
+    android:focusable="true"
     tools:context=".fragments.map.CreateInformationFragment">
 
     <LinearLayout
@@ -78,8 +80,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:justificationMode="inter_word"
+                            android:layout_marginStart="@dimen/_10sdp"
                             android:text="@string/step1"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp" />
@@ -113,8 +114,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:justificationMode="inter_word"
+                            android:layout_marginStart="@dimen/_10sdp"
                             android:text="@string/step2"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp" />
@@ -148,8 +148,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:justificationMode="inter_word"
+                            android:layout_marginStart="@dimen/_10sdp"
                             android:text="@string/step3"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp" />
@@ -183,8 +182,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_15sdp"
-                            android:justificationMode="inter_word"
+                            android:layout_marginStart="@dimen/_10sdp"
                             android:text="@string/step4"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp" />

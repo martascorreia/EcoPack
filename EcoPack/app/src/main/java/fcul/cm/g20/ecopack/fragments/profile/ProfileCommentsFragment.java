@@ -17,6 +17,8 @@ import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.profile.recyclerview.CommentAdapter;
 
+// TODO: NAVEGAÇÃO / CLICK GOES TO THE STORE IN QUESTION
+
 public class ProfileCommentsFragment extends Fragment {
     private MainActivity mainActivity;
     private FirebaseFirestore database;
@@ -41,7 +43,6 @@ public class ProfileCommentsFragment extends Fragment {
         commentAdapter.setOnCommentClickListener(new CommentAdapter.OnCommentClickListener() {
             @Override
             public void onCommentClick(int position) {
-                // TODO: CLICK GOES TO THE STORE IN QUESTION
                 Toast t = Toast.makeText(getContext(), "Comment " + position, Toast.LENGTH_SHORT);
                 t.show();
             }

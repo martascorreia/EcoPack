@@ -17,12 +17,10 @@ import java.util.HashMap;
 
 import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
 
-// TODO: userVisits: ID DA LOJA, MARKER, DATA
-// TODO: userComments: ID DO COMENTÁRIO (PRESENTE NUMA DADA LOJA), ID DO USER, ID DA LOJA, CONTEÚDO, DATA, MARKER
+// TODO: RESOLVER PROBLEMAS GRAVES DE NAVEGAÇÃO! (ON BACK PRESSED)
 
 public class MainActivity extends AppCompatActivity implements ProfileSettingsFragment.OnProfileSettingsFragmentActiveListener {
     public boolean isProfileSettingsFragmentActive = false;
-
     public String userPicture;
     public String userUsername;
     public String userPassword;
@@ -34,11 +32,10 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     public String userCity;
     public long userRegisterDate;
     public long userPoints;
-    public ArrayList<String> userRedeemedPrizes;
-    public ArrayList<HashMap<String, String>> userVisits;
-    public ArrayList<HashMap<String, String>> userComments;
+    public ArrayList<String> userRedeemedPrizes = new ArrayList<>();
+    public ArrayList<HashMap<String, String>> userVisits = new ArrayList<>();   // ID DA LOJA, MARKER, DATA
+    public ArrayList<HashMap<String, String>> userComments = new ArrayList<>(); // ID DO COMENTÁRIO (PRESENTE NUMA DADA LOJA), ID DO USER, ID DA LOJA, CONTEÚDO, DATA, MARKER
     public String userDocumentID;
-
     public String editPicture;
     public String editName;
     public String editEmail;
@@ -47,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     public String editBirthday;
     public String editCity;
     public String editPassword;
+    // public double visibleLocationLatitude;
+    // public double visibleLocationLongitude;
+    public double createStoreLatitude;
+    public double createStoreLongitude;
+    public String createStoreAddress;
+    public boolean[] createStoreOptions;
+    public ArrayList<String> createStorePhotos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
 
         if (savedInstanceState != null) {
             isProfileSettingsFragmentActive = savedInstanceState.getBoolean("isProfileSettingsFragmentActive");
-
             userPicture = savedInstanceState.getString("userPicture");
             userUsername = savedInstanceState.getString("userUsername");
             userPassword = savedInstanceState.getString("userPassword");
@@ -71,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
             userVisits = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userVisits");
             userComments = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userComments");
             userDocumentID = savedInstanceState.getString("userDocumentID");
-
             editPicture = savedInstanceState.getString("editPicture");
             editName = savedInstanceState.getString("editName");
             editEmail = savedInstanceState.getString("editEmail");
@@ -80,6 +82,13 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
             editBirthday = savedInstanceState.getString("editBirthday");
             editCity = savedInstanceState.getString("editCity");
             editPassword = savedInstanceState.getString("editPassword");
+            // visibleLocationLatitude = savedInstanceState.getDouble("visibleLocationLatitude");
+            // visibleLocationLongitude = savedInstanceState.getDouble("visibleLocationLongitude");
+            createStoreAddress = savedInstanceState.getString("createStoreAddress");
+            createStoreLatitude = savedInstanceState.getDouble("createStoreLatitude");
+            createStoreLongitude = savedInstanceState.getDouble("createStoreLongitude");
+            createStoreOptions = savedInstanceState.getBooleanArray("createStoreOptions");
+            createStorePhotos = savedInstanceState.getStringArrayList("createStorePhotos");
         }
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -107,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putBoolean("isProfileSettingsFragmentActive", isProfileSettingsFragmentActive);
-
         outState.putString("userPicture", userPicture);
         outState.putString("userUsername", userUsername);
         outState.putString("userPassword", userPassword);
@@ -123,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
         outState.putSerializable("userVisits", userVisits);
         outState.putSerializable("userComments", userComments);
         outState.putString("userDocumentID", userDocumentID);
-
         outState.putString("editPicture", editPicture);
         outState.putString("editName", editName);
         outState.putString("editEmail", editEmail);
@@ -132,16 +139,29 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
         outState.putString("editBirthday", editBirthday);
         outState.putString("editCity", editCity);
         outState.putString("editPassword", editPassword);
+        // outState.putDouble("visibleLocationLatitude", visibleLocationLatitude);
+        // outState.putDouble("visibleLocationLongitude", visibleLocationLongitude);
+        outState.putString("createStoreAddress", createStoreAddress);
+        outState.putDouble("createStoreLatitude", createStoreLatitude);
+        outState.putDouble("createStoreLongitude", createStoreLongitude);
+        outState.putBooleanArray("createStoreOptions", createStoreOptions);
+        outState.putStringArrayList("createStorePhotos", createStorePhotos);
 
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onBackPressed() {
-        if (isProfileSettingsFragmentActive) {
+        createStoreOptions = null;
+        createStorePhotos = new ArrayList<>();
+
+        if (!isProfileSettingsFragmentActive) super.onBackPressed();
+        else {
             editPicture = null;
             isProfileSettingsFragmentActive = false;
-            this.getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        } else super.onBackPressed();
+            this
+                    .getSupportFragmentManager()
+                    .popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 }

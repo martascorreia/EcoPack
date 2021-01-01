@@ -10,10 +10,12 @@ import androidx.fragment.app.FragmentManager;
 
 import fcul.cm.g20.ecopack.R;
 
+// TODO: ADICIONAR DESCRIÇÃO DE CADA IMAGEM
+
 public class MarkersInformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View markersInformationFragment = inflater.inflate(R.layout.fragment_markers_info, container, false);
+        View markersInformationFragment = inflater.inflate(R.layout.fragment_map_markers_info, container, false);
         setupFragment(markersInformationFragment);
         return markersInformationFragment;
     }

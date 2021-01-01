@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.adapter.Comment;
-import fcul.cm.g20.ecopack.fragments.map.store.adapter.CommentAdapter;
+import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.Comment;
+import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.CommentAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class StoreOpinionsFragment extends Fragment {

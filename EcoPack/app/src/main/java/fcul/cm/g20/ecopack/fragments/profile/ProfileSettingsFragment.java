@@ -46,6 +46,8 @@ import fcul.cm.g20.ecopack.R;
 import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
+// TODO: NAVEGAÇÃO | QUANDO ATUALIZAMOS O PERFIL, AO VOLTAR AO PERFIL, AS ALTERAÇÕES FEITAS NÃO SÃO APRESENTADAS
+
 public class ProfileSettingsFragment extends Fragment {
     public interface OnProfileSettingsFragmentActiveListener {
         void onProfileSettingsFragmentActive(boolean isProfileSettingsFragmentActive);
@@ -244,7 +246,9 @@ public class ProfileSettingsFragment extends Fragment {
             public void onClick(View v) {
                 mainActivity.editPicture = null;
                 onProfileSettingsFragmentActiveListener.onProfileSettingsFragmentActive(false);
-                getActivity().getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                getActivity()
+                        .getSupportFragmentManager()
+                        .popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 

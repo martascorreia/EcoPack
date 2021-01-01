@@ -26,13 +26,12 @@
             android:layout_height="35dp"
             android:backgroundTint="@color/crimson"
             android:src="@drawable/ic_delete"
+            android:tint="@color/white"
+            app:fabCustomSize="35dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:tint="@color/white"
-            app:fabCustomSize="35dp"
-            app:maxImageSize="25dp"/>
-
+            app:maxImageSize="25dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

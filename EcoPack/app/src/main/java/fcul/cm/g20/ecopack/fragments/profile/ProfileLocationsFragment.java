@@ -17,6 +17,8 @@ import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.profile.recyclerview.LocationAdapter;
 
+// TODO: NAVEGAÇÃO / CLICK GOES TO THE STORE IN QUESTION
+
 public class ProfileLocationsFragment extends Fragment {
     private MainActivity mainActivity;
     private FirebaseFirestore database;
@@ -41,7 +43,6 @@ public class ProfileLocationsFragment extends Fragment {
         locationAdapter.setOnLocationClickListener(new LocationAdapter.OnLocationClickListener() {
             @Override
             public void onLocationClick(int position) {
-                // TODO: CLICK GOES TO THE STORE IN QUESTION
                 Toast t = Toast.makeText(getContext(), "Location " + position, Toast.LENGTH_SHORT);
                 t.show();
             }

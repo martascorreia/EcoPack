@@ -49,8 +49,8 @@
             android:id="@+id/marker_information_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/dark_mint"
             android:layout_marginTop="@dimen/_15sdp"
+            android:backgroundTint="@color/dark_mint"
             android:clickable="true"
             android:src="@drawable/ic_info"
             android:visibility="invisible" />

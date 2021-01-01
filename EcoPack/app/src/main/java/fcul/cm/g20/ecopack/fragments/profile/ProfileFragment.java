@@ -56,6 +56,13 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // IMPORTANTE!
+        mainActivity.createStoreLatitude = 0.0;
+        mainActivity.createStoreLongitude = 0.0;
+        mainActivity.createStoreAddress = null;
+        mainActivity.createStoreOptions = null;
+        mainActivity.createStorePhotos = new ArrayList<>();
+
         if (mainActivity.isProfileSettingsFragmentActive) {
             getActivity()
                     .getSupportFragmentManager()
@@ -129,7 +136,7 @@ public class ProfileFragment extends Fragment {
                             mainActivity.userRedeemedPrizes = (ArrayList<String>) userDocument.get("redeemed_prizes");
                             mainActivity.userVisits = (ArrayList<HashMap<String, String>>) userDocument.get("visits");
                             mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
-                            mainActivity.userDocumentID = userDocument.getReference().getPath();
+                            mainActivity.userDocumentID = userDocument.getReference().getPath().split("/")[1];
 
                             String picture = mainActivity.userPicture;
                             CircleImageView circleImageView = profileFragment.findViewById(R.id.profile_image);
