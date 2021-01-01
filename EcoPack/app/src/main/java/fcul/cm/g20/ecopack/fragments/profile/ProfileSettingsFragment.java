@@ -54,6 +54,7 @@ public class ProfileSettingsFragment extends Fragment {
     private OnProfileSettingsFragmentActiveListener onProfileSettingsFragmentActiveListener;
     private MainActivity mainActivity;
     private FirebaseFirestore database;
+    private CircleImageView circleImageView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,42 +69,6 @@ public class ProfileSettingsFragment extends Fragment {
         View profileSettingsFragment = inflater.inflate(R.layout.fragment_profile_settings, container, false);
         setupFragment(profileSettingsFragment);
         return profileSettingsFragment;
-    }
-
-    private void loadImageFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, 1001);
-    }
-
-    CircleImageView circleImageView;
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
-            try {
-                Uri selectedImage = data.getData();
-                Cursor selectedCursor = mainActivity.getContentResolver().query(selectedImage, null, null, null, null);
-                int sizeIndex = selectedCursor.getColumnIndex(OpenableColumns.SIZE);
-                selectedCursor.moveToFirst();
-                long imageSize = selectedCursor.getLong(sizeIndex);
-
-                if (imageSize > 200000) {
-                    showToast("A imagem que está a tentar carregar é demasiado grande.", getContext());
-                    return;
-                }
-
-                int length = 0;
-                InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
-                byte[] buffer = new byte[(int) imageSize];
-                ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
-                mainActivity.editPicture = android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT);
-                circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(buffer, 0, buffer.length));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private void setupFragment(View profileSettingsFragment) {
@@ -337,6 +302,40 @@ public class ProfileSettingsFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void loadImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 1001);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
+            try {
+                Uri selectedImage = data.getData();
+                Cursor selectedCursor = mainActivity.getContentResolver().query(selectedImage, null, null, null, null);
+                int sizeIndex = selectedCursor.getColumnIndex(OpenableColumns.SIZE);
+                selectedCursor.moveToFirst();
+                long imageSize = selectedCursor.getLong(sizeIndex);
+
+                if (imageSize > 200000) {
+                    showToast("A imagem que está a tentar carregar é demasiado grande.", getContext());
+                    return;
+                }
+
+                int length = 0;
+                InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
+                byte[] buffer = new byte[(int) imageSize];
+                ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
+                mainActivity.editPicture = android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT);
+                circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(buffer, 0, buffer.length));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
