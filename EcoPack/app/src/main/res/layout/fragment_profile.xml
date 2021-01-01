@@ -55,9 +55,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image"
                         android:layout_width="@dimen/_80sdp"
-                        android:layout_height="@dimen/_80sdp"
-                        app:civ_border_color="@color/dark_mint"
-                        app:civ_border_width="@dimen/_2sdp" />
+                        android:layout_height="@dimen/_80sdp" />
                 </LinearLayout>
 
                 <TextView
@@ -83,7 +81,7 @@
                     android:singleLine="true"
                     android:textAllCaps="true"
                     android:textColor="@color/dark_mint"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
@@ -111,10 +109,10 @@
                         android:text="@string/locations" />
 
                     <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_opinions"
+                        android:id="@+id/tab_comments"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/opinions" />
+                        android:text="@string/comments" />
                 </com.google.android.material.tabs.TabLayout>
 
                 <FrameLayout

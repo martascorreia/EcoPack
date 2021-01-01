@@ -6,96 +6,105 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
     android:background="@color/white_smoke"
-    android:elevation="@dimen/_2sdp"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".fragments.login.LoginFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/ic_ecopack_logo" />
+        android:layout_gravity="center_vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/login_username"
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90sdp"
+                android:src="@drawable/image_ecopack_logo_v1" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_oval_mint"
-                android:drawableStart="@drawable/ic_user"
-                android:drawablePadding="@dimen/_10sdp"
-                android:hint="@string/username"
-                android:inputType="text"
-                android:padding="@dimen/_10sdp"
-                android:shadowColor="@android:color/transparent"
-                android:textColor="@color/dark_mint"
-                android:textColorHighlight="@color/dark_mint"
-                android:textColorHint="@color/dark_mint"
-                android:textSize="@dimen/_12sdp" />
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/login_password"
+                <EditText
+                    android:id="@+id/login_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_user"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:hint="@string/username"
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/login_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_password"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:maxLength="50"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:background="@drawable/shape_oval_mint"
-                android:drawableStart="@drawable/ic_password"
-                android:drawablePadding="@dimen/_10sdp"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:padding="@dimen/_10sdp"
-                android:shadowColor="@android:color/transparent"
-                android:textColor="@color/dark_mint"
-                android:textColorHighlight="@color/dark_mint"
-                android:textColorHint="@color/dark_mint"
-                android:textSize="@dimen/_12sdp" />
+                android:layout_marginTop="@dimen/_30sdp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/login_button"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/shape_button_dark_mint"
+                    android:padding="@dimen/_12sdp"
+                    android:shadowColor="@color/dark_mint"
+                    android:text="@string/login"
+                    android:textColor="@color/white_smoke"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/sign_up_button"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/shape_button_dark_mint"
+                    android:padding="@dimen/_12sdp"
+                    android:shadowColor="@color/dark_mint"
+                    android:text="@string/sign_up"
+                    android:textColor="@color/white_smoke"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/login_button"
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:background="@drawable/shape_button_dark_mint"
-                android:padding="@dimen/_12sdp"
-                android:shadowColor="@color/dark_mint"
-                android:text="@string/login"
-                android:textColor="@color/white_smoke"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/sign_up_button"
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:background="@drawable/shape_button_dark_mint"
-                android:padding="@dimen/_12sdp"
-                android:shadowColor="@color/dark_mint"
-                android:text="@string/sign_up"
-                android:textColor="@color/white_smoke"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </FrameLayout>

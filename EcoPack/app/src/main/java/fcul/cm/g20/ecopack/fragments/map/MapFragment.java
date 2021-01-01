@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -17,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,18 +45,24 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.StoreFragment;
+import fcul.cm.g20.ecopack.utils.Utils;
 
-// TODO: TRATAR DA ROTAÇÃO E CRIAR LISTENER PARA RETER AS COORDENADAS (NO CREATE STORE FRAGMENT) E A STRING PROCURADA NA ROTAÇÃO
+import static fcul.cm.g20.ecopack.utils.Utils.showToast;
+
+// TODO: DECIDE WHAT TO DO WITH SAVING THE LAST SHOWN LOCATION
 
 public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private int DEFAULT_MAP_ZOOM = 16;
+    private MainActivity mainActivity;
     private FirebaseFirestore database;
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
@@ -69,6 +75,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
         database = FirebaseFirestore.getInstance();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -84,18 +91,61 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
         return mapFragment;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // IMPORTANTE!
+        mainActivity.isProfileSettingsFragmentActive = false;
+        mainActivity.editPicture = null;
+        mainActivity.editName = null;
+        mainActivity.editEmail = null;
+        mainActivity.editPhone = null;
+        mainActivity.editGender = null;
+        mainActivity.editBirthday = null;
+        mainActivity.editCity = null;
+        mainActivity.editPassword = null;
+    }
+
     private void setupFragment(final View mapFragment) {
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_fragment);
         Objects.requireNonNull(supportMapFragment).getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
+                storesMap = new HashMap<>();
 
-                // DISABLES COMPASS -> WE COULD ALSO JUST MOVE IT DOWN A BIT ¯\_(ツ)_/¯
                 map.getUiSettings().setCompassEnabled(false);
 
-                // TAL COMO O MAPA, OS MARKERS SÃO GUARDADOS EM CACHE
-                storesMap = new HashMap<>();
+                // NECESSÁRIO PARA ESTABELECER/ATUALIZAR O ESTADO DO UTILIZADOR (SE DER ALGUM TIPO DE ERRO, NÃO HÁ PROBLEMA NENHUM)
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
+                database.collection("users")
+                        .whereEqualTo("username", sharedPreferences.getString("username", ""))
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot userDocument = task.getResult().getDocuments().get(0);
+                                    mainActivity.userPicture = (String) userDocument.get("picture");
+                                    mainActivity.userUsername = (String) userDocument.get("username");
+                                    mainActivity.userPassword = (String) userDocument.get("password");
+                                    mainActivity.userName = (String) userDocument.get("name");
+                                    mainActivity.userEmail = (String) userDocument.get("email");
+                                    mainActivity.userPhone = (String) userDocument.get("phone");
+                                    mainActivity.userGender = (String) userDocument.get("gender");
+                                    mainActivity.userBirthday = (String) userDocument.get("birthday");
+                                    mainActivity.userCity = (String) userDocument.get("city");
+                                    mainActivity.userRegisterDate = (long) userDocument.get("register_date");
+                                    mainActivity.userPoints = (long) userDocument.get("points");
+                                    mainActivity.userRedeemedPrizes = (ArrayList<String>) userDocument.get("redeemed_prizes");
+                                    mainActivity.userVisits = (ArrayList<HashMap<String, String>>) userDocument.get("visits");
+                                    mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
+                                    mainActivity.userDocumentID = userDocument.getReference().getPath().split("/")[1];
+                                }
+                            }
+                        });
+
                 database.collection("stores")
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -117,34 +167,42 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
 
                                         long mostFrequentIndex = getMostFrequentPackageType(counters);
                                         if (counters[4] == 1) {
-                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_reusable_home));
-                                            else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_bio_home));
-                                            else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_paper_home));
-                                            else if (mostFrequentIndex == 3) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_plastic_home));
+                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_reusable_home));
+                                            else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_bio_home));
+                                            else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_paper_home));
+                                            else if (mostFrequentIndex == 3) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_plastic_home));
                                         } else {
-                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_reusable));
-                                            else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_bio));
-                                            else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_paper));
-                                            else if (mostFrequentIndex == 3) currMarker.setIcon(drawableToBitmap(getContext(), R.drawable.ic_marker_plastic));
+                                            if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_reusable));
+                                            else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_bio));
+                                            else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_paper));
+                                            else if (mostFrequentIndex == 3) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_plastic));
                                         }
 
                                         storesMap.put(currMarker.getId(), store);
                                     }
-                                } else showToast("Não foi possível obter os estabelecimentos existentes. Por favor, tente mais tarde.");
+                                } else showToast("Não foi possível obter os estabelecimentos existentes. Por favor, tente mais tarde.", getContext());
                             }
                         });
 
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) buildGoogleApiClient();
-                else showToast("Não foi possível obter a sua localização. Por favor, dê as permissões necessárias.");
+                else showToast("Não foi possível obter a sua localização. Por favor, dê as permissões necessárias.", getContext());
 
                 // LOCALIZAÇÃO TEMPORÁRIA, NO CASO DO UTILIZADOR TER O SERVIÇO DE LOCALIZAÇÃO DESLIGADO, A LOCALIZAÇÃO NÃO TER SIDO AINDA CALCULADA OU NÃO HAVER PERMISSÕES
                 LatLng defaultCoordinates = new LatLng(38.71667, -9.13333);
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinates, DEFAULT_MAP_ZOOM));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinates, DEFAULT_MAP_ZOOM));
+
+                /*
+                if (mainActivity.visibleLocationLatitude == 0.0 && mainActivity.visibleLocationLongitude == 0.0) {
+                    LatLng defaultCoordinates = new LatLng(38.71667, -9.13333);
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(defaultCoordinates, DEFAULT_MAP_ZOOM));
+                } else map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mainActivity.visibleLocationLatitude, mainActivity.visibleLocationLongitude), DEFAULT_MAP_ZOOM));
+                */
 
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        createFragment(new StoreFragment(storesMap.get(marker.getId())));
+                        DocumentSnapshot storeDocument = storesMap.get(marker.getId());
+                        if (storeDocument != null) createFragment(new StoreFragment(storeDocument));
                         return false;
                     }
                 });
@@ -153,7 +211,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                     @Override
                     public void onMapLongClick(final LatLng latLng) {
                         new AlertDialog.Builder(getActivity(), R.style.AlertDialogMap)
-                                .setTitle("Registar estabelecimento")
+                                .setTitle("Registar Estabelecimento")
                                 .setMessage("Tem a certeza que quer registar um estabelecimento neste local?")
                                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                                     @Override
@@ -161,10 +219,12 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                                         try {
                                             Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                                             List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-                                            String address = addresses.get(0).getAddressLine(0);
-                                            createFragment(new CreateStoreFragment(latLng.latitude, latLng.longitude, address));
+                                            mainActivity.createStoreAddress = addresses.get(0).getAddressLine(0);
+                                            mainActivity.createStoreLatitude = latLng.latitude;
+                                            mainActivity.createStoreLongitude = latLng.longitude;
+                                            createFragment(new CreateStoreFragment());
                                         } catch (IOException e) {
-                                            showToast("Não foi possível registar o estabelecimento. Por favor, verifique a sua conexão à Internet.");
+                                            showToast("Não foi possível registar o estabelecimento. Por favor, verifique a sua conexão à Internet.", getContext());
                                         }
                                     }
                                 })
@@ -172,6 +232,19 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                                 .show();
                     }
                 });
+
+                /*
+                // THIS SAVES THE LAST COORDINATES SHOWN
+                // IT HAS A BIG PROBLEM: THIS RUNS ON THE MAIN THREAD, WHICH MAKES THE MAP RUN A LOT SLOWER, WHICH TAKES A TOLL ON OTHER FRAGMENTS
+                googleMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+                    @Override
+                    public void onCameraIdle() {
+                        LatLng visibleRegionCoordinates = map.getProjection().getVisibleRegion().latLngBounds.getCenter();
+                        mainActivity.visibleLocationLatitude = visibleRegionCoordinates.latitude;
+                        mainActivity.visibleLocationLongitude = visibleRegionCoordinates.longitude;
+                    }
+                });
+                */
             }
         });
 
@@ -180,21 +253,20 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
             @Override
             public boolean onQueryTextSubmit(String query) {
                 String addressInput = searchView.getQuery().toString();
-
                 if (!addressInput.equals("")) {
                     try {
                         Geocoder geocoder = new Geocoder(getContext());
                         List<Address> addressList = geocoder.getFromLocationName(addressInput, 1);
-                        if (addressList == null || addressList.size() == 0) showToast("Não foi possível obter a localização. Localização não existente.");
+                        if (addressList == null || addressList.size() == 0) showToast("Não foi possível obter a localização. Localização não existente.", getContext());
                         else {
                             Address address = addressList.get(0);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_MAP_ZOOM));
                         }
                     } catch (IOException e) {
-                        showToast("Não foi possível obter a localização. Por favor, verifique a sua conexão à Internet.");
+                        showToast("Não foi possível obter a localização. Por favor, verifique a sua conexão à Internet.", getContext());
                         return false;
                     }
-                } else showToast("Por favor, insira uma localização.");
+                } else showToast("Por favor, insira uma localização.", getContext());
 
                 return false;
             }
@@ -222,7 +294,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
         mapFragment.findViewById(R.id.center_map_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentCoordinates != null) map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, DEFAULT_MAP_ZOOM));
+                if (!Utils.isLocationEnabled(getContext())) showToast("Não foi possível centrar o mapa na sua localização. Por favor, verifique se tem o serviço de localização ativado.", getContext());
+                else if (currentCoordinates != null) map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentCoordinates, DEFAULT_MAP_ZOOM));
             }
         });
 
@@ -253,10 +326,6 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
         googleApiClient.connect();
     }
 
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-    }
-
     private long getMostFrequentPackageType(long[] counters) {
         long max = counters[0], index = 0;
 
@@ -271,12 +340,14 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     }
 
     private BitmapDescriptor drawableToBitmap(Context context, int markerID) {
-        Drawable marker = ContextCompat.getDrawable(context, markerID);
-        marker.setBounds(0, 0, marker.getIntrinsicWidth(), marker.getIntrinsicHeight());
-        Bitmap markerBitmap = Bitmap.createBitmap(marker.getIntrinsicWidth(), marker.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(markerBitmap);
-        marker.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(markerBitmap);
+        if (mainActivity != null) {
+            Drawable marker = ContextCompat.getDrawable(context, markerID);
+            marker.setBounds(0, 0, marker.getIntrinsicWidth(), marker.getIntrinsicHeight());
+            Bitmap markerBitmap = Bitmap.createBitmap(marker.getIntrinsicWidth(), marker.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(markerBitmap);
+            marker.draw(canvas);
+            return BitmapDescriptorFactory.fromBitmap(markerBitmap);
+        } else return null;
     }
 
     private void createFragment(Fragment fragment) {

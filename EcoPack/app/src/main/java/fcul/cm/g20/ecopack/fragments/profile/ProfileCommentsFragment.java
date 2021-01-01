@@ -15,11 +15,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.profile.recyclerview.LocationAdapter;
+import fcul.cm.g20.ecopack.fragments.profile.recyclerview.CommentAdapter;
 
 // TODO: NAVEGAÇÃO / CLICK GOES TO THE STORE IN QUESTION
 
-public class ProfileLocationsFragment extends Fragment {
+public class ProfileCommentsFragment extends Fragment {
     private MainActivity mainActivity;
     private FirebaseFirestore database;
 
@@ -32,22 +32,22 @@ public class ProfileLocationsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View profileLocationsFragmentView = inflater.inflate(R.layout.fragment_profile_locations, container, false);
+        View profileCommentsFragmentView = inflater.inflate(R.layout.fragment_profile_comments, container, false);
 
-        RecyclerView recyclerView = profileLocationsFragmentView.findViewById(R.id.locations_container);
+        RecyclerView recyclerView = profileCommentsFragmentView.findViewById(R.id.comments_container);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        LocationAdapter locationAdapter = new LocationAdapter(getContext(), mainActivity.userVisits);
-        recyclerView.setAdapter(locationAdapter);
+        CommentAdapter commentAdapter = new CommentAdapter(getContext(), mainActivity.userComments);
+        recyclerView.setAdapter(commentAdapter);
 
-        locationAdapter.setOnLocationClickListener(new LocationAdapter.OnLocationClickListener() {
+        commentAdapter.setOnCommentClickListener(new CommentAdapter.OnCommentClickListener() {
             @Override
-            public void onLocationClick(int position) {
-                Toast t = Toast.makeText(getContext(), "Location " + position, Toast.LENGTH_SHORT);
+            public void onCommentClick(int position) {
+                Toast t = Toast.makeText(getContext(), "Comment " + position, Toast.LENGTH_SHORT);
                 t.show();
             }
         });
 
-        return profileLocationsFragmentView;
+        return profileCommentsFragmentView;
     }
 }

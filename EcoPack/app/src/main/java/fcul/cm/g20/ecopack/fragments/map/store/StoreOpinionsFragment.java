@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.adapter.Comment;
-import fcul.cm.g20.ecopack.fragments.map.store.adapter.CommentAdapter;
+import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.Comment;
+import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.CommentAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class StoreOpinionsFragment extends Fragment {
@@ -110,7 +110,7 @@ public class StoreOpinionsFragment extends Fragment {
             public void onClick(View v) {
                 scroll = getView().findViewById(R.id.scroll_icons);
 
-                if(scroll.getVisibility() == View.VISIBLE){
+                if (scroll.getVisibility() == View.VISIBLE) {
                     scroll.setVisibility(View.INVISIBLE);
                 } else {
                     scroll.setVisibility(View.VISIBLE);
@@ -258,8 +258,8 @@ public class StoreOpinionsFragment extends Fragment {
                     // GET OLD COMMENTS
                     List<Map<String, Object>> comments = new ArrayList<>();
                     List<Map<String, Object>> oldComments = (List<Map<String, Object>>) storeDocument.get("comments");
-                    if (oldComments != null){
-                        for(int i = 0; i < oldComments.size(); i++){
+                    if (oldComments != null) {
+                        for (int i = 0; i < oldComments.size(); i++) {
                             comments.add(oldComments.get(i));
                         }
                     }
@@ -352,7 +352,7 @@ public class StoreOpinionsFragment extends Fragment {
                 Map<String, Object> oldComment = oldComments.get(i);
 
                 Drawable drawable = null;
-                if(!oldComment.get("marker").equals("ic_plus")){
+                if (!oldComment.get("marker").equals("ic_plus")) {
                     int id = getResources().getIdentifier((String) oldComment.get("marker"), "drawable", getActivity().getPackageName());
                     drawable = getResources().getDrawable(id);
                 }
@@ -372,7 +372,7 @@ public class StoreOpinionsFragment extends Fragment {
         String marker = (String) comment.get("marker");
 
         Drawable drawable = null;
-        if(!marker.equals("ic_plus")){
+        if (!marker.equals("ic_plus")) {
             int id = getResources().getIdentifier(marker, "drawable", getActivity().getPackageName());
             drawable = getResources().getDrawable(id);
         }

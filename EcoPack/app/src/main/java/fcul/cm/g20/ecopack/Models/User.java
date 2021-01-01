@@ -13,7 +13,7 @@ import java.util.Map;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class User {
-    private String userName;
+    private String username;
     private String email;
     private String password;
     private String name;
@@ -54,8 +54,8 @@ public class User {
         );
     }
 
-    public User(String userName, String email, String password, String name, String phone, String gender, String birthday, String city, int visits, int comments, long register_date, Bitmap picture, int points, ArrayList<String> redeemedPrizesIds, String fireBasePath) {
-        this.userName = userName;
+    public User(String username, String email, String password, String name, String phone, String gender, String birthday, String city, int visits, int comments, long register_date, Bitmap picture, int points, ArrayList<String> redeemedPrizesIds, String fireBasePath) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.name = name;
@@ -80,7 +80,7 @@ public class User {
     public boolean buyPrize(Prize prizeModel) {
         int pointsLeft = this.points - prizeModel.getCost();
         boolean validPurchase = pointsLeft >= 0;
-        if(validPurchase){
+        if (validPurchase) {
             this.points = pointsLeft;
             redeemedPrizesIds.add(prizeModel.getTitle()); //CHANGE TO ID!!!!
         }
@@ -90,7 +90,7 @@ public class User {
     @SuppressLint("NewApi")
     public Map<String, Object> getHashMap() {
         Map<String, Object> result = new HashMap<>();
-        result.put("userName", this.userName);
+        result.put("username", this.username);
         result.put("email", this.email);
         result.put("password", this.password);
         result.put("name", this.name);
@@ -101,34 +101,34 @@ public class User {
         result.put("visits", this.visits);
         result.put("comments", this.comments);
         result.put("register_date", this.register_date);
-        result.put("picture", (this.picture == null)? "N/A":Utils.bitmapToString(this.picture)); //I DON'T LIKE THIS
+        result.put("picture", (this.picture == null) ? "N/A" : Utils.bitmapToString(this.picture)); //I DON'T LIKE THIS
         result.put("points", this.points);
-        result.put("redeemed_prizes_ids",  this.redeemedPrizesIds);
+        result.put("redeemed_prizes_ids", this.redeemedPrizesIds);
         return result;
     }
 
     //region Static methods
-    private static int getIntFrom(Object o){
+    private static int getIntFrom(Object o) {
         int result = 0;
-        if(o != null){
-            if(o instanceof Integer)
-                result = (int)o;
-            else if(o instanceof Long) {
-                result = ((Long)o).intValue();
+        if (o != null) {
+            if (o instanceof Integer)
+                result = (int) o;
+            else if (o instanceof Long) {
+                result = ((Long) o).intValue();
             }
         }
         return result;
     }
 
-    private static long getLongFrom(Object o){
-        return (o != null)? (long)o : 0;
+    private static long getLongFrom(Object o) {
+        return (o != null) ? (long) o : 0;
     }
     //endregion
 
     //region Getters
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public String getEmail() {

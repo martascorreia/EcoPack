@@ -7,7 +7,7 @@
     <string name="profile">Perfil</string>
     <string name="info">Informação</string>
     <string name="locations">Locais</string>
-    <string name="opinions">Opiniões</string>
+    <string name="comments">Comentários</string>
     <string name="complete_name">Nome Completo</string>
     <string name="email">Email</string>
     <string name="phone_number">Telemóvel</string>
@@ -34,7 +34,7 @@
     <string name="save">Guardar</string>
     <string name="steps">Conhece um estabelecimento que ainda não faça parte do nosso mapa? Então, ajude-nos!</string>
     <string name="step1">Volte para o mapa.</string>
-    <string name="step2">Na barra de pesquisa, coloque a morada do estabelecimento que pretende adicionar.</string>
+    <string name="step2">Na barra de pesquisa, coloque a morada do estabelecimento que pretende registar.</string>
     <string name="step3">No local do estabelecimento, pressione durante alguns segundos.</string>
     <string name="step4">Preencha as informações necessárias sobre o estabelecimento e submeta o formulário.</string>
     <string name="done">Obrigado!</string>

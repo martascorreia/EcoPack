@@ -10,10 +10,12 @@ import androidx.fragment.app.FragmentManager;
 
 import fcul.cm.g20.ecopack.R;
 
+// TODO: ALTERAR IMAGENS
+
 public class CreateInformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View createInformationFragment = inflater.inflate(R.layout.fragment_create_info, container, false);
+        View createInformationFragment = inflater.inflate(R.layout.fragment_map_create_info, container, false);
         setupFragment(createInformationFragment);
         return createInformationFragment;
     }

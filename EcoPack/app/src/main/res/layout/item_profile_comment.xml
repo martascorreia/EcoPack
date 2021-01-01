@@ -7,14 +7,14 @@
     app:cardElevation="0dp">
 
     <RelativeLayout
-        android:id="@+id/item_location"
+        android:id="@+id/item_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white_smoke"
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/item_location_marker"
+            android:id="@+id/item_comment_marker"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:layout_centerVertical="true" />
@@ -23,11 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            android:layout_toEndOf="@id/item_location_marker"
+            android:layout_toEndOf="@id/item_comment_marker"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/item_location_name"
+                android:id="@+id/item_comment_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -36,10 +36,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/item_location_date"
+                android:id="@+id/item_comment_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_location_name"
+                android:layout_below="@id/item_comment_date"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp" />

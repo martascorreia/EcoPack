@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -37,17 +38,17 @@ public class Utils {
         return BitmapFactory.decodeResource(context.getResources(), drawableId);
     }
 
-    public static Bitmap stringToBitmap(String s){
+    public static Bitmap stringToBitmap(String s) {
         if (s == null || s.equals("N/A")) return null;
         else {
-            byte[] array = android.util.Base64.decode( s, android.util.Base64.DEFAULT);
+            byte[] array = android.util.Base64.decode(s, android.util.Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
             return bitmap;
         }
     }
 
-    public static String bitmapToString(Bitmap b){
-        if(b == null)
+    public static String bitmapToString(Bitmap b) {
+        if (b == null)
             return null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         b.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -55,9 +56,8 @@ public class Utils {
         return android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT);
     }
 
-    // MAYBE CHANGE TO OTHER CLASS?
-    public static void showToast(String message, Context ctx) {
-        Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
+    public static void showToast(String message, Context context) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     public static boolean isNetworkAvailable(Context context) {
@@ -71,5 +71,10 @@ public class Utils {
         }
 
         return false;
+    }
+
+    public static boolean isLocationEnabled(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 }
