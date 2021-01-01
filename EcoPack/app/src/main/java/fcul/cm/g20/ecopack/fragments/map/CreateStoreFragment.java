@@ -208,6 +208,7 @@ public class CreateStoreFragment extends Fragment {
                     progressDialog.setMessage("A registar estabelecimento...");
                     progressDialog.setIndeterminate(true);
                     progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.setCancelable(false);
                     progressDialog.show();
 
                     Map<String, Object> store = new HashMap<>();

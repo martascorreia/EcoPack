@@ -8,9 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import fcul.cm.g20.ecopack.fragments.login.LoginFragment;
 import fcul.cm.g20.ecopack.fragments.login.SignUpFragment;
 
-public class LoginActivity extends AppCompatActivity implements LoginFragment.OnLoginDialogStateListener, SignUpFragment.OnSignUpDialogStateListener, SignUpFragment.OnSignUpFragmentActiveListener {
-    public boolean isLoginDialogOpen = false;
-    public boolean isSignUpDialogOpen = false;
+public class LoginActivity extends AppCompatActivity implements SignUpFragment.OnSignUpFragmentActiveListener {
     public boolean isSignUpFragmentActive = false;
     public String loginUsername;
     public String loginPassword;
@@ -39,16 +37,6 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
     }
 
     @Override
-    public void onLoginDialogState(boolean isLoginDialogOpen) {
-        this.isLoginDialogOpen = isLoginDialogOpen;
-    }
-
-    @Override
-    public void onSignUpDialogState(boolean isSignUpDialogOpen) {
-        this.isSignUpDialogOpen = isSignUpDialogOpen;
-    }
-
-    @Override
     public void onSignUpFragmentActive(boolean isSignUpFragmentActive) {
         this.isSignUpFragmentActive = isSignUpFragmentActive;
     }
@@ -66,9 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.On
 
     @Override
     public void onBackPressed() {
-        if (!isLoginDialogOpen || !isSignUpDialogOpen) {
-            isSignUpFragmentActive = false;
-            super.onBackPressed();
-        }
+        isSignUpFragmentActive = false;
+        super.onBackPressed();
     }
 }

@@ -33,11 +33,6 @@ import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
 public class LoginFragment extends Fragment {
-    public interface OnLoginDialogStateListener {
-        void onLoginDialogState(boolean isLoginDialogOpen);
-    }
-
-    private OnLoginDialogStateListener onLoginDialogStateListener;
     private LoginActivity loginActivity;
     private FirebaseFirestore database;
 
@@ -128,8 +123,8 @@ public class LoginFragment extends Fragment {
                     progressDialog.setMessage("A iniciar sessão...");
                     progressDialog.setIndeterminate(true);
                     progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.setCancelable(false);
                     progressDialog.show();
-                    onLoginDialogStateListener.onLoginDialogState(true);
                     getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                     if (isNetworkAvailable(getContext())) {
@@ -156,19 +151,16 @@ public class LoginFragment extends Fragment {
                                                     getActivity().finish();
                                                 } else {
                                                     progressDialog.dismiss();
-                                                    onLoginDialogStateListener.onLoginDialogState(false);
                                                     getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                                     showToast("Password errada. Por favor, tente novamente.", getContext());
                                                 }
                                             } else {
                                                 progressDialog.dismiss();
-                                                onLoginDialogStateListener.onLoginDialogState(false);
                                                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                                 showToast("Não foi possível iniciar sessão. Não existem utilizadores com este username.", getContext());
                                             }
                                         } else {
                                             progressDialog.dismiss();
-                                            onLoginDialogStateListener.onLoginDialogState(false);
                                             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                             showToast("Não foi possível iniciar sessão. Por favor, tente mais tarde.", getContext());
                                         }
@@ -176,7 +168,6 @@ public class LoginFragment extends Fragment {
                                 });
                     } else {
                         progressDialog.dismiss();
-                        onLoginDialogStateListener.onLoginDialogState(false);
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         showToast("Não foi possível iniciar sessão. Por favor, verifique a sua conexão à Internet.", getContext());
                     }
@@ -197,21 +188,5 @@ public class LoginFragment extends Fragment {
                         .commit();
             }
         });
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            onLoginDialogStateListener = (OnLoginDialogStateListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement listener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        onLoginDialogStateListener = null;
     }
 }

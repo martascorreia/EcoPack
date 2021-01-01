@@ -20,8 +20,7 @@ import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
 // TODO: userVisits: ID DA LOJA, MARKER, DATA
 // TODO: userComments: ID DO COMENTÁRIO (PRESENTE NUMA DADA LOJA), ID DO USER, ID DA LOJA, CONTEÚDO, DATA, MARKER
 
-public class MainActivity extends AppCompatActivity implements ProfileSettingsFragment.OnEditProfileDialogStateListener, ProfileSettingsFragment.OnProfileSettingsFragmentActiveListener {
-    public boolean isEditProfileDialogOpen = false;
+public class MainActivity extends AppCompatActivity implements ProfileSettingsFragment.OnProfileSettingsFragmentActiveListener {
     public boolean isProfileSettingsFragmentActive = false;
 
     public String userPicture;
@@ -101,11 +100,6 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     }
 
     @Override
-    public void onEditProfileDialogState(boolean isEditProfileDialogOpen) {
-        this.isEditProfileDialogOpen = isEditProfileDialogOpen;
-    }
-
-    @Override
     public void onProfileSettingsFragmentActive(boolean isProfileSettingsFragmentActive) {
         this.isProfileSettingsFragmentActive = isProfileSettingsFragmentActive;
     }
@@ -144,19 +138,10 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
 
     @Override
     public void onBackPressed() {
-        if (!isEditProfileDialogOpen) {
-            if (isProfileSettingsFragmentActive) {
-                editPicture = null;
-                editName = null;
-                editEmail = null;
-                editPhone = null;
-                editGender = null;
-                editBirthday = null;
-                editCity = null;
-                editPassword = null;
-                isProfileSettingsFragmentActive = false;
-                this.getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            } else super.onBackPressed();
-        }
+        if (isProfileSettingsFragmentActive) {
+            editPicture = null;
+            isProfileSettingsFragmentActive = false;
+            this.getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } else super.onBackPressed();
     }
 }

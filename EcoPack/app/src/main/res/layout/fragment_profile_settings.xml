@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_smoke"
-    android:elevation="@dimen/_2sdp"
     tools:context=".fragments.profile.ProfileSettingsFragment">
 
     <LinearLayout
@@ -53,7 +52,7 @@
                     android:id="@+id/save_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/mint"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_save"
                     android:text="@string/save"
                     android:textColor="@color/white"
@@ -73,38 +72,48 @@
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/image_instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Carregue na imagem, se pretende alterá-la:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
                 <LinearLayout
                     android:id="@+id/edit_user_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true">
+                    android:layout_below="@id/image_instructions"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_15sdp">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/edit_user_picture"
-                            android:layout_width="@dimen/_80sdp"
-                            android:layout_height="@dimen/_80sdp"
-                            app:civ_border_color="@color/gray"
-                            app:civ_border_width="@dimen/_2sdp" />
-
-                        <ImageButton
                             android:id="@+id/change_profile_image"
                             android:layout_width="@dimen/_80sdp"
-                            android:layout_height="@dimen/_80sdp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/shape_round_corner"
-                            android:src="@drawable/ic_camera" />
+                            android:layout_height="@dimen/_80sdp" />
                     </RelativeLayout>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/image_instructions_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/edit_user_image"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="Preencha os campos que pretende alterar:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
 
                 <EditText
                     android:id="@+id/edit_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/edit_user_image"
+                    android:layout_below="@id/image_instructions_2"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:background="@drawable/shape_oval_mint"
                     android:drawableStart="@drawable/ic_user_empty"

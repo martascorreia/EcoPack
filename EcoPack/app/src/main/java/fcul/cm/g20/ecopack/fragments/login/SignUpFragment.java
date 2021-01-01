@@ -39,15 +39,10 @@ import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
 public class SignUpFragment extends Fragment {
-    public interface OnSignUpDialogStateListener {
-        void onSignUpDialogState(boolean isSignUpDialogOpen);
-    }
-
     public interface OnSignUpFragmentActiveListener {
         void onSignUpFragmentActive(boolean isSignUpFragmentActive);
     }
 
-    private OnSignUpDialogStateListener onSignUpDialogStateListener;
     private OnSignUpFragmentActiveListener onSignUpFragmentActiveListener;
     private LoginActivity loginActivity;
     private FirebaseFirestore database;
@@ -69,16 +64,6 @@ public class SignUpFragment extends Fragment {
     }
 
     private void setupFragment(final View signUpFragment) {
-        signUpFragment.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSignUpFragmentActiveListener.onSignUpFragmentActive(false);
-                getActivity()
-                        .getSupportFragmentManager()
-                        .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
-
         final EditText[] inputs = new EditText[3];
 
         EditText signUpUsernameEditText = signUpFragment.findViewById(R.id.create_user_username);
@@ -157,8 +142,8 @@ public class SignUpFragment extends Fragment {
                     progressDialog.setMessage("A registar utilizador...");
                     progressDialog.setIndeterminate(true);
                     progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.setCancelable(false);
                     progressDialog.show();
-                    onSignUpDialogStateListener.onSignUpDialogState(true);
                     getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                     final Map<String, Object> user = new HashMap<>();
@@ -208,20 +193,17 @@ public class SignUpFragment extends Fragment {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
                                                                 progressDialog.dismiss();
-                                                                onSignUpDialogStateListener.onSignUpDialogState(false);
                                                                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                                                 showToast("Não foi possível registar o utilizador. Por favor, tente mais tarde.", getContext());
                                                             }
                                                         });
                                             } else {
                                                 progressDialog.dismiss();
-                                                onSignUpDialogStateListener.onSignUpDialogState(false);
                                                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                                 showToast("Não foi possível registar o utilizador. Já existe um utilizador com este username.", getContext());
                                             }
                                         } else {
                                             progressDialog.dismiss();
-                                            onSignUpDialogStateListener.onSignUpDialogState(false);
                                             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                             showToast("Não foi possível registar o utilizador. Por favor, tente mais tarde.", getContext());
                                         }
@@ -229,7 +211,6 @@ public class SignUpFragment extends Fragment {
                                 });
                     } else {
                         progressDialog.dismiss();
-                        onSignUpDialogStateListener.onSignUpDialogState(false);
                         SignUpFragment.this.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         showToast("Não foi possível registar o utilizador. Por favor, verifique a sua conexão à Internet.", getContext());
                     }
@@ -238,13 +219,22 @@ public class SignUpFragment extends Fragment {
                 v.setEnabled(true);
             }
         });
+
+        signUpFragment.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSignUpFragmentActiveListener.onSignUpFragmentActive(false);
+                getActivity()
+                        .getSupportFragmentManager()
+                        .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        });
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            onSignUpDialogStateListener = (OnSignUpDialogStateListener) context;
             onSignUpFragmentActiveListener = (OnSignUpFragmentActiveListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement listener");
@@ -254,7 +244,6 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        onSignUpDialogStateListener = null;
         onSignUpFragmentActiveListener = null;
     }
 }

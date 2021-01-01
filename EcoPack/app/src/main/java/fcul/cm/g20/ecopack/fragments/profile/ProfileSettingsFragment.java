@@ -1,10 +1,19 @@
 package fcul.cm.g20.ecopack.fragments.profile;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,6 +23,8 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -21,27 +32,25 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 
 import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
-// TODO: UPDATE PICTURE
-
 public class ProfileSettingsFragment extends Fragment {
-    public interface OnEditProfileDialogStateListener {
-        void onEditProfileDialogState(boolean isEditProfileDialogOpen);
-    }
-
     public interface OnProfileSettingsFragmentActiveListener {
         void onProfileSettingsFragmentActive(boolean isProfileSettingsFragmentActive);
     }
 
-    private OnEditProfileDialogStateListener onEditProfileDialogStateListener;
     private OnProfileSettingsFragmentActiveListener onProfileSettingsFragmentActiveListener;
     private MainActivity mainActivity;
     private FirebaseFirestore database;
@@ -61,33 +70,67 @@ public class ProfileSettingsFragment extends Fragment {
         return profileSettingsFragment;
     }
 
+    private void loadImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 1001);
+    }
+
+    CircleImageView circleImageView;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
+            try {
+                Uri selectedImage = data.getData();
+                Cursor selectedCursor = mainActivity.getContentResolver().query(selectedImage, null, null, null, null);
+                int sizeIndex = selectedCursor.getColumnIndex(OpenableColumns.SIZE);
+                selectedCursor.moveToFirst();
+                long imageSize = selectedCursor.getLong(sizeIndex);
+
+                if (imageSize > 200000) {
+                    showToast("A imagem que está a tentar carregar é demasiado grande.", getContext());
+                    return;
+                }
+
+                int length = 0;
+                InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
+                byte[] buffer = new byte[(int) imageSize];
+                ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
+                mainActivity.editPicture = android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT);
+                circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(buffer, 0, buffer.length));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void setupFragment(View profileSettingsFragment) {
-        profileSettingsFragment.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+        circleImageView = profileSettingsFragment.findViewById(R.id.change_profile_image);
+
+        if (mainActivity.editPicture == null || mainActivity.editPicture.length() == 0) {
+            if (mainActivity.userPicture.equals("N/A")) circleImageView.setImageResource(R.drawable.ic_user_empty);
+            else {
+                byte[] pictureArray = android.util.Base64.decode(mainActivity.userPicture, android.util.Base64.DEFAULT);
+                circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(pictureArray, 0, pictureArray.length));
+            }
+        } else {
+            byte[] pictureArray = android.util.Base64.decode(mainActivity.editPicture, android.util.Base64.DEFAULT);
+            circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(pictureArray, 0, pictureArray.length));
+        }
+
+        circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.editPicture = null;
-                mainActivity.editName = null;
-                mainActivity.editEmail = null;
-                mainActivity.editPhone = null;
-                mainActivity.editGender = null;
-                mainActivity.editBirthday = null;
-                mainActivity.editCity = null;
-                mainActivity.editPassword = null;
-                onProfileSettingsFragmentActiveListener.onProfileSettingsFragmentActive(false);
-                getActivity().getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) loadImageFromGallery();
+                    } else loadImageFromGallery();
+                } else loadImageFromGallery();
             }
         });
-
-        /*
-        String picture = mainActivity.userPicture;
-        CircleImageView circleImageView = profileSettingsFragment.findViewById(R.id.change_profile_image);
-        if (picture.equals("N/A")) circleImageView.setImageResource(R.drawable.ic_user_empty);
-        else {
-            byte[] pictureArray = android.util.Base64.decode(picture, android.util.Base64.DEFAULT);
-            Bitmap pictureBitmap = BitmapFactory.decodeByteArray(pictureArray, 0, pictureArray.length);
-            circleImageView.setImageBitmap(pictureBitmap);
-        }
-         */
 
         final EditText[] inputs = new EditText[7];
 
@@ -231,6 +274,15 @@ public class ProfileSettingsFragment extends Fragment {
         });
         inputs[6] = editPasswordEditText;
 
+        profileSettingsFragment.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.editPicture = null;
+                onProfileSettingsFragmentActiveListener.onProfileSettingsFragmentActive(false);
+                getActivity().getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        });
+
         profileSettingsFragment.findViewById(R.id.save_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,8 +292,8 @@ public class ProfileSettingsFragment extends Fragment {
                 progressDialog.setMessage("A atualizar perfil...");
                 progressDialog.setIndeterminate(true);
                 progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.setCancelable(false);
                 progressDialog.show();
-                onEditProfileDialogStateListener.onEditProfileDialogState(true);
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                 final Map<String, Object> user = new HashMap<>();
@@ -252,6 +304,7 @@ public class ProfileSettingsFragment extends Fragment {
                 user.put("birthday", inputs[4].getText().toString());
                 user.put("city", inputs[5].getText().toString());
                 user.put("password", inputs[6].getText().toString());
+                if (mainActivity.editPicture != null && mainActivity.editPicture.length() != 0) user.put("picture", mainActivity.editPicture);
 
                 if (isNetworkAvailable(getContext())) {
                     database.document(mainActivity.userDocumentID)
@@ -265,26 +318,20 @@ public class ProfileSettingsFragment extends Fragment {
                                     editor.commit();
 
                                     progressDialog.dismiss();
-                                    onEditProfileDialogStateListener.onEditProfileDialogState(false);
                                     getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                     showToast("Perfil atualizado com sucesso!", getContext());
-
-                                    onProfileSettingsFragmentActiveListener.onProfileSettingsFragmentActive(false);
-                                    mainActivity.onBackPressed();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();
-                                    onEditProfileDialogStateListener.onEditProfileDialogState(false);
                                     getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                     showToast("Não foi possível atualizar o perfil. Por favor, tente mais tarde.", getContext());
                                 }
                             });
                 } else {
                     progressDialog.dismiss();
-                    onEditProfileDialogStateListener.onEditProfileDialogState(false);
                     getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                     showToast("Não foi possível atualizar o perfil. Por favor, verifique a sua conexão à Internet.", getContext());
                 }
@@ -296,7 +343,6 @@ public class ProfileSettingsFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            onEditProfileDialogStateListener = (OnEditProfileDialogStateListener) context;
             onProfileSettingsFragmentActiveListener = (OnProfileSettingsFragmentActiveListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement listener");
@@ -306,7 +352,6 @@ public class ProfileSettingsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        onEditProfileDialogStateListener = null;
         onProfileSettingsFragmentActiveListener = null;
     }
 }

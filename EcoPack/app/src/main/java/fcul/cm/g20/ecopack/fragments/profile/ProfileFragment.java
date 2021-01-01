@@ -73,7 +73,6 @@ public class ProfileFragment extends Fragment {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.editPicture = mainActivity.userPicture;
                 mainActivity.editName = mainActivity.userName;
                 mainActivity.editEmail = mainActivity.userEmail;
                 mainActivity.editPhone = mainActivity.userPhone;
@@ -115,8 +114,6 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-
                             DocumentSnapshot userDocument = task.getResult().getDocuments().get(0);
                             mainActivity.userPicture = (String) userDocument.get("picture");
                             mainActivity.userUsername = (String) userDocument.get("username");
@@ -154,6 +151,8 @@ public class ProfileFragment extends Fragment {
                                     .beginTransaction()
                                     .replace(R.id.tab_content, new ProfileInfoFragment())
                                     .commit();
+
+                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         } else {
                             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                             showToast("Não foi possível obter a informação do utilizador. Por favor, tente mais tarde.", getContext());
