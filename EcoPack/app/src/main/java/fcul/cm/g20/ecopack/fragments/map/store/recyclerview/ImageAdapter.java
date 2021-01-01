@@ -5,25 +5,27 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ImageAdapter extends PagerAdapter {
     private Context context;
-    private Map<String, Object> images;
+    private ArrayList<String> photos;
 
-    public ImageAdapter(Context context, Map<String, Object> images) {
+    public ImageAdapter(Context context, ArrayList images) {
         this.context = context;
-        this.images = images;
+        this.photos = images;
     }
 
     @Override
     public int getCount() {
-        return images.size();
+        return photos.size();
     }
 
     @Override
@@ -37,7 +39,7 @@ public class ImageAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        byte[] photo = android.util.Base64.decode((String) images.get("photo" + position), android.util.Base64.DEFAULT);
+        byte[] photo = android.util.Base64.decode((String) photos.get(position), android.util.Base64.DEFAULT);
         Bitmap bmp = BitmapFactory.decodeByteArray(photo, 0, photo.length);
         imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false));
 

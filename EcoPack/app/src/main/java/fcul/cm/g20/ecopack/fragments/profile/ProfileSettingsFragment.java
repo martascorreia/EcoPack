@@ -276,7 +276,7 @@ public class ProfileSettingsFragment extends Fragment {
                 if (mainActivity.editPicture != null && mainActivity.editPicture.length() != 0) user.put("picture", mainActivity.editPicture);
 
                 if (isNetworkAvailable(getContext())) {
-                    database.document(mainActivity.userDocumentID)
+                    database.document("users/" + mainActivity.userDocumentID)
                             .update(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

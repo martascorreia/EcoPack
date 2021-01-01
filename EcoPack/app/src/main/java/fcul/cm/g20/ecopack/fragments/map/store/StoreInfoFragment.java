@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
@@ -65,7 +66,7 @@ public class StoreInfoFragment extends Fragment {
         TextView phone = getView().findViewById(R.id.store_phone);
         phone.setText((String) storeDocument.get("phone"));
 
-        Map<String, Object> photos = (Map<String, Object>) storeDocument.get("photos");
+        ArrayList<String> photos = (ArrayList<String>) storeDocument.get("photos");
 
         // either puts the photos or a text N/A
         ViewPager viewPager = getView().findViewById(R.id.view_pager);

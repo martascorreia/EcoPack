@@ -23,12 +23,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.adapter.ImageAdapter;
+import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.ImageAdapter;
 
 // TODO: HANDLE CONNECTION ON SENDING COMMENT
 
@@ -66,10 +67,10 @@ public class StoreFragment extends Fragment {
         name.setText((String) storeDocument.get("name"));
 
         // PHOTO
-        Map<String, Object> photos = (Map<String, Object>) storeDocument.get("photos");
+        ArrayList<String> photos = (ArrayList<String>) storeDocument.get("photos");
         ImageView photo = storeFragmentView.findViewById(R.id.store_photo);
         if(photos != null){
-            byte[] firstPhoto = android.util.Base64.decode((String) photos.get("photo" + 0), android.util.Base64.DEFAULT);
+            byte[] firstPhoto = android.util.Base64.decode((String) photos.get(0), android.util.Base64.DEFAULT);
             Bitmap bmp = BitmapFactory.decodeByteArray(firstPhoto, 0, firstPhoto.length);
             photo.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth() , bmp.getHeight(), false));
         } else {
