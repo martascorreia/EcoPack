@@ -41,7 +41,7 @@ public class ImageAdapter extends PagerAdapter {
 
         byte[] photo = android.util.Base64.decode((String) photos.get(position), android.util.Base64.DEFAULT);
         Bitmap bmp = BitmapFactory.decodeByteArray(photo, 0, photo.length);
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false));
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), false));
 
         container.addView(imageView, 0);
         return imageView;
