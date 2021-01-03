@@ -27,12 +27,17 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import fcul.cm.g20.ecopack.Mappers.PrizeMapper;
+import fcul.cm.g20.ecopack.Mappers.StoreMapper;
+import fcul.cm.g20.ecopack.Models.Store;
 import fcul.cm.g20.ecopack.Models.User;
+import fcul.cm.g20.ecopack.Models.test;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.Models.Prize;
 import fcul.cm.g20.ecopack.Mappers.UserMapper;
@@ -72,6 +77,9 @@ public class PointsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //LoadCameraFragment();
+
+        Store t = new Store();
+        StoreMapper.saveStore(t,getContext());
     }
 
     private void LoadCameraFragment(){
@@ -117,7 +125,7 @@ public class PointsFragment extends Fragment {
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
             gridRecyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
 
-            gridRecyclerView.addItemDecoration(new GridItemDecorator(20, 2));
+            gridRecyclerView.addItemDecoration(new GridItemDecorator(10, 2));
 
             final PrizesAdapter prizeAdapter = new PrizesAdapter(prizesToShow);
             gridRecyclerView.setAdapter(prizeAdapter);

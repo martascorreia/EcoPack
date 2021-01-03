@@ -1,5 +1,6 @@
 package fcul.cm.g20.ecopack.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +37,13 @@ public class Utils {
 
     public static Bitmap getBitmapFromImageDrawable(Context context, int drawableId) {
         return BitmapFactory.decodeResource(context.getResources(), drawableId);
+    }
+
+    public static Drawable getDrawableFromStringId(String drawableIdString, Activity activity) {
+        Drawable drawable = null;
+        int id = activity.getResources().getIdentifier(drawableIdString, "drawable", activity.getPackageName());
+        drawable = activity.getResources().getDrawable(id);
+        return drawable;
     }
 
     public static Bitmap stringToBitmap(String s) {
