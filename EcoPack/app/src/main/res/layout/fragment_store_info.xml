@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_store_info"
     tools:context=".fragments.map.store.StoreInfoFragment">
 
     <ScrollView
@@ -16,7 +17,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:orientation="vertical">
+            android:gravity="center">
 
             <RelativeLayout
                 android:id="@+id/store_info_address"
@@ -232,7 +233,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/store_info_galery"
+                android:id="@+id/store_info_gallery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/store_info_website"
@@ -253,8 +254,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_below="@id/store_info_galery_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_250sdp"
-                    android:layout_marginBottom="@dimen/_60sdp"/>
+                    android:layout_height="@dimen/_250sdp"/>
 
                 <TextView
                     android:id="@+id/store_photos"
@@ -265,6 +265,19 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp" />
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/store_info_gallery"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_60sdp"
+                android:text="@string/suggest_alteration"
+                android:drawableLeft="@drawable/ic_edit"
+                android:background="@drawable/shape_oval_mint"
+                android:layout_centerHorizontal="true"
+                android:shadowColor="@android:color/transparent" />
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

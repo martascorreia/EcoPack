@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_smoke"
+    tools:context=".fragments.map.store.StoreEditFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/mint"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:background="@color/mint"
+                android:src="@drawable/ic_back_arrow"
+                android:tint="@color/white_smoke" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/suggest_alteration"
+                android:textColor="@color/white_smoke"
+                android:textSize="@dimen/_16sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_10sdp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/save_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_save"
+                    android:text="@string/save"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11sdp"
+                    android:tint="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Por favor, preencha os seguintes campos:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/store_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_shop_name"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/store_schedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:maxLength="150"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/store_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="40"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/store_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="phone"
+                    android:maxLength="9"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/store_website"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/shape_oval_mint"
+                    android:drawableStart="@drawable/ic_internet"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:padding="@dimen/_10sdp"
+                    android:shadowColor="@android:color/transparent"
+                    android:textColor="@color/dark_mint"
+                    android:textColorHighlight="@color/dark_mint"
+                    android:textColorHint="@color/dark_mint"
+                    android:textSize="@dimen/_12sdp" />
+
+                <CheckBox
+                    android:id="@+id/home_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="Clientes podem utilizar embalagens de casa."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <Button
+                    android:id="@+id/store_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/shape_button_white"
+                    android:padding="@dimen/_12sdp"
+                    android:shadowColor="@color/dark_mint"
+                    android:text="CARREGAR FOTOGRAFIAS"
+                    android:textColor="@color/dark_mint"
+                    android:textSize="@dimen/_11sdp"
+                    android:textStyle="bold" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_65sdp">
+
+                    <LinearLayout
+                        android:id="@+id/photos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:orientation="horizontal">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/photos_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" />
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+</FrameLayout>

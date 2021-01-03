@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.ImageAdapter;
@@ -50,7 +50,6 @@ public class StoreInfoFragment extends Fragment {
     }
 
     private void setupFragment() {
-
         TextView address = getView().findViewById(R.id.store_address);
         address.setText((String) storeDocument.get("address"));
 
@@ -82,5 +81,19 @@ public class StoreInfoFragment extends Fragment {
             photosText.setVisibility(View.VISIBLE);
             photosText.setText("N/A");
         }
+
+        getView().findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                StoreEditFragment fragment = new StoreEditFragment(storeDocument);
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_store, fragment)
+                        .addToBackStack("store")
+                        .commit();
+            }
+        });
     }
 }
