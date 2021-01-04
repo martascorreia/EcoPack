@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.fragments.map.store.recyclerview;
+package fcul.cm.g20.ecopack.fragments.map.store.objects;
 
 import android.graphics.drawable.Drawable;
 

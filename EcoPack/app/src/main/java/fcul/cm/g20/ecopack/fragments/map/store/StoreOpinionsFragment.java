@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,7 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.Comment;
+import fcul.cm.g20.ecopack.fragments.map.store.objects.Comment;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.CommentAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 

@@ -17,6 +17,7 @@ import java.util.LinkedList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.fragments.map.store.objects.Comment;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
     private Context context;

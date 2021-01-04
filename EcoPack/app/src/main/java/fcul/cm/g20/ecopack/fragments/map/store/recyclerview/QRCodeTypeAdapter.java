@@ -1,24 +1,21 @@
 package fcul.cm.g20.ecopack.fragments.map.store.recyclerview;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.StoreEditFragment;
+import fcul.cm.g20.ecopack.fragments.map.store.objects.QR_Code_Type;
 
 public class QRCodeTypeAdapter extends RecyclerView.Adapter<QRCodeTypeAdapter.QRCodeTypeViewHolder> {
     public interface OnTypeClickListener {

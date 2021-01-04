@@ -70,7 +70,7 @@ public class StoreInfoFragment extends Fragment {
         // either puts the photos or a text N/A
         ViewPager viewPager = getView().findViewById(R.id.view_pager);
         TextView photosText = getView().findViewById(R.id.store_photos);
-        if(photos != null){
+        if(!photos.isEmpty()){
             viewPager.setVisibility(View.VISIBLE);
             photosText.setVisibility(View.INVISIBLE);
             ImageAdapter imageAdapter = new ImageAdapter(getContext(), photos);

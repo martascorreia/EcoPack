@@ -21,7 +21,7 @@ import java.util.LinkedList;
 
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.QRCodeTypeAdapter;
-import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.QR_Code_Type;
+import fcul.cm.g20.ecopack.fragments.map.store.objects.QR_Code_Type;
 
 public class StoreQRCodesListFragment extends Fragment {
     DocumentSnapshot storeDocument;
@@ -114,7 +114,7 @@ public class StoreQRCodesListFragment extends Fragment {
                 if (qr_code_type == null)
                     return;
 
-                StoreQRCodeFragment storeQRCodeFragment = new StoreQRCodeFragment(qr_code_type);
+                StoreQRCodeFragment storeQRCodeFragment = new StoreQRCodeFragment(qr_code_type, storeDocument);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_store_qr_codes_list, storeQRCodeFragment)
                         .addToBackStack("qr_codes")

@@ -61,7 +61,7 @@ public class StoreFragment extends Fragment {
         // PHOTO
         ArrayList<String> photos = (ArrayList<String>) storeDocument.get("photos");
         ImageView photo = storeFragmentView.findViewById(R.id.store_photo);
-        if(photos != null){
+        if(!photos.isEmpty()){
             byte[] firstPhoto = android.util.Base64.decode((String) photos.get(0), android.util.Base64.DEFAULT);
             Bitmap bmp = BitmapFactory.decodeByteArray(firstPhoto, 0, firstPhoto.length);
             photo.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth() , bmp.getHeight(), false));

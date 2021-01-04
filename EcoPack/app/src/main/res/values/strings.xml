@@ -62,6 +62,7 @@
     <string name="paper">Papel</string>
     <string name="plastic">Plástico</string>
     <string name="home">Casa</string>
+    <string name="qr_code">QR CODE</string>
 
 
 </resources>
