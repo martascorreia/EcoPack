@@ -9,27 +9,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.ImageAdapter;
 
 // TODO: HANDLE CONNECTION ON SENDING COMMENT
 
@@ -100,6 +92,34 @@ public class StoreFragment extends Fragment {
             else if (mostFrequentIndex == 2) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_paper_round));
             else if (mostFrequentIndex == 3) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_plastic_round));
         }
+
+        // EDIT BUTTON
+        storeFragmentView.findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StoreEditFragment fragment = new StoreEditFragment(storeDocument);
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_store, fragment)
+                        .addToBackStack("store")
+                        .commit();
+            }
+        });
+
+        // EDIT BUTTON
+        storeFragmentView.findViewById(R.id.qr_codes_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StoreQRCodesListFragment fragment = new StoreQRCodesListFragment(storeDocument);
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_store, fragment)
+                        .addToBackStack("store")
+                        .commit();
+            }
+        });
     }
 
     private TabLayout.OnTabSelectedListener handleTabItemClick() {
@@ -126,24 +146,6 @@ public class StoreFragment extends Fragment {
             }
         };
     }
-
-    /*private void updateStoreDocument() {
-        database.collection("stores")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            List<DocumentSnapshot> stores = task.getResult().getDocuments();
-                            for (DocumentSnapshot store : stores) {
-                                if(store.getId() == storeDocument.getId()){
-                                    storeDocument = store;
-                                }
-                            }
-                        }
-                    }
-                });
-    }*/
 
     private long getMostFrequentPackageType(long[] counters) {
         long max = counters[0], index = 0;

@@ -106,13 +106,13 @@
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ScrollView
+            <HorizontalScrollView
                 android:id="@+id/scroll_icons"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_135sdp"
+                android:layout_width="@dimen/_173sdp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="80dp"
-                android:layout_marginBottom="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_53sdp"
                 android:elevation="@dimen/_5sdp"
                 android:visibility="invisible"
                 android:layout_alignBottom="@+id/comment_card_view">
@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:gravity="bottom|end"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/bio_home_button"
@@ -224,6 +224,6 @@
                         android:visibility="visible"
                         app:maxImageSize="57dp" />
                 </LinearLayout>
-            </ScrollView>
+            </HorizontalScrollView>
         </RelativeLayout>
 </FrameLayout>

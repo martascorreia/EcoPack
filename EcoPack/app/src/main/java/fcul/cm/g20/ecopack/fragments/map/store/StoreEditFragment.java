@@ -168,14 +168,6 @@ public class StoreEditFragment extends Fragment {
                 if (mainActivity.createStorePhotos.size() != 0)
                     store.put("photos", photos);
 
-                // REST OF THE INFORMATION
-                store.put("address", storeDocument.get("address"));
-                store.put("comments", storeDocument.get("comments"));
-                store.put("counters", storeDocument.get("counters"));
-                store.put("lat", storeDocument.get("lat"));
-                store.put("lng", storeDocument.get("lng"));
-                store.put("register_date", storeDocument.get("register_date"));
-
                 if (isNetworkAvailable(getContext())) {
                     database.document(storeDocument.getReference().getPath())
                             .update(store)

@@ -238,6 +238,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/store_info_website"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_60sdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -266,18 +267,33 @@
                     android:textSize="@dimen/_12sdp" />
             </RelativeLayout>
 
+            <!--<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/store_info_gallery"
+                android:layout_marginBottom="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
             <Button
                 android:id="@+id/edit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/store_info_gallery"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginBottom="@dimen/_60sdp"
-                android:text="@string/suggest_alteration"
+                android:text="@string/edit"
                 android:drawableLeft="@drawable/ic_edit"
                 android:background="@drawable/shape_oval_mint"
-                android:layout_centerHorizontal="true"
-                android:shadowColor="@android:color/transparent" />
+                android:shadowColor="@android:color/transparent"
+                android:layout_marginEnd="@dimen/_10sdp"/>
+
+            <Button
+                android:id="@+id/qr_codes_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/qr_codes"
+                android:drawableLeft="@drawable/ic_qr_code"
+                android:background="@drawable/shape_oval_mint"/>
+            </LinearLayout>-->
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

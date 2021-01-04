@@ -81,19 +81,5 @@ public class StoreInfoFragment extends Fragment {
             photosText.setVisibility(View.VISIBLE);
             photosText.setText("N/A");
         }
-
-        getView().findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                StoreEditFragment fragment = new StoreEditFragment(storeDocument);
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_store, fragment)
-                        .addToBackStack("store")
-                        .commit();
-            }
-        });
     }
 }

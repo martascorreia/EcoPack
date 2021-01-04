@@ -55,7 +55,13 @@
 
     <string name="prize_code_email_text">Parabés </string>
     <string name="prize_code_email_subject">Codigo de produto: </string>
-    <string name="suggest_alteration">Sugerir Alteração</string>
+    <string name="edit">Editar</string>
+    <string name="qr_codes">QR-CODES</string>
+    <string name="reusable">Reutilizável</string>
+    <string name="bio">Biodegradável</string>
+    <string name="paper">Papel</string>
+    <string name="plastic">Plástico</string>
+    <string name="home">Casa</string>
 
 
 </resources>

@@ -8,11 +8,11 @@
     <color name="darker_grey">#121212</color>
 
     <!-- MARKERS COLORS -->
-    <color name="plastic">#DC9E22</color>
-    <color name="home">#D14124</color>
-    <color name="reusable">#44CA53</color>
-    <color name="paper">#2964CA</color>
-    <color name="bio">#915520</color>
+    <color name="plastic">#DAA948</color>
+    <color name="home">#DA5D44</color>
+    <color name="reusable">#66B16F</color>
+    <color name="paper">#547FCA</color>
+    <color name="bio">#9C693C</color>
 
     <!-- COLOR LIST -->
     <color name="white">#FFFFFF</color>
