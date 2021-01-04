@@ -40,10 +40,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import fcul.cm.g20.ecopack.MainActivity;
+import fcul.cm.g20.ecopack.Mappers.StoreMapper;
+import fcul.cm.g20.ecopack.Models.Store;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.PreviewImageAdapter;
 
@@ -209,26 +212,22 @@ public class CreateStoreFragment extends Fragment {
                     progressDialog.show();
                     getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
-                    Map<String, Object> store = new HashMap<>();
+                    Store store = new Store();
 
                     // OWNER
-                    store.put("owner", mainActivity.userDocumentID);
+                    store.setOwner(mainActivity.userDocumentID);
 
                     // ADDRESS-RELATED
-                    store.put("address", mainActivity.createStoreAddress);
-                    store.put("lat", mainActivity.createStoreLatitude);
-                    store.put("lng", mainActivity.createStoreLongitude);
+                    store.setAddress(mainActivity.createStoreAddress);
+                    store.setLat(mainActivity.createStoreLatitude);
+                    store.setLng(mainActivity.createStoreLongitude);
 
                     // BASIC INFORMATION
-                    store.put("name", inputs[0].getText().toString());
-                    if (inputs[1].getText().toString().equals("")) store.put("schedule", "N/A");
-                    else store.put("schedule", inputs[1].getText().toString());
-                    if (inputs[2].getText().toString().equals("")) store.put("email", "N/A");
-                    else store.put("email", inputs[2].getText().toString());
-                    if (inputs[3].getText().toString().equals("")) store.put("phone", "N/A");
-                    else store.put("phone", inputs[3].getText().toString());
-                    if (inputs[4].getText().toString().equals("")) store.put("website", "N/A");
-                    else store.put("website", inputs[4].getText().toString());
+                    store.setName(inputs[0].getText().toString());
+                    store.setSchedule(inputs[1].getText().toString());
+                    store.setEmail(inputs[2].getText().toString());
+                    store.setPhone(inputs[3].getText().toString());
+                    store.setWebsite(inputs[4].getText().toString());
 
                     // MARKER COUNTERS
                     Map<String, Integer> counters = new HashMap<>();
@@ -242,51 +241,47 @@ public class CreateStoreFragment extends Fragment {
                     else counters.put("plastic", 0);
                     if (mainActivity.createStoreOptions[4]) counters.put("home", 1);
                     else counters.put("home", 0);
-                    store.put("counters", counters);
+                    store.setCounters(counters);
 
                     // IMAGES
-                    if (mainActivity.createStorePhotos.size() != 0) store.put("photos", mainActivity.createStorePhotos);
-                    else store.put("photos", null);
+                    ArrayList<String> photos = (mainActivity.createStorePhotos.size() != 0)? mainActivity.createStorePhotos : null;
+                    store.setPhotos(photos);
 
                     // COMMENTS
-                    store.put("comments", new ArrayList<HashMap<String, String>>());
+                    // store initiates comments array in constructor
 
                     // REGISTER DATE
-                    store.put("register_date", System.currentTimeMillis());
+                    store.setRegister_date(System.currentTimeMillis());
 
-                    if (isNetworkAvailable(getContext())) {
-                        database.collection("stores")
-                                .add(store)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        showToast("Estabelecimento registado com sucesso!", getContext());
+                    boolean transactionInitiated = StoreMapper.saveStore(store, getContext(), new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            showToast("Estabelecimento registado com sucesso!", getContext());
 
-                                        mainActivity.createStoreOptions = null;
-                                        mainActivity.createStorePhotos = new ArrayList<>();
+                            mainActivity.createStoreOptions = null;
+                            mainActivity.createStorePhotos = new ArrayList<>();
 
-                                        progressDialog.dismiss();
-                                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-                                        getActivity()
-                                                .getSupportFragmentManager()
-                                                .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        progressDialog.dismiss();
-                                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-                                        showToast("Não foi possível registar o estabelecimento. Por favor, tente mais tarde.", getContext());
-                                    }
-                                });
-                    } else {
+                            progressDialog.dismiss();
+                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                            getActivity()
+                                    .getSupportFragmentManager()
+                                    .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        }
+                    }, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                            showToast("Não foi possível registar o estabelecimento. Por favor, tente mais tarde.", getContext());
+                        }
+                    });
+
+                    if(!transactionInitiated){
                         progressDialog.dismiss();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-                        showToast("Não foi possível registar o estabelecimento. Por favor, verifique a sua conexão à Internet.", getContext());
+                        showToast("Não foi possível registar o estabelecimento. Por favor, tente mais tarde.", getContext());
                     }
                 }
-
                 v.setEnabled(true);
             }
         });

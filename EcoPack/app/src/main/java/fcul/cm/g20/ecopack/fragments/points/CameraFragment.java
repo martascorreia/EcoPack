@@ -97,6 +97,7 @@ public class CameraFragment extends Fragment {
                             UserMapper.updateUser(userModel, getContext());
                         }
                         Utils.showToast("Por usar este tipo de embalagem acabou de ganhar " + points + " pontos!!", getContext());
+                        Utils.showToast(result.getText(), getContext());
 
                         //TODO: PERGUNTAR AO GRUPO SE QUEREM QUE A APP VOLTE PARA TRAS APOS A LEITURA DE QR CODE!
                     }

@@ -20,7 +20,7 @@ public class PrizeViewHolder extends RecyclerView.ViewHolder {
     private CardView itemCardView;
     private LinearLayout itemLayout;
 
-    public PrizeViewHolder(@NonNull View itemView, final PrizesAdapter.OnPrizeClickListener onLocationClickListener) {
+    public PrizeViewHolder(@NonNull View itemView, final PrizesAdapter.OnPrizeClickListener onPrizeClickListener) {
         super(itemView);
 
         title = itemView.findViewById(R.id.item_prize_title);
@@ -28,16 +28,16 @@ public class PrizeViewHolder extends RecyclerView.ViewHolder {
         cost = itemView.findViewById(R.id.item_prize_cost);
         itemCardView = (CardView) itemView;
         itemLayout = itemView.findViewById(R.id.item_prize_item);
-        setItemClickListener(itemView, onLocationClickListener);
+        setItemClickListener(itemView, onPrizeClickListener);
     }
 
-    private void setItemClickListener(@NonNull View itemView, final PrizesAdapter.OnPrizeClickListener onLocationClickListener) {
+    private void setItemClickListener(@NonNull View itemView, final PrizesAdapter.OnPrizeClickListener onPrizeClickListener) {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onLocationClickListener != null)
+                if (onPrizeClickListener != null)
                     if (getAdapterPosition() != RecyclerView.NO_POSITION)
-                        onLocationClickListener.onPrizeClickListener(getAdapterPosition());
+                        onPrizeClickListener.onPrizeClickListener(getAdapterPosition());
             }
         });
     }

@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,7 +27,7 @@ public class StoreMapper {
         void onSuccess(Store store);
     }
 
-    public static void saveStore(Store store, Context ctx){
+    public static boolean saveStore(Store store, Context ctx, final OnSuccessListener<Void> onSuccess, final OnFailureListener onFailure){
         if (Utils.isNetworkAvailable(ctx)) {
             FirebaseFirestore database = FirebaseFirestore.getInstance();
             // Get a new write batch
@@ -34,16 +35,16 @@ public class StoreMapper {
             DocumentReference ref = database.collection("stores").document();
             // save store firebase path
             store.setPath(ref);
+            // generate QrCodes
+            store.generateQrCodes(ref);
+            //Commit
             batch.set(ref, store);
-            // Commit the batch
-            batch.commit().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                    // done
-                }
-            });
+            batch.commit()
+                    .addOnSuccessListener(onSuccess)
+                    .addOnFailureListener(onFailure);
+            return true;
         } else {
-            Utils.showToast("Falha ao gravar a loja, não é possivel aceder a internet.", ctx);
+            return false;
         }
     }
 

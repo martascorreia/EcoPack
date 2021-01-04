@@ -22,10 +22,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import net.glxn.qrgen.android.QRCode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,9 +79,6 @@ public class PointsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //LoadCameraFragment();
-
-        Store t = new Store();
-        StoreMapper.saveStore(t,getContext());
     }
 
     private void LoadCameraFragment(){

@@ -2,11 +2,18 @@ package fcul.cm.g20.ecopack.Models;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import net.glxn.qrgen.android.QRCode;
+
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,21 +26,25 @@ import fcul.cm.g20.ecopack.utils.Utils;
 public class Store {
 
     private enum CounterTypes { bio, home, paper, plastic, reusable };
-    private enum QRCodesTypes { bio, paper, plastic, reusable };
+    private enum QRCodesTypes { bio, paper, plastic, reusable, home };
 
     // firebase path
     private String $Path;
 
-    private String address, email, name, phone, website;
+    private String owner, address, email, name, phone, website;
     private List<Comment> comments;
     private Map<String, Integer> counters;
-    private long lat, lng;
+    private double lat, lng;
     private List<Bitmap> photos;
     private long register_date;
     private String schedule;   //TODO: REFACTOR TO OBJECT SCHEDULE
     private Map<String, Bitmap> qrCodes;
 
     public Store() {
+        this.comments = new ArrayList<>();
+        this.counters = new HashMap<>();
+        this.photos = new ArrayList<>();
+        this.qrCodes = new HashMap<>();
     }
 
     public Store(DocumentSnapshot snapshot) {
@@ -52,7 +63,7 @@ public class Store {
                 (long) snapshot.get("register_date"),
                 (String) snapshot.get("schedule"),
                 (Map<String, String>)snapshot.get("qrCodes")
-                );
+        );
     }
 
     public Store(String path, String address, String email, String name, String phone, String website, List<Map<String, Object>> comments, Map<String, Integer> counters, long lat, long lng, List<String> photos, long register_date, String schedule, Map<String, String> qrCodes) {
@@ -73,9 +84,52 @@ public class Store {
         setQrCodes(qrCodes);
     }
 
+    @SuppressLint("NewApi")
+    public void generateQrCodes(DocumentReference ref) {
+        this.qrCodes = new HashMap<>();
+        String storePath = ref.getPath();
+        if(this.counters != null && !this.counters.isEmpty()){
+            Arrays.stream(QRCodesTypes.values())
+                    .forEach( qrType -> {
+                        if(this.counters.containsKey(qrType.toString()) && this.counters.get(qrType.toString()) > 0){
+                            // means the user choose this as type in there store
+                            String type = qrType.toString();
+                            String code = type + '\u0000' + storePath; //'\u0000' -> null Char
+                            Bitmap myBitmap = QRCode.from(code).withColor(0xFFFFFFFF, pickQrCodeColour(qrType)).bitmap();
+                            this.qrCodes.put(type, myBitmap);
+                        }
+                    });
+        }
+    }
+
+    private int pickQrCodeColour(QRCodesTypes qrType){
+        int result = 0xFFFFFFFF;
+        switch (qrType){
+            case bio:
+                result = 0xFF9C693C;
+                break;
+            case paper:
+                result = 0xFF547FCA;
+                break;
+            case plastic:
+                result = 0xFFDAA948;
+                break;
+            case reusable:
+                result = 0xFF66B16F;
+                break;
+            case home:
+                result = 0xFFDA5D44;
+                break;
+            default:
+                result = 0xFFFFFFFF;
+                break;
+        }
+        return result;
+    }
+
     //region Setters For Firebase
     @SuppressLint("NewApi")
-    private void setComments(List<Map<String, Object>> comments) {
+    public void setComments(List<Map<String, Object>> comments) {
         LinkedList<Comment> pojo_comments = new LinkedList<>();
         if (comments != null) {
             comments.forEach(commentMap ->
@@ -94,8 +148,11 @@ public class Store {
     }
 
     @SuppressLint("NewApi")
-    private void setPhotos(List<String> photos) {
-        this.photos = photos.stream().map(Utils::stringToBitmap).collect(Collectors.toList());
+    public void setPhotos(List<String> photos) {
+        this.photos = (photos != null)?
+                photos.stream().map(Utils::stringToBitmap).collect(Collectors.toList())
+                :
+                new ArrayList<>();
     }
 
     @SuppressLint("NewApi")
@@ -105,12 +162,68 @@ public class Store {
         this.qrCodes = result;
     }
 
+    //endregion
+
+    //region Setters
     public void setPath(DocumentReference ref) {
         this.$Path = ref.getPath();
     }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public void setCommentsList(List<Comment> comments) {
+        this.comments = (comments!=null)? comments : new ArrayList<>();
+    }
+
+    public void setCounters(Map<String, Integer> counters) {
+        this.counters = (counters!=null)? counters : new HashMap<>();
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public void setRegister_date(long register_date) {
+        this.register_date = register_date;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
+
     //endregion
 
     //region Getters For Firebase
+    public String getOwner() {
+        return owner;
+    }
+
     public String getAddress() {
         return auxGetString(address);
     }
@@ -136,15 +249,15 @@ public class Store {
         ArrayList<Map<String, Object>> commentsMapList = new ArrayList<>();
         if ( this.comments != null) {
             this.comments.forEach(comment ->{
-                        Map<String, Object> commentMap = new HashMap<>();
-                        commentMap.put("user", comment.getUsername());
-                        commentMap.put("name", comment.getName());
-                        commentMap.put("picture", comment.getAvatar());
-                        commentMap.put("date", comment.getDate());
-                        commentMap.put("comment", comment.getComment());
-                        commentMap.put("marker", comment.getMarkerIconId());
-                        commentsMapList.add(commentMap);
-                    });
+                Map<String, Object> commentMap = new HashMap<>();
+                commentMap.put("user", comment.getUsername());
+                commentMap.put("name", comment.getName());
+                commentMap.put("picture", comment.getAvatar());
+                commentMap.put("date", comment.getDate());
+                commentMap.put("comment", comment.getComment());
+                commentMap.put("marker", comment.getMarkerIconId());
+                commentsMapList.add(commentMap);
+            });
         }
         return commentsMapList;
     }
@@ -153,11 +266,11 @@ public class Store {
         return counters;
     }
 
-    public long getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public long getLng() {
+    public double getLng() {
         return lng;
     }
 
