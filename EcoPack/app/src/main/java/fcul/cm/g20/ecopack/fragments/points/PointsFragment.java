@@ -6,27 +6,23 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +48,9 @@ public class PointsFragment extends Fragment {
 
     OnBackButtonPressed backListener;
 
+    PrizesAdapter prizeAdapter;
+    RecyclerView gridRecyclerView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +63,6 @@ public class PointsFragment extends Fragment {
         pointsFragmentView = inflater.inflate(R.layout.fragment_points, container, false);
 
         backListener = user -> onBackActions(user);
-        getUserInfo();
         return pointsFragmentView;
     }
 
@@ -74,7 +72,7 @@ public class PointsFragment extends Fragment {
         //LoadCameraFragment();
     }
 
-    private void LoadCameraFragment(){
+    private void setOnClickCameraFragment(){
         addPointsButton = getView().findViewById(R.id.add_points_button);
         addPointsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,9 +91,21 @@ public class PointsFragment extends Fragment {
         });
     }
 
+    private void loadRecyclerView() {
+        // get the reference of RecyclerView
+        gridRecyclerView = (RecyclerView) pointsFragmentView.findViewById(R.id.grid_points_prizes_container);
+
+        // set a GridLayoutManager with 2 number of columns , horizontal gravity and false value for reverseLayout to show the items from start to end
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
+        gridRecyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
+
+        gridRecyclerView.addItemDecoration(new GridItemDecorator(10, 2));
+        gridRecyclerView.setAdapter(new PrizesAdapter(new ArrayList<>())); //dummy empty recycler
+    }
+
     @SuppressLint("NewApi")
-    private void LoadPrizesRecyclerView() {
-        if (prizes != null && !prizes.isEmpty()) {
+    private void loadPrizesToRecyclerView() {
+        if (prizes != null && !prizes.isEmpty() &&  user != null) {
 
             // filter all prizes already bought
             List<Prize> prizesToShow = prizes.stream()
@@ -110,16 +120,7 @@ public class PointsFragment extends Fragment {
             // Disable prizes that the user can't buy
             prizesToShow.forEach(prize -> prize.setIsDisable( prize.getCost() > user.getPoints() ));
 
-            // get the reference of RecyclerView
-            RecyclerView gridRecyclerView = (RecyclerView) pointsFragmentView.findViewById(R.id.grid_points_prizes_container);
-
-            // set a GridLayoutManager with 2 number of columns , horizontal gravity and false value for reverseLayout to show the items from start to end
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 2);
-            gridRecyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
-
-            gridRecyclerView.addItemDecoration(new GridItemDecorator(20, 2));
-
-            final PrizesAdapter prizeAdapter = new PrizesAdapter(prizesToShow);
+            prizeAdapter = new PrizesAdapter(prizesToShow);
             gridRecyclerView.setAdapter(prizeAdapter);
 
             prizeAdapter.setOnPrizeClickListener(new PrizesAdapter.OnPrizeClickListener() {
@@ -136,7 +137,6 @@ public class PointsFragment extends Fragment {
                 }
             });
         }
-
     }
 
     private LinkedList<Prize> generateDummyData() {
@@ -165,7 +165,8 @@ public class PointsFragment extends Fragment {
             @Override
             public void onSuccess(List<Prize> u) {
                 prizes = u;
-                LoadPrizesRecyclerView();
+                // set prizes fragments
+                loadPrizesToRecyclerView();
             }
         });
     }
@@ -184,10 +185,10 @@ public class PointsFragment extends Fragment {
                     // set user wallet info
                     TextView userWalletValue = getView().findViewById(R.id.points_userWalletValue);
                     userWalletValue.setText(user.getPoints() + " Pontos");
-                    // get prizes for user
+                    // get prizes
                     getPrizes();
-                    // set camera
-                    LoadCameraFragment();
+                    // set camera fragment
+                    setOnClickCameraFragment();
                 }
             }
         });
@@ -200,7 +201,7 @@ public class PointsFragment extends Fragment {
 
     @Override
     public void onResume() {
-        // get user again from firebase;
+        loadRecyclerView();
         getUserInfo();
         super.onResume();
     }

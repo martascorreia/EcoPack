@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     public String editBirthday;
     public String editCity;
     public String editPassword;
-    // public double visibleLocationLatitude;
-    // public double visibleLocationLongitude;
+    public double visibleLocationLatitude;
+    public double visibleLocationLongitude;
     public double createStoreLatitude;
     public double createStoreLongitude;
     public String createStoreAddress;
@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
             editBirthday = savedInstanceState.getString("editBirthday");
             editCity = savedInstanceState.getString("editCity");
             editPassword = savedInstanceState.getString("editPassword");
-            // visibleLocationLatitude = savedInstanceState.getDouble("visibleLocationLatitude");
-            // visibleLocationLongitude = savedInstanceState.getDouble("visibleLocationLongitude");
+            visibleLocationLatitude = savedInstanceState.getDouble("visibleLocationLatitude");
+            visibleLocationLongitude = savedInstanceState.getDouble("visibleLocationLongitude");
             createStoreAddress = savedInstanceState.getString("createStoreAddress");
             createStoreLatitude = savedInstanceState.getDouble("createStoreLatitude");
             createStoreLongitude = savedInstanceState.getDouble("createStoreLongitude");
@@ -139,8 +139,8 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
         outState.putString("editBirthday", editBirthday);
         outState.putString("editCity", editCity);
         outState.putString("editPassword", editPassword);
-        // outState.putDouble("visibleLocationLatitude", visibleLocationLatitude);
-        // outState.putDouble("visibleLocationLongitude", visibleLocationLongitude);
+        outState.putDouble("visibleLocationLatitude", visibleLocationLatitude);
+        outState.putDouble("visibleLocationLongitude", visibleLocationLongitude);
         outState.putString("createStoreAddress", createStoreAddress);
         outState.putDouble("createStoreLatitude", createStoreLatitude);
         outState.putDouble("createStoreLongitude", createStoreLongitude);

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 public class Comment {
 
     private String avatar, comment, username, date, name;
+    private String markerIconId; // Sorry Marta I needed this to be able to create Comment from the Mappers
     private Drawable marker;
 
     public Comment(String comment, Drawable marker, String uimg, String user, String date, String name) {
@@ -13,6 +14,16 @@ public class Comment {
         this.date = date;
         this.avatar = uimg;
         this.marker = marker;
+        this.name = name;
+    }
+
+    public Comment(String comment, String markerIconId, String uimg, String user, String date, String name) {
+        // Sorry Marta I needed this to be able to create Comment from the Mappers
+        this.comment = comment;
+        this.username = user;
+        this.date = date;
+        this.avatar = uimg;
+        this.markerIconId = markerIconId;
         this.name = name;
     }
 
@@ -46,6 +57,11 @@ public class Comment {
 
     public void setDate(String timestamp) {
         this.date = timestamp;
+    }
+
+    public String getMarkerIconId(){
+        // Sorry Marta I needed this to be able to create Comment from the Mappers
+        return markerIconId;
     }
 
     public Drawable getMarker(){

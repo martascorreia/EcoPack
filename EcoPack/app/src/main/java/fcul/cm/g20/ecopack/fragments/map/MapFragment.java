@@ -139,8 +139,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                                     mainActivity.userRegisterDate = (long) userDocument.get("register_date");
                                     mainActivity.userPoints = (long) userDocument.get("points");
                                     mainActivity.userRedeemedPrizes = (ArrayList<String>) userDocument.get("redeemed_prizes");
-                                    mainActivity.userVisits = (ArrayList<HashMap<String, String>>) userDocument.get("visits");
-                                    mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
+                                    //mainActivity.userVisits = (ArrayList<HashMap<String, String>>) userDocument.get("visits");
+                                    //mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
                                     mainActivity.userDocumentID = userDocument.getReference().getPath().split("/")[1];
                                 }
                             }
