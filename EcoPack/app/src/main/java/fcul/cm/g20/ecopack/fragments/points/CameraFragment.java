@@ -18,18 +18,18 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import fcul.cm.g20.ecopack.Mappers.StoreMapper;
 import fcul.cm.g20.ecopack.Mappers.UserMapper;
+import fcul.cm.g20.ecopack.Models.Store;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class CameraFragment extends Fragment {
-
-    // TODO: Very silly solution to avoid simple QR codes
-    private final static String PLASTIC_CODE = "MEsjlz8/icY3IkBimNebBI3UPhuD8XKfFXRCmKfkAus=";
-    private final static String PAPER_CODE = "AKXmbDmQMvAd55PbfzYQwIflLQw1M/bbTEahSb24CPw=";
-    private final static String REUSABLE_CODE = "zkI4Yz/RbxUvlXMz5BAAE04GCdPAIrynFT2ktn79o2M=";
-    private final static String BIO_CODE = "UZBxg+j7ZlI8n+6VUyugr1o0bxZPiELUHHKKmImXHPc=";
 
     private final int CAMERA_REQUESTE_CODE = 101;
     private CodeScanner codeScanner;
@@ -89,16 +89,7 @@ public class CameraFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        int points = decodePointsCode(result.getText());
-                        // UPDATE User
-                        if(userModel != null){
-                            userModel.addPoints(points);
-                            //save user
-                            UserMapper.updateUser(userModel, getContext());
-                        }
-                        Utils.showToast("Por usar este tipo de embalagem acabou de ganhar " + points + " pontos!!", getContext());
-                        Utils.showToast(result.getText(), getContext());
-
+                        decodePointsCode(result.getText());
                         //TODO: PERGUNTAR AO GRUPO SE QUEREM QUE A APP VOLTE PARA TRAS APOS A LEITURA DE QR CODE!
                     }
                 });
@@ -112,17 +103,36 @@ public class CameraFragment extends Fragment {
         });
     }
 
-    private int decodePointsCode(String text) {
-        int result = 0;
-        if (text.equals(PLASTIC_CODE))
-            result = 1;
-        else if (text.equals(PAPER_CODE))
-            result = 2;
-        else if (text.equals(REUSABLE_CODE))
-            result = 4;
-        else if (text.equals(BIO_CODE))
-            result = 3;
-        return result;
+    private void decodePointsCode(String text) {
+        String[] splitted = text.split('\u0000' + "");
+        if (splitted.length == 2) {
+            String type = splitted[0];
+            String storePath = splitted[1];
+            boolean transactionInitiated = StoreMapper.getStoreByPath(storePath, getContext(), new StoreMapper.OnCompleteSuccessful() {
+                @Override
+                public void onSuccess(Store store) {
+                    if (userModel != null && store != null) {
+                        store.incrementCounter(type, 1);
+                        int points = store.getPackageTypePoints(type);
+                        userModel.addPoints(points);
+
+                        //update store and points
+                        StoreMapper.updateCounters(store, getContext());
+                        //update store and points
+                        UserMapper.updateUser(userModel, getContext());
+
+                        // TODO: MELHORAR MESSAGENS PARA CADA TIPO DE EMBALAGEM
+                        Utils.showToast("Por usar uma embalagem de " + type + " acabou de ganhar " + points + " pontos!!", getContext());
+                    } else {
+                        Utils.showToast("Ocorreu um erro na atribuição de pontos!", getContext());
+                    }
+                }
+            });
+            if(!transactionInitiated)
+                Utils.showToast("Não foi possivel atribuir pontos, não é possivel aceder a internet.", getContext());
+        } else{
+            Utils.showToast("O codigo lido é invalido!!", getContext());
+        }
     }
 
     @Override

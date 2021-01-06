@@ -21,8 +21,8 @@ public class User {
     private String gender;
     private String birthday;
     private String city;
-    private int visits;
-    private int comments;
+    private ArrayList<HashMap<String, String>> visits;
+    private ArrayList<HashMap<String, String>> comments;
     private long register_date; // SHOULD BE LOCALDATE
     private Bitmap picture;
     private int points;
@@ -44,8 +44,8 @@ public class User {
                 (String) snapshot.get("gender"),
                 (String) snapshot.get("birthday"),
                 (String) snapshot.get("city"),
-                getIntFrom(snapshot.get("visits")),
-                getIntFrom(snapshot.get("comments")),
+                (ArrayList<HashMap<String, String>>) snapshot.get("visits"),
+                (ArrayList<HashMap<String, String>>) snapshot.get("comments"),
                 getLongFrom(snapshot.get("register_date")),
                 Utils.stringToBitmap((String) snapshot.get("picture")),
                 getIntFrom(snapshot.get("points")),
@@ -54,7 +54,7 @@ public class User {
         );
     }
 
-    public User(String username, String email, String password, String name, String phone, String gender, String birthday, String city, int visits, int comments, long register_date, Bitmap picture, int points, ArrayList<String> redeemedPrizesIds, String fireBasePath) {
+    public User(String username, String email, String password, String name, String phone, String gender, String birthday, String city, ArrayList<HashMap<String, String>> visits, ArrayList<HashMap<String, String>> comments, long register_date, Bitmap picture, int points, ArrayList<String> redeemedPrizesIds, String fireBasePath) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -82,6 +82,8 @@ public class User {
         boolean validPurchase = pointsLeft >= 0;
         if (validPurchase) {
             this.points = pointsLeft;
+            if(redeemedPrizesIds == null)
+                redeemedPrizesIds = new ArrayList<>();
             redeemedPrizesIds.add(prizeModel.getTitle()); //CHANGE TO ID!!!!
         }
         return validPurchase;
@@ -90,18 +92,18 @@ public class User {
     @SuppressLint("NewApi")
     public Map<String, Object> getHashMap() {
         Map<String, Object> result = new HashMap<>();
-        result.put("username", this.username);
-        result.put("email", this.email);
-        result.put("password", this.password);
-        result.put("name", this.name);
-        result.put("phone", this.phone);
-        result.put("gender", this.gender);
-        result.put("birthday", this.birthday);
-        result.put("city", this.city);
+        result.put("username", (this.username == null) ? "N/A" : this.username);
+        result.put("email", (this.email == null) ? "N/A" : this.email);
+        result.put("password", (this.password == null) ? "N/A" : this.password);
+        result.put("name", (this.name == null) ? "N/A" : this.name);
+        result.put("phone", (this.phone == null) ? "N/A" : this.phone);
+        result.put("gender", (this.gender == null) ? "N/A" : this.gender);
+        result.put("birthday", (this.birthday == null) ? "N/A" : this.birthday);
+        result.put("city", (this.city == null) ? "N/A" : this.city);
         result.put("visits", this.visits);
         result.put("comments", this.comments);
         result.put("register_date", this.register_date);
-        result.put("picture", (this.picture == null) ? "N/A" : Utils.bitmapToString(this.picture)); //I DON'T LIKE THIS
+        result.put("picture", (this.picture == null) ? "N/A" : Utils.bitmapToString(this.picture));
         result.put("points", this.points);
         result.put("redeemed_prizes_ids", this.redeemedPrizesIds);
         return result;
@@ -159,11 +161,11 @@ public class User {
         return city;
     }
 
-    public int getVisits() {
+    public ArrayList<HashMap<String, String>> getVisits() {
         return visits;
     }
 
-    public int getComments() {
+    public ArrayList<HashMap<String, String>> getComments() {
         return comments;
     }
 

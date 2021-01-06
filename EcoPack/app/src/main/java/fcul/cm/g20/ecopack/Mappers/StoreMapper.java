@@ -1,5 +1,6 @@
 package fcul.cm.g20.ecopack.Mappers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,41 +52,50 @@ public class StoreMapper {
         }
     }
 
-    public static void getStoreByPath(String path, Context ctx, final StoreMapper.OnCompleteSuccessful callback) {
+    public static boolean getStoreByPath(String path, Context ctx, final StoreMapper.OnCompleteSuccessful callback) {
         if (Utils.isNetworkAvailable(ctx)) {
             FirebaseFirestore database = FirebaseFirestore.getInstance();
-            database.collection(path)
+            database.document(path)
                     .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot userDocument = task.getResult().getDocuments().get(0);
-                                Store store = new Store(task.getResult().getDocuments().get(0));
+                        public void onSuccess(DocumentSnapshot snapshot) {
+                            if (snapshot != null) {
+                                DocumentSnapshot userDocument = snapshot;
+                                Store store = new Store(snapshot);
                                 callback.onSuccess(store);
                             } else callback.onSuccess(null);
                         }
                     });
+            return true;
         } else {
             Utils.showToast("Falha ao obter utilizador, não é possivel aceder a internet.", ctx);
+            return false;
         }
     }
 
-    public static void updateUser(User user, Context ctx) {
+    @SuppressLint("NewApi")
+    public static void updateCounters(Store store, Context ctx){
+        Map<String, Object> map = new HashMap<>();
+        map.put("counters", store.getCounters());
+        update(map, store, ctx);
+    }
+
+    @SuppressLint("NewApi")
+    public static void update(Map<String, Object>fields, Store store, Context ctx) {
         if (Utils.isNetworkAvailable(ctx)) {
-            Map<String, Object> userMap = user.getHashMap();
             FirebaseFirestore database = FirebaseFirestore.getInstance();
-            database.document(user.getFireBasePath())
-                    .update(userMap)
+            database.document(store.getFirebasePath())
+                    .update(fields)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             //MESSAGE FOR DEBUG!!!!
-                            Utils.showToast("Utilizador gravado com sucesso!", ctx);
+                            Utils.showToast("Loja gravada com sucesso!", ctx);
                         }
                     });
         } else {
-            Utils.showToast("Falha ao gravar utilizador, não é possivel aceder a internet.", ctx);
+            Utils.showToast("Falha ao actualizar loja, não é possivel aceder a internet.", ctx);
         }
     }
 }

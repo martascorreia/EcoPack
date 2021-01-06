@@ -24,8 +24,7 @@ import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.Comment;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class Store {
-
-    private enum CounterTypes { bio, home, paper, plastic, reusable };
+    private enum PackageTypes { bio, home, paper, plastic, reusable };
     private enum QRCodesTypes { bio, paper, plastic, reusable, home };
 
     // firebase path
@@ -56,9 +55,9 @@ public class Store {
                 (String) snapshot.get("phone"),
                 (String) snapshot.get("website"),
                 (List<Map<String, Object>>) snapshot.get("comments"),  //change
-                (Map<String, Integer>) snapshot.get("counters"),
-                (long) snapshot.get("lat"),
-                (long) snapshot.get("lng"),
+                (Map<String, Long>) snapshot.get("counters"),
+                (double) snapshot.get("lat"),
+                (double) snapshot.get("lng"),
                 (List<String>)snapshot.get("photos"),
                 (long) snapshot.get("register_date"),
                 (String) snapshot.get("schedule"),
@@ -66,7 +65,7 @@ public class Store {
         );
     }
 
-    public Store(String path, String address, String email, String name, String phone, String website, List<Map<String, Object>> comments, Map<String, Integer> counters, long lat, long lng, List<String> photos, long register_date, String schedule, Map<String, String> qrCodes) {
+    public Store(String path, String address, String email, String name, String phone, String website, List<Map<String, Object>> comments, Map<String, Long> counters, double lat, double lng, List<String> photos, long register_date, String schedule, Map<String, String> qrCodes) {
         // When a setter is used is because the type saved in firebase is different from the one saved in "this"
         this.$Path = path;
         this.address = address;
@@ -75,13 +74,42 @@ public class Store {
         this.phone = phone;
         this.website = website;
         setComments(comments);
-        this.counters = counters;
+        this.counters = convertMapToInt(counters);
         this.lat = lat;
         this.lng = lng;
         setPhotos(photos);
         this.register_date = register_date;
         this.schedule = schedule;
         setQrCodes(qrCodes);
+    }
+
+    public int getPackageTypePoints(String type) {
+        int result = 0;
+        if (type.equals(PackageTypes.bio.toString())) {
+            result = 4;
+        } else if (type.equals(PackageTypes.home.toString())) {
+            result = 3;
+        } else if (type.equals(PackageTypes.paper.toString())) {
+            result = 2;
+        } else if (type.equals(PackageTypes.plastic.toString())) {
+            result = 1;
+        } else if (type.equals(PackageTypes.reusable.toString())) {
+            result = 5;
+        }
+
+        return result;
+    }
+
+    public void incrementCounter(String type, int i) {
+        int newValue = i;
+        if(counters != null){
+            if(counters.containsKey(type)){
+                newValue = counters.get(type) + 1;
+            }
+        } else {
+            counters = new HashMap<>();
+        }
+        counters.put(type, newValue);
     }
 
     @SuppressLint("NewApi")
@@ -125,6 +153,17 @@ public class Store {
                 break;
         }
         return result;
+    }
+
+    @SuppressLint("NewApi")
+    private Map<String, Integer> convertMapToInt(Map<String, Long> counters) {
+        Map<String, Integer> temp = new HashMap<>();
+        counters.forEach((k,v) -> temp.put(k, Math.toIntExact(v)));
+        return temp;
+    }
+
+    public String getFirebasePath() {
+        return this.$Path;
     }
 
     //region Setters For Firebase

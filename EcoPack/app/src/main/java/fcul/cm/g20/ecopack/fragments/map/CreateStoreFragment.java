@@ -231,16 +231,16 @@ public class CreateStoreFragment extends Fragment {
 
                     // MARKER COUNTERS
                     Map<String, Integer> counters = new HashMap<>();
-                    if (mainActivity.createStoreOptions[0]) counters.put("reusable", 1);
-                    else counters.put("reusable", 0);
-                    if (mainActivity.createStoreOptions[1]) counters.put("bio", 1);
-                    else counters.put("bio", 0);
-                    if (mainActivity.createStoreOptions[2]) counters.put("paper", 1);
-                    else counters.put("paper", 0);
-                    if (mainActivity.createStoreOptions[3]) counters.put("plastic", 1);
-                    else counters.put("plastic", 0);
-                    if (mainActivity.createStoreOptions[4]) counters.put("home", 1);
-                    else counters.put("home", 0);
+                    if (mainActivity.createStoreOptions[0]) counters.put("reusable",  1);
+                    else counters.put("reusable",  0);
+                    if (mainActivity.createStoreOptions[1]) counters.put("bio",  1);
+                    else counters.put("bio",  0);
+                    if (mainActivity.createStoreOptions[2]) counters.put("paper",  1);
+                    else counters.put("paper",  0);
+                    if (mainActivity.createStoreOptions[3]) counters.put("plastic",  1);
+                    else counters.put("plastic",  0);
+                    if (mainActivity.createStoreOptions[4]) counters.put("home",  1);
+                    else counters.put("home",  0);
                     store.setCounters(counters);
 
                     // IMAGES
