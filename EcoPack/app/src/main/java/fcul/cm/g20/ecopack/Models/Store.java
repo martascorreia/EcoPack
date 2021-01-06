@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.Comment;
+import fcul.cm.g20.ecopack.fragments.map.store.objects.Comment;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class Store {
