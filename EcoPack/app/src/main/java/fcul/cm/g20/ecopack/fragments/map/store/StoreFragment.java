@@ -1,32 +1,42 @@
 package fcul.cm.g20.ecopack.fragments.map.store;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 
 // TODO: HANDLE CONNECTION ON SENDING COMMENT
 
 public class StoreFragment extends Fragment {
     DocumentSnapshot storeDocument;
+    DocumentSnapshot userDocument;
     FirebaseFirestore database;
 
     public StoreFragment() {}
@@ -93,34 +103,56 @@ public class StoreFragment extends Fragment {
             else if (mostFrequentIndex == 3) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_plastic_round));
         }
 
-        // EDIT BUTTON
-        storeFragmentView.findViewById(R.id.edit_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StoreEditFragment fragment = new StoreEditFragment(storeDocument);
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_store, fragment)
-                        .addToBackStack("store")
-                        .commit();
-            }
-        });
+        MainActivity mainActivity = (MainActivity) getActivity();
 
-        // EDIT BUTTON
-        storeFragmentView.findViewById(R.id.qr_codes_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StoreQRCodesListFragment fragment = new StoreQRCodesListFragment(storeDocument);
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_store, fragment)
-                        .addToBackStack("store")
-                        .commit();
-            }
-        });
+        ImageButton editButton = storeFragmentView.findViewById(R.id.edit_button);
+        ImageButton qrCodeButton = storeFragmentView.findViewById(R.id.qr_codes_button);
+
+        if(mainActivity.userDocumentID.equals(storeDocument.get("owner"))){
+            editButton.setVisibility(View.VISIBLE);
+            editButton.setClickable(true);
+            qrCodeButton.setVisibility((View.VISIBLE));
+            qrCodeButton.setClickable(true);
+
+            // EDIT BUTTON
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    StoreEditFragment fragment = new StoreEditFragment(storeDocument);
+
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_store, fragment)
+                            .addToBackStack("store")
+                            .commit();
+                }
+            });
+
+            // EDIT BUTTON
+            qrCodeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    StoreQRCodesListFragment fragment = new StoreQRCodesListFragment(storeDocument);
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_store, fragment)
+                            .addToBackStack("store")
+                            .commit();
+                }
+            });
+
+        } else {
+            editButton.setVisibility(View.INVISIBLE);
+            editButton.setClickable(false);
+            qrCodeButton.setVisibility((View.INVISIBLE));
+            qrCodeButton.setClickable(false);
+        }
+
+
     }
+    
 
     private TabLayout.OnTabSelectedListener handleTabItemClick() {
         return new TabLayout.OnTabSelectedListener() {
