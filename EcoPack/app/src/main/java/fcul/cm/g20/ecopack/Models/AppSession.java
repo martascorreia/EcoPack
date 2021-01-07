@@ -1,11 +1,43 @@
 package fcul.cm.g20.ecopack.Models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Stack;
+
 public class AppSession {
 
-    private User currentUser;
+    // User
+    public User currentUser;
+
+    public double visibleLocationLatitude;
+    public double visibleLocationLongitude;
+
+    // Map
+    public HashMap<String, Store> storesMap;
+
+    public Stack<String> currentFragmentTag = new Stack<>();
+
+
+
+    // Prizes
+
+
+
+
+
+
+
+    // ???
+    //public double createStoreLatitude;
+    //public double createStoreLongitude;
+    //public String createStoreAddress;
+    //public boolean[] createStoreOptions;
+    //public ArrayList<String> createStorePhotos = new ArrayList<>();
 
     //region Singleton pattern
     private static volatile AppSession instance;
+
     private AppSession() { }
 
     public static AppSession getInstance() {

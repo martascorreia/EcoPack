@@ -16,7 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import fcul.cm.g20.ecopack.IOnBackPressed;
 import fcul.cm.g20.ecopack.Mappers.UserMapper;
+import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.Models.Prize;
@@ -128,8 +130,12 @@ public class RedeemFragment extends Fragment {
         });
     }
 
+
     @Override
     public void onResume() {
+        if(AppSession.getInstance().currentFragmentTag.size() < 1)
+            AppSession.getInstance().currentFragmentTag.push("points");
+
         // TODO: this was done to avoid crash, find better solution
         if(userModel == null || prizeModel == null)
             backButton();

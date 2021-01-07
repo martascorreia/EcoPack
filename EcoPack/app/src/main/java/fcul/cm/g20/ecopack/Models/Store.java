@@ -54,7 +54,7 @@ public class Store {
                 (String) snapshot.get("name"),
                 (String) snapshot.get("phone"),
                 (String) snapshot.get("website"),
-                (List<Map<String, Object>>) snapshot.get("comments"),  //change
+                (List<Map<String, Object>>) snapshot.get("comments"),
                 (Map<String, Long>) snapshot.get("counters"),
                 (double) snapshot.get("lat"),
                 (double) snapshot.get("lng"),
@@ -338,7 +338,7 @@ public class Store {
     }
 
     private String auxGetString(String s){
-        return (s == null)? "N/A" : s;
+        return (s == null || s.isEmpty())? "N/A" : s;
     }
     //endregion
 }

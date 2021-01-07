@@ -27,7 +27,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import fcul.cm.g20.ecopack.IOnBackPressed;
 import fcul.cm.g20.ecopack.Mappers.PrizeMapper;
+import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.Models.Prize;
@@ -36,7 +38,7 @@ import fcul.cm.g20.ecopack.fragments.points.recyclerview.GridItemDecorator;
 import fcul.cm.g20.ecopack.fragments.points.recyclerview.PrizesAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 
-public class PointsFragment extends Fragment {
+public class PointsFragment extends Fragment implements IOnBackPressed {
 
     private FloatingActionButton addPointsButton;
     private final int CAMERA_REQUEST_CODE = 98;
@@ -204,5 +206,10 @@ public class PointsFragment extends Fragment {
         loadRecyclerView();
         getUserInfo();
         super.onResume();
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return false;
     }
 }

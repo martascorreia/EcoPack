@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.tree.EcoPackageFragment;
 import fcul.cm.g20.ecopack.fragments.tree.alimentacao.AlimentacaoFragment;
@@ -117,5 +118,12 @@ public class InformationFragment extends Fragment {
                         .addToBackStack("info").commit();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        if(AppSession.getInstance().currentFragmentTag.size() < 1)
+            AppSession.getInstance().currentFragmentTag.push("tree");
+        super.onResume();
     }
 }

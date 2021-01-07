@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.R;
 
 /**
@@ -85,5 +86,12 @@ public class AlimentacaoFragment extends Fragment {
                 fm.popBackStack ("info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
+    }
+    
+    @Override
+    public void onResume() {
+        if(AppSession.getInstance().currentFragmentTag.size() < 2)
+            AppSession.getInstance().currentFragmentTag.push("info");
+        super.onResume();
     }
 }

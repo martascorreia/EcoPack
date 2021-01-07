@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -14,13 +15,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
+import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
 
 // TODO: RESOLVER PROBLEMAS GRAVES DE NAVEGAÇÃO! (ON BACK PRESSED)
 
 public class MainActivity extends AppCompatActivity implements ProfileSettingsFragment.OnProfileSettingsFragmentActiveListener {
     public boolean isProfileSettingsFragmentActive = false;
+
+    AppSession appSession = AppSession.getInstance();
+
     public String userPicture;
     public String userUsername;
     public String userPassword;
@@ -151,17 +157,33 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     }
 
     @Override
+    protected void onResume() {
+        AppSession.getInstance().currentFragmentTag = new Stack<>();
+        super.onResume();
+    }
+
+    @Override
     public void onBackPressed() {
         createStoreOptions = null;
         createStorePhotos = new ArrayList<>();
 
-        if (!isProfileSettingsFragmentActive) super.onBackPressed();
-        else {
-            editPicture = null;
-            isProfileSettingsFragmentActive = false;
-            this
-                    .getSupportFragmentManager()
-                    .popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        boolean stackIsEmpty = (AppSession.getInstance().currentFragmentTag == null) || AppSession.getInstance().currentFragmentTag.isEmpty();
+
+        if (count==0 || stackIsEmpty) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack(AppSession.getInstance().currentFragmentTag.pop(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+        
+//        if (!isProfileSettingsFragmentActive) super.onBackPressed();
+//        else {
+//            editPicture = null;
+//            isProfileSettingsFragmentActive = false;
+//            this
+//                    .getSupportFragmentManager()
+//                    .popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        }
     }
 }
