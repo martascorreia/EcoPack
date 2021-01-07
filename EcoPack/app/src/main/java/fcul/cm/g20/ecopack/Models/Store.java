@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.objects.Comment;
 import fcul.cm.g20.ecopack.utils.Utils;
 
@@ -86,15 +88,15 @@ public class Store {
     public int getPackageTypePoints(String type) {
         int result = 0;
         if (type.equals(PackageTypes.bio.toString())) {
-            result = 4;
+            result = 2;
         } else if (type.equals(PackageTypes.home.toString())) {
             result = 3;
         } else if (type.equals(PackageTypes.paper.toString())) {
-            result = 2;
-        } else if (type.equals(PackageTypes.plastic.toString())) {
             result = 1;
+        } else if (type.equals(PackageTypes.plastic.toString())) {
+            result = 0;
         } else if (type.equals(PackageTypes.reusable.toString())) {
-            result = 5;
+            result = 3;
         }
 
         return result;
@@ -341,4 +343,20 @@ public class Store {
         return (s == null || s.isEmpty())? "N/A" : s;
     }
     //endregion
+
+    public static MarkerTypes convertQrTypeToMarkerType(String type) {
+        MarkerTypes marker = null;
+        if(type != null){
+            if(type.equals(QRCodesTypes.reusable.toString())){
+                marker = MarkerTypes.marker_reusable;
+            }else if (type.equals(QRCodesTypes.bio.toString())){
+                marker = MarkerTypes.marker_bio;
+            }else if (type.equals(QRCodesTypes.paper.toString())){
+                marker = MarkerTypes.marker_paper;
+            }else if (type.equals(QRCodesTypes.plastic.toString())){
+                marker = MarkerTypes.marker_plastic;
+            }
+        }
+        return marker;
+    }
 }

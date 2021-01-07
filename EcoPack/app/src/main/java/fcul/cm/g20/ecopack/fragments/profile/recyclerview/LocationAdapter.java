@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import fcul.cm.g20.ecopack.Models.MarkerTypes;
+import fcul.cm.g20.ecopack.Models.StoreVisit;
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.utils.Utils;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
     public interface OnLocationClickListener {
@@ -21,9 +24,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
     private Context context;
     private OnLocationClickListener onLocationClickListener;
-    private ArrayList<HashMap<String, String>> userVisits;
+    private ArrayList<StoreVisit> userVisits;
 
-    public LocationAdapter(Context context, ArrayList<HashMap<String, String>> userVisits) {
+    public LocationAdapter(Context context, ArrayList<StoreVisit> userVisits) {
         this.context = context;
         this.userVisits = userVisits;
     }
@@ -37,20 +40,40 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-        HashMap<String, String> currentItem = userVisits.get(position);
+        StoreVisit currentItem = userVisits.get(position);
 
-        holder.getLocationName().setText(currentItem.get("store_name"));
-        holder.getLocationDate().setText(currentItem.get("visit_date"));
+        holder.getLocationName().setText(currentItem.getStoreName());
+        holder.getLocationDate().setText(Utils.getDateFromMilliseconds(currentItem.getDate()));
 
-        String marker = currentItem.get("visit_marker");
-        if (marker.equals("0")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_home_round));
-        else if (marker.equals("1")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_home_round));
-        else if (marker.equals("2")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_home_round));
-        else if (marker.equals("3")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_home_round));
-        else if (marker.equals("4")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_round));
-        else if (marker.equals("5")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_round));
-        else if (marker.equals("6")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_round));
-        else if (marker.equals("7")) holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_round));
+        MarkerTypes marker = currentItem.getMarkerTag();
+        if(marker!=null) {
+            switch (marker) {
+                case marker_reusable_home:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_home_round));
+                    break;
+                case marker_bio_home:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_home_round));
+                    break;
+                case marker_paper_home:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_home_round));
+                    break;
+                case marker_plastic_home:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_home_round));
+                    break;
+                case marker_reusable:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_round));
+                    break;
+                case marker_bio:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_round));
+                    break;
+                case marker_paper:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_round));
+                    break;
+                case marker_plastic:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_round));
+                    break;
+            }
+        }
     }
 
     @Override

@@ -17,6 +17,11 @@ import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class Utils {
@@ -66,6 +71,20 @@ public class Utils {
 
     public static void showToast(String message, Context context) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public static String getDateFromMilliseconds( long milliseconds){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliseconds);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        String m = (month < 10) ? "0" + month : month + "";
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        String d = (day < 10) ? "0" + day : day + "";
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+        String min = (minutes < 10) ? "0" + minutes : minutes + "";
+        return d + "-" + m + "-" + year + "  " + hour + ":" + min;
     }
 
     public static boolean isNetworkAvailable(Context context) {

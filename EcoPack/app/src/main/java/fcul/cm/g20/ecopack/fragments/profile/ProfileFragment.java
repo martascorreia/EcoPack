@@ -30,6 +30,7 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 import fcul.cm.g20.ecopack.LoginActivity;
 import fcul.cm.g20.ecopack.MainActivity;
+import fcul.cm.g20.ecopack.Models.StoreVisit;
 import fcul.cm.g20.ecopack.R;
 
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
@@ -134,7 +135,7 @@ public class ProfileFragment extends Fragment {
                             mainActivity.userRegisterDate = (long) userDocument.get("register_date");
                             mainActivity.userPoints = (long) userDocument.get("points");
                             mainActivity.userRedeemedPrizes = (ArrayList<String>) userDocument.get("redeemed_prizes");
-                            mainActivity.userVisits = (ArrayList<HashMap<String, String>>) userDocument.get("visits");
+                            mainActivity.userVisits = StoreVisit.toVisitsList((ArrayList<HashMap<String, Object>>) userDocument.get("visits"));
                             mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
                             mainActivity.userDocumentID = userDocument.getReference().getPath().split("/")[1];
 

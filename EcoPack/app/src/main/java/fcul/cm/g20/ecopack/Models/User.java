@@ -2,6 +2,7 @@ package fcul.cm.g20.ecopack.Models;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class User {
+    public static final int SCANNER_BLOCK_TIME = 10 * 60 * 1000;
     private String username;
     private String email;
     private String password;
@@ -21,9 +23,9 @@ public class User {
     private String gender;
     private String birthday;
     private String city;
-    private ArrayList<HashMap<String, String>> visits;
+    private ArrayList<StoreVisit> visits;
     private ArrayList<HashMap<String, String>> comments;
-    private long register_date; // SHOULD BE LOCALDATE
+    private long register_date;
     private Bitmap picture;
     private int points;
     private ArrayList<String> redeemedPrizesIds;
@@ -44,7 +46,7 @@ public class User {
                 (String) snapshot.get("gender"),
                 (String) snapshot.get("birthday"),
                 (String) snapshot.get("city"),
-                (ArrayList<HashMap<String, String>>) snapshot.get("visits"),
+                StoreVisit.toVisitsList((ArrayList<HashMap<String, Object>>) snapshot.get("visits")),
                 (ArrayList<HashMap<String, String>>) snapshot.get("comments"),
                 getLongFrom(snapshot.get("register_date")),
                 Utils.stringToBitmap((String) snapshot.get("picture")),
@@ -54,7 +56,7 @@ public class User {
         );
     }
 
-    public User(String username, String email, String password, String name, String phone, String gender, String birthday, String city, ArrayList<HashMap<String, String>> visits, ArrayList<HashMap<String, String>> comments, long register_date, Bitmap picture, int points, ArrayList<String> redeemedPrizesIds, String fireBasePath) {
+    public User(String username, String email, String password, String name, String phone, String gender, String birthday, String city, ArrayList<StoreVisit> visits, ArrayList<HashMap<String, String>> comments, long register_date, Bitmap picture, int points, ArrayList<String> redeemedPrizesIds, String fireBasePath) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -87,6 +89,22 @@ public class User {
             redeemedPrizesIds.add(prizeModel.getTitle()); //CHANGE TO ID!!!!
         }
         return validPurchase;
+    }
+
+    public void addVisit(StoreVisit visit) {
+        this.visits.add(visit);
+    }
+
+    public boolean canReceivePoints() {
+        boolean canReceive = true;
+        if(this.visits != null && !this.visits.isEmpty()){
+            long blockedTime = SCANNER_BLOCK_TIME;  // Milliseconds
+            // get last visit
+            StoreVisit lastVisit = visits.get(visits.size()-1);
+            Log.d("name123", (System.currentTimeMillis() - lastVisit.getDate() > blockedTime)+"");
+            canReceive = System.currentTimeMillis() - lastVisit.getDate() > blockedTime;
+        }
+        return canReceive;
     }
 
     @SuppressLint("NewApi")
@@ -161,7 +179,7 @@ public class User {
         return city;
     }
 
-    public ArrayList<HashMap<String, String>> getVisits() {
+    public ArrayList<StoreVisit> getVisits() {
         return visits;
     }
 

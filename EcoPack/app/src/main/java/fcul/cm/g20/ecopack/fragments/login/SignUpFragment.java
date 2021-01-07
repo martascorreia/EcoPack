@@ -33,6 +33,7 @@ import java.util.Map;
 
 import fcul.cm.g20.ecopack.LoginActivity;
 import fcul.cm.g20.ecopack.MainActivity;
+import fcul.cm.g20.ecopack.Models.StoreVisit;
 import fcul.cm.g20.ecopack.R;
 
 import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
@@ -159,7 +160,7 @@ public class SignUpFragment extends Fragment {
                     user.put("points", 0);
                     user.put("register_date", System.currentTimeMillis());
                     user.put("redeemed_prizes", new ArrayList<String>());
-                    user.put("visits", new ArrayList<HashMap<String, String>>());
+                    user.put("visits", new ArrayList<StoreVisit>());
                     user.put("comments", new ArrayList<HashMap<String, String>>());
 
                     if (isNetworkAvailable(getContext())) {

@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 import fcul.cm.g20.ecopack.Models.AppSession;
+import fcul.cm.g20.ecopack.Models.StoreVisit;
 import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
 
 // TODO: RESOLVER PROBLEMAS GRAVES DE NAVEGAÇÃO! (ON BACK PRESSED)
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     public long userRegisterDate;
     public long userPoints;
     public ArrayList<String> userRedeemedPrizes = new ArrayList<>();
-    public ArrayList<HashMap<String, String>> userVisits = new ArrayList<>();   // ID DA LOJA, MARKER, DATA
+    public ArrayList<StoreVisit> userVisits = new ArrayList<>();   // ID DA LOJA, MARKER, DATA
     public ArrayList<HashMap<String, String>> userComments = new ArrayList<>(); // ID DO COMENTÁRIO (PRESENTE NUMA DADA LOJA), ID DO USER, ID DA LOJA, CONTEÚDO, DATA, MARKER
     public String userDocumentID;
     public String editPicture;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
             userRegisterDate = savedInstanceState.getLong("userRegisterDate");
             userPoints = savedInstanceState.getLong("userPoints");
             userRedeemedPrizes = (ArrayList<String>) savedInstanceState.getSerializable("userRedeemedPrizes");
-            userVisits = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userVisits");
+            userVisits = (ArrayList<StoreVisit>) savedInstanceState.getSerializable("userVisits");
             userComments = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userComments");
             userDocumentID = savedInstanceState.getString("userDocumentID");
             editPicture = savedInstanceState.getString("editPicture");

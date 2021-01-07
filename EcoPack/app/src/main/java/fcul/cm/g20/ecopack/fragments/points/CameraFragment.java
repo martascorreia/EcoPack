@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,9 @@ import java.util.List;
 
 import fcul.cm.g20.ecopack.Mappers.StoreMapper;
 import fcul.cm.g20.ecopack.Mappers.UserMapper;
+import fcul.cm.g20.ecopack.Models.MarkerTypes;
 import fcul.cm.g20.ecopack.Models.Store;
+import fcul.cm.g20.ecopack.Models.StoreVisit;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.utils.Utils;
@@ -89,7 +92,11 @@ public class CameraFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        decodePointsCode(result.getText());
+                        if(userModel.canReceivePoints()){
+                            decodePointsCode(result.getText());
+                        } else{
+                            Utils.showToast("Não é possivel ler mais QR-Codes, só pode fazer scan de um codigo por visita.", getContext());
+                        }
                         //TODO: PERGUNTAR AO GRUPO SE QUEREM QUE A APP VOLTE PARA TRAS APOS A LEITURA DE QR CODE!
                     }
                 });
@@ -115,7 +122,11 @@ public class CameraFragment extends Fragment {
                         store.incrementCounter(type, 1);
                         int points = store.getPackageTypePoints(type);
                         userModel.addPoints(points);
-
+                        // create visit
+                        MarkerTypes marker = Store.convertQrTypeToMarkerType(type);
+                        Log.d("name123", store.getName());
+                        StoreVisit visit = new StoreVisit(storePath, store.getName(), marker, System.currentTimeMillis());
+                        userModel.addVisit(visit);
                         //update store and points
                         StoreMapper.updateCounters(store, getContext());
                         //update store and points
