@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -95,7 +96,7 @@ public class StoreOpinionsFragment extends Fragment {
         scroll.post(new Runnable() {
             @Override
             public void run() {
-                scroll.fullScroll(View.FOCUS_RIGHT);
+                scroll.fullScroll(View.FOCUS_DOWN);
             }
         });
 
@@ -266,13 +267,27 @@ public class StoreOpinionsFragment extends Fragment {
 
                     // NEW COMMENT
                     final Map<String, Object> comment = new HashMap<>();
+                    comment.put("user", userDocument.get("username"));
+                    comment.put("name", userDocument.get("name"));
+                    comment.put("picture", userDocument.get("picture"));
                     comment.put("date", System.currentTimeMillis());
                     comment.put("comment", text.getText().toString());
                     comment.put("marker", currentIcon);
                     comments.add(comment);
 
                     final Map<String, Object> store = new HashMap<>();
+                    store.put("address", storeDocument.get("address"));
                     store.put("comments", comments);
+                    store.put("counters", storeDocument.get("counters"));
+                    store.put("email", storeDocument.get("email"));
+                    store.put("lat", storeDocument.get("lat"));
+                    store.put("lng", storeDocument.get("lng"));
+                    store.put("name", storeDocument.get("name"));
+                    store.put("phone", storeDocument.get("phone"));
+                    store.put("photos", storeDocument.get("photos"));
+                    store.put("register_date", storeDocument.get("register_date"));
+                    store.put("schedule", storeDocument.get("schedule"));
+                    store.put("website", storeDocument.get("website"));
 
                     if (isNetworkAvailable(getContext())) {
                         database.document(storeDocument.getReference().getPath())
@@ -378,5 +393,4 @@ public class StoreOpinionsFragment extends Fragment {
 
         return false;
     }
-
 }
