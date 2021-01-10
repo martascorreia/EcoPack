@@ -20,6 +20,8 @@ import java.util.Stack;
 
 import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.Models.StoreVisit;
+import fcul.cm.g20.ecopack.fragments.points.PointsFragment;
+import fcul.cm.g20.ecopack.fragments.points.PrizeCodeFragment;
 import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
 
 // TODO: RESOLVER PROBLEMAS GRAVES DE NAVEGAÇÃO! (ON BACK PRESSED)
@@ -116,21 +118,43 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.navigation_map:
-                        // empty onBackPressed stack
-                        FragmentManager fm = getSupportFragmentManager();
-                        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                            fm.popBackStack();
-                            //Log.d("Nav", "Pop " + 1); DEBUG
-                        }
-                        break;
-                    case R.id.navigation_points:
-                        break;
-                    case R.id.navigation_profile:
-                        break;
-                    case R.id.navigation_tree:
-                        break;
+                FragmentManager fm = getSupportFragmentManager();
+                // empty onBackPressed stack
+                if(fm.getBackStackEntryCount() > 0) {
+                    // get top frag
+                    String prev = fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName();
+                    switch (item.getItemId()) {
+                        case R.id.navigation_map:
+                            //empty everything
+                            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                                fm.popBackStack();
+                            }
+                            break;
+                        case R.id.navigation_points:
+                            if(prev.equals("info") || prev.equals("tree")){
+                                fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            } else if (prev.equals("profile")) {
+                                fm.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            }
+                            fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            break;
+                        case R.id.navigation_profile:
+                            if(prev.equals("info") || prev.equals("tree")){
+                                fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            } else if (prev.equals("points")) {
+                                fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            }
+                            fm.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            break;
+                        case R.id.navigation_tree:
+                            if(prev.equals("profile")){
+                                fm.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            } else if (prev.equals("points")) {
+                                fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            }
+                            fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            break;
+                    }
                 }
                 return NavigationUI.onNavDestinationSelected(item, navController);
             }
@@ -191,6 +215,9 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     public void onBackPressed() {
         createStoreOptions = null;
         createStorePhotos = new ArrayList<>();
+        FragmentManager fm = getSupportFragmentManager();
+        if(fm.getBackStackEntryCount() >0)
+            Log.d("TAG123","Found fragment: " + fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName());
 
         super.onBackPressed();
 
