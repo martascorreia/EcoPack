@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -64,6 +65,18 @@ public class ProfileSettingsFragment extends Fragment {
         mainActivity = (MainActivity) getActivity();
         database = FirebaseFirestore.getInstance();
         onProfileSettingsFragmentActiveListener.onProfileSettingsFragmentActive(true);
+
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                getActivity()
+                        .getSupportFragmentManager()
+                        .popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     @Override

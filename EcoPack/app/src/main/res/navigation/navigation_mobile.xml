@@ -8,7 +8,8 @@
         android:id="@+id/navigation_points"
         android:name="fcul.cm.g20.ecopack.fragments.points.PointsFragment"
         android:label="@string/points"
-        tools:layout="@layout/fragment_points" />
+        tools:layout="@layout/fragment_points"
+        android:onClick="performActions" />
     <fragment
         android:id="@+id/navigation_tree"
         android:name="fcul.cm.g20.ecopack.fragments.tree.TreeFragment"

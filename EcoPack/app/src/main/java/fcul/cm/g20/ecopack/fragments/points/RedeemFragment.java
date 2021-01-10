@@ -3,6 +3,7 @@ package fcul.cm.g20.ecopack.fragments.points;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -44,6 +46,21 @@ public class RedeemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack ("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                backCallback.onBack(userModel);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+        // The callback can be enabled or disabled here or in handleOnBackPressed()
     }
 
     @Override
@@ -80,7 +97,7 @@ public class RedeemFragment extends Fragment {
                         if(success) {
                             changeToPrizeCodeFragment();
                             //save user
-                            UserMapper.updateUser(userModel, getContext());
+                            UserMapper.updateUserPointsAndPrizes(userModel, getContext());
                         }
                         else
                             Utils.showToast("Não tem pontos suficientes para comprar este cupão!", getContext());
@@ -133,9 +150,6 @@ public class RedeemFragment extends Fragment {
 
     @Override
     public void onResume() {
-        if(AppSession.getInstance().currentFragmentTag.size() < 1)
-            AppSession.getInstance().currentFragmentTag.push("points");
-
         // TODO: this was done to avoid crash, find better solution
         if(userModel == null || prizeModel == null)
             backButton();

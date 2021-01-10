@@ -2,10 +2,10 @@ package fcul.cm.g20.ecopack;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -113,6 +113,29 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.navigation_map:
+                        // empty onBackPressed stack
+                        FragmentManager fm = getSupportFragmentManager();
+                        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                            fm.popBackStack();
+                            //Log.d("Nav", "Pop " + 1); DEBUG
+                        }
+                        break;
+                    case R.id.navigation_points:
+                        break;
+                    case R.id.navigation_profile:
+                        break;
+                    case R.id.navigation_tree:
+                        break;
+                }
+                return NavigationUI.onNavDestinationSelected(item, navController);
+            }
+        });
+
         getSupportActionBar().hide();
     }
 
@@ -169,16 +192,8 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
         createStoreOptions = null;
         createStorePhotos = new ArrayList<>();
 
-        int count = getSupportFragmentManager().getBackStackEntryCount();
-        boolean stackIsEmpty = (AppSession.getInstance().currentFragmentTag == null) || AppSession.getInstance().currentFragmentTag.isEmpty();
+        super.onBackPressed();
 
-        if (count==0 || stackIsEmpty) {
-            super.onBackPressed();
-            //additional code
-        } else {
-            getSupportFragmentManager().popBackStack(AppSession.getInstance().currentFragmentTag.pop(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-        
 //        if (!isProfileSettingsFragmentActive) super.onBackPressed();
 //        else {
 //            editPicture = null;

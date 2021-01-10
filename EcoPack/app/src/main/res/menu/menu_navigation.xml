@@ -4,17 +4,21 @@
     <item
         android:id="@+id/navigation_map"
         android:icon="@drawable/ic_marker_empty"
-        android:title="@string/map" />
+        android:title="@string/map"
+        android:enabled="true"/>
     <item
         android:id="@+id/navigation_points"
         android:icon="@drawable/ic_points_empty"
-        android:title="@string/points" />
+        android:title="@string/points"
+        android:enabled="true"/>
     <item
         android:id="@+id/navigation_tree"
         android:icon="@drawable/ic_tree_empty"
-        android:title="@string/tree" />
+        android:title="@string/tree"
+        android:enabled="true"/>
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_user_empty"
-        android:title="@string/profile" />
+        android:title="@string/profile"
+        android:enabled="true"/>
 </menu>

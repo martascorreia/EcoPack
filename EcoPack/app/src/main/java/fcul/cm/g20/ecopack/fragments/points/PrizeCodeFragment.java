@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.provider.DocumentsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +57,19 @@ public class PrizeCodeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack ("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                backCallback.onBack(userModel);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     @Override
@@ -167,9 +182,6 @@ public class PrizeCodeFragment extends Fragment {
 
     @Override
     public void onResume() {
-        if(AppSession.getInstance().currentFragmentTag.size() < 1)
-            AppSession.getInstance().currentFragmentTag.push("points");
-
         // TODO: this was done to avoid crash, find better solution
         if(userModel == null || prizeModel == null)
             backButton();

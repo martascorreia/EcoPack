@@ -8,13 +8,16 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +41,7 @@ import fcul.cm.g20.ecopack.fragments.points.recyclerview.GridItemDecorator;
 import fcul.cm.g20.ecopack.fragments.points.recyclerview.PrizesAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 
-public class PointsFragment extends Fragment implements IOnBackPressed {
+public class PointsFragment extends Fragment {
 
     private FloatingActionButton addPointsButton;
     private final int CAMERA_REQUEST_CODE = 98;
@@ -206,10 +209,5 @@ public class PointsFragment extends Fragment implements IOnBackPressed {
         loadRecyclerView();
         getUserInfo();
         super.onResume();
-    }
-
-    @Override
-    public boolean onBackPressed() {
-        return false;
     }
 }

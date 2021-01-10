@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,26 @@ public class UserMapper {
                     });
         } else {
             Utils.showToast("Falha ao obter utilizador, não é possivel aceder a internet.", ctx);
+        }
+    }
+
+    public static void updateUserPointsAndPrizes(User user, Context ctx) {
+        if (Utils.isNetworkAvailable(ctx)) {
+            Map<String, Object> userMap = new HashMap<>();
+            userMap.put("points", user.getPoints());
+            userMap.put("redeemed_prizes_ids", user.getRedeemedPrizesIds());
+            FirebaseFirestore database = FirebaseFirestore.getInstance();
+            database.document(user.getFireBasePath())
+                    .update(userMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            //MESSAGE FOR DEBUG!!!!
+                            Utils.showToast("Utilizador gravado com sucesso!", ctx);
+                        }
+                    });
+        } else {
+            Utils.showToast("Falha ao gravar utilizador, não é possivel aceder a internet.", ctx);
         }
     }
 
