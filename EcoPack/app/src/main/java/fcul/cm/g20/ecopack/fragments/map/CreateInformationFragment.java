@@ -26,7 +26,7 @@ public class CreateInformationFragment extends Fragment {
             public void onClick(View v) {
                 getActivity()
                         .getSupportFragmentManager()
-                        .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        .popBackStack("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
     }

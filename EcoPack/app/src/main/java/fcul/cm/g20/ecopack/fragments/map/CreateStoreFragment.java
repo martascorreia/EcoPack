@@ -265,7 +265,7 @@ public class CreateStoreFragment extends Fragment {
                             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                             getActivity()
                                     .getSupportFragmentManager()
-                                    .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                    .popBackStack("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         }
                     }, new OnFailureListener() {
                         @Override
@@ -294,7 +294,7 @@ public class CreateStoreFragment extends Fragment {
 
                 getActivity()
                         .getSupportFragmentManager()
-                        .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        .popBackStack("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
     }

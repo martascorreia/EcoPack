@@ -355,7 +355,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                 .getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_map, fragment)
-                .addToBackStack(null)
+                .addToBackStack("map")
                 .commit();
     }
 

@@ -123,37 +123,45 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
                 if(fm.getBackStackEntryCount() > 0) {
                     // get top frag
                     String prev = fm.getBackStackEntryAt(fm.getBackStackEntryCount()-1).getName();
-                    switch (item.getItemId()) {
-                        case R.id.navigation_map:
-                            //empty everything
-                            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                                fm.popBackStack();
-                            }
-                            break;
-                        case R.id.navigation_points:
-                            if(prev.equals("info") || prev.equals("tree")){
-                                fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            } else if (prev.equals("profile")) {
-                                fm.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            }
-                            fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            break;
-                        case R.id.navigation_profile:
-                            if(prev.equals("info") || prev.equals("tree")){
-                                fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            } else if (prev.equals("points")) {
+                    if(prev != null) {
+                        switch (item.getItemId()) {
+                            case R.id.navigation_map:
+                                //empty everything
+                                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                                    fm.popBackStack();
+                                }
+                                break;
+                            case R.id.navigation_points:
+                                if(prev.equals("store") || prev.equals("qr_codes") || prev.equals("map")){
+                                    fm.popBackStack("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                } else if (prev.equals("info") || prev.equals("tree")) {
+                                    fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                } else if (prev.equals("profile")) {
+                                    fm.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                }
                                 fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            }
-                            fm.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            break;
-                        case R.id.navigation_tree:
-                            if(prev.equals("profile")){
+                                break;
+                            case R.id.navigation_profile:
+                                if(prev.equals("store") || prev.equals("qr_codes") || prev.equals("map")){
+                                    fm.popBackStack("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                } else if (prev.equals("info") || prev.equals("tree")) {
+                                    fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                } else if (prev.equals("points")) {
+                                    fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                }
                                 fm.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            } else if (prev.equals("points")) {
-                                fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            }
-                            fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                            break;
+                                break;
+                            case R.id.navigation_tree:
+                                if(prev.equals("store") || prev.equals("qr_codes") || prev.equals("map")){
+                                    fm.popBackStack("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                } else if (prev.equals("profile")) {
+                                    fm.popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                } else if (prev.equals("points")) {
+                                    fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                }
+                                fm.popBackStack("tree", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                                break;
+                        }
                     }
                 }
                 return NavigationUI.onNavDestinationSelected(item, navController);
