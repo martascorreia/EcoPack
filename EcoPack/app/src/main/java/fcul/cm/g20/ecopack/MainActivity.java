@@ -1,5 +1,6 @@
 package fcul.cm.g20.ecopack;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fm = getSupportFragmentManager();
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                 // empty onBackPressed stack
                 if(fm.getBackStackEntryCount() > 0) {
                     // get top frag

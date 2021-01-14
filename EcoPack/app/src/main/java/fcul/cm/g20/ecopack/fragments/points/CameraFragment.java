@@ -1,5 +1,6 @@
 package fcul.cm.g20.ecopack.fragments.points;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -54,7 +55,7 @@ public class CameraFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // This callback will only be called when MyFragment is at least Started.
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -144,7 +145,7 @@ public class CameraFragment extends Fragment {
                         //update store and points
                         StoreMapper.updateCounters(store, getContext());
                         //update store and points
-                        UserMapper.updateUser(userModel, getContext());
+                        UserMapper.updateUserPointsAndVisits(userModel, getContext());
 
                         // TODO: MELHORAR MESSAGENS PARA CADA TIPO DE EMBALAGEM
                         Utils.showToast("Por usar uma embalagem de " + type + " acabou de ganhar " + points + " pontos!!", getContext());
