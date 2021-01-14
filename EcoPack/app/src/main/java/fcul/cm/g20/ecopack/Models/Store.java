@@ -34,7 +34,7 @@ public class Store {
 
     private String owner, address, email, name, phone, website;
     private List<Comment> comments;
-    private Map<String, Integer> counters;
+    private Map<String, Double> counters;
     private double lat, lng;
     private List<Bitmap> photos;
     private long register_date;
@@ -57,7 +57,7 @@ public class Store {
                 (String) snapshot.get("phone"),
                 (String) snapshot.get("website"),
                 (List<Map<String, Object>>) snapshot.get("comments"),
-                (Map<String, Long>) snapshot.get("counters"),
+                (Map<String, Double>) snapshot.get("counters"),
                 (double) snapshot.get("lat"),
                 (double) snapshot.get("lng"),
                 (List<String>)snapshot.get("photos"),
@@ -67,7 +67,7 @@ public class Store {
         );
     }
 
-    public Store(String path, String address, String email, String name, String phone, String website, List<Map<String, Object>> comments, Map<String, Long> counters, double lat, double lng, List<String> photos, long register_date, String schedule, Map<String, String> qrCodes) {
+    public Store(String path, String address, String email, String name, String phone, String website, List<Map<String, Object>> comments, Map<String, Double> counters, double lat, double lng, List<String> photos, long register_date, String schedule, Map<String, String> qrCodes) {
         // When a setter is used is because the type saved in firebase is different from the one saved in "this"
         this.$Path = path;
         this.address = address;
@@ -76,7 +76,7 @@ public class Store {
         this.phone = phone;
         this.website = website;
         setComments(comments);
-        this.counters = convertMapToInt(counters);
+        this.counters = counters;
         this.lat = lat;
         this.lng = lng;
         setPhotos(photos);
@@ -102,11 +102,11 @@ public class Store {
         return result;
     }
 
-    public void incrementCounter(String type, int i) {
-        int newValue = i;
+    public void incrementCounter(String type, double i) {
+        double newValue = i;
         if(counters != null){
             if(counters.containsKey(type)){
-                newValue = counters.get(type) + 1;
+                newValue = counters.get(type) + i;
             }
         } else {
             counters = new HashMap<>();
@@ -238,7 +238,7 @@ public class Store {
         this.comments = (comments!=null)? comments : new ArrayList<>();
     }
 
-    public void setCounters(Map<String, Integer> counters) {
+    public void setCounters(Map<String, Double> counters) {
         this.counters = (counters!=null)? counters : new HashMap<>();
     }
 
@@ -303,7 +303,7 @@ public class Store {
         return commentsMapList;
     }
 
-    public Map<String, Integer> getCounters() {
+    public Map<String, Double> getCounters() {
         return counters;
     }
 

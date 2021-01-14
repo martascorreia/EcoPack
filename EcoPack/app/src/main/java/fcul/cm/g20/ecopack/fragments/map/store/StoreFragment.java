@@ -80,8 +80,8 @@ public class StoreFragment extends Fragment {
         }
 
         // MARKER
-        long[] counters = new long[5];
-        HashMap<String, Long> countersMap = (HashMap<String, Long>) storeDocument.get("counters");
+        Double[] counters = new Double[5];
+        HashMap<String, Double> countersMap = (HashMap<String, Double>) storeDocument.get("counters");
         counters[0] = countersMap.get("reusable");
         counters[1] = countersMap.get("bio");
         counters[2] = countersMap.get("paper");
@@ -179,8 +179,9 @@ public class StoreFragment extends Fragment {
         };
     }
 
-    private long getMostFrequentPackageType(long[] counters) {
-        long max = counters[0], index = 0;
+    private long getMostFrequentPackageType(Double[] counters) {
+        double max = counters[0];
+        long index = 0;
 
         for (int i = 0; i < counters.length; i++) {
             if (max < counters[i]) {

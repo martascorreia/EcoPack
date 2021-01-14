@@ -1,6 +1,7 @@
 package fcul.cm.g20.ecopack.fragments.map.store;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,9 +9,19 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.util.Base64;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,36 +32,25 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
-import android.provider.OpenableColumns;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import net.glxn.qrgen.android.QRCode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.ImageAdapter;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.PreviewImageAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 
@@ -61,6 +61,8 @@ public class StoreEditFragment extends Fragment {
     private MainActivity mainActivity;
     private FirebaseFirestore database;
     DocumentSnapshot storeDocument;
+    boolean options[] = new boolean[5];
+    boolean options2[] = new boolean[5];
     public ArrayList<String> photos = new ArrayList<>();
 
     public StoreEditFragment() {
@@ -103,6 +105,71 @@ public class StoreEditFragment extends Fragment {
         EditText phone = editStoreFragment.findViewById(R.id.store_phone);
         phone.setText((String) storeDocument.get("phone"));
 
+        Map<String, Double> counters = (Map<String, Double>) storeDocument.get("counters");
+
+        // MARKERS
+        final ImageView reusableImageView = editStoreFragment.findViewById(R.id.option_reusable);
+        final ImageView bioImageView = editStoreFragment.findViewById(R.id.option_bio);
+        final ImageView paperImageView = editStoreFragment.findViewById(R.id.option_paper);
+        final ImageView plasticImageView = editStoreFragment.findViewById(R.id.option_plastic);
+
+        //REUSABLE
+        if (counters.get("reusable") != 0) {
+            options[0] = true;
+            options2[0] = true;
+            ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.reusable)));
+        } else {
+            options[0] = false;
+            options2[0] = false;
+            ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.dark_gray)));
+        }
+
+        // BIO
+        if (counters.get("bio") != 0) {
+            options[1] = true;
+            options2[1] = true;
+            ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.bio)));
+        } else {
+            options[3] = false;
+            options2[3] = false;
+            ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+        }
+
+        // PAPER
+        if (counters.get("paper") != 0) {
+            options[2] = true;
+            options2[2] = true;
+            ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.paper)));
+        } else {
+            options[2] = false;
+            options2[2] = false;
+            ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+        }
+
+        // PLASTIC
+        if (counters.get("plastic") != 0) {
+            options[3] = true;
+            options[3] = true;
+            ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.plastic)));
+        } else {
+            options[2] = false;
+            options2[2] = false;
+            ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+        }
+
+        // CHECKBOX
+        CheckBox homeCheckbox = editStoreFragment.findViewById(R.id.home_checkbox);
+        if(counters.get("home") != 0){
+            options[4] = true;
+            options2[4] = true;
+            homeCheckbox.setChecked(true);
+        } else{
+            options[4] = false;
+            options2[4] = false;
+            homeCheckbox.setChecked(false);
+        }
+
+        //------------------------------------------------------------------------------------------
         // GET NEW INFORMATION
         final EditText[] inputs = new EditText[]{
                 editStoreFragment.findViewById(R.id.store_name),
@@ -112,12 +179,12 @@ public class StoreEditFragment extends Fragment {
                 editStoreFragment.findViewById(R.id.store_website)
         };
 
+        // PHOTOS
         this.photos = (ArrayList<String>) storeDocument.get("photos");
-
-        if (photos != null && photos.size() != 0) {
+        if (photos != null && !photos.isEmpty()) {
             RecyclerView recyclerView = editStoreFragment.findViewById(R.id.photos_container);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos);
+            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos);
             recyclerView.setAdapter(previewImageAdapter);
         }
 
@@ -134,6 +201,73 @@ public class StoreEditFragment extends Fragment {
             }
         });
 
+        // CHECKBOX
+        homeCheckbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(homeCheckbox.isChecked()) {
+                    options[4] = true;
+                } else {
+                    options[4] = false;
+                }
+            }
+        });
+
+        // MARKERS
+        reusableImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!options[0]) {
+                    options[0] = true;
+                    ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.reusable)));
+                } else {
+                    options[0] = false;
+                    ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+                }
+            }
+        });
+
+        bioImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!options[1]) {
+                    options[1] = true;
+                    ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.bio)));
+                } else {
+                    options[1] = false;
+                    ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+                }
+            }
+        });
+
+        paperImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!options[2]) {
+                    options[2] = true;
+                    ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.paper)));
+                } else {
+                    options[2] = false;
+                    ImageViewCompat.setImageTintList(paperImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+                }
+            }
+        });
+
+        plasticImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!options[3]) {
+                    options[3] = true;
+                    ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.plastic)));
+                } else {
+                    options[3] = false;
+                    ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
+                }
+            }
+        });
+
+
+        // SAVE
         final Button saveButton = editStoreFragment.findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,8 +299,34 @@ public class StoreEditFragment extends Fragment {
                     store.put("website", inputs[4].getText().toString());
 
                 // IMAGES
-                if (mainActivity.createStorePhotos.size() != 0)
+                if (!photos.isEmpty())
                     store.put("photos", photos);
+
+                // COUNTERS
+                Double value = 0.5;
+                Map<String, Double> counters2 = new HashMap<>();
+                if (!options[0]) counters2.put("reusable",  0.0);
+                else if (options2[0]) counters2.put("reusable",  counters.get("reusable"));
+                else counters2.put("reusable",  value);
+
+                if (!options[1]) counters2.put("bio",  0.0);
+                else if (options2[1]) counters2.put("bio",  counters.get("bio"));
+                else counters2.put("bio", value);
+
+                if (!options[2]) counters2.put("paper",  0.0);
+                else if (options2[2]) counters2.put("paper",  counters.get("paper"));
+                else counters2.put("paper",  value);
+
+                if (!options[3]) counters2.put("plastic",  0.0);
+                else if (options2[3]) counters2.put("plastic",  counters.get("plastic"));
+                else counters2.put("plastic",  value);
+
+                if (!options[4]) counters2.put("home",  0.0);
+                else if (options2[4]) counters2.put("home",  counters.get("home"));
+                else counters2.put("home",  value);
+
+                store.put("counters", counters2);
+                store.put("qrCodes", generateQrCodes(counters2));
 
                 if (isNetworkAvailable(getContext())) {
                     database.document(storeDocument.getReference().getPath())
@@ -175,7 +335,11 @@ public class StoreEditFragment extends Fragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     progressDialog.dismiss();
-                                    Utils.showToast("Comentário publicado com sucesso!", getContext());
+                                    Utils.showToast("Alterações feitas com sucesso!", getContext());
+
+                                    getActivity()
+                                            .getSupportFragmentManager()
+                                            .popBackStack("store", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -200,6 +364,55 @@ public class StoreEditFragment extends Fragment {
                         .popBackStack("store", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
+    }
+
+    private enum QRCodesTypes { bio, paper, plastic, reusable, home };
+
+    @SuppressLint("NewApi")
+    public Map<String, String> generateQrCodes(Map<String, Double> counters) {
+        Map<String, String> qrCodes= new HashMap<>();
+        String storePath = storeDocument.getReference().getPath();
+        Arrays.stream(QRCodesTypes.values())
+                .forEach(qrType -> {
+                    if(counters.containsKey(qrType.toString()) && counters.get(qrType.toString()) > 0){
+                        // means the user choose this as type in there store
+                        String type = qrType.toString();
+                        String code = type + '\u0000' + storePath; //'\u0000' -> null Char
+                        Bitmap bitmap = QRCode.from(code).withColor(0xFFFFFFFF, pickQrCodeColour(qrType)).bitmap();
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                        byte[] byteArray = stream.toByteArray();
+                        String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                        qrCodes.put(type, result);
+                    }
+                });
+
+        return  qrCodes;
+    }
+
+    private int pickQrCodeColour(QRCodesTypes qrType){
+        int result = 0xFFFFFFFF;
+        switch (qrType){
+            case bio:
+                result = 0xFF9C693C;
+                break;
+            case paper:
+                result = 0xFF547FCA;
+                break;
+            case plastic:
+                result = 0xFFDAA948;
+                break;
+            case reusable:
+                result = 0xFF66B16F;
+                break;
+            case home:
+                result = 0xFFDA5D44;
+                break;
+            default:
+                result = 0xFFFFFFFF;
+                break;
+        }
+        return result;
     }
 
     private void loadImageFromGallery() {

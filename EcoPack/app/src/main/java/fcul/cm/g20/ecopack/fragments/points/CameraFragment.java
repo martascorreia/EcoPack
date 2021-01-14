@@ -134,7 +134,7 @@ public class CameraFragment extends Fragment {
                 @Override
                 public void onSuccess(Store store) {
                     if (userModel != null && store != null) {
-                        store.incrementCounter(type, 1);
+                        store.incrementCounter(type, 0.35);
                         int points = store.getPackageTypePoints(type);
                         userModel.addPoints(points);
                         // create visit
