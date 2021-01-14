@@ -2,6 +2,11 @@ package fcul.cm.g20.ecopack.fragments.points;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -9,21 +14,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import fcul.cm.g20.ecopack.Mappers.StoreMapper;
 import fcul.cm.g20.ecopack.Mappers.UserMapper;
@@ -50,7 +44,7 @@ public class CameraFragment extends Fragment {
 
     public CameraFragment(OnBackButtonPressed callback) {
         backCallback = callback;
-     }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +57,7 @@ public class CameraFragment extends Fragment {
                 // Handle the back button event
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
-                fm.popBackStack ("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                fm.popBackStack("points", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 backCallback.onBack(userModel);
             }
         };
@@ -107,9 +101,9 @@ public class CameraFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(userModel.canReceivePoints()){
+                        if (userModel.canReceivePoints()) {
                             decodePointsCode(result.getText());
-                        } else{
+                        } else {
                             Utils.showToast("Não é possivel ler mais QR-Codes, só pode fazer scan de um codigo por visita.", getContext());
                         }
                         //TODO: PERGUNTAR AO GRUPO SE QUEREM QUE A APP VOLTE PARA TRAS APOS A LEITURA DE QR CODE!
@@ -134,7 +128,7 @@ public class CameraFragment extends Fragment {
                 @Override
                 public void onSuccess(Store store) {
                     if (userModel != null && store != null) {
-                        store.incrementCounter(type, 0.35);
+                        store.incrementCounter(type, 7);
                         int points = store.getPackageTypePoints(type);
                         userModel.addPoints(points);
                         // create visit
@@ -154,9 +148,9 @@ public class CameraFragment extends Fragment {
                     }
                 }
             });
-            if(!transactionInitiated)
+            if (!transactionInitiated)
                 Utils.showToast("Não foi possivel atribuir pontos, não é possivel aceder a internet.", getContext());
-        } else{
+        } else {
             Utils.showToast("O codigo lido é invalido!!", getContext());
         }
     }
@@ -165,7 +159,7 @@ public class CameraFragment extends Fragment {
     public void onResume() {
         super.onResume();
         codeScanner.startPreview();
-        if(userModel==null){
+        if (userModel == null) {
             // goBack
             FragmentManager fm = getActivity()
                     .getSupportFragmentManager();

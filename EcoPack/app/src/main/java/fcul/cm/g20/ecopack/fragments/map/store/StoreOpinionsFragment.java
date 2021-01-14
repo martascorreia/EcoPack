@@ -30,7 +30,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -255,13 +254,7 @@ public class StoreOpinionsFragment extends Fragment {
                     progressDialog.show();
 
                     // GET OLD COMMENTS
-                    List<Map<String, Object>> comments = new ArrayList<>();
-                    List<Map<String, Object>> oldComments = (List<Map<String, Object>>) storeDocument.get("comments");
-                    if (oldComments != null) {
-                        for (int i = 0; i < oldComments.size(); i++) {
-                            comments.add(oldComments.get(i));
-                        }
-                    }
+                    List<Map<String, Object>> comments =  (List<Map<String, Object>>) storeDocument.get("comments");
 
                     // NEW COMMENT
                     final Map<String, Object> comment = new HashMap<>();
@@ -307,9 +300,9 @@ public class StoreOpinionsFragment extends Fragment {
         });
     }
 
-    private Map<String, Double> setCounter() {
-        Double value = 0.15;
-        Map<String, Double> counters = (Map<String, Double>) storeDocument.get("counters");
+    private Map<String, Long> setCounter() {
+        int value = 3;
+        Map<String, Long> counters = (Map<String, Long>) storeDocument.get("counters");
         if(currentIcon.equals("ic_marker_paper_home_round")){
             counters.put("paper", counters.get("paper") + value);
             counters.put("home", counters.get("home") + value);

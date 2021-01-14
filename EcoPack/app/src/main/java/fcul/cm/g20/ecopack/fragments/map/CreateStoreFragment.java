@@ -32,7 +32,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
@@ -40,7 +39,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -50,7 +48,6 @@ import fcul.cm.g20.ecopack.Models.Store;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.PreviewImageAdapter;
 
-import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
 // TODO: QUANDO CRIAMOS A LOJA, A LOJA CRIADA AINDA NÃO APARECE NO MAPA
@@ -230,17 +227,17 @@ public class CreateStoreFragment extends Fragment {
                     store.setWebsite(inputs[4].getText().toString());
 
                     // MARKER COUNTERS
-                    Map<String, Double> counters = new HashMap<>();
-                    if (mainActivity.createStoreOptions[0]) counters.put("reusable",  0.05);
-                    else counters.put("reusable",  0d);
-                    if (mainActivity.createStoreOptions[1]) counters.put("bio",  0.05);
-                    else counters.put("bio",  0d);
-                    if (mainActivity.createStoreOptions[2]) counters.put("paper",  0.05);
-                    else counters.put("paper",  0d);
-                    if (mainActivity.createStoreOptions[3]) counters.put("plastic",  0.05);
-                    else counters.put("plastic",  0d);
-                    if (mainActivity.createStoreOptions[4]) counters.put("home",  0.05);
-                    else counters.put("home",  0d);
+                    Map<String, Long> counters = new HashMap<>();
+                    if (mainActivity.createStoreOptions[0]) counters.put("reusable",  10l);
+                    else counters.put("reusable",  0l);
+                    if (mainActivity.createStoreOptions[1]) counters.put("bio",  10l);
+                    else counters.put("bio",  0l);
+                    if (mainActivity.createStoreOptions[2]) counters.put("paper",  10l);
+                    else counters.put("paper",  0l);
+                    if (mainActivity.createStoreOptions[3]) counters.put("plastic",  10l);
+                    else counters.put("plastic",  0l);
+                    if (mainActivity.createStoreOptions[4]) counters.put("home",  10l);
+                    else counters.put("home",  0l);
                     store.setCounters(counters);
 
                     // IMAGES

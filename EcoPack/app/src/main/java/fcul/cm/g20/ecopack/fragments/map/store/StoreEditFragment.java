@@ -88,7 +88,7 @@ public class StoreEditFragment extends Fragment {
         return editStoreFragment;
     }
 
-    public void setupFragment(View editStoreFragment){
+    public void setupFragment(View editStoreFragment) {
         // SET UP INFORMATION
         EditText schedule = editStoreFragment.findViewById(R.id.store_name);
         schedule.setText((String) storeDocument.get("name"));
@@ -105,7 +105,7 @@ public class StoreEditFragment extends Fragment {
         EditText phone = editStoreFragment.findViewById(R.id.store_phone);
         phone.setText((String) storeDocument.get("phone"));
 
-        Map<String, Double> counters = (Map<String, Double>) storeDocument.get("counters");
+        Map<String, Long> counters = (Map<String, Long>) storeDocument.get("counters");
 
         // MARKERS
         final ImageView reusableImageView = editStoreFragment.findViewById(R.id.option_reusable);
@@ -159,11 +159,11 @@ public class StoreEditFragment extends Fragment {
 
         // CHECKBOX
         CheckBox homeCheckbox = editStoreFragment.findViewById(R.id.home_checkbox);
-        if(counters.get("home") != 0){
+        if (counters.get("home") != 0) {
             options[4] = true;
             options2[4] = true;
             homeCheckbox.setChecked(true);
-        } else{
+        } else {
             options[4] = false;
             options2[4] = false;
             homeCheckbox.setChecked(false);
@@ -195,7 +195,8 @@ public class StoreEditFragment extends Fragment {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
-                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) loadImageFromGallery();
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                            loadImageFromGallery();
                     } else loadImageFromGallery();
                 } else loadImageFromGallery();
             }
@@ -205,7 +206,7 @@ public class StoreEditFragment extends Fragment {
         homeCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(homeCheckbox.isChecked()) {
+                if (homeCheckbox.isChecked()) {
                     options[4] = true;
                 } else {
                     options[4] = false;
@@ -283,7 +284,7 @@ public class StoreEditFragment extends Fragment {
                 Map<String, Object> store = new HashMap<>();
 
                 // BASIC INFORMATION
-                if(!inputs[0].getText().toString().equals(storeDocument.get("name")))
+                if (!inputs[0].getText().toString().equals(storeDocument.get("name")))
                     store.put("name", inputs[0].getText().toString());
 
                 if (!inputs[1].getText().toString().equals(storeDocument.get("schedule")))
@@ -303,27 +304,27 @@ public class StoreEditFragment extends Fragment {
                     store.put("photos", photos);
 
                 // COUNTERS
-                Double value = 0.5;
-                Map<String, Double> counters2 = new HashMap<>();
-                if (!options[0]) counters2.put("reusable",  0.0);
-                else if (options2[0]) counters2.put("reusable",  counters.get("reusable"));
-                else counters2.put("reusable",  value);
+                long value = 10;
+                Map<String, Long> counters2 = new HashMap<>();
+                if (!options[0]) counters2.put("reusable", 0l);
+                else if (options2[0]) counters2.put("reusable", counters.get("reusable"));
+                else counters2.put("reusable", value);
 
-                if (!options[1]) counters2.put("bio",  0.0);
-                else if (options2[1]) counters2.put("bio",  counters.get("bio"));
+                if (!options[1]) counters2.put("bio", 0l);
+                else if (options2[1]) counters2.put("bio", counters.get("bio"));
                 else counters2.put("bio", value);
 
-                if (!options[2]) counters2.put("paper",  0.0);
-                else if (options2[2]) counters2.put("paper",  counters.get("paper"));
-                else counters2.put("paper",  value);
+                if (!options[2]) counters2.put("paper", 0l);
+                else if (options2[2]) counters2.put("paper", counters.get("paper"));
+                else counters2.put("paper", value);
 
-                if (!options[3]) counters2.put("plastic",  0.0);
-                else if (options2[3]) counters2.put("plastic",  counters.get("plastic"));
-                else counters2.put("plastic",  value);
+                if (!options[3]) counters2.put("plastic", 0l);
+                else if (options2[3]) counters2.put("plastic", counters.get("plastic"));
+                else counters2.put("plastic", value);
 
-                if (!options[4]) counters2.put("home",  0.0);
-                else if (options2[4]) counters2.put("home",  counters.get("home"));
-                else counters2.put("home",  value);
+                if (!options[4]) counters2.put("home", 0l);
+                else if (options2[4]) counters2.put("home", counters.get("home"));
+                else counters2.put("home", value);
 
                 store.put("counters", counters2);
                 store.put("qrCodes", generateQrCodes(counters2));
@@ -366,15 +367,17 @@ public class StoreEditFragment extends Fragment {
         });
     }
 
-    private enum QRCodesTypes { bio, paper, plastic, reusable, home };
+    private enum QRCodesTypes {bio, paper, plastic, reusable, home}
+
+    ;
 
     @SuppressLint("NewApi")
-    public Map<String, String> generateQrCodes(Map<String, Double> counters) {
-        Map<String, String> qrCodes= new HashMap<>();
+    public Map<String, String> generateQrCodes(Map<String, Long> counters) {
+        Map<String, String> qrCodes = new HashMap<>();
         String storePath = storeDocument.getReference().getPath();
         Arrays.stream(QRCodesTypes.values())
                 .forEach(qrType -> {
-                    if(counters.containsKey(qrType.toString()) && counters.get(qrType.toString()) > 0){
+                    if (counters.containsKey(qrType.toString()) && counters.get(qrType.toString()) > 0) {
                         // means the user choose this as type in there store
                         String type = qrType.toString();
                         String code = type + '\u0000' + storePath; //'\u0000' -> null Char
@@ -387,12 +390,12 @@ public class StoreEditFragment extends Fragment {
                     }
                 });
 
-        return  qrCodes;
+        return qrCodes;
     }
 
-    private int pickQrCodeColour(QRCodesTypes qrType){
+    private int pickQrCodeColour(QRCodesTypes qrType) {
         int result = 0xFFFFFFFF;
-        switch (qrType){
+        switch (qrType) {
             case bio:
                 result = 0xFF9C693C;
                 break;
@@ -440,7 +443,8 @@ public class StoreEditFragment extends Fragment {
                 InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
                 byte[] buffer = new byte[(int) imageSize];
                 ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
+                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1)
+                    byteBuffer.write(buffer, 0, length);
                 photos.add(android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT));
 
                 RecyclerView recyclerView = getView().findViewById(R.id.photos_container);

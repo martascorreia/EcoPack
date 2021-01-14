@@ -2,17 +2,12 @@ package fcul.cm.g20.ecopack.Models;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import net.glxn.qrgen.android.QRCode;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.objects.Comment;
 import fcul.cm.g20.ecopack.utils.Utils;
 
@@ -34,7 +28,7 @@ public class Store {
 
     private String owner, address, email, name, phone, website;
     private List<Comment> comments;
-    private Map<String, Double> counters;
+    private Map<String, Long> counters;
     private double lat, lng;
     private List<Bitmap> photos;
     private long register_date;
@@ -57,7 +51,7 @@ public class Store {
                 (String) snapshot.get("phone"),
                 (String) snapshot.get("website"),
                 (List<Map<String, Object>>) snapshot.get("comments"),
-                (Map<String, Double>) snapshot.get("counters"),
+                (Map<String, Long>) snapshot.get("counters"),
                 (double) snapshot.get("lat"),
                 (double) snapshot.get("lng"),
                 (List<String>)snapshot.get("photos"),
@@ -67,7 +61,7 @@ public class Store {
         );
     }
 
-    public Store(String path, String address, String email, String name, String phone, String website, List<Map<String, Object>> comments, Map<String, Double> counters, double lat, double lng, List<String> photos, long register_date, String schedule, Map<String, String> qrCodes) {
+    public Store(String path, String address, String email, String name, String phone, String website, List<Map<String, Object>> comments, Map<String, Long> counters, double lat, double lng, List<String> photos, long register_date, String schedule, Map<String, String> qrCodes) {
         // When a setter is used is because the type saved in firebase is different from the one saved in "this"
         this.$Path = path;
         this.address = address;
@@ -102,8 +96,8 @@ public class Store {
         return result;
     }
 
-    public void incrementCounter(String type, double i) {
-        double newValue = i;
+    public void incrementCounter(String type, long i) {
+        long newValue = i;
         if(counters != null){
             if(counters.containsKey(type)){
                 newValue = counters.get(type) + i;
@@ -238,7 +232,7 @@ public class Store {
         this.comments = (comments!=null)? comments : new ArrayList<>();
     }
 
-    public void setCounters(Map<String, Double> counters) {
+    public void setCounters(Map<String, Long> counters) {
         this.counters = (counters!=null)? counters : new HashMap<>();
     }
 
@@ -303,7 +297,7 @@ public class Store {
         return commentsMapList;
     }
 
-    public Map<String, Double> getCounters() {
+    public Map<String, Long> getCounters() {
         return counters;
     }
 

@@ -1,11 +1,8 @@
 package fcul.cm.g20.ecopack.fragments.map.store;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +10,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,8 +73,8 @@ public class StoreFragment extends Fragment {
         }
 
         // MARKER
-        Double[] counters = new Double[5];
-        HashMap<String, Double> countersMap = (HashMap<String, Double>) storeDocument.get("counters");
+        Long[] counters = new Long[5];
+        HashMap<String, Long> countersMap = (HashMap<String, Long>) storeDocument.get("counters");
         counters[0] = countersMap.get("reusable");
         counters[1] = countersMap.get("bio");
         counters[2] = countersMap.get("paper");
@@ -179,8 +172,8 @@ public class StoreFragment extends Fragment {
         };
     }
 
-    private long getMostFrequentPackageType(Double[] counters) {
-        double max = counters[0];
+    private long getMostFrequentPackageType(Long[] counters) {
+        long max = counters[0];
         long index = 0;
 
         for (int i = 0; i < counters.length; i++) {
