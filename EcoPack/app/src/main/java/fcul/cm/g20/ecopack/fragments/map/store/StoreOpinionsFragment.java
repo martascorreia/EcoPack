@@ -8,6 +8,11 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,13 +20,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -276,18 +274,8 @@ public class StoreOpinionsFragment extends Fragment {
                     comments.add(comment);
 
                     final Map<String, Object> store = new HashMap<>();
-                    store.put("address", storeDocument.get("address"));
                     store.put("comments", comments);
-                    store.put("counters", storeDocument.get("counters"));
-                    store.put("email", storeDocument.get("email"));
-                    store.put("lat", storeDocument.get("lat"));
-                    store.put("lng", storeDocument.get("lng"));
-                    store.put("name", storeDocument.get("name"));
-                    store.put("phone", storeDocument.get("phone"));
-                    store.put("photos", storeDocument.get("photos"));
-                    store.put("register_date", storeDocument.get("register_date"));
-                    store.put("schedule", storeDocument.get("schedule"));
-                    store.put("website", storeDocument.get("website"));
+                    store.put("counters", setCounter());
 
                     if (isNetworkAvailable(getContext())) {
                         database.document(storeDocument.getReference().getPath())
@@ -317,6 +305,35 @@ public class StoreOpinionsFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private Map<String, Double> setCounter() {
+        Double value = 0.15;
+        Map<String, Double> counters = (Map<String, Double>) storeDocument.get("counters");
+        if(currentIcon.equals("ic_marker_paper_home_round")){
+            counters.put("paper", counters.get("paper") + value);
+            counters.put("home", counters.get("home") + value);
+        } else if(currentIcon.equals("ic_marker_plastic_home_round")){
+            counters.put("plastic", counters.get("plastic") + value);
+            counters.put("home", counters.get("home") + value);
+        } else if(currentIcon.equals("ic_marker_bio_home_round")){
+            counters.put("bio", counters.get("bio") + value);
+            counters.put("home", counters.get("home") + value);
+        } else if(currentIcon.equals("ic_marker_reusable_home_round")){
+            counters.put("reusable", counters.get("reusable") + value);
+            counters.put("home", counters.get("home") + value);
+        } else if(currentIcon.equals("ic_marker_home_round")){
+            counters.put("home", counters.get("home") + value);
+        } else if(currentIcon.equals("ic_marker_paper_round")){
+            counters.put("paper", counters.get("paper") + value);
+        } else if(currentIcon.equals("ic_marker_plastic_round")){
+            counters.put("plastic", counters.get("plastic") + value);
+        } else if(currentIcon.equals("ic_marker_bio_round")){
+            counters.put("bio", counters.get("bio") + value);
+        } else if(currentIcon.equals("ic_marker_reusable_round")){
+            counters.put("reusable", counters.get("reusable") + value);
+        }
+        return counters;
     }
 
     // colocar no construtor
