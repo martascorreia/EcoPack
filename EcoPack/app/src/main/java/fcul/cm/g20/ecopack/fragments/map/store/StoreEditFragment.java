@@ -117,11 +117,11 @@ public class StoreEditFragment extends Fragment {
         if (counters.get("reusable") != 0) {
             options[0] = true;
             options2[0] = true;
-            ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.reusable)));
+            ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.reusable)));
         } else {
             options[0] = false;
             options2[0] = false;
-            ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.dark_gray)));
+            ImageViewCompat.setImageTintList(reusableImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
         }
 
         // BIO
