@@ -73,7 +73,7 @@ public class Utils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static String getDateFromMilliseconds( long milliseconds){
+    public static String getDateFromMilliseconds(long milliseconds) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliseconds);
         int year = calendar.get(Calendar.YEAR);
