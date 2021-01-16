@@ -1,29 +1,49 @@
 package fcul.cm.g20.ecopack.fragments.map.store;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
+import android.provider.DocumentsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.objects.QR_Code_Type;
+import fcul.cm.g20.ecopack.utils.JavaMailAPIPhoto;
+import fcul.cm.g20.ecopack.utils.PDFPhoto;
+import fcul.cm.g20.ecopack.utils.Utils;
 
 public class StoreQRCodeFragment extends Fragment {
 
+    private FirebaseFirestore database;
+    DocumentSnapshot userDocument;
+    Bitmap pictureBitmap;
+    private static final int CREATE_FILE = 1;
     QR_Code_Type qr_code_type;
     String qr_code;
     DocumentSnapshot storeDocument;
@@ -40,6 +60,8 @@ public class StoreQRCodeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        database = FirebaseFirestore.getInstance();
+        getUserDocument();
     }
 
     @Override
@@ -70,7 +92,7 @@ public class StoreQRCodeFragment extends Fragment {
         }
 
         byte[] pictureArray = android.util.Base64.decode(qr_code, android.util.Base64.DEFAULT);
-        Bitmap pictureBitmap = BitmapFactory.decodeByteArray(pictureArray, 0, pictureArray.length);
+        pictureBitmap = BitmapFactory.decodeByteArray(pictureArray, 0, pictureArray.length);
         qr_code_image_view.setImageBitmap(pictureBitmap);
 
         // TITLE
@@ -86,5 +108,83 @@ public class StoreQRCodeFragment extends Fragment {
                         .popBackStack("qr_codes", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
+
+        //PDF
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+        Button downloadButton = getView().findViewById(R.id.qr_code_print_button);
+        downloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createFile();
+            }
+        });
+
+        // E-mail
+        Button emailButton = getView().findViewById(R.id.qr_code_email_button);
+        final Context ctx = getContext();
+
+        emailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String subject = getResources().getString(R.string.email_subject) + title;
+                String text = "Olá " + userDocument.get("username") + "!" + "\n" +
+                        getResources().getString(R.string.email_text2) + storeDocument.get("name") + "\n" +
+                        "Obrigada,\n EcoPack";
+
+                if(!userDocument.get("email").equals("N/A")){
+                    JavaMailAPIPhoto javaMail = new JavaMailAPIPhoto(ctx, (String) userDocument.get("email"), subject, text, pictureBitmap);
+                    javaMail.execute();
+                    Utils.showToast("E-mail enviado com sucesso!", getContext());
+                }else {
+                    Utils.showToast("O e-mail que tem o seu perfil não é válido, por favor altere-o para um e-mail válido.", getContext());
+                }
+            }
+        });
+    }
+
+    private void createFile() {
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/pdf");
+        intent.putExtra(Intent.EXTRA_TITLE, "qr_code.pdf");
+
+        // Optionally, specify a URI for the directory that should be opened in
+        // the system file picker when your app creates the document.
+        intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, new Uri.Builder().build());
+
+        startActivityForResult(intent, CREATE_FILE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                 Intent resultData) {
+        if (requestCode == CREATE_FILE
+                && resultCode == Activity.RESULT_OK) {
+            Uri uri = null;
+            if (resultData != null) {
+                uri = resultData.getData();
+
+                PDFPhoto.create(uri,"Loja " + storeDocument.get("name"), getContext(), pictureBitmap);
+            }
+        }
+    }
+
+    private void getUserDocument() {
+        // GET CURRENT USER
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
+        final String username = sharedPreferences.getString("username", "");
+
+        // GET USER DOCUMENT
+        database.collection("users")
+                .whereEqualTo("username", username)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            userDocument = task.getResult().getDocuments().get(0);
+                        }
+                    }
+                });
     }
 }

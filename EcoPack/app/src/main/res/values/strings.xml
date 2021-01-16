@@ -52,9 +52,10 @@
     <string name="comment">Comentar...</string>
     <string name="register_date">Data de Registo</string>
 
-
-    <string name="prize_code_email_text">Parabés </string>
-    <string name="prize_code_email_subject">Codigo de produto: </string>
+    <string name="hello">"Olá "</string>
+    <string name="email_text"> Em anexo, enviamos-lhe o código para o item que redimiu.</string>
+    <string name="email_text2"> Em anexo, enviamos-lhe o código que pediu da loja </string>
+    <string name="email_subject">Código do item</string>
     <string name="edit">Editar</string>
     <string name="qr_codes">QR-CODES</string>
     <string name="reusable">Reutilizável</string>

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -366,9 +365,7 @@ public class StoreEditFragment extends Fragment {
         });
     }
 
-    private enum QRCodesTypes {bio, paper, plastic, reusable, home}
-
-    ;
+    private enum QRCodesTypes {bio, paper, plastic, reusable, home};
 
     @SuppressLint("NewApi")
     public Map<String, String> generateQrCodes(Map<String, Long> counters) {

@@ -7,6 +7,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -15,18 +22,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.provider.DocumentsContract;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-import fcul.cm.g20.ecopack.IOnBackPressed;
-import fcul.cm.g20.ecopack.MainActivity;
-import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.Models.Prize;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
@@ -35,7 +30,6 @@ import fcul.cm.g20.ecopack.utils.PDF;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 import static fcul.cm.g20.ecopack.R.id.points_prizeCode_back_button;
-import static fcul.cm.g20.ecopack.R.id.profile_info_email_text;
 
 public class PrizeCodeFragment extends Fragment {
     ImageButton backButton;
@@ -43,9 +37,9 @@ public class PrizeCodeFragment extends Fragment {
 
     Prize prizeModel;
     User userModel;
-    
+
     public PrizeCodeFragment() {
-        // Required empty public constructor
+        // Required empty public constructcor
     }
 
     public PrizeCodeFragment(User userModel, Prize prizeModel, OnBackButtonPressed callback) {
@@ -105,15 +99,15 @@ public class PrizeCodeFragment extends Fragment {
         });
     }
 
-    //region Create PDF file
-    // Request code for creating a PDF document.
+    // Region create PDF file
+    // Request code for creating a PDF document
     private static final int CREATE_FILE = 1;
 
     private void createFile() {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("application/pdf");
-        intent.putExtra(Intent.EXTRA_TITLE, "invoice.pdf");
+        intent.putExtra(Intent.EXTRA_TITLE, "code.pdf");
 
         // Optionally, specify a URI for the directory that should be opened in
         // the system file picker when your app creates the document.
@@ -130,8 +124,8 @@ public class PrizeCodeFragment extends Fragment {
             Uri uri = null;
             if (resultData != null) {
                 uri = resultData.getData();
-                String subject = getResources().getString(R.string.prize_code_email_subject) + prizeModel.getTitle() + "\n\n";
-                String text = getResources().getString(R.string.prize_code_email_text) + "\n" + prizeModel.generateCode();
+                String subject = getResources().getString(R.string.email_subject) + prizeModel.getTitle() + "\n\n";
+                String text = getResources().getString(R.string.email_text) + "\n" + prizeModel.generateCode();
                 PDF.create(uri,subject + text, getContext());
             }
         }
@@ -145,17 +139,17 @@ public class PrizeCodeFragment extends Fragment {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String subject = getResources().getString(R.string.prize_code_email_subject) + prizeModel.getTitle();
-                String text = getResources().getString(R.string.prize_code_email_text) + "\n" + prizeModel.generateCode();
+                String subject = getResources().getString(R.string.email_subject) + prizeModel.getTitle();
+                String text = getResources().getString(R.string.email_text) + "\n" + prizeModel.generateCode();
                 if(userModel != null){
                     if(userModel.getEmail() != null && userModel.getEmail().isEmpty() && !userModel.getEmail().equals("N/A")){
                         JavaMailAPI javaMail = new JavaMailAPI(ctx, userModel.getEmail(), subject, text);
                         javaMail.execute();
                         Utils.showToast("E-mail enviado com sucesso!", getContext());
                     }else {
-                        Utils.showToast("O E-mail que tem o seu perfil não é valido, por favor altere para um email valido", getContext());
+                        Utils.showToast("O e-mail que tem o seu perfil não é válido, por favor altere-o para um válido", getContext());
                     }
-                    Utils.showToast("Ocorreu um erro, E-mail não enviado", getContext());
+                    Utils.showToast("Ocorreu um erro, e-mail não enviado", getContext());
                 }
             }
         });
