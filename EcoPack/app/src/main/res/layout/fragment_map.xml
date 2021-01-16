@@ -36,34 +36,85 @@
         android:gravity="bottom|end"
         android:orientation="vertical">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/create_information_button"
+        <LinearLayout
+            android:id="@+id/create_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/dark_mint"
-            android:clickable="true"
-            android:src="@drawable/ic_add_map"
-            android:visibility="invisible" />
+            android:visibility="invisible">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/marker_information_button"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/shape_round_corner_label"
+                android:padding="@dimen/_10sdp"
+                android:text="Criar"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/create_information_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dark_mint"
+                android:clickable="true"
+                android:src="@drawable/ic_add_map" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/marker_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:backgroundTint="@color/dark_mint"
-            android:clickable="true"
-            android:src="@drawable/ic_info"
-            android:visibility="invisible" />
+            android:visibility="invisible">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/center_map_button"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/shape_round_corner_label"
+                android:padding="@dimen/_10sdp"
+                android:text="Legenda"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/marker_information_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dark_mint"
+                android:clickable="true"
+                android:src="@drawable/ic_info" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/center_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:backgroundTint="@color/dark_mint"
-            android:clickable="true"
-            android:src="@drawable/ic_location"
-            android:visibility="invisible" />
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/shape_round_corner_label"
+                android:padding="@dimen/_10sdp"
+                android:text="Centrar"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/center_map_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/dark_mint"
+                android:clickable="true"
+                android:src="@drawable/ic_location" />
+        </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/menu_button"

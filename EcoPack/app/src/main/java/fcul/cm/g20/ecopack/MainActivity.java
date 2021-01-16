@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
     public long userPoints;
     public ArrayList<String> userRedeemedPrizes = new ArrayList<>();
     public ArrayList<StoreVisit> userVisits = new ArrayList<>();   // ID DA LOJA, MARKER, DATA
-    public ArrayList<HashMap<String, String>> userComments = new ArrayList<>(); // ID DO COMENTÁRIO (PRESENTE NUMA DADA LOJA), ID DO USER, ID DA LOJA, CONTEÚDO, DATA, MARKER
+    public ArrayList<HashMap<String, Object>> userComments = new ArrayList<>(); // ID DO COMENTÁRIO (PRESENTE NUMA DADA LOJA), ID DO USER, ID DA LOJA, CONTEÚDO, DATA, MARKER
     public String userDocumentID;
     public String editPicture;
     public String editName;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
             userPoints = savedInstanceState.getLong("userPoints");
             userRedeemedPrizes = (ArrayList<String>) savedInstanceState.getSerializable("userRedeemedPrizes");
             userVisits = (ArrayList<StoreVisit>) savedInstanceState.getSerializable("userVisits");
-            userComments = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable("userComments");
+            userComments = (ArrayList<HashMap<String, Object>>) savedInstanceState.getSerializable("userComments");
             userDocumentID = savedInstanceState.getString("userDocumentID");
             editPicture = savedInstanceState.getString("editPicture");
             editName = savedInstanceState.getString("editName");

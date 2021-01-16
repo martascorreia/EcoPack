@@ -52,6 +52,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import fcul.cm.g20.ecopack.MainActivity;
+import fcul.cm.g20.ecopack.Models.StoreVisit;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.StoreFragment;
 import fcul.cm.g20.ecopack.utils.Utils;
@@ -139,8 +140,8 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                                     mainActivity.userRegisterDate = (long) userDocument.get("register_date");
                                     mainActivity.userPoints = (long) userDocument.get("points");
                                     mainActivity.userRedeemedPrizes = (ArrayList<String>) userDocument.get("redeemed_prizes");
-                                    //mainActivity.userVisits = (ArrayList<HashMap<String, String>>) userDocument.get("visits");
-                                    //mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
+                                    mainActivity.userVisits = (ArrayList<StoreVisit>) userDocument.get("visits");
+                                    mainActivity.userComments = (ArrayList<HashMap<String, Object>>) userDocument.get("comments");
                                     mainActivity.userDocumentID = userDocument.getReference().getPath().split("/")[1];
                                 }
                             }
@@ -304,14 +305,14 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
             public void onClick(View v) {
                 if (isMenuOpen) {
                     isMenuOpen = false;
-                    mapFragment.findViewById(R.id.marker_information_button).setVisibility(View.INVISIBLE);
-                    mapFragment.findViewById(R.id.create_information_button).setVisibility(View.INVISIBLE);
-                    mapFragment.findViewById(R.id.center_map_button).setVisibility(View.INVISIBLE);
+                    mapFragment.findViewById(R.id.marker_information).setVisibility(View.INVISIBLE);
+                    mapFragment.findViewById(R.id.create_information).setVisibility(View.INVISIBLE);
+                    mapFragment.findViewById(R.id.center_map).setVisibility(View.INVISIBLE);
                 } else {
                     isMenuOpen = true;
-                    mapFragment.findViewById(R.id.marker_information_button).setVisibility(View.VISIBLE);
-                    mapFragment.findViewById(R.id.create_information_button).setVisibility(View.VISIBLE);
-                    mapFragment.findViewById(R.id.center_map_button).setVisibility(View.VISIBLE);
+                    mapFragment.findViewById(R.id.marker_information).setVisibility(View.VISIBLE);
+                    mapFragment.findViewById(R.id.create_information).setVisibility(View.VISIBLE);
+                    mapFragment.findViewById(R.id.center_map).setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -60,9 +60,9 @@ public class ProfileInfoFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(mainActivity.userRegisterDate);
         stringBuilder.append(calendar.get(Calendar.DAY_OF_MONTH));
-        stringBuilder.append("/");
+        stringBuilder.append("-");
         stringBuilder.append(calendar.get(Calendar.MONTH));
-        stringBuilder.append("/");
+        stringBuilder.append("-");
         stringBuilder.append(calendar.get(Calendar.YEAR));
         stringBuilder.append(" ");
         stringBuilder.append(calendar.get(Calendar.HOUR_OF_DAY));

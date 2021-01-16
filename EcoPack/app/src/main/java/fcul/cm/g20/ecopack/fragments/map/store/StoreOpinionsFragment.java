@@ -3,6 +3,7 @@ package fcul.cm.g20.ecopack.fragments.map.store;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -30,18 +31,22 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.objects.Comment;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.CommentAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 
-public class StoreOpinionsFragment extends Fragment {
+import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
+public class StoreOpinionsFragment extends Fragment {
+    private MainActivity mainActivity;
     private FirebaseFirestore database;
     HorizontalScrollView scroll;
     DocumentSnapshot storeDocument;
@@ -61,6 +66,7 @@ public class StoreOpinionsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
         database = FirebaseFirestore.getInstance();
     }
 
@@ -246,15 +252,17 @@ public class StoreOpinionsFragment extends Fragment {
             public void onClick(View v) {
                 if (text.getText().toString().length() == 0)
                     Utils.showToast("Por favor, faça um comentário antes de publicar...", getContext());
-                else {
+                else if (currentIcon.equals("ic_plus")) {
+                    Utils.showToast("Por favor, escolha um tipo de embalagem...", getContext());
+                } else {
                     final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
-                    progressDialog.setMessage("A public comentário...");
+                    progressDialog.setMessage("A publicar comentário...");
                     progressDialog.setIndeterminate(true);
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
 
                     // GET OLD COMMENTS
-                    List<Map<String, Object>> comments =  (List<Map<String, Object>>) storeDocument.get("comments");
+                    List<Map<String, Object>> comments = (List<Map<String, Object>>) storeDocument.get("comments");
 
                     // NEW COMMENT
                     final Map<String, Object> comment = new HashMap<>();
@@ -269,6 +277,14 @@ public class StoreOpinionsFragment extends Fragment {
                     final Map<String, Object> store = new HashMap<>();
                     store.put("comments", comments);
                     store.put("counters", setCounter());
+
+                    // UPDATE USER COMMENTS
+                    ArrayList<HashMap<String, Object>> userComments = (ArrayList<HashMap<String, Object>>) mainActivity.userComments;
+                    comment.put("store", (storeDocument.getReference().getPath()));
+                    userComments.add((HashMap<String, Object>) comment);
+
+                    final Map<String, Object> user = new HashMap<>();
+                    user.put("comments", userComments);
 
                     if (isNetworkAvailable(getContext())) {
                         database.document(storeDocument.getReference().getPath())
@@ -291,6 +307,19 @@ public class StoreOpinionsFragment extends Fragment {
                                         Utils.showToast("Não foi possível publicar o seu comentário. Por favor, tente mais tarde.", getContext());
                                     }
                                 });
+
+                        database.document("users/" + mainActivity.userDocumentID)
+                                .update(user)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                    }
+                                });
                     } else {
                         progressDialog.dismiss();
                         Utils.showToast("Não foi possível publicar o seu comentário. Por favor, verifique a sua conexão à Internet.", getContext());
@@ -303,27 +332,27 @@ public class StoreOpinionsFragment extends Fragment {
     private Map<String, Long> setCounter() {
         int value = 3;
         Map<String, Long> counters = (Map<String, Long>) storeDocument.get("counters");
-        if(currentIcon.equals("ic_marker_paper_home_round")){
+        if (currentIcon.equals("ic_marker_paper_home_round")) {
             counters.put("paper", counters.get("paper") + value);
             counters.put("home", counters.get("home") + value);
-        } else if(currentIcon.equals("ic_marker_plastic_home_round")){
+        } else if (currentIcon.equals("ic_marker_plastic_home_round")) {
             counters.put("plastic", counters.get("plastic") + value);
             counters.put("home", counters.get("home") + value);
-        } else if(currentIcon.equals("ic_marker_bio_home_round")){
+        } else if (currentIcon.equals("ic_marker_bio_home_round")) {
             counters.put("bio", counters.get("bio") + value);
             counters.put("home", counters.get("home") + value);
-        } else if(currentIcon.equals("ic_marker_reusable_home_round")){
+        } else if (currentIcon.equals("ic_marker_reusable_home_round")) {
             counters.put("reusable", counters.get("reusable") + value);
             counters.put("home", counters.get("home") + value);
-        } else if(currentIcon.equals("ic_marker_home_round")){
+        } else if (currentIcon.equals("ic_marker_home_round")) {
             counters.put("home", counters.get("home") + value);
-        } else if(currentIcon.equals("ic_marker_paper_round")){
+        } else if (currentIcon.equals("ic_marker_paper_round")) {
             counters.put("paper", counters.get("paper") + value);
-        } else if(currentIcon.equals("ic_marker_plastic_round")){
+        } else if (currentIcon.equals("ic_marker_plastic_round")) {
             counters.put("plastic", counters.get("plastic") + value);
-        } else if(currentIcon.equals("ic_marker_bio_round")){
+        } else if (currentIcon.equals("ic_marker_bio_round")) {
             counters.put("bio", counters.get("bio") + value);
-        } else if(currentIcon.equals("ic_marker_reusable_round")){
+        } else if (currentIcon.equals("ic_marker_reusable_round")) {
             counters.put("reusable", counters.get("reusable") + value);
         }
         return counters;

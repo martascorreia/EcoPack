@@ -161,7 +161,7 @@ public class SignUpFragment extends Fragment {
                     user.put("register_date", System.currentTimeMillis());
                     user.put("redeemed_prizes_ids", new ArrayList<String>());
                     user.put("visits", new ArrayList<StoreVisit>());
-                    user.put("comments", new ArrayList<HashMap<String, String>>());
+                    user.put("comments", new ArrayList<HashMap<String, Object>>());
 
                     if (isNetworkAvailable(getContext())) {
                         database.collection("users")

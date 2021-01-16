@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
                             mainActivity.userPoints = (long) userDocument.get("points");
                             mainActivity.userRedeemedPrizes = (ArrayList<String>) userDocument.get("redeemed_prizes");
                             mainActivity.userVisits = StoreVisit.toVisitsList((ArrayList<HashMap<String, Object>>) userDocument.get("visits"));
-                            mainActivity.userComments = (ArrayList<HashMap<String, String>>) userDocument.get("comments");
+                            mainActivity.userComments = (ArrayList<HashMap<String, Object>>) userDocument.get("comments");
                             mainActivity.userDocumentID = userDocument.getReference().getPath().split("/")[1];
 
                             String picture = mainActivity.userPicture;

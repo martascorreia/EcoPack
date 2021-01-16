@@ -6,18 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.fragments.map.store.StoreFragment;
 import fcul.cm.g20.ecopack.fragments.profile.recyclerview.CommentAdapter;
 
-// TODO: NAVEGAÇÃO / CLICK GOES TO THE STORE IN QUESTION
+import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
 public class ProfileCommentsFragment extends Fragment {
     private MainActivity mainActivity;
@@ -43,8 +48,21 @@ public class ProfileCommentsFragment extends Fragment {
         commentAdapter.setOnCommentClickListener(new CommentAdapter.OnCommentClickListener() {
             @Override
             public void onCommentClick(int position) {
-                Toast t = Toast.makeText(getContext(), "Comment " + position, Toast.LENGTH_SHORT);
-                t.show();
+                database.collection("stores").document(mainActivity.userVisits.get(position).getStoreId().split("/")[1])
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    getActivity()
+                                            .getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.fragment_profile, new StoreFragment(task.getResult()))
+                                            .addToBackStack("profile")
+                                            .commit();
+                                } else showToast("Não foi possível encontrar o estabelecimento selecionado. Por favor, tente mais tarde.", getContext());
+                            }
+                        });
             }
         });
 

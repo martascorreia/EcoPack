@@ -113,7 +113,7 @@
             </com.google.android.material.tabs.TabLayout>
 
             <FrameLayout
-                android:id="@+id/tab_content"
+                android:id="@+id/store_tab_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout_store_tabs"

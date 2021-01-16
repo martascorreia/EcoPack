@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.utils.Utils;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
     public interface OnCommentClickListener {
@@ -21,9 +22,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     private Context context;
     private OnCommentClickListener onCommentClickListener;
-    private ArrayList<HashMap<String, String>> userComments;
+    private ArrayList<HashMap<String, Object>> userComments;
 
-    public CommentAdapter(Context context, ArrayList<HashMap<String, String>> userComments) {
+    public CommentAdapter(Context context, ArrayList<HashMap<String, Object>> userComments) {
         this.context = context;
         this.userComments = userComments;
     }
@@ -37,20 +38,21 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
-        HashMap<String, String> currentItem = userComments.get(position);
+        HashMap<String, Object> currentItem = userComments.get(position);
 
-        holder.getCommentDate().setText(currentItem.get("comment_date"));
-        holder.getCommentContent().setText(currentItem.get("comment_content"));
+        holder.getCommentDate().setText(Utils.getDateFromMilliseconds(Long.parseLong(currentItem.get("date").toString())));
+        holder.getCommentContent().setText((String) currentItem.get("comment"));
 
-        String marker = currentItem.get("comment_marker");
-        if (marker.equals("0")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_home_round));
-        else if (marker.equals("1")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_home_round));
-        else if (marker.equals("2")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_home_round));
-        else if (marker.equals("3")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_home_round));
-        else if (marker.equals("4")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_round));
-        else if (marker.equals("5")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_round));
-        else if (marker.equals("6")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_round));
-        else if (marker.equals("7")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_round));
+        String marker = (String) currentItem.get("marker");
+        if (marker.equals("ic_marker_reusable_home_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_home_round));
+        else if (marker.equals("ic_marker_bio_home_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_home_round));
+        else if (marker.equals("ic_marker_paper_home_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_home_round));
+        else if (marker.equals("ic_marker_plastic_home_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_home_round));
+        else if (marker.equals("ic_marker_reusable_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_reusable_round));
+        else if (marker.equals("ic_marker_bio_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_round));
+        else if (marker.equals("ic_marker_paper_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_round));
+        else if (marker.equals("ic_marker_plastic_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_round));
+        else holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_home_round));
     }
 
     @Override

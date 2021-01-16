@@ -55,8 +55,6 @@ public class StoreFragment extends Fragment {
         TabLayout tabLayout = storeFragmentView.findViewById(R.id.layout_store_tabs);
         tabLayout.setOnTabSelectedListener(handleTabItemClick());
 
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tab_content, new StoreInfoFragment(storeDocument)).commit();
-
         // TITLE
         TextView name = storeFragmentView.findViewById(R.id.store_title);
         name.setText((String) storeDocument.get("name"));
@@ -143,7 +141,7 @@ public class StoreFragment extends Fragment {
             qrCodeButton.setClickable(false);
         }
 
-
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.store_tab_content, new StoreInfoFragment(storeDocument)).commit();
     }
     
 
@@ -159,7 +157,7 @@ public class StoreFragment extends Fragment {
                 if (position == 0) fragment = new StoreInfoFragment(storeDocument);
                 else fragment = new StoreOpinionsFragment(storeDocument);
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.tab_content, fragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.store_tab_content, fragment).commit();
             }
 
             @Override

@@ -79,6 +79,7 @@ public class CameraFragment extends Fragment {
     }
 
     private void backButton() {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         backButton = getView().findViewById(R.id.backButtonCamera);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
