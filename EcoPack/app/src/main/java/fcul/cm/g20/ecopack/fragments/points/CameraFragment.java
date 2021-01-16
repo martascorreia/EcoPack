@@ -49,7 +49,6 @@ public class CameraFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // This callback will only be called when MyFragment is at least Started.
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -79,7 +78,6 @@ public class CameraFragment extends Fragment {
     }
 
     private void backButton() {
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         backButton = getView().findViewById(R.id.backButtonCamera);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

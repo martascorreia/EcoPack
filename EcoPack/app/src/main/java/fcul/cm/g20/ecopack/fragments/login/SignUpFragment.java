@@ -145,7 +145,6 @@ public class SignUpFragment extends Fragment {
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.setCancelable(false);
                     progressDialog.show();
-                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                     final Map<String, Object> user = new HashMap<>();
                     user.put("username", inputs[0].getText().toString());
@@ -194,25 +193,21 @@ public class SignUpFragment extends Fragment {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
                                                                 progressDialog.dismiss();
-                                                                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                                                 showToast("Não foi possível registar o utilizador. Por favor, tente mais tarde.", getContext());
                                                             }
                                                         });
                                             } else {
                                                 progressDialog.dismiss();
-                                                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                                 showToast("Não foi possível registar o utilizador. Já existe um utilizador com este username.", getContext());
                                             }
                                         } else {
                                             progressDialog.dismiss();
-                                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                             showToast("Não foi possível registar o utilizador. Por favor, tente mais tarde.", getContext());
                                         }
                                     }
                                 });
                     } else {
                         progressDialog.dismiss();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         showToast("Não foi possível registar o utilizador. Por favor, verifique a sua conexão à Internet.", getContext());
                     }
                 }
