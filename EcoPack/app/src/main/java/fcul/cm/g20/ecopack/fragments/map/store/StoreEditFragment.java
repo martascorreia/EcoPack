@@ -279,7 +279,6 @@ public class StoreEditFragment extends Fragment {
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.setCancelable(false);
                 progressDialog.show();
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                 Map<String, Object> store = new HashMap<>();
 

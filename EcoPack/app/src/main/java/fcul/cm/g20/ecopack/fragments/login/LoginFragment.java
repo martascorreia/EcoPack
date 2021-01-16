@@ -125,7 +125,6 @@ public class LoginFragment extends Fragment {
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.setCancelable(false);
                     progressDialog.show();
-                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                     if (isNetworkAvailable(getContext())) {
                         database.collection("users")
@@ -151,24 +150,20 @@ public class LoginFragment extends Fragment {
                                                     getActivity().finish();
                                                 } else {
                                                     progressDialog.dismiss();
-                                                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                                     showToast("Password errada. Por favor, tente novamente.", getContext());
                                                 }
                                             } else {
                                                 progressDialog.dismiss();
-                                                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                                 showToast("Não foi possível iniciar sessão. Não existem utilizadores com este username.", getContext());
                                             }
                                         } else {
                                             progressDialog.dismiss();
-                                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                             showToast("Não foi possível iniciar sessão. Por favor, tente mais tarde.", getContext());
                                         }
                                     }
                                 });
                     } else {
                         progressDialog.dismiss();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         showToast("Não foi possível iniciar sessão. Por favor, verifique a sua conexão à Internet.", getContext());
                     }
                 }

@@ -8,6 +8,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -207,7 +209,6 @@ public class CreateStoreFragment extends Fragment {
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.setCancelable(false);
                     progressDialog.show();
-                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                     Store store = new Store();
 
@@ -228,20 +229,20 @@ public class CreateStoreFragment extends Fragment {
 
                     // MARKER COUNTERS
                     Map<String, Long> counters = new HashMap<>();
-                    if (mainActivity.createStoreOptions[0]) counters.put("reusable",  10l);
-                    else counters.put("reusable",  0l);
-                    if (mainActivity.createStoreOptions[1]) counters.put("bio",  10l);
-                    else counters.put("bio",  0l);
-                    if (mainActivity.createStoreOptions[2]) counters.put("paper",  10l);
-                    else counters.put("paper",  0l);
-                    if (mainActivity.createStoreOptions[3]) counters.put("plastic",  10l);
-                    else counters.put("plastic",  0l);
-                    if (mainActivity.createStoreOptions[4]) counters.put("home",  10l);
-                    else counters.put("home",  0l);
+                    if (mainActivity.createStoreOptions[0]) counters.put("reusable", 10l);
+                    else counters.put("reusable", 0l);
+                    if (mainActivity.createStoreOptions[1]) counters.put("bio", 10l);
+                    else counters.put("bio", 0l);
+                    if (mainActivity.createStoreOptions[2]) counters.put("paper", 10l);
+                    else counters.put("paper", 0l);
+                    if (mainActivity.createStoreOptions[3]) counters.put("plastic", 10l);
+                    else counters.put("plastic", 0l);
+                    if (mainActivity.createStoreOptions[4]) counters.put("home", 10l);
+                    else counters.put("home", 0l);
                     store.setCounters(counters);
 
                     // IMAGES
-                    ArrayList<String> photos = (mainActivity.createStorePhotos.size() != 0)? mainActivity.createStorePhotos : null;
+                    ArrayList<String> photos = (mainActivity.createStorePhotos.size() != 0) ? mainActivity.createStorePhotos : null;
                     store.setPhotos(photos);
 
                     // COMMENTS
@@ -259,7 +260,6 @@ public class CreateStoreFragment extends Fragment {
                             mainActivity.createStorePhotos = new ArrayList<>();
 
                             progressDialog.dismiss();
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                             getActivity()
                                     .getSupportFragmentManager()
                                     .popBackStack("map", FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -268,14 +268,12 @@ public class CreateStoreFragment extends Fragment {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                             showToast("Não foi possível registar o estabelecimento. Por favor, tente mais tarde.", getContext());
                         }
                     });
 
-                    if(!transactionInitiated){
+                    if (!transactionInitiated) {
                         progressDialog.dismiss();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         showToast("Não foi possível registar o estabelecimento. Por favor, tente mais tarde.", getContext());
                     }
                 }
@@ -332,5 +330,23 @@ public class CreateStoreFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    // TODO: RESIZE IMAGES TO AVOID THRESHOLD
+    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
     }
 }

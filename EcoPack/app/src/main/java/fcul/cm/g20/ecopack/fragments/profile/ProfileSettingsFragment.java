@@ -276,7 +276,6 @@ public class ProfileSettingsFragment extends Fragment {
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.setCancelable(false);
                 progressDialog.show();
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
                 final Map<String, Object> user = new HashMap<>();
                 user.put("name", inputs[0].getText().toString());
@@ -300,7 +299,6 @@ public class ProfileSettingsFragment extends Fragment {
                                     editor.commit();
 
                                     progressDialog.dismiss();
-                                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                     showToast("Perfil atualizado com sucesso!", getContext());
                                 }
                             })
@@ -308,13 +306,11 @@ public class ProfileSettingsFragment extends Fragment {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();
-                                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                                     showToast("Não foi possível atualizar o perfil. Por favor, tente mais tarde.", getContext());
                                 }
                             });
                 } else {
                     progressDialog.dismiss();
-                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                     showToast("Não foi possível atualizar o perfil. Por favor, verifique a sua conexão à Internet.", getContext());
                 }
             }

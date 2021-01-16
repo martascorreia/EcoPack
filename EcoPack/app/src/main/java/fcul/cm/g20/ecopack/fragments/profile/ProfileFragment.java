@@ -114,7 +114,6 @@ public class ProfileFragment extends Fragment {
         TabLayout tabLayout = profileFragment.findViewById(R.id.layout_profile_tabs);
         tabLayout.setOnTabSelectedListener(handleTabItemClick());
 
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         database.collection("users")
                 .whereEqualTo("username", sharedPreferences.getString("username", ""))
                 .get()
@@ -159,10 +158,7 @@ public class ProfileFragment extends Fragment {
                                     .beginTransaction()
                                     .replace(R.id.tab_content, new ProfileInfoFragment())
                                     .commit();
-
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                         } else {
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                             showToast("Não foi possível obter a informação do utilizador. Por favor, tente mais tarde.", getContext());
                         }
                     }
