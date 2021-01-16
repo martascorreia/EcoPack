@@ -252,9 +252,7 @@ public class StoreOpinionsFragment extends Fragment {
             public void onClick(View v) {
                 if (text.getText().toString().length() == 0)
                     Utils.showToast("Por favor, faça um comentário antes de publicar...", getContext());
-                else if (currentIcon.equals("ic_plus")) {
-                    Utils.showToast("Por favor, escolha um tipo de embalagem...", getContext());
-                } else {
+                else {
                     final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
                     progressDialog.setMessage("A publicar comentário...");
                     progressDialog.setIndeterminate(true);

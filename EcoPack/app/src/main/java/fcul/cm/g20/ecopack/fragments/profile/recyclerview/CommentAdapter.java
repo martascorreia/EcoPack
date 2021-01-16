@@ -52,7 +52,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentViewHolder> {
         else if (marker.equals("ic_marker_bio_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_bio_round));
         else if (marker.equals("ic_marker_paper_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_paper_round));
         else if (marker.equals("ic_marker_plastic_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_round));
-        else holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_home_round));
+        else if (marker.equals("ic_marker_home_round")) holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_home_round));
+        else holder.getCommentMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_plus));
     }
 
     @Override
