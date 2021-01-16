@@ -100,7 +100,6 @@ public class TreeFragment extends Fragment {
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -109,11 +108,10 @@ public class TreeFragment extends Fragment {
         writeDayWeek();
         writeDatesWeek();
         mudaArvore();
-
     }
 
     //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
-    private void historyPage(){
+    private void historyPage() {
         histBt = getView().findViewById(R.id.floating_action_history);
         histBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +126,7 @@ public class TreeFragment extends Fragment {
     }
 
     //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
-    private void informationPage(){
+    private void informationPage() {
         infoBt = getView().findViewById(R.id.floating_action_info);
         infoBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,9 +139,8 @@ public class TreeFragment extends Fragment {
             }
         });
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-        private void writeDayWeek(){
+    
+    private void writeDayWeek() {
 
         /*-------------------------------DATAS-------------------------------------------------*/
 
@@ -161,7 +158,7 @@ public class TreeFragment extends Fragment {
         //OBTENÇÃO DO DIA DA SEMANA DE ANTEONTEM
         long l2 = 2;
         DayOfWeek diaAnteAnterior = dow.minus(l2);
-        anteOntemSemana = diaAnteAnterior.getDisplayName(TextStyle.FULL,locale);
+        anteOntemSemana = diaAnteAnterior.getDisplayName(TextStyle.FULL, locale);
 
         //OBTENÇÃO DO DIA DA SEMANA DE ANTE-ANTEONTEM
         long l3 = 3;
@@ -186,7 +183,7 @@ public class TreeFragment extends Fragment {
 
     }
 
-    private void writeDatesWeek(){
+    private void writeDatesWeek() {
         /*---------DATA OFICIAL - FORMATO PARA VERIFICAÇÃO DA SUA EXISTÊNCIA NA LISTA COM AS CHAVES DO HASHMAP-----------------------------------------*/
         //DATA DO DIA DE HOJE ESPECIAL
         Date hojeData = new Date();
@@ -225,7 +222,7 @@ public class TreeFragment extends Fragment {
     }
 
 
-    private void mudaArvore(){
+    private void mudaArvore() {
         //TEXT COM OS PONTOS
         pontosArvore = getView().findViewById(R.id.pontosarvore);
         img = getView().findViewById(R.id.image_tree);
@@ -233,10 +230,9 @@ public class TreeFragment extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userCredentials", Context.MODE_PRIVATE);
         //VAMOS ACEDER À COLEÇÃO DE DADOS
         db.collection("users").whereEqualTo("username", sharedPreferences.getString("username", "")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
 
                     //VAMOS BUSCAR AS VISITAS
@@ -260,7 +256,7 @@ public class TreeFragment extends Fragment {
                     //CRIAÇÃO DE UM HASHMAP1 COM AS VISITAS DO UTILIZADOR
                     hashMap1 = new HashMap();
 
-                    for (int x = 0; x < len; x++){
+                    for (int x = 0; x < len; x++) {
                         //SABER QUAL ERA O MARKER DA VISITA INDICADA
                         dateS = String.valueOf(mainActivity.userVisits.get(x).getMarkerTag());
                         //SABER O DIA DA SEMANA DA DATA INDICADA
@@ -268,11 +264,9 @@ public class TreeFragment extends Fragment {
                         //FORMATAR A DATA DO FIREBASE
                         novaData = formatdate.format(mainActivity.userVisits.get(x).getDate());
                         //diaVisit = dayFormat.format(mainActivity.userVisits.get(x).getDate());
-                        hashMap1.put(outroDia+"_"+novaData,dateS);
+                        hashMap1.put(outroDia + "_" + novaData, dateS);
 
                     }
-
-
 
 
                     //FORMAÇÃO DE UMA ARRAYLIST COM TODAS AS KEYS DO HASHMAP PARA FRILTRAR PELA SUBSTRING
@@ -280,11 +274,10 @@ public class TreeFragment extends Fragment {
                     nova.addAll(hashMap1.keySet());
 
 
-
                     //LISTAS COM AS CHAVES PARA CAD UM DOS DIAS DA SEMANA
-                   ArrayList ontemFiltrada = new ArrayList();//ontem
-                   ArrayList hojeFiltrada = new ArrayList();//hoje
-                   ArrayList anteOntemFiltrada = new ArrayList();//anteontem
+                    ArrayList ontemFiltrada = new ArrayList();//ontem
+                    ArrayList hojeFiltrada = new ArrayList();//hoje
+                    ArrayList anteOntemFiltrada = new ArrayList();//anteontem
                     ArrayList aanteOntemFiltrada = new ArrayList();//aanteontem
                     ArrayList aaanteOntemFiltrada = new ArrayList();//aaanteontem
                     ArrayList aaaanteOntemFiltrada = new ArrayList();//aaaanteontem
@@ -293,22 +286,22 @@ public class TreeFragment extends Fragment {
 
                     /*--------FILTRO DA ARRAYLIST DAS CHAVES CONSOANTE DOS DIAS DA SEMANA E A SUA DATA-------------*/
                     //VAMOS AVALIAR SE EXISTEM MARKER COM O DIA DE HOJE
-                    for (int ho = 0; ho < nova.size(); ho++){
+                    for (int ho = 0; ho < nova.size(); ho++) {
                         //VAMOS PASSAR AS CHAVES PARA STRING
                         String strIndexHo = nova.get(ho).toString();
                         //SE HOUVEREM MARKERS COM O DIA DE HOJE
-                        if (strIndexHo.contains(nomeDiaSemana) && strIndexHo.contains(hd)){
+                        if (strIndexHo.contains(nomeDiaSemana) && strIndexHo.contains(hd)) {
                             hojeFiltrada.add(hashMap1.get(strIndexHo).toString());
                         }
                     }
 
 
                     //VAMOS VERIFICAR SE EXISTEM MARKERS COM A DATA DE ONTEM
-                    for (int n = 0; n< nova.size(); n++){
+                    for (int n = 0; n < nova.size(); n++) {
                         //VAMOS PASSAR AS CHAVES PARA STR
                         String strIndex = nova.get(n).toString();
                         //SE ESSA CHAVE TIVER O NOME DO DIA DA SEMANA E O DIA DE HOJE NO HASHMAP
-                        if ( strIndex.contains(ontem) && strIndex.contains(od)){
+                        if (strIndex.contains(ontem) && strIndex.contains(od)) {
                             //VAMOS ADICIONAR OS MARCADORES DESSE DIA DA SEMANA A UMA LISTA SÓ COM OS MARCADORES
                             //novaFiltrada.add(hashMap1.get(strIndex).toString());
                             ontemFiltrada.add(hashMap1.get(strIndex).toString());
@@ -318,41 +311,41 @@ public class TreeFragment extends Fragment {
                     }
 
                     //VAMOS VERIFICAR SE EXISTEM MARKER COM A DATA DE ANTEONTEM
-                    for (int ao = 0; ao <  nova.size(); ao++){
+                    for (int ao = 0; ao < nova.size(); ao++) {
                         String strIndexAo = nova.get(ao).toString();
-                        if (strIndexAo.contains(anteOntemSemana) && strIndexAo.contains(aod)){
+                        if (strIndexAo.contains(anteOntemSemana) && strIndexAo.contains(aod)) {
                             anteOntemFiltrada.add(hashMap1.get(strIndexAo).toString());
                         }
                     }
 
                     //SABER SE EXISTEM MARKERS COM A DATA DO DIA DE ANTE-ANTEONTEM
-                    for (int aao = 0; aao < nova.size(); aao++){
+                    for (int aao = 0; aao < nova.size(); aao++) {
                         String strIndexAAo = nova.get(aao).toString();
-                        if (strIndexAAo.contains(aanteontemSemana) && strIndexAAo.contains(aaod)){
+                        if (strIndexAAo.contains(aanteontemSemana) && strIndexAAo.contains(aaod)) {
                             aanteOntemFiltrada.add(hashMap1.get(strIndexAAo).toString());
                         }
                     }
 
                     //SABER SE EXISTEM PARA O DIA DE ANTE-ANTE-ANTEONTEM
-                    for (int aaao = 0; aaao < nova.size(); aaao++){
+                    for (int aaao = 0; aaao < nova.size(); aaao++) {
                         String strIndexAAAo = nova.get(aaao).toString();
-                        if (strIndexAAAo.contains(aaanteontemSemana) && strIndexAAAo.contains(aaaod)){
+                        if (strIndexAAAo.contains(aaanteontemSemana) && strIndexAAAo.contains(aaaod)) {
                             aaanteOntemFiltrada.add(hashMap1.get(strIndexAAAo).toString());
                         }
                     }
 
                     //SABER SE EXISTEM MARKERS PARA O DIA DE ANTE-ANTE-ANTE-ANTEONTEM
-                    for (int aaaao = 0; aaaao < nova.size(); aaaao++){
+                    for (int aaaao = 0; aaaao < nova.size(); aaaao++) {
                         String strIndexAAAAo = nova.get(aaaao).toString();
-                        if (strIndexAAAAo.contains(aaanteontemSemana) && strIndexAAAAo.contains(aaaod)){
+                        if (strIndexAAAAo.contains(aaanteontemSemana) && strIndexAAAAo.contains(aaaod)) {
                             aaaanteOntemFiltrada.add(hashMap1.get(strIndexAAAAo).toString());
                         }
                     }
 
                     //SABER SE EXISTEM MARKERS PARA O DIA DE ANTE-ANTE-ANTE-ANTE-ANTEONTEM
-                    for (int aaaaao = 0; aaaaao < nova.size(); aaaaao++){
+                    for (int aaaaao = 0; aaaaao < nova.size(); aaaaao++) {
                         String strIndexAAAAAo = nova.get(aaaaao).toString();
-                        if (strIndexAAAAAo.contains(aaanteontemSemana) && strIndexAAAAAo.contains(aaaod)){
+                        if (strIndexAAAAAo.contains(aaanteontemSemana) && strIndexAAAAAo.contains(aaaod)) {
                             aaaaanteOntemFiltrada.add(hashMap1.get(strIndexAAAAAo).toString());
                         }
                     }
@@ -372,57 +365,57 @@ public class TreeFragment extends Fragment {
                     ArrayList semanal = new ArrayList();
 
                     //SE HOJE FOR SÁBADO - TESTE PARA OS CASOS DA SEGUNDA FEIRA
-                    if (nomeDiaSemana.contains("segunda")){
+                    if (nomeDiaSemana.contains("segunda")) {
                         semanal.addAll(hojeFiltrada);
-                    }else if (nomeDiaSemana.contains("terça")){
+                    } else if (nomeDiaSemana.contains("terça")) {
                         semanal.addAll(hojeFiltrada);
                         semanal.addAll(ontemFiltrada);
-                    }else if (nomeDiaSemana.contains("quarta")){
+                    } else if (nomeDiaSemana.contains("quarta")) {
                         semanal.addAll(hojeFiltrada);
                         semanal.addAll(ontemFiltrada);
                         semanal.addAll(anteOntemFiltrada);
 
-                    }else if (nomeDiaSemana.contains("quinta")){
+                    } else if (nomeDiaSemana.contains("quinta")) {
                         semanal.addAll(hojeFiltrada);
                         semanal.addAll(ontemFiltrada);
                         semanal.addAll(anteOntemFiltrada);
                         semanal.addAll(aanteOntemFiltrada);
-                    }else if (nomeDiaSemana.contains("sexta")){
-                        semanal.addAll(hojeFiltrada);
-                        semanal.addAll(ontemFiltrada);
-                        semanal.addAll(anteOntemFiltrada);
-                        semanal.addAll(aanteOntemFiltrada);
-                        semanal.addAll(aaanteOntemFiltrada);
-                    }else if (nomeDiaSemana.contains("sábado")){
+                    } else if (nomeDiaSemana.contains("sexta")) {
                         semanal.addAll(hojeFiltrada);
                         semanal.addAll(ontemFiltrada);
                         semanal.addAll(anteOntemFiltrada);
                         semanal.addAll(aanteOntemFiltrada);
                         semanal.addAll(aaanteOntemFiltrada);
-                        semanal.addAll(aaaanteOntemFiltrada);
-                    }else if (nomeDiaSemana.contains("domingo")){
+                    } else if (nomeDiaSemana.contains("sábado")) {
                         semanal.addAll(hojeFiltrada);
                         semanal.addAll(ontemFiltrada);
                         semanal.addAll(anteOntemFiltrada);
                         semanal.addAll(aanteOntemFiltrada);
                         semanal.addAll(aaanteOntemFiltrada);
                         semanal.addAll(aaaanteOntemFiltrada);
-                        semanal.addAll( aaaaanteOntemFiltrada);
+                    } else if (nomeDiaSemana.contains("domingo")) {
+                        semanal.addAll(hojeFiltrada);
+                        semanal.addAll(ontemFiltrada);
+                        semanal.addAll(anteOntemFiltrada);
+                        semanal.addAll(aanteOntemFiltrada);
+                        semanal.addAll(aaanteOntemFiltrada);
+                        semanal.addAll(aaaanteOntemFiltrada);
+                        semanal.addAll(aaaaanteOntemFiltrada);
                     }
 
                     //AGORA VAMOS MEXER NA ÁRVORE
                     ArrayList contadorMarcadores = new ArrayList();
 
-                    if (semanal.isEmpty() == true){
-                        pontosArvore.setText(aaaaanteontemSemana+" "+aaaaaod);
+                    if (semanal.isEmpty() == true) {
+                        pontosArvore.setText(aaaaanteontemSemana + " " + aaaaaod);
                         img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvoren));
-                    }else if (semanal.isEmpty() == false){
+                    } else if (semanal.isEmpty() == false) {
                         //CONTADORES DOS MARKERS
-                        countMarkerPlastic = Collections.frequency(semanal,"marker_plastic");
-                        coutMarkerPaper =+ Collections.frequency(semanal,"marker_paper");
-                        coutMarkerHome =+ Collections.frequency(semanal,"marker_home");
-                        coutMarkerReusable =+ Collections.frequency(semanal,"marker_reusable");
-                        coutMarkerBio =+ Collections.frequency(semanal,"marker_bio");
+                        countMarkerPlastic = Collections.frequency(semanal, "marker_plastic");
+                        coutMarkerPaper = +Collections.frequency(semanal, "marker_paper");
+                        coutMarkerHome = +Collections.frequency(semanal, "marker_home");
+                        coutMarkerReusable = +Collections.frequency(semanal, "marker_reusable");
+                        coutMarkerBio = +Collections.frequency(semanal, "marker_bio");
 
                         //CRIAÇÃO DE UMA ARRAYLIST COM OS CONTADORES DE TODOS OS MARKERS
                         contadorMarcadores.add(countMarkerPlastic);
@@ -432,25 +425,25 @@ public class TreeFragment extends Fragment {
                         contadorMarcadores.add(coutMarkerBio);
                         n = (int) Collections.max(contadorMarcadores);
                         String max = String.valueOf(n);
-                        pontosArvore.setText("alex"+" "+max);
+                        pontosArvore.setText("alex" + " " + max);
 
-                        if (countMarkerPlastic == n ){
+                        if (countMarkerPlastic == n) {
                             nivel = "Esta semana não estás a fazer as escolhas mais corretas. Vamos mudar isso?";
                             data = nivel;
                             //String max = String.valueOf(n);
                             pontosArvore.setText(nivel);
                             img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvoreh));
-                        }else if (coutMarkerPaper == n || countMarkerPlastic == coutMarkerPaper) {
+                        } else if (coutMarkerPaper == n || countMarkerPlastic == coutMarkerPaper) {
                             nivel = "Não tens optado pelas melhores escolhas, mas ainda vais a tempo de mudar!";
                             data = nivel;
                             img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorene));
                             pontosArvore.setText(nivel);
-                        }else if (coutMarkerBio == n || coutMarkerBio == coutMarkerPaper || countMarkerPlastic == coutMarkerBio){
+                        } else if (coutMarkerBio == n || coutMarkerBio == coutMarkerPaper || countMarkerPlastic == coutMarkerBio) {
                             nivel = "Muito bem! Vais num bom caminho.";
                             data = nivel;
                             pontosArvore.setText(nivel);
                             img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorep));
-                        }else if (coutMarkerHome == n || coutMarkerReusable == n || coutMarkerHome == coutMarkerReusable){
+                        } else if (coutMarkerHome == n || coutMarkerReusable == n || coutMarkerHome == coutMarkerReusable) {
                             nivel = "Excelente! Continua assim!";
                             data = nivel;
                             strpoints = String.valueOf(mainActivity.userVisits.get(0).getMarkerTag());
@@ -458,13 +451,9 @@ public class TreeFragment extends Fragment {
                             img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorep));//ALTERAR DEPOIS PARA O NOME DA IMAGEM ALTERADA DO NÍVEL EXCELENTE
                         }
                     }
-               }
+                }
             }
         });
-
-
-
-
 
 
     }

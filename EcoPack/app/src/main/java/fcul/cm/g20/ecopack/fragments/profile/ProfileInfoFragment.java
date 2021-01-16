@@ -13,6 +13,7 @@ import java.util.Calendar;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.utils.Utils;
 
 public class ProfileInfoFragment extends Fragment {
     private MainActivity mainActivity;
@@ -59,9 +60,12 @@ public class ProfileInfoFragment extends Fragment {
         StringBuilder stringBuilder = new StringBuilder();
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(mainActivity.userRegisterDate);
-        stringBuilder.append(calendar.get(Calendar.DAY_OF_MONTH));
+
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        stringBuilder.append((dayOfMonth < 10) ? "0" + dayOfMonth : dayOfMonth + "");
         stringBuilder.append("-");
-        stringBuilder.append(calendar.get(Calendar.MONTH));
+        int months = calendar.get(Calendar.MONTH) + 1;
+        stringBuilder.append((months < 10) ? "0" + months : months + "");
         stringBuilder.append("-");
         stringBuilder.append(calendar.get(Calendar.YEAR));
         stringBuilder.append(" ");
