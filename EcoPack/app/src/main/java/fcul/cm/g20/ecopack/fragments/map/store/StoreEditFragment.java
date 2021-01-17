@@ -129,8 +129,8 @@ public class StoreEditFragment extends Fragment {
             options2[1] = true;
             ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.bio)));
         } else {
-            options[3] = false;
-            options2[3] = false;
+            options[1] = false;
+            options2[1] = false;
             ImageViewCompat.setImageTintList(bioImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
         }
 
@@ -151,8 +151,8 @@ public class StoreEditFragment extends Fragment {
             options[3] = true;
             ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.plastic)));
         } else {
-            options[2] = false;
-            options2[2] = false;
+            options[3] = false;
+            options2[3] = false;
             ImageViewCompat.setImageTintList(plasticImageView, ColorStateList.valueOf(ContextCompat.getColor(mainActivity.getApplicationContext(), R.color.dark_gray)));
         }
 
