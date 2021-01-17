@@ -1,13 +1,16 @@
 package fcul.cm.g20.ecopack.fragments.map.store;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +33,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import net.glxn.qrgen.android.QRCode;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.objects.Comment;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.CommentAdapter;
@@ -44,6 +52,7 @@ import fcul.cm.g20.ecopack.utils.Utils;
 public class StoreOpinionsFragment extends Fragment {
 
     private FirebaseFirestore database;
+    private MainActivity mainActivity;
     HorizontalScrollView scroll;
     DocumentSnapshot storeDocument;
     DocumentSnapshot userDocument;
@@ -62,6 +71,7 @@ public class StoreOpinionsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
         database = FirebaseFirestore.getInstance();
     }
 
@@ -275,7 +285,17 @@ public class StoreOpinionsFragment extends Fragment {
 
                     final Map<String, Object> store = new HashMap<>();
                     store.put("comments", comments);
-                    store.put("counters", setCounter());
+                    Map<String, Long> counters = setCounter();
+                    store.put("counters", counters);
+                    store.put("qrCodes", generateQrCodes(counters));
+
+                    // UPDATE USER COMMENTS
+                    ArrayList<HashMap<String, Object>> userComments = (ArrayList<HashMap<String, Object>>) mainActivity.userComments;
+                    comment.put("store", (storeDocument.getReference().getPath()));
+                    userComments.add((HashMap<String, Object>) comment);
+
+                    final Map<String, Object> user = new HashMap<>();
+                    user.put("comments", userComments);
 
                     if (isNetworkAvailable(getContext())) {
                         database.document(storeDocument.getReference().getPath())
@@ -298,6 +318,19 @@ public class StoreOpinionsFragment extends Fragment {
                                         Utils.showToast("Não foi possível publicar o seu comentário. Por favor, tente mais tarde.", getContext());
                                     }
                                 });
+                        database.document("users/" + mainActivity.userDocumentID)
+                                .update(user)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                    }
+                                });
+
                     } else {
                         progressDialog.dismiss();
                         Utils.showToast("Não foi possível publicar o seu comentário. Por favor, verifique a sua conexão à Internet.", getContext());
@@ -333,6 +366,55 @@ public class StoreOpinionsFragment extends Fragment {
             counters.put("reusable", counters.get("reusable") + 1);
         }
         return counters;
+    }
+
+    private enum QRCodesTypes {bio, paper, plastic, reusable, home};
+
+    @SuppressLint("NewApi")
+    public Map<String, String> generateQrCodes(Map<String, Long> counters) {
+        Map<String, String> qrCodes = new HashMap<>();
+        String storePath = storeDocument.getReference().getPath();
+        Arrays.stream(QRCodesTypes.values())
+                .forEach(qrType -> {
+                    if (counters.containsKey(qrType.toString()) && counters.get(qrType.toString()) > 0) {
+                        // means the user choose this as type in there store
+                        String type = qrType.toString();
+                        String code = type + '\u0000' + storePath; //'\u0000' -> null Char
+                        Bitmap bitmap = QRCode.from(code).withColor(0xFFFFFFFF, pickQrCodeColour(qrType)).bitmap();
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                        byte[] byteArray = stream.toByteArray();
+                        String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                        qrCodes.put(type, result);
+                    }
+                });
+
+        return qrCodes;
+    }
+
+    private int pickQrCodeColour(QRCodesTypes qrType) {
+        int result = 0xFFFFFFFF;
+        switch (qrType) {
+            case bio:
+                result = 0xFF9C693C;
+                break;
+            case paper:
+                result = 0xFF547FCA;
+                break;
+            case plastic:
+                result = 0xFFDAA948;
+                break;
+            case reusable:
+                result = 0xFF66B16F;
+                break;
+            case home:
+                result = 0xFFDA5D44;
+                break;
+            default:
+                result = 0xFFFFFFFF;
+                break;
+        }
+        return result;
     }
 
     // colocar no construtor

@@ -4,25 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import android.text.format.DateUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import fcul.cm.g20.ecopack.Models.StoreVisit;
-import fcul.cm.g20.ecopack.Models.User;
-import fcul.cm.g20.ecopack.MainActivity;
-
-import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,26 +22,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
-
+import fcul.cm.g20.ecopack.MainActivity;
+import fcul.cm.g20.ecopack.Models.StoreVisit;
+import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.profile.ProfileFragment;
 import fcul.cm.g20.ecopack.fragments.tree.information.InformationFragment;
-import fcul.cm.g20.ecopack.utils.Utils;
 
 public class TreeFragment extends Fragment {
 
@@ -246,16 +232,12 @@ public class TreeFragment extends Fragment {
                     mainActivity.userVisits = StoreVisit.toVisitsList((ArrayList<HashMap<String, Object>>) documentSnapshot.get("visits"));
 
                     //VAMOS BUSCAR A DATA DAS VISITA DADA
-                    String date = String.valueOf(Utils.getDateFromMilliseconds(mainActivity.userVisits.get(0).getDate()));
                     /*------------------------------HASHMAP COM AS VISITAS--------------------------------------*/
-                    Calendar calendar = Calendar.getInstance();
                     //SABER O DIA DA SEMANA ATUAL
                     SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", locale);
-                    //weekDay = dayFormat.format(calendar.getTime());
                     //FORMATO DE DATA PARA O HASHMAP
                     Date d = new Date();
                     formatdate = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                    //diaHoje = formatdate.format(d);
 
                     //Nº DE VISITAS EXISTENTES NO FIREBASE
                     int len = mainActivity.userVisits.size();
@@ -275,19 +257,14 @@ public class TreeFragment extends Fragment {
 
                     }
 
-
-
-
                     //FORMAÇÃO DE UMA ARRAYLIST COM TODAS AS KEYS DO HASHMAP PARA FRILTRAR PELA SUBSTRING
                     ArrayList nova = new ArrayList();
                     nova.addAll(hashMap1.keySet());
 
-
-
                     //LISTAS COM AS CHAVES PARA CAD UM DOS DIAS DA SEMANA
-                   ArrayList ontemFiltrada = new ArrayList();//ontem
-                   ArrayList hojeFiltrada = new ArrayList();//hoje
-                   ArrayList anteOntemFiltrada = new ArrayList();//anteontem
+                    ArrayList ontemFiltrada = new ArrayList();//ontem
+                    ArrayList hojeFiltrada = new ArrayList();//hoje
+                    ArrayList anteOntemFiltrada = new ArrayList();//anteontem
                     ArrayList aanteOntemFiltrada = new ArrayList();//aanteontem
                     ArrayList aaanteOntemFiltrada = new ArrayList();//aaanteontem
                     ArrayList aaaanteOntemFiltrada = new ArrayList();//aaaanteontem
@@ -304,9 +281,6 @@ public class TreeFragment extends Fragment {
                             hojeFiltrada.add(hashMap1.get(strIndexHo).toString());
                         }
                     }
-
-                    //pontosArvore.setText(String.valueOf(hojeFiltrada.size()));
-
 
                     //VAMOS VERIFICAR SE EXISTEM MARKERS COM A DATA DE ONTEM
                     for (int n = 0; n< nova.size(); n++){
@@ -363,8 +337,6 @@ public class TreeFragment extends Fragment {
                     }
 
 
-
-
                     /*---------------------------------MUDANÇA DA ÁRVORE -------------------------------------------------*/
                     //FORMAÇÃO DE CADA UM DOS CONTADORES PARA MUDANÇA DA ÁRVORE
                     int n = 0;
@@ -408,7 +380,6 @@ public class TreeFragment extends Fragment {
                         semanal.addAll(aaanteOntemFiltrada);
                         semanal.addAll(aaaanteOntemFiltrada);
                     }else if (nomeDiaSemana.contains("domingo")){
-                        //pontosArvore.setText("hoje é domingo");
                         semanal.addAll(hojeFiltrada);
                         semanal.addAll(ontemFiltrada);
                         semanal.addAll(anteOntemFiltrada);
@@ -416,7 +387,6 @@ public class TreeFragment extends Fragment {
                         semanal.addAll(aaanteOntemFiltrada);
                         semanal.addAll(aaaanteOntemFiltrada);
                         semanal.addAll( aaaaanteOntemFiltrada);
-                        //pontosArvore.setText(String.valueOf(ontemFiltrada.size()));
                     }
 
                     //AGORA VAMOS MEXER NA ÁRVORE
@@ -425,6 +395,7 @@ public class TreeFragment extends Fragment {
                     if (semanal.isEmpty() == true){
                         pontosArvore.setText(nomeDiaSemana+" "+hd);
                         img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvoren));
+
                     }else if (semanal.isEmpty() == false){
                         //CONTADORES DOS MARKERS
                         countMarkerPlastic = Collections.frequency(semanal,"marker_plastic");
@@ -440,8 +411,6 @@ public class TreeFragment extends Fragment {
                         contadorMarcadores.add(coutMarkerReusable);
                         contadorMarcadores.add(coutMarkerBio);
                         n = (int) Collections.max(contadorMarcadores);
-                        //String max = String.valueOf(n);
-                        //pontosArvore.setText("alex"+" "+max);
 
                         if (countMarkerPlastic == n ){
                             nivel = "Esta semana não estás a fazer as escolhas mais corretas. Vamos mudar isso?";
