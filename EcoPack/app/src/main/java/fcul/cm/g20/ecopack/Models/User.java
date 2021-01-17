@@ -14,7 +14,7 @@ import java.util.Map;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class User {
-    public static final int SCANNER_BLOCK_TIME = 10 * 60 * 1000;
+    public static final int SCANNER_BLOCK_TIME = 10 * 1000;
     private String username;
     private String email;
     private String password;
