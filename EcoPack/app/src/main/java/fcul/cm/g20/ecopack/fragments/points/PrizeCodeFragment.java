@@ -142,13 +142,14 @@ public class PrizeCodeFragment extends Fragment {
                 String subject = getResources().getString(R.string.email_subject) + prizeModel.getTitle();
                 String text = getResources().getString(R.string.email_text) + "\n" + prizeModel.generateCode();
                 if(userModel != null){
-                    if(userModel.getEmail() != null && userModel.getEmail().isEmpty() && !userModel.getEmail().equals("N/A")){
+                    if(userModel.getEmail() != null && !userModel.getEmail().isEmpty() && !userModel.getEmail().equals("N/A")){
                         JavaMailAPI javaMail = new JavaMailAPI(ctx, userModel.getEmail(), subject, text);
                         javaMail.execute();
                         Utils.showToast("E-mail enviado com sucesso!", getContext());
                     }else {
                         Utils.showToast("O e-mail que tem o seu perfil não é válido, por favor altere-o para um válido", getContext());
                     }
+                } else{
                     Utils.showToast("Ocorreu um erro, e-mail não enviado", getContext());
                 }
             }
