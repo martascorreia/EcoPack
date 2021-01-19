@@ -39,7 +39,7 @@ import fcul.cm.g20.ecopack.fragments.tree.information.InformationFragment;
 
 public class TreeFragment extends Fragment {
 
-    private FloatingActionButton histBt;
+
     private FloatingActionButton infoBt;
     private User user;
     private TextView pontosArvore;
@@ -91,7 +91,7 @@ public class TreeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        historyPage();
+
         informationPage();
         writeDayWeek();
         writeDatesWeek();
@@ -99,20 +99,7 @@ public class TreeFragment extends Fragment {
 
     }
 
-    //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
-    private void historyPage(){
-        histBt = getView().findViewById(R.id.floating_action_history);
-        histBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProfileFragment profileFragment = new ProfileFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_tree, profileFragment)
-                        .addToBackStack("tree")
-                        .commit();
-            }
-        });
-    }
+
 
     //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
     private void informationPage(){
