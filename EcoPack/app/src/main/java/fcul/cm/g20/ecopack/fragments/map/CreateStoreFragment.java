@@ -338,17 +338,10 @@ public class CreateStoreFragment extends Fragment {
 
                 Bitmap resizedBitmap = getResizedBitmapToSize(bitmap, 150, 150);
 
-                //android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT)
-
                 // To get resized image size
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 int resizedImageSize = stream.size();
-
-                Log.d("Here", "imageSize " + imageSize);
-                Log.d("Here", "bitmap " + byteBuffer.toByteArray().length);
-                Log.d("Here", "resizedBitmap " + stream.size());
-                Log.d("Here", "resizedBitmap2 " + stream.toByteArray().length);
 
                 if (resizedImageSize > 200000) {
                     showToast("A imagem que está a tentar carregar é demasiado grande.", getContext());
@@ -357,13 +350,13 @@ public class CreateStoreFragment extends Fragment {
 
                 imageSizeThreshold += resizedImageSize;
                 Log.d("Here", "io  imageSizeThreshold " + imageSizeThreshold);
-                if (imageSizeThreshold > 200000) { // Firebase limit 10 MB
+                if (imageSizeThreshold > 150000) { // Firebase limit 10 MB
                     imageSizeThreshold -= resizedImageSize;
                     showToast("Não foi possivel adicionar mais images porque atingio o limite de memoria.", getContext());
                     return;
                 }
 
-                //mainActivity.createStorePhotos.add(Utils.bitmapToString(resizedBitmap));
+                mainActivity.createStorePhotos.add(Utils.bitmapToString(resizedBitmap));
                 RecyclerView recyclerView = getView().findViewById(R.id.photos_container);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos, subtractFromThresholdCallback);
@@ -395,8 +388,6 @@ public class CreateStoreFragment extends Fragment {
     public Bitmap getResizedBitmapByPercentage(Bitmap bm, float percent) {
         int width = bm.getWidth();
         int height = bm.getHeight();
-//        float scaleWidth = ((float) newWidth) / width;
-//        float scaleHeight = ((float) newHeight) / height;
         float scaleWidth = percent;
         float scaleHeight = percent;
 
