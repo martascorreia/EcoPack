@@ -329,8 +329,6 @@ public class CreateStoreFragment extends Fragment {
                 InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
                 byte[] buffer = new byte[(int) imageSize];
 
-
-
                 ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
                 while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
 
@@ -352,7 +350,7 @@ public class CreateStoreFragment extends Fragment {
                 Log.d("Here", "io  imageSizeThreshold " + imageSizeThreshold);
                 if (imageSizeThreshold > 150000) { // Firebase limit 10 MB
                     imageSizeThreshold -= resizedImageSize;
-                    showToast("Não foi possivel adicionar mais images porque atingio o limite de memoria.", getContext());
+                    showToast("Não foi possível carregar mais imagens porque o limite de memória foi atingido.", getContext());
                     return;
                 }
 
@@ -367,7 +365,6 @@ public class CreateStoreFragment extends Fragment {
         }
     }
 
-    // TODO: RESIZE IMAGES TO AVOID THRESHOLD
     public Bitmap getResizedBitmapToSize(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
         int height = bm.getHeight();
