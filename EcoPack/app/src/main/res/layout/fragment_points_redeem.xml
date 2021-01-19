@@ -49,7 +49,6 @@
             android:layout_height="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:orientation="horizontal"
-            android:layout_marginEnd="@dimen/_15sdp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,21 +65,21 @@
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/_26sdp"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="@dimen/_180sdp"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_width="310dp"
+            android:layout_height="370dp"
             android:background="@drawable/shape_oval_beige"
             android:orientation="vertical"
             android:padding="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@+id/points_redeem_redeemButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.53">
 
             <ImageView
                 android:id="@+id/points_redeem_image"
@@ -97,10 +96,10 @@
                 android:id="@+id/points_redeem_cost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:text="X Pontos"
                 android:textAlignment="center"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="@dimen/_20sdp"
                 android:textStyle="bold" />
 
         </LinearLayout>
