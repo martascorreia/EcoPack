@@ -183,7 +183,7 @@ public class StoreEditFragment extends Fragment {
         if (photos != null && !photos.isEmpty()) {
             RecyclerView recyclerView = editStoreFragment.findViewById(R.id.photos_container);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos);
+            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos, null);
             recyclerView.setAdapter(previewImageAdapter);
         }
 
@@ -445,7 +445,7 @@ public class StoreEditFragment extends Fragment {
 
                 RecyclerView recyclerView = getView().findViewById(R.id.photos_container);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos);
+                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos, null);
                 recyclerView.setAdapter(previewImageAdapter);
             } catch (IOException e) {
                 e.printStackTrace();
