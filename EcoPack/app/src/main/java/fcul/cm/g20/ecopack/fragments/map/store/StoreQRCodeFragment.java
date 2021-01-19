@@ -97,7 +97,7 @@ public class StoreQRCodeFragment extends Fragment {
 
         // TITLE
         TextView qr_code_title = getView().findViewById(R.id.qr_code_title);
-        qr_code_title.setText("QR CODE " + title);
+        qr_code_title.setText("Código " + title);
 
         // BACK BUTTON
         getView().findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {

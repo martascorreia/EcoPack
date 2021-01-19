@@ -57,13 +57,10 @@
     <string name="email_text2"> Em anexo, enviamos-lhe o código que pediu da loja </string>
     <string name="email_subject">Código do item</string>
     <string name="edit">Editar</string>
-    <string name="qr_codes">QR-CODES</string>
+    <string name="qr_codes">Códigos QR</string>
     <string name="reusable">Reutilizável</string>
     <string name="bio">Biodegradável</string>
     <string name="paper">Papel</string>
     <string name="plastic">Plástico</string>
     <string name="home">Casa</string>
-    <string name="qr_code">QR CODE</string>
-
-
 </resources>
