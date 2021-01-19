@@ -59,17 +59,6 @@ public class StoreFragment extends Fragment {
         TextView name = storeFragmentView.findViewById(R.id.store_title);
         name.setText((String) storeDocument.get("name"));
 
-        // PHOTO
-        ArrayList<String> photos = (ArrayList<String>) storeDocument.get("photos");
-        ImageView photo = storeFragmentView.findViewById(R.id.store_photo);
-        if(!photos.isEmpty()){
-            byte[] firstPhoto = android.util.Base64.decode((String) photos.get(0), android.util.Base64.DEFAULT);
-            Bitmap bmp = BitmapFactory.decodeByteArray(firstPhoto, 0, firstPhoto.length);
-            photo.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth() , bmp.getHeight(), false));
-        } else {
-            photo.setBackgroundColor(getContext().getResources().getColor(R.color.mint));
-        }
-
         // MARKER
         Long[] counters = new Long[5];
         HashMap<String, Long> countersMap = (HashMap<String, Long>) storeDocument.get("counters");
