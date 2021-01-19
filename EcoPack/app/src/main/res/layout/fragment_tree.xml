@@ -11,25 +11,22 @@
         android:id="@+id/image_tree"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
         android:src="@drawable/ic_arvoren"
         android:contentDescription="@string/tree" />
 
 
     <TextView
         android:id="@+id/pontosarvore"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/_30sdp"
-        android:layout_marginRight="@dimen/_55sdp"
-        android:textColor="@color/white"
+        android:layout_gravity="top|center"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:textAlignment="center"
-        android:textSize="@dimen/_20sdp"
-        android:textStyle="normal"
-
-        android:layout_gravity="top|center"/>
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="normal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_info"
@@ -37,19 +34,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginRight="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_15sdp"
         android:backgroundTint="@color/dark_mint"
         android:src="@drawable/ic_info"
         app:elevation="0dp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_history"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:layout_marginTop="@dimen/_65sdp"
-        android:layout_marginRight="@dimen/_15sdp"
-        android:backgroundTint="@color/dark_mint"
-        android:src="@drawable/ic_history"
-        app:elevation="0dp" />
+
 </FrameLayout>
