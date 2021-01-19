@@ -146,7 +146,7 @@ public class PrizeCodeFragment extends Fragment {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String subject = getResources().getString(R.string.email_subject) + prizeModel.getTitle();
+                String subject = getResources().getString(R.string.email_subject) + ": " + prizeModel.getTitle();
                 Map<String, String> code = prizeModel.generateCode();
                 String text = "Olá " + userModel.getUserName() + "! \n" + getResources().getString(R.string.email_text) + "\n" + "Código: "
                         + code.get("code") + "\n" + code.get("company") + "\n" + code.get("date");
