@@ -59,8 +59,6 @@ import fcul.cm.g20.ecopack.utils.Utils;
 
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
-// TODO: DECIDE WHAT TO DO WITH SAVING THE LAST SHOWN LOCATION
-
 public class MapFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private int DEFAULT_MAP_ZOOM = 16;
     private MainActivity mainActivity;

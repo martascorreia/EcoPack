@@ -25,8 +25,6 @@ import fcul.cm.g20.ecopack.fragments.points.PointsFragment;
 import fcul.cm.g20.ecopack.fragments.points.PrizeCodeFragment;
 import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
 
-// TODO: RESOLVER PROBLEMAS GRAVES DE NAVEGAÇÃO! (ON BACK PRESSED)
-
 public class MainActivity extends AppCompatActivity implements ProfileSettingsFragment.OnProfileSettingsFragmentActiveListener {
     public boolean isProfileSettingsFragmentActive = false;
 

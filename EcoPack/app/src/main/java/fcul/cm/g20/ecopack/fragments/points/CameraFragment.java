@@ -140,7 +140,6 @@ public class CameraFragment extends Fragment {
                         //update store and points
                         UserMapper.updateUserPointsAndVisits(userModel, getContext());
 
-                        // TODO: MELHORAR MESSAGENS PARA CADA TIPO DE EMBALAGEM
                         Utils.showToast("Parabéns! Por usar uma embalagem de " + type + " acabou de ganhar " + points + " pontos.", getContext());
                     } else {
                         Utils.showToast("Ocorreu um erro na atribuição de pontos. Por favor, tente mais tarde.", getContext());
