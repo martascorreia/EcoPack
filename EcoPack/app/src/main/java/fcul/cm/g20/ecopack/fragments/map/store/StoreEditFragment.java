@@ -273,7 +273,7 @@ public class StoreEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
-                progressDialog.setMessage("A subtmeter alterações...");
+                progressDialog.setMessage("A submeter alterações...");
                 progressDialog.setIndeterminate(true);
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.setCancelable(false);
@@ -334,7 +334,7 @@ public class StoreEditFragment extends Fragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     progressDialog.dismiss();
-                                    Utils.showToast("Alterações feitas com sucesso!", getContext());
+                                    Utils.showToast("Estabelecimento atualizado com sucesso!", getContext());
 
                                     getActivity()
                                             .getSupportFragmentManager()
@@ -345,12 +345,12 @@ public class StoreEditFragment extends Fragment {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();
-                                    Utils.showToast("Não foi possível submeter as suas alterações. Por favor, tente mais tarde.", getContext());
+                                    Utils.showToast("Não foi possível atualizar o estabelecimento. Por favor, tente mais tarde.", getContext());
                                 }
                             });
                 } else {
                     progressDialog.dismiss();
-                    Utils.showToast("Não foi possível submeter as suas alterações. Por favor, verifique a sua conexão à Internet.", getContext());
+                    Utils.showToast("Não foi possível atualizar o estabelecimento. Por favor, verifique a sua conexão à Internet.", getContext());
                 }
             }
         });

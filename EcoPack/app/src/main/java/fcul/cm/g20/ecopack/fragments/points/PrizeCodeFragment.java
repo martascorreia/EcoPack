@@ -145,12 +145,12 @@ public class PrizeCodeFragment extends Fragment {
                     if(userModel.getEmail() != null && !userModel.getEmail().isEmpty() && !userModel.getEmail().equals("N/A")){
                         JavaMailAPI javaMail = new JavaMailAPI(ctx, userModel.getEmail(), subject, text);
                         javaMail.execute();
-                        Utils.showToast("E-mail enviado com sucesso!", getContext());
+                        Utils.showToast("Email enviado com sucesso!", getContext());
                     }else {
-                        Utils.showToast("O e-mail que tem o seu perfil não é válido, por favor altere-o para um válido", getContext());
+                        Utils.showToast("Não foi possível enviar para o endereço de email fornecido. Por favor, escolha um endereço de email válido.", getContext());
                     }
                 } else{
-                    Utils.showToast("Ocorreu um erro, e-mail não enviado", getContext());
+                    Utils.showToast("Ocorreu um erro. Email não enviado.", getContext());
                 }
             }
         });

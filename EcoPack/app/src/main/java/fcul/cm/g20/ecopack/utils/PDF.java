@@ -41,7 +41,7 @@ public class PDF {
                 Utils.showToast("PDF salvo com sucesso!", ctx);
             } catch (Exception e) {
                 e.printStackTrace();
-                Utils.showToast("ERRO: Falha ao salvar PDF!", ctx);
+                Utils.showToast("Não foi possível salvar o PDF. Por favor, tente mais tarde.", ctx);
             }
         }
         myPdfDocument.close();

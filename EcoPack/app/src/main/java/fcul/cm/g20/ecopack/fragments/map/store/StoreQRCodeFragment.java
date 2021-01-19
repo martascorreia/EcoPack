@@ -134,9 +134,9 @@ public class StoreQRCodeFragment extends Fragment {
                 if(!userDocument.get("email").equals("N/A")){
                     JavaMailAPIPhoto javaMail = new JavaMailAPIPhoto(ctx, (String) userDocument.get("email"), subject, text, pictureBitmap);
                     javaMail.execute();
-                    Utils.showToast("E-mail enviado com sucesso!", getContext());
+                    Utils.showToast("Email enviado com sucesso!", getContext());
                 }else {
-                    Utils.showToast("O e-mail que tem o seu perfil não é válido, por favor altere-o para um e-mail válido.", getContext());
+                    Utils.showToast("Não foi possível enviar para o endereço de email fornecido. Por favor, escolha um endereço de email válido.", getContext());
                 }
             }
         });

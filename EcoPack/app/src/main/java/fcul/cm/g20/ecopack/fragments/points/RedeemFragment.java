@@ -90,8 +90,8 @@ public class RedeemFragment extends Fragment {
     private void confirmationDialog() {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Está prestes a comprar este cupão, quer prosseguir?")
-                .setPositiveButton("Comprar", new DialogInterface.OnClickListener() {
+        builder.setMessage("Está prestes a usar este cupão. Tem a certeza que quer prosseguir?")
+                .setPositiveButton("Usar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         boolean success = userModel.buyPrize(prizeModel);
                         if(success) {
@@ -100,12 +100,12 @@ public class RedeemFragment extends Fragment {
                             UserMapper.updateUserPointsAndPrizes(userModel, getContext());
                         }
                         else
-                            Utils.showToast("Não tem pontos suficientes para comprar este cupão!", getContext());
+                            Utils.showToast("Não tem pontos suficientes para usar este cupão.", getContext());
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Voltar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Utils.showToast("Compra cancelada!", getContext());
+                        Utils.showToast("Uso do cupão cancelado.", getContext());
                     }
                 });
         // Create the AlertDialog object and return it

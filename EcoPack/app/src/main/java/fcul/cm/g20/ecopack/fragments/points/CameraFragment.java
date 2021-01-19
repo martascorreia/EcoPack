@@ -103,7 +103,7 @@ public class CameraFragment extends Fragment {
                         if (userModel.canReceivePoints()) {
                             decodePointsCode(result.getText());
                         } else {
-                            Utils.showToast("Não é possivel ler mais QR-Codes, só pode fazer scan de um codigo por visita.", getContext());
+                            Utils.showToast("Não é possivel ler mais códigos. Está restrito a um leitura de código por visita.", getContext());
                         }
                         //TODO: PERGUNTAR AO GRUPO SE QUEREM QUE A APP VOLTE PARA TRAS APOS A LEITURA DE QR CODE!
                     }
@@ -141,16 +141,16 @@ public class CameraFragment extends Fragment {
                         UserMapper.updateUserPointsAndVisits(userModel, getContext());
 
                         // TODO: MELHORAR MESSAGENS PARA CADA TIPO DE EMBALAGEM
-                        Utils.showToast("Por usar uma embalagem de " + type + " acabou de ganhar " + points + " pontos!!", getContext());
+                        Utils.showToast("Parabéns! Por usar uma embalagem de " + type + " acabou de ganhar " + points + " pontos.", getContext());
                     } else {
-                        Utils.showToast("Ocorreu um erro na atribuição de pontos!", getContext());
+                        Utils.showToast("Ocorreu um erro na atribuição de pontos. Por favor, tente mais tarde.", getContext());
                     }
                 }
             });
             if (!transactionInitiated)
-                Utils.showToast("Não foi possivel atribuir pontos, não é possivel aceder a internet.", getContext());
+                Utils.showToast("Não foi possível atribuir os pontos. Por favor, verifique a sua conexão à Internet.", getContext());
         } else {
-            Utils.showToast("O codigo lido é invalido!!", getContext());
+            Utils.showToast("Não foi possível ler o código fornecido. O codigo é invalido.", getContext());
         }
     }
 
