@@ -41,6 +41,8 @@ import fcul.cm.g20.ecopack.fragments.points.recyclerview.GridItemDecorator;
 import fcul.cm.g20.ecopack.fragments.points.recyclerview.PrizesAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 
+import static fcul.cm.g20.ecopack.utils.Utils.showToast;
+
 public class PointsFragment extends Fragment {
 
     private FloatingActionButton addPointsButton;
@@ -59,32 +61,27 @@ public class PointsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         pointsFragmentView = inflater.inflate(R.layout.fragment_points, container, false);
-
         backListener = user -> onBackActions(user);
         return pointsFragmentView;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //LoadCameraFragment();
-    }
-
-    private void setOnClickCameraFragment(){
+    private void setOnClickCameraFragment() {
         addPointsButton = getView().findViewById(R.id.add_points_button);
         addPointsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Permissions
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+                    showToast("Não foi possível aceder à câmera. Por favor, dê as permissões necessárias.", getContext());
+                    return;
                 }
 
                 CameraFragment cameraFragment = new CameraFragment(user, backListener);
@@ -110,20 +107,20 @@ public class PointsFragment extends Fragment {
 
     @SuppressLint("NewApi")
     private void loadPrizesToRecyclerView() {
-        if (prizes != null && !prizes.isEmpty() &&  user != null) {
+        if (prizes != null && !prizes.isEmpty() && user != null) {
 
             // filter all prizes already bought
             List<Prize> prizesToShow = prizes.stream()
                     .filter(prize ->
                             user.getRedeemedPrizesIds() == null ||
-                            user.getRedeemedPrizesIds().isEmpty() ||
-                            user.getRedeemedPrizesIds()
-                                    .stream()
-                                    .allMatch(redeemedPrizeId ->!redeemedPrizeId.equals(prize.getTitle())))
+                                    user.getRedeemedPrizesIds().isEmpty() ||
+                                    user.getRedeemedPrizesIds()
+                                            .stream()
+                                            .allMatch(redeemedPrizeId -> !redeemedPrizeId.equals(prize.getTitle())))
                     .collect(Collectors.toList());
 
             // Disable prizes that the user can't buy
-            prizesToShow.forEach(prize -> prize.setIsDisable( prize.getCost() > user.getPoints() ));
+            prizesToShow.forEach(prize -> prize.setIsDisable(prize.getCost() > user.getPoints()));
 
             prizeAdapter = new PrizesAdapter(prizesToShow);
             gridRecyclerView.setAdapter(prizeAdapter);

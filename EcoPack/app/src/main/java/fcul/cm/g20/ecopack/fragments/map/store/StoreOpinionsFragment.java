@@ -248,6 +248,7 @@ public class StoreOpinionsFragment extends Fragment {
 
     private void comments() {
         final EditText text = getView().findViewById(R.id.comment);
+        List<Map<String, Object>> oldComments = (List<Map<String, Object>>) storeDocument.get("comments");
         // ADD OLD COMMENTS
         addComments();
 
@@ -266,12 +267,8 @@ public class StoreOpinionsFragment extends Fragment {
 
                     // GET OLD COMMENTS
                     List<Map<String, Object>> comments = new ArrayList<>();
-                    List<Map<String, Object>> oldComments = (List<Map<String, Object>>) storeDocument.get("comments");
-                    if (oldComments != null) {
-                        for (int i = 0; i < oldComments.size(); i++) {
-                            comments.add(oldComments.get(i));
-                        }
-                    }
+                    if (oldComments != null)
+                        for (int i = 0; i < oldComments.size(); i++) comments.add(oldComments.get(i));
 
                     // NEW COMMENT
                     final Map<String, Object> comment = new HashMap<>();
@@ -282,6 +279,7 @@ public class StoreOpinionsFragment extends Fragment {
                     comment.put("comment", text.getText().toString());
                     comment.put("marker", currentIcon);
                     comments.add(comment);
+                    if (oldComments != null) oldComments.add(comment);
 
                     final Map<String, Object> store = new HashMap<>();
                     store.put("comments", comments);
@@ -342,33 +340,35 @@ public class StoreOpinionsFragment extends Fragment {
 
     private Map<String, Long> setCounter() {
         Map<String, Long> counters = (Map<String, Long>) storeDocument.get("counters");
-        if(currentIcon.equals("ic_marker_paper_home_round")){
+        if (currentIcon.equals("ic_marker_paper_home_round")) {
             counters.put("paper", counters.get("paper") + 1);
             counters.put("home", counters.get("home") + 1);
-        } else if(currentIcon.equals("ic_marker_plastic_home_round")){
+        } else if (currentIcon.equals("ic_marker_plastic_home_round")) {
             counters.put("plastic", counters.get("plastic") + 1);
             counters.put("home", counters.get("home") + 1);
-        } else if(currentIcon.equals("ic_marker_bio_home_round")){
+        } else if (currentIcon.equals("ic_marker_bio_home_round")) {
             counters.put("bio", counters.get("bio") + 1);
             counters.put("home", counters.get("home") + 1);
-        } else if(currentIcon.equals("ic_marker_reusable_home_round")){
+        } else if (currentIcon.equals("ic_marker_reusable_home_round")) {
             counters.put("reusable", counters.get("reusable") + 1);
             counters.put("home", counters.get("home") + 1);
-        } else if(currentIcon.equals("ic_marker_home_round")){
+        } else if (currentIcon.equals("ic_marker_home_round")) {
             counters.put("home", counters.get("home") + 1);
-        } else if(currentIcon.equals("ic_marker_paper_round")){
+        } else if (currentIcon.equals("ic_marker_paper_round")) {
             counters.put("paper", counters.get("paper") + 1);
-        } else if(currentIcon.equals("ic_marker_plastic_round")){
+        } else if (currentIcon.equals("ic_marker_plastic_round")) {
             counters.put("plastic", counters.get("plastic") + 1);
-        } else if(currentIcon.equals("ic_marker_bio_round")){
+        } else if (currentIcon.equals("ic_marker_bio_round")) {
             counters.put("bio", counters.get("bio") + 1);
-        } else if(currentIcon.equals("ic_marker_reusable_round")){
+        } else if (currentIcon.equals("ic_marker_reusable_round")) {
             counters.put("reusable", counters.get("reusable") + 1);
         }
         return counters;
     }
 
-    private enum QRCodesTypes {bio, paper, plastic, reusable, home};
+    private enum QRCodesTypes {bio, paper, plastic, reusable, home}
+
+    ;
 
     @SuppressLint("NewApi")
     public Map<String, String> generateQrCodes(Map<String, Long> counters) {
