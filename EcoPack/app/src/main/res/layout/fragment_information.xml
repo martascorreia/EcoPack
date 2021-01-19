@@ -42,121 +42,194 @@
             </TextView>
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/cinco_R"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/shape_shadow"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_ecopack_logo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:text="@string/cinco_Rs"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20sdp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/granel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/shape_shadow"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/produtos_Eco">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.0">
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_ecopack_logo" />
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:text="@string/granel"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20sdp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/cinco_R"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <RelativeLayout
-            android:id="@+id/produtos_Eco"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/shape_shadow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alimentacao">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="@drawable/shape_shadow">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_ecopack_logo" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="149dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="0dp"
+                            android:src="@drawable/recycle_capa" />
+                    </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:text="@string/emabalagens_eco"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20sdp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                    <TextView
+                        android:layout_width="219dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:text="@string/cinco_Rs"
+                        android:textColor="@color/mint_cream"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/alimentacao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/shape_shadow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cinco_R">
+                <RelativeLayout
+                    android:id="@+id/alimentacao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_ecopack_logo" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="@drawable/shape_shadow">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:text="@string/alimentacao"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20sdp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="149dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginBottom="0dp"
+                            android:src="@drawable/alimentacaonovo" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="219dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:text="@string/alimentacao"
+                        android:textColor="@color/mint_cream"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/produtos_Eco"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="@drawable/shape_shadow">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="149dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/emba_eco" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="219dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:text="@string/emabalagens_eco"
+                        android:textColor="@color/mint_cream"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/granel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="@drawable/shape_shadow">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="149dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/granel_eco" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="219dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/_45sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:gravity="center"
+                        android:text="@string/granel"
+                        android:textColor="@color/mint_cream"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
