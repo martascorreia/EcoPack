@@ -256,10 +256,10 @@ public class StoreOpinionsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (text.getText().toString().length() == 0)
-                    Utils.showToast("Por favor, faça um comentário antes de publicar...", getContext());
+                    Utils.showToast("Por favor, escreva um comentário antes de publicar.", getContext());
                 else {
                     final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
-                    progressDialog.setMessage("A public comentário...");
+                    progressDialog.setMessage("A publicar comentário...");
                     progressDialog.setIndeterminate(true);
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();

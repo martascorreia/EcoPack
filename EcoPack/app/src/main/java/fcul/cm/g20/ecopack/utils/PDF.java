@@ -1,20 +1,11 @@
 package fcul.cm.g20.ecopack.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.view.View;
+import android.util.Log;
 
-import androidx.fragment.app.Fragment;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 public class PDF {
@@ -41,7 +32,7 @@ public class PDF {
                 Utils.showToast("PDF salvo com sucesso!", ctx);
             } catch (Exception e) {
                 e.printStackTrace();
-                Utils.showToast("ERRO: Falha ao salvar PDF!", ctx);
+                Utils.showToast("Não foi possível salvar o PDF. Por favor, tente mais tarde.", ctx);
             }
         }
         myPdfDocument.close();

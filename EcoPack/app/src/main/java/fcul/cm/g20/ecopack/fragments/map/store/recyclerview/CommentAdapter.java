@@ -39,7 +39,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public void onBindViewHolder(@NonNull CommentAdapter.CommentViewHolder holder, int position) {
         Comment currentItem = comments.get(position);
         holder.getComment().setText(currentItem.getComment());
-        holder.getUsername().setText(currentItem.getName());
+        holder.getUsername().setText(currentItem.getUsername());
         holder.getMarker().setImageDrawable(currentItem.getMarker());
 
         //PICTURE

@@ -97,7 +97,7 @@ public class StoreQRCodeFragment extends Fragment {
 
         // TITLE
         TextView qr_code_title = getView().findViewById(R.id.qr_code_title);
-        qr_code_title.setText("QR CODE " + title);
+        qr_code_title.setText("Código " + title);
 
         // BACK BUTTON
         getView().findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
@@ -134,9 +134,9 @@ public class StoreQRCodeFragment extends Fragment {
                 if(!userDocument.get("email").equals("N/A")){
                     JavaMailAPIPhoto javaMail = new JavaMailAPIPhoto(ctx, (String) userDocument.get("email"), subject, text, pictureBitmap);
                     javaMail.execute();
-                    Utils.showToast("E-mail enviado com sucesso!", getContext());
+                    Utils.showToast("Email enviado com sucesso!", getContext());
                 }else {
-                    Utils.showToast("O e-mail que tem o seu perfil não é válido, por favor altere-o para um e-mail válido.", getContext());
+                    Utils.showToast("Não foi possível enviar para o endereço de email fornecido. Por favor, escolha um endereço de email válido.", getContext());
                 }
             }
         });
@@ -151,7 +151,6 @@ public class StoreQRCodeFragment extends Fragment {
         // Optionally, specify a URI for the directory that should be opened in
         // the system file picker when your app creates the document.
         intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, new Uri.Builder().build());
-
         startActivityForResult(intent, CREATE_FILE);
     }
 
@@ -163,7 +162,6 @@ public class StoreQRCodeFragment extends Fragment {
             Uri uri = null;
             if (resultData != null) {
                 uri = resultData.getData();
-
                 PDFPhoto.create(uri,"Loja " + storeDocument.get("name"), getContext(), pictureBitmap);
             }
         }

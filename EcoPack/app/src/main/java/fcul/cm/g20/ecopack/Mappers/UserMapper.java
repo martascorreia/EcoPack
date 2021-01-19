@@ -12,7 +12,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import fcul.cm.g20.ecopack.Models.User;
@@ -57,7 +56,7 @@ public class UserMapper {
                         @Override
                         public void onSuccess(Void aVoid) {
                             //MESSAGE FOR DEBUG!!!!
-                            Utils.showToast("Utilizador gravado com sucesso!", ctx);
+                            //Utils.showToast("Utilizador gravado com sucesso!", ctx);
                         }
                     });
         } else {
@@ -77,7 +76,7 @@ public class UserMapper {
                         @Override
                         public void onSuccess(Void aVoid) {
                             //MESSAGE FOR DEBUG!!!!
-                            Utils.showToast("Utilizador gravado com sucesso!", ctx);
+                            //Utils.showToast("Utilizador gravado com sucesso!", ctx);
                         }
                     });
         } else {

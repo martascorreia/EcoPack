@@ -22,6 +22,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.Map;
+
 import fcul.cm.g20.ecopack.Models.Prize;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
@@ -83,9 +85,12 @@ public class PrizeCodeFragment extends Fragment {
     }
 
     private void generateCode() {
-        String code = prizeModel.generateCode();
+        Map<String, String> code = prizeModel.generateCode();
         TextView codeText = getView().findViewById(R.id.points_prizeCode_codeText);
-        codeText.setText(code);
+        codeText.setText(code.get("code"));
+
+        TextView codeInfo = getView().findViewById(R.id.points_prizeCode_codeInfo);
+        codeInfo.setText(code.get("company") + "\n" + code.get("date"));
     }
 
     private void setDownloadButton() {
@@ -112,7 +117,6 @@ public class PrizeCodeFragment extends Fragment {
         // Optionally, specify a URI for the directory that should be opened in
         // the system file picker when your app creates the document.
         intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, new Uri.Builder().build());
-
         startActivityForResult(intent, CREATE_FILE);
     }
 
@@ -121,11 +125,14 @@ public class PrizeCodeFragment extends Fragment {
                                  Intent resultData) {
         if (requestCode == CREATE_FILE
                 && resultCode == Activity.RESULT_OK) {
+
             Uri uri = null;
             if (resultData != null) {
                 uri = resultData.getData();
                 String subject = getResources().getString(R.string.email_subject) + prizeModel.getTitle() + "\n\n";
-                String text = getResources().getString(R.string.email_text) + "\n" + prizeModel.generateCode();
+
+                Map<String, String> code = prizeModel.generateCode();
+                String text = "Código: " + code.get("code") + "\n" + code.get("company") + "\n" + code.get("date");
                 PDF.create(uri,subject + text, getContext());
             }
         }
@@ -140,17 +147,19 @@ public class PrizeCodeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String subject = getResources().getString(R.string.email_subject) + prizeModel.getTitle();
-                String text = getResources().getString(R.string.email_text) + "\n" + prizeModel.generateCode();
+                Map<String, String> code = prizeModel.generateCode();
+                String text = "Olá " + userModel.getUserName() + "! \n" + getResources().getString(R.string.email_text) + "\n" + "Código: "
+                        + code.get("code") + "\n" + code.get("company") + "\n" + code.get("date");
                 if(userModel != null){
                     if(userModel.getEmail() != null && !userModel.getEmail().isEmpty() && !userModel.getEmail().equals("N/A")){
                         JavaMailAPI javaMail = new JavaMailAPI(ctx, userModel.getEmail(), subject, text);
                         javaMail.execute();
-                        Utils.showToast("E-mail enviado com sucesso!", getContext());
+                        Utils.showToast("Email enviado com sucesso!", getContext());
                     }else {
-                        Utils.showToast("O e-mail que tem o seu perfil não é válido, por favor altere-o para um válido", getContext());
+                        Utils.showToast("Não foi possível enviar para o endereço de email fornecido. Por favor, escolha um endereço de email válido.", getContext());
                     }
                 } else{
-                    Utils.showToast("Ocorreu um erro, e-mail não enviado", getContext());
+                    Utils.showToast("Ocorreu um erro. Email não enviado.", getContext());
                 }
             }
         });
@@ -158,8 +167,11 @@ public class PrizeCodeFragment extends Fragment {
 
     private void loadUserInfo() {
         // set user wallet info
-        TextView text = getView().findViewById(R.id.points_prizeCode_walletPoints);
-        text.setText(userModel.getPoints() + " Pontos");
+        //TextView text = getView().findViewById(R.id.points_prizeCode_walletPoints);
+        TextView prizeName = getView().findViewById(R.id.points_prizeCode_title);
+
+        //text.setText(userModel.getPoints() + " Pontos");
+        prizeName.setText(prizeModel.getTitle());
     }
 
     private void backButton() {

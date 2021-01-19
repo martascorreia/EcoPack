@@ -47,8 +47,6 @@ import fcul.cm.g20.ecopack.R;
 import static fcul.cm.g20.ecopack.utils.Utils.isNetworkAvailable;
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
-// TODO: NAVEGAÇÃO | QUANDO ATUALIZAMOS O PERFIL, AO VOLTAR AO PERFIL, AS ALTERAÇÕES FEITAS NÃO SÃO APRESENTADAS
-
 public class ProfileSettingsFragment extends Fragment {
     public interface OnProfileSettingsFragmentActiveListener {
         void onProfileSettingsFragmentActive(boolean isProfileSettingsFragmentActive);
