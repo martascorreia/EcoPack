@@ -48,7 +48,7 @@ public class ProfileCommentsFragment extends Fragment {
         commentAdapter.setOnCommentClickListener(new CommentAdapter.OnCommentClickListener() {
             @Override
             public void onCommentClick(int position) {
-                database.collection("stores").document(mainActivity.userComments.get(position).get("store").toString().split("/")[1])
+                database.collection("stores").document(mainActivity.userVisits.get(position).getStoreId().split("/")[1])
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
