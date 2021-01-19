@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_store_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_store_info"
     tools:context=".fragments.map.store.StoreInfoFragment">
 
     <ScrollView
@@ -238,34 +238,62 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/store_info_website"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginBottom="@dimen/_70sdp"
+                android:layout_marginBottom="@dimen/_60sdp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/store_info_gallery_text"
+                    android:id="@+id/store_info_galery_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Galeria"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/view_pager"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_below="@id/store_info_galery_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_250sdp"
-                    android:layout_below="@id/store_info_gallery_text"
-                    android:layout_marginTop="@dimen/_5sdp" />
+                    android:layout_height="@dimen/_250sdp"/>
 
                 <TextView
                     android:id="@+id/store_photos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/store_info_gallery_text"
+                    android:layout_below="@id/store_info_galery_text"
                     android:maxLines="2"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp" />
             </RelativeLayout>
+
+            <!--<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/store_info_gallery"
+                android:layout_marginBottom="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
+            <Button
+                android:id="@+id/edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:drawableLeft="@drawable/ic_edit"
+                android:background="@drawable/shape_oval_mint"
+                android:shadowColor="@android:color/transparent"
+                android:layout_marginEnd="@dimen/_10sdp"/>
+
+            <Button
+                android:id="@+id/qr_codes_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/qr_codes"
+                android:drawableLeft="@drawable/ic_qr_code"
+                android:background="@drawable/shape_oval_mint"/>
+            </LinearLayout>-->
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

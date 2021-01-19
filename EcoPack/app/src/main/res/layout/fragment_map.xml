@@ -46,9 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/_6sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_6sdp"
                 android:background="@drawable/shape_round_corner_label"
                 android:padding="@dimen/_10sdp"
                 android:text="Criar"
@@ -59,8 +57,6 @@
                 android:id="@+id/create_information_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_6sdp"
                 android:backgroundTint="@color/dark_mint"
                 android:clickable="true"
                 android:src="@drawable/ic_add_map" />
@@ -70,16 +66,14 @@
             android:id="@+id/marker_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/_6sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_6sdp"
                 android:background="@drawable/shape_round_corner_label"
                 android:padding="@dimen/_10sdp"
                 android:text="Legenda"
@@ -90,8 +84,6 @@
                 android:id="@+id/marker_information_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_6sdp"
                 android:backgroundTint="@color/dark_mint"
                 android:clickable="true"
                 android:src="@drawable/ic_info" />
@@ -101,16 +93,14 @@
             android:id="@+id/center_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/_6sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_6sdp"
                 android:background="@drawable/shape_round_corner_label"
                 android:padding="@dimen/_10sdp"
                 android:text="Centrar"
@@ -121,8 +111,6 @@
                 android:id="@+id/center_map_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_6sdp"
-                android:layout_marginBottom="@dimen/_6sdp"
                 android:backgroundTint="@color/dark_mint"
                 android:clickable="true"
                 android:src="@drawable/ic_location" />
@@ -132,7 +120,7 @@
             android:id="@+id/menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_6sdp"
             android:backgroundTint="@color/dark_mint"
             android:clickable="true"

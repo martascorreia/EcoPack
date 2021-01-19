@@ -2,129 +2,122 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_store"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_smoke"
+    android:id="@+id/fragment_store"
     android:elevation="@dimen/_2sdp"
     tools:context=".fragments.map.store.StoreFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="@dimen/_160sdp">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/store_photo"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_160sdp">
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"/>
 
-                <ImageView
-                    android:id="@+id/store_photo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true" />
+            <ImageView
+                android:id="@+id/store_rectangle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/ic_rectangle"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
 
-                <ImageView
-                    android:id="@+id/store_rectangle"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_rectangle" />
-
-                <TextView
-                    android:id="@+id/store_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:layout_toStartOf="@+id/marker_icon"
-                    android:gravity="center"
-                    android:maxLines="3"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/marker_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:backgroundTint="@color/white"
-                    android:clickable="false"
-                    android:elevation="0dp"
-                    android:src="@drawable/ic_marker_paper_round"
-                    app:maxImageSize="58dp" />
-
-                <ImageButton
-                    android:id="@+id/edit_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@id/qr_codes_button"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_40sdp"
-                    android:backgroundTint="@color/white_smoke"
-                    android:src="@drawable/ic_edit" />
-
-                <ImageButton
-                    android:id="@+id/qr_codes_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/edit_button"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_15sdp"
-                    android:backgroundTint="@color/white_smoke"
-                    android:src="@drawable/ic_qr_code" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <TextView
+                android:id="@+id/store_title"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18sdp"
+                android:textStyle="bold"
+                android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/marker_icon"
+                android:layout_marginStart="@dimen/_5sdp"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/marker_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:clickable="false"
+                android:elevation="0dp"
+                android:src="@drawable/ic_marker_paper_round"
+                app:maxImageSize="58dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"/>
+
+            <ImageButton
+                android:id="@+id/edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/qr_codes_button"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_35sdp"
+                android:backgroundTint="@color/white_smoke"
+                android:src="@drawable/ic_edit" />
+
+            <ImageButton
+                android:id="@+id/qr_codes_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/settings_button"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:backgroundTint="@color/white_smoke"
+                android:src="@drawable/ic_qr_code" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/layout_store_tabs"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/layout_store_tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_general_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/general_view" />
-
-                    <com.google.android.material.tabs.TabItem
-                        android:id="@+id/tab_store_opinions"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/comments" />
-                </com.google.android.material.tabs.TabLayout>
-
-                <FrameLayout
-                    android:id="@+id/store_tab_content"
-                    android:layout_width="match_parent"
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_general_view"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_store_tabs"
-                    android:background="@color/white_smoke" />
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+                    android:text="@string/general_view" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_store_opinions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comments" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <FrameLayout
+                android:id="@+id/store_tab_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_store_tabs"
+                android:background="@color/white_smoke" />
+        </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>
