@@ -12,17 +12,24 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.fragments.map.CreateStoreFragment;
+import fcul.cm.g20.ecopack.fragments.map.UpdateImageThreshold;
+import fcul.cm.g20.ecopack.fragments.points.OnBackButtonPressed;
+import fcul.cm.g20.ecopack.utils.Utils;
 
 public class PreviewImageAdapter extends RecyclerView.Adapter<PreviewImageAdapter.PreviewImageViewHolder> {
     private Context context;
     private ArrayList<String> photos;
+    private UpdateImageThreshold updateImageThreshold;
 
-    public PreviewImageAdapter(Context context, ArrayList<String> photos) {
+    public PreviewImageAdapter(Context context, ArrayList<String> photos, UpdateImageThreshold updateImageThreshold) {
         this.photos = photos;
         this.context = context;
+        this.updateImageThreshold = updateImageThreshold;
     }
 
     @NonNull
@@ -57,6 +64,8 @@ public class PreviewImageAdapter extends RecyclerView.Adapter<PreviewImageAdapte
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    byte[] photoByteArray = android.util.Base64.decode(photos.get(getAdapterPosition()), android.util.Base64.DEFAULT);
+                    updateImageThreshold.update(photoByteArray.length);
                     photos.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                 }

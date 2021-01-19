@@ -1,6 +1,7 @@
 package fcul.cm.g20.ecopack.fragments.map;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,11 +10,13 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +46,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.Mappers.StoreMapper;
 import fcul.cm.g20.ecopack.Models.Store;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.PreviewImageAdapter;
+import fcul.cm.g20.ecopack.utils.Utils;
 
 import static fcul.cm.g20.ecopack.utils.Utils.showToast;
 
@@ -109,7 +114,7 @@ public class CreateStoreFragment extends Fragment {
         if (mainActivity.createStorePhotos != null && mainActivity.createStorePhotos.size() != 0) {
             RecyclerView recyclerView = createStoreFragment.findViewById(R.id.photos_container);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos);
+            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos, subtractFromThresholdCallback);
             recyclerView.setAdapter(previewImageAdapter);
         }
 
@@ -187,6 +192,7 @@ public class CreateStoreFragment extends Fragment {
 
         final Button registerButton = createStoreFragment.findViewById(R.id.create_store_register_button);
         registerButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onClick(View v) {
                 v.setEnabled(false);
@@ -300,6 +306,15 @@ public class CreateStoreFragment extends Fragment {
         startActivityForResult(intent, 1001);
     }
 
+    private long imageSizeThreshold = 0;
+    private UpdateImageThreshold subtractFromThresholdCallback = new UpdateImageThreshold() {
+        @Override
+        public void update(int value) {
+            imageSizeThreshold -= value;
+            Log.d("Here", "imageSizeThreshold " + imageSizeThreshold);
+        }
+    };
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
@@ -310,21 +325,39 @@ public class CreateStoreFragment extends Fragment {
                 selectedCursor.moveToFirst();
                 long imageSize = selectedCursor.getLong(sizeIndex);
 
-                if (imageSize > 200000) {
+                int length = 0;
+                InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
+                byte[] buffer = new byte[(int) imageSize];
+
+                ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(byteBuffer.toByteArray(), 0, byteBuffer.toByteArray().length);
+
+                Bitmap resizedBitmap = getResizedBitmapToSize(bitmap, 150, 150);
+
+                // To get resized image size
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                int resizedImageSize = stream.size();
+
+                if (resizedImageSize > 200000) {
                     showToast("A imagem que está a tentar carregar é demasiado grande.", getContext());
                     return;
                 }
 
-                int length = 0;
-                InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
-                byte[] buffer = new byte[(int) imageSize];
-                ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
-                mainActivity.createStorePhotos.add(android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT));
+                imageSizeThreshold += resizedImageSize;
+                Log.d("Here", "io  imageSizeThreshold " + imageSizeThreshold);
+                if (imageSizeThreshold > 150000) { // Firebase limit 10 MB
+                    imageSizeThreshold -= resizedImageSize;
+                    showToast("Não foi possível carregar mais imagens porque o limite de memória foi atingido.", getContext());
+                    return;
+                }
 
+                mainActivity.createStorePhotos.add(Utils.bitmapToString(resizedBitmap));
                 RecyclerView recyclerView = getView().findViewById(R.id.photos_container);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos);
+                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos, subtractFromThresholdCallback);
                 recyclerView.setAdapter(previewImageAdapter);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -332,12 +365,28 @@ public class CreateStoreFragment extends Fragment {
         }
     }
 
-    // TODO: RESIZE IMAGES TO AVOID THRESHOLD
-    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+    public Bitmap getResizedBitmapToSize(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
         float scaleHeight = ((float) newHeight) / height;
+
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
+    }
+
+    public Bitmap getResizedBitmapByPercentage(Bitmap bm, float percent) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = percent;
+        float scaleHeight = percent;
 
         // CREATE A MATRIX FOR THE MANIPULATION
         Matrix matrix = new Matrix();

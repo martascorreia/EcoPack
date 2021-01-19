@@ -3,27 +3,17 @@ package fcul.cm.g20.ecopack.Mappers;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import fcul.cm.g20.ecopack.Models.Prize;
 import fcul.cm.g20.ecopack.Models.Store;
-import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class StoreMapper {
@@ -90,6 +80,8 @@ public class StoreMapper {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            //MESSAGE FOR DEBUG!!!!
+                            //Utils.showToast("Loja gravada com sucesso!", ctx);
                         }
                     });
         } else {

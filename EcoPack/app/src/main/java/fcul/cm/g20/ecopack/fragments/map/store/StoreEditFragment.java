@@ -9,11 +9,14 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +50,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.fragments.map.UpdateImageThreshold;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.PreviewImageAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;
 
@@ -87,6 +92,7 @@ public class StoreEditFragment extends Fragment {
         return editStoreFragment;
     }
 
+    @SuppressLint("NewApi")
     public void setupFragment(View editStoreFragment) {
         // SET UP INFORMATION
         EditText schedule = editStoreFragment.findViewById(R.id.store_name);
@@ -183,7 +189,9 @@ public class StoreEditFragment extends Fragment {
         if (photos != null && !photos.isEmpty()) {
             RecyclerView recyclerView = editStoreFragment.findViewById(R.id.photos_container);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos);
+            PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos, subtractFromThresholdCallback);
+            Optional<Integer> sum = photos.stream().map(str -> Base64.decode(str, Base64.DEFAULT).length).reduce(Integer::sum);
+            imageSizeThreshold = sum.orElse(0);
             recyclerView.setAdapter(previewImageAdapter);
         }
 
@@ -420,6 +428,15 @@ public class StoreEditFragment extends Fragment {
         startActivityForResult(intent, 1001);
     }
 
+    private long imageSizeThreshold = 0;
+    private UpdateImageThreshold subtractFromThresholdCallback = new UpdateImageThreshold() {
+        @Override
+        public void update(int value) {
+            imageSizeThreshold -= value;
+            Log.d("Here", "imageSizeThreshold " + imageSizeThreshold);
+        }
+    };
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
@@ -430,26 +447,60 @@ public class StoreEditFragment extends Fragment {
                 selectedCursor.moveToFirst();
                 long imageSize = selectedCursor.getLong(sizeIndex);
 
-                if (imageSize > 200000) {
+                int length = 0;
+                InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
+                byte[] buffer = new byte[(int) imageSize];
+
+                ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1) byteBuffer.write(buffer, 0, length);
+
+                Bitmap bitmap = BitmapFactory.decodeByteArray(byteBuffer.toByteArray(), 0, byteBuffer.toByteArray().length);
+
+                Bitmap resizedBitmap = getResizedBitmapToSize(bitmap, 150, 150);
+
+                // To get resized image size
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                int resizedImageSize = stream.size();
+
+                if (resizedImageSize > 200000) {
                     showToast("A imagem que está a tentar carregar é demasiado grande.", getContext());
                     return;
                 }
 
-                int length = 0;
-                InputStream inputStream = getContext().getContentResolver().openInputStream(selectedImage);
-                byte[] buffer = new byte[(int) imageSize];
-                ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-                while ((length = Objects.requireNonNull(inputStream).read(buffer)) != -1)
-                    byteBuffer.write(buffer, 0, length);
-                photos.add(android.util.Base64.encodeToString(byteBuffer.toByteArray(), android.util.Base64.DEFAULT));
+                imageSizeThreshold += resizedImageSize;
+                Log.d("Here", "io  imageSizeThreshold " + imageSizeThreshold);
+                if (imageSizeThreshold > 150000) { // Firebase limit 10 MB
+                    imageSizeThreshold -= resizedImageSize;
+                    showToast("Não foi possível carregar mais imagens porque o limite de memória foi atingido.", getContext());
+                    return;
+                }
 
+                mainActivity.createStorePhotos.add(Utils.bitmapToString(resizedBitmap));
                 RecyclerView recyclerView = getView().findViewById(R.id.photos_container);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), photos);
+                PreviewImageAdapter previewImageAdapter = new PreviewImageAdapter(getContext(), mainActivity.createStorePhotos, subtractFromThresholdCallback);
                 recyclerView.setAdapter(previewImageAdapter);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Bitmap getResizedBitmapToSize(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
     }
 }

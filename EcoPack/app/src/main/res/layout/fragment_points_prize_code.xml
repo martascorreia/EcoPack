@@ -44,57 +44,26 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginVertical="@dimen/_30sdp"
-            android:background="@drawable/shape_oval_mint"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="Na carteira"
-                android:textSize="@dimen/_16sdp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/points_prizeCode_walletPoints"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:gravity="center_vertical"
-                android:text="XX Pontos"
-                android:textSize="@dimen/_16sdp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="@dimen/_240sdp"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_height="wrap_content"
             android:background="@drawable/shape_oval_beige"
             android:orientation="vertical"
             android:padding="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.13">
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_20sdp"
-                android:text="Codigo para redimir premios: "
+                android:text="Código para redimir o prémio: "
                 android:textSize="@dimen/_16sdp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/dark_grey"/>
 
             <TextView
                 android:id="@+id/points_prizeCode_codeText"
@@ -102,36 +71,65 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:text=""
-                android:textSize="@dimen/_16sdp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_18sdp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/dark_grey"/>
+
+            <TextView
+                android:id="@+id/points_prizeCode_codeInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text=""
+                android:layout_gravity="left"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/_16sdp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_60sdp"
-            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/qr_code"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/_20sdp"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <Button
                 android:id="@+id/points_prizeCode_emailButton"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_54sdp"
-                android:layout_marginRight="@dimen/_40sdp"
-                android:background="@drawable/shape_oval_mint"
-                android:text="E-mail"
-                android:layout_gravity="center"/>
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@drawable/shape_button_white"
+                android:drawableStart="@drawable/ic_email"
+                android:padding="@dimen/_12sdp"
+                android:shadowColor="@color/dark_mint"
+                android:text="ENVIAR EMAIL"
+                android:textColor="@color/dark_mint"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/points_prizeCode_printButton"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_54sdp"
-                android:background="@drawable/shape_oval_mint"
-                android:text="Download PDF"
-                android:layout_gravity="center"/>
-
+                android:layout_width="@dimen/_250sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@drawable/shape_button_white"
+                android:drawableStart="@drawable/ic_download"
+                android:padding="@dimen/_12sdp"
+                android:shadowColor="@color/dark_mint"
+                android:text="DESCARREGAR PDF"
+                android:textColor="@color/dark_mint"
+                android:textSize="@dimen/_11sdp"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
