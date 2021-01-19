@@ -56,8 +56,6 @@ public class UserMapper {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            //MESSAGE FOR DEBUG!!!!
-                            Utils.showToast("Utilizador gravado com sucesso!", ctx);
                         }
                     });
         } else {
@@ -76,8 +74,6 @@ public class UserMapper {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            //MESSAGE FOR DEBUG!!!!
-                            Utils.showToast("Utilizador gravado com sucesso!", ctx);
                         }
                     });
         } else {
@@ -94,8 +90,6 @@ public class UserMapper {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            //MESSAGE FOR DEBUG!!!!
-                            Utils.showToast("Utilizador gravado com sucesso!", ctx);
                         }
                     });
         } else {

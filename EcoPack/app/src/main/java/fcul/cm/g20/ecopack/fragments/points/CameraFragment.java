@@ -105,7 +105,6 @@ public class CameraFragment extends Fragment {
                         } else {
                             Utils.showToast("Não é possivel ler mais códigos. Está restrito a um leitura de código por visita.", getContext());
                         }
-                        //TODO: PERGUNTAR AO GRUPO SE QUEREM QUE A APP VOLTE PARA TRAS APOS A LEITURA DE QR CODE!
                     }
                 });
             }
@@ -132,7 +131,6 @@ public class CameraFragment extends Fragment {
                         userModel.addPoints(points);
                         // create visit
                         MarkerTypes marker = Store.convertQrTypeToMarkerType(type);
-                        Log.d("name123", store.getName());
                         StoreVisit visit = new StoreVisit(storePath, store.getName(), marker, System.currentTimeMillis());
                         userModel.addVisit(visit);
                         //update store and points

@@ -31,7 +31,7 @@ public class StoreMapper {
         void onSuccess(Store store);
     }
 
-    public static boolean saveStore(Store store, Context ctx, final OnSuccessListener<Void> onSuccess, final OnFailureListener onFailure){
+    public static boolean saveStore(Store store, Context ctx, final OnSuccessListener<Void> onSuccess, final OnFailureListener onFailure) {
         if (Utils.isNetworkAvailable(ctx)) {
             FirebaseFirestore database = FirebaseFirestore.getInstance();
             // Get a new write batch
@@ -75,14 +75,14 @@ public class StoreMapper {
     }
 
     @SuppressLint("NewApi")
-    public static void updateCounters(Store store, Context ctx){
+    public static void updateCounters(Store store, Context ctx) {
         Map<String, Object> map = new HashMap<>();
         map.put("counters", store.getCounters());
         update(map, store, ctx);
     }
 
     @SuppressLint("NewApi")
-    public static void update(Map<String, Object>fields, Store store, Context ctx) {
+    public static void update(Map<String, Object> fields, Store store, Context ctx) {
         if (Utils.isNetworkAvailable(ctx)) {
             FirebaseFirestore database = FirebaseFirestore.getInstance();
             database.document(store.getFirebasePath())
@@ -90,8 +90,6 @@ public class StoreMapper {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            //MESSAGE FOR DEBUG!!!!
-                            Utils.showToast("Loja gravada com sucesso!", ctx);
                         }
                     });
         } else {
