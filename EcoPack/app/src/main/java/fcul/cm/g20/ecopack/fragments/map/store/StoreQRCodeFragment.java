@@ -151,7 +151,6 @@ public class StoreQRCodeFragment extends Fragment {
         // Optionally, specify a URI for the directory that should be opened in
         // the system file picker when your app creates the document.
         intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, new Uri.Builder().build());
-
         startActivityForResult(intent, CREATE_FILE);
     }
 
@@ -163,7 +162,6 @@ public class StoreQRCodeFragment extends Fragment {
             Uri uri = null;
             if (resultData != null) {
                 uri = resultData.getData();
-
                 PDFPhoto.create(uri,"Loja " + storeDocument.get("name"), getContext(), pictureBitmap);
             }
         }

@@ -3,7 +3,6 @@ package fcul.cm.g20.ecopack.fragments.points;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import fcul.cm.g20.ecopack.IOnBackPressed;
 import fcul.cm.g20.ecopack.Mappers.UserMapper;
-import fcul.cm.g20.ecopack.Models.AppSession;
+import fcul.cm.g20.ecopack.Models.Prize;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.Models.Prize;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class RedeemFragment extends Fragment {
@@ -90,8 +87,8 @@ public class RedeemFragment extends Fragment {
     private void confirmationDialog() {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Está prestes a usar este cupão. Tem a certeza que quer prosseguir?")
-                .setPositiveButton("Usar", new DialogInterface.OnClickListener() {
+        builder.setMessage("Não poderá voltar atrás. Tem a certeza que quer prosseguir?")
+                .setPositiveButton("Redimir", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         boolean success = userModel.buyPrize(prizeModel);
                         if(success) {
@@ -100,12 +97,12 @@ public class RedeemFragment extends Fragment {
                             UserMapper.updateUserPointsAndPrizes(userModel, getContext());
                         }
                         else
-                            Utils.showToast("Não tem pontos suficientes para usar este cupão.", getContext());
+                            Utils.showToast("Não tem pontos suficientes para usar este cupão", getContext());
                     }
                 })
-                .setNegativeButton("Voltar", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Utils.showToast("Uso do cupão cancelado.", getContext());
+                        Utils.showToast("Uso do cupão cancelado", getContext());
                     }
                 });
         // Create the AlertDialog object and return it

@@ -2,18 +2,12 @@ package fcul.cm.g20.ecopack.Models;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import org.w3c.dom.Document;
-
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import fcul.cm.g20.ecopack.utils.Utils;
 
@@ -22,6 +16,7 @@ public class Prize {
     private Bitmap image;
     private int cost;
     private boolean isDisable;
+    Random random;
 
     @SuppressLint("NewApi")
     public Prize(DocumentSnapshot snapshot) {
@@ -37,6 +32,7 @@ public class Prize {
         this.image = image;
         this.cost = cost;
         this.isDisable = false;
+        random = new Random();
     }
 
     public String getTitle() {
@@ -72,13 +68,12 @@ public class Prize {
         return result;
     }
 
-    public String generateCode() {
-        // TODO: Encrypt ?
-        StringBuilder builder = new StringBuilder();
-        builder.append(this.title + "\n");
-        builder.append("Company: SunnyDelight" + "\n");
-        builder.append("ValidationDate: 01/02/21"+ "\n");
-        return builder.toString();
+    public Map<String, String> generateCode() {
+        Map<String, String> map = new HashMap<>();
+        map.put("code", "\n" + random.nextInt(10000) + "\n");
+        map.put("company", "Company: " + this.title);
+        map.put("date", "ValidationDate: 01/02/21");
+        return map;
     }
 
     public boolean isDisabled() {
