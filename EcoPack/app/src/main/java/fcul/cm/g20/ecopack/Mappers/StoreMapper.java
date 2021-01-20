@@ -59,7 +59,7 @@ public class StoreMapper {
                     });
             return true;
         } else {
-            Utils.showToast("Falha ao obter utilizador, não é possivel aceder a internet.", ctx);
+            Utils.showToast("Falha ao obter utilizador, não é possivel aceder a Internet.", ctx);
             return false;
         }
     }
@@ -85,7 +85,7 @@ public class StoreMapper {
                         }
                     });
         } else {
-            Utils.showToast("Falha ao actualizar loja, não é possivel aceder a internet.", ctx);
+            Utils.showToast("Falha ao actualizar loja, não é possivel aceder a Internet.", ctx);
         }
     }
 }

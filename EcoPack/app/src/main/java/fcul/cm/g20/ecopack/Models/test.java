@@ -78,7 +78,7 @@ public class test {
                         }
                     });
         } else {
-            Utils.showToast("Falha ao obter utilizador, não é possivel aceder a internet.", ctx);
+            Utils.showToast("Falha ao obter utilizador, não é possivel aceder a Internet.", ctx);
         }
     }
 
@@ -95,7 +95,7 @@ public class test {
                         }
                     });
         } else {
-            Utils.showToast("Falha ao gravar utilizador, não é possivel aceder a internet.", ctx);
+            Utils.showToast("Falha ao gravar utilizador, não é possivel aceder a Internet.", ctx);
         }
     }
 

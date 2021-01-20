@@ -97,12 +97,12 @@ public class RedeemFragment extends Fragment {
                             UserMapper.updateUserPointsAndPrizes(userModel, getContext());
                         }
                         else
-                            Utils.showToast("Não tem pontos suficientes para usar este cupão", getContext());
+                            Utils.showToast("Não tem pontos suficientes para usar este cupão.", getContext());
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Utils.showToast("Uso do cupão cancelado", getContext());
+                        Utils.showToast("Uso do cupão cancelado.", getContext());
                     }
                 });
         // Create the AlertDialog object and return it
