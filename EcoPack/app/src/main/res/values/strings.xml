@@ -35,21 +35,21 @@
     <string name="iniciativaalimentacao1">Redução dos desperdício alimentar;</string>
     <string name="iniciativaalimentacao2">Redução do consumo de carne; </string>
     <string name="iniciativaalimentacao3">Aumento do consumo de alimentos sazonais e de produção local;</string>
-    <string name="iniciativaalimentacao4">Redução da compra de alimentos embalados em plástico de uso único; </string>
-    <string name="text_R">Uma das primeiras perguntas que qualquer pessoa faz quando quer começar a ser mais sustentável, é “Por onde é que posso começar?”
+    <string name="iniciativaalimentacao4">Redução da compra de alimentos embalados em plástico de uso único.</string>
+    <string name="text_R">Uma das primeiras perguntas que qualquer pessoa faz quando quer começar a ser mais sustentável, é “Por onde é que posso começar?”.
         Pois bem, o primeiro passo é fazer uma vistoria à nossa vida, mais especificamente ao nosso lixo. Ao começarmos desta forma, teremos uma noção de que tipo de
-        resíduos produzimos e em que quantidades, permitindo-nos fazer uma melhor gestão das nosssas compras alimentares.</string>
+        resíduos produzimos e em que quantidades, permitindo-nos fazer uma melhor gestão das nossas compras alimentares.</string>
     <string name="textR_2">Após esta primeira etapa, devemos então passar à análise da “Política dos 5 Rs”:</string>
     <string name="beaJohnson">Imagem adaptada do livro "Desperdício zero" de Bea Johnson</string>
     <string name="textR_31">Recusar</string>
     <string name="textR_32">Esta é talvez a mais importante etapa de uma vida mais sustentável e também a mais fácil de ser implementada. Além disso, sendo a sua ação
         tão impactante, faz com que se encontre no topo da pirâmide da Política dos 5 Rs. Sendo assim, o que poderemos fazer? O que podemos recusar?</string>
     <string name="recusar1">Recusar amostras de lojas, eventos e conferências;</string>
-    <string name="recusar2">Recusar publicidade na caixa de correio e nas lojas;</string>
+
     <string name="recusar3">Recusar descartáveis  tais como talheres, palhetas de café, copos, loiça...</string>
     <string name="recusar4">Recusar produtos desnecessariamente embalados em plástico;</string>
-    <string name="recusar5">Sempre que realizadas compras ou pagamentos, recusar faturas impressas em papel;</string>
-    <string name="recusar6">Recusar cartões de visitas</string>
+    <string name="recusar5">Sempre que realizadas compras ou pagamentos, recusar faturas impressas em papel.</string>
+
     <string name="textR_reduzirtitulo">Reduzir</string>
     <string name="reduzirtexto">Esta etapa, é aquela que deve ser aplicada quando não podemos ou não conseguimos recusar algo. Talvez esta seja uma das mais difíceis de
         fazer, porque se trata daquela em que olhamos para os objetos que possuímos e aos quais temos algum apego emocional como também aquela que mais nos obriga a mudar
@@ -59,7 +59,7 @@
     <string name="reduzir1">Reduzir a compra de produtos embalados em plástico;</string>
     <string name="reduzir2">Dar prioridade, sempre que possível, às compras de produtos a granel;</string>
     <string name="reduzir3">Planificar as nossas compras, de modo a termos uma melhor noção do que realmente necessitamos, por exemplo no que toca aos produtos alimentares;</string>
-    <string name="reduzir4">Comprar  localmente; </string>
+    <string name="reduzir4">Comprar  localmente.</string>
     <string name="textR_reutilizartitulo">Reutilizar</string>
     <string name="reutilizartexto">O próximo passo é a reutilização do que já temos. Ao darmos uso ao que já possuímos, evitando desta forma a compra de algo novo, estamos a contribuir
         para uma diminuição do desgaste do nosso  planeta. Porquê? Porque ao fazê-lo estamos a evitar a extração de novas matérias primas, o gasto de energia no transporte deste novo
@@ -68,7 +68,7 @@
     <string name="reutilizar1">Frascos que temos em casa;</string>
     <string name="reutilizar2">Sacos que fomos recebendo e acumulando ao longo do tempo;</string>
     <string name="reutilizar3">Marmitas e tupperwares;</string>
-    <string name="reutilizar4">Caixas de cartão de encomendas antigas;</string>
+    <string name="reutilizar4">Caixas de cartão de encomendas antigas.</string>
     <string name="textR_reciclartitulo">Reciclar</string>
     <string name="reciclartexto">Esta é a etapa a que devemos passar se todas as etapas anteriores falharem/ já não poderem ser aplicadas, devemos então reciclar de forma a permitir que os
         materiais possam então ser utilizados no fabrico de outros produtos. Em relação a esta temática, o que é que devemos fazer?</string>
