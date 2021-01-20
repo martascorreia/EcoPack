@@ -71,6 +71,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationViewHolder> {
                 case marker_plastic:
                     holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_plastic_round));
                     break;
+                case marker_home:
+                    holder.getLocationMarker().setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_marker_home_round));
+                    break;
             }
         }
     }

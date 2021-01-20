@@ -10,5 +10,6 @@ public enum MarkerTypes implements Serializable {
     marker_reusable,
     marker_bio,
     marker_paper,
-    marker_plastic
+    marker_plastic,
+    marker_home
 }

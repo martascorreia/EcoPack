@@ -20,8 +20,13 @@ import fcul.cm.g20.ecopack.fragments.map.store.objects.Comment;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class Store {
-    private enum PackageTypes { bio, home, paper, plastic, reusable };
-    private enum QRCodesTypes { bio, paper, plastic, reusable, home };
+    private enum PackageTypes {bio, home, paper, plastic, reusable}
+
+    ;
+
+    private enum QRCodesTypes {bio, paper, plastic, reusable, home}
+
+    ;
 
     // firebase path
     private String $Path;
@@ -54,10 +59,10 @@ public class Store {
                 (Map<String, Long>) snapshot.get("counters"),
                 (double) snapshot.get("lat"),
                 (double) snapshot.get("lng"),
-                (List<String>)snapshot.get("photos"),
+                (List<String>) snapshot.get("photos"),
                 (long) snapshot.get("register_date"),
                 (String) snapshot.get("schedule"),
-                (Map<String, String>)snapshot.get("qrCodes")
+                (Map<String, String>) snapshot.get("qrCodes")
         );
     }
 
@@ -98,8 +103,8 @@ public class Store {
 
     public void incrementCounter(String type, long i) {
         long newValue = i;
-        if(counters != null){
-            if(counters.containsKey(type)){
+        if (counters != null) {
+            if (counters.containsKey(type)) {
                 newValue = counters.get(type) + i;
             }
         } else {
@@ -112,10 +117,10 @@ public class Store {
     public void generateQrCodes(DocumentReference ref) {
         this.qrCodes = new HashMap<>();
         String storePath = ref.getPath();
-        if(this.counters != null && !this.counters.isEmpty()){
+        if (this.counters != null && !this.counters.isEmpty()) {
             Arrays.stream(QRCodesTypes.values())
-                    .forEach( qrType -> {
-                        if(this.counters.containsKey(qrType.toString()) && this.counters.get(qrType.toString()) > 0){
+                    .forEach(qrType -> {
+                        if (this.counters.containsKey(qrType.toString()) && this.counters.get(qrType.toString()) > 0) {
                             // means the user choose this as type in there store
                             String type = qrType.toString();
                             String code = type + '\u0000' + storePath; //'\u0000' -> null Char
@@ -126,9 +131,9 @@ public class Store {
         }
     }
 
-    private int pickQrCodeColour(QRCodesTypes qrType){
+    private int pickQrCodeColour(QRCodesTypes qrType) {
         int result = 0xFFFFFFFF;
-        switch (qrType){
+        switch (qrType) {
             case bio:
                 result = 0xFF9C693C;
                 break;
@@ -154,7 +159,7 @@ public class Store {
     @SuppressLint("NewApi")
     private Map<String, Integer> convertMapToInt(Map<String, Long> counters) {
         Map<String, Integer> temp = new HashMap<>();
-        counters.forEach((k,v) -> temp.put(k, Math.toIntExact(v)));
+        counters.forEach((k, v) -> temp.put(k, Math.toIntExact(v)));
         return temp;
     }
 
@@ -184,7 +189,7 @@ public class Store {
 
     @SuppressLint("NewApi")
     public void setPhotos(List<String> photos) {
-        this.photos = (photos != null)?
+        this.photos = (photos != null) ?
                 photos.stream().map(Utils::stringToBitmap).collect(Collectors.toList())
                 :
                 new ArrayList<>();
@@ -229,11 +234,11 @@ public class Store {
     }
 
     public void setCommentsList(List<Comment> comments) {
-        this.comments = (comments!=null)? comments : new ArrayList<>();
+        this.comments = (comments != null) ? comments : new ArrayList<>();
     }
 
     public void setCounters(Map<String, Long> counters) {
-        this.counters = (counters!=null)? counters : new HashMap<>();
+        this.counters = (counters != null) ? counters : new HashMap<>();
     }
 
     public void setLat(double lat) {
@@ -282,8 +287,8 @@ public class Store {
     @SuppressLint("NewApi")
     public List<Map<String, Object>> getComments() {
         ArrayList<Map<String, Object>> commentsMapList = new ArrayList<>();
-        if ( this.comments != null) {
-            this.comments.forEach(comment ->{
+        if (this.comments != null) {
+            this.comments.forEach(comment -> {
                 Map<String, Object> commentMap = new HashMap<>();
                 commentMap.put("user", comment.getUsername());
                 commentMap.put("name", comment.getName());
@@ -312,7 +317,7 @@ public class Store {
     @SuppressLint("NewApi")
     public List<String> getPhotos() {
         List<String> result = new ArrayList<>();
-        if(photos!= null)
+        if (photos != null)
             result = photos.stream().map(Utils::bitmapToString).collect(Collectors.toList());
         return result;
     }
@@ -328,27 +333,29 @@ public class Store {
     @SuppressLint("NewApi")
     public Map<String, String> getQrCodes() {
         Map<String, String> result = new HashMap<>();
-        if(qrCodes!=null)
+        if (qrCodes != null)
             qrCodes.forEach((qrCodeType, qrCodeBitmap) -> result.put(qrCodeType, Utils.bitmapToString(qrCodeBitmap)));
         return result;
     }
 
-    private String auxGetString(String s){
-        return (s == null || s.isEmpty())? "N/A" : s;
+    private String auxGetString(String s) {
+        return (s == null || s.isEmpty()) ? "N/A" : s;
     }
     //endregion
 
     public static MarkerTypes convertQrTypeToMarkerType(String type) {
         MarkerTypes marker = null;
-        if(type != null){
-            if(type.equals(QRCodesTypes.reusable.toString())){
+        if (type != null) {
+            if (type.equals(QRCodesTypes.reusable.toString())) {
                 marker = MarkerTypes.marker_reusable;
-            }else if (type.equals(QRCodesTypes.bio.toString())){
+            } else if (type.equals(QRCodesTypes.bio.toString())) {
                 marker = MarkerTypes.marker_bio;
-            }else if (type.equals(QRCodesTypes.paper.toString())){
+            } else if (type.equals(QRCodesTypes.paper.toString())) {
                 marker = MarkerTypes.marker_paper;
-            }else if (type.equals(QRCodesTypes.plastic.toString())){
+            } else if (type.equals(QRCodesTypes.plastic.toString())) {
                 marker = MarkerTypes.marker_plastic;
+            } else if (type.equals(QRCodesTypes.home.toString())) {
+                marker = MarkerTypes.marker_home;
             }
         }
         return marker;
