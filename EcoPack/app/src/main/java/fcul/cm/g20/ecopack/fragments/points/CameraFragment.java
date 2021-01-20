@@ -17,12 +17,12 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
-import fcul.cm.g20.ecopack.Mappers.StoreMapper;
-import fcul.cm.g20.ecopack.Mappers.UserMapper;
-import fcul.cm.g20.ecopack.Models.MarkerTypes;
-import fcul.cm.g20.ecopack.Models.Store;
-import fcul.cm.g20.ecopack.Models.StoreVisit;
-import fcul.cm.g20.ecopack.Models.User;
+import fcul.cm.g20.ecopack.mappers.StoreMapper;
+import fcul.cm.g20.ecopack.mappers.UserMapper;
+import fcul.cm.g20.ecopack.models.MarkerTypes;
+import fcul.cm.g20.ecopack.models.Store;
+import fcul.cm.g20.ecopack.models.StoreVisit;
+import fcul.cm.g20.ecopack.models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.utils.Utils;
 

@@ -24,8 +24,8 @@ import androidx.fragment.app.FragmentManager;
 
 import java.util.Map;
 
-import fcul.cm.g20.ecopack.Models.Prize;
-import fcul.cm.g20.ecopack.Models.User;
+import fcul.cm.g20.ecopack.models.Prize;
+import fcul.cm.g20.ecopack.models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.utils.JavaMailAPI;
 import fcul.cm.g20.ecopack.utils.PDF;

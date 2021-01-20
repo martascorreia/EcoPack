@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
-import fcul.cm.g20.ecopack.Models.AppSession;
-import fcul.cm.g20.ecopack.Models.StoreVisit;
+import fcul.cm.g20.ecopack.models.AppSession;
+import fcul.cm.g20.ecopack.models.StoreVisit;
 import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
 
 public class MainActivity extends AppCompatActivity implements ProfileSettingsFragment.OnProfileSettingsFragmentActiveListener {

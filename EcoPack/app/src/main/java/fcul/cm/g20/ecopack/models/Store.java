@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.Models;
+package fcul.cm.g20.ecopack.models;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;

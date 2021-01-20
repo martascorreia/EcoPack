@@ -52,7 +52,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import fcul.cm.g20.ecopack.MainActivity;
-import fcul.cm.g20.ecopack.Models.StoreVisit;
+import fcul.cm.g20.ecopack.models.StoreVisit;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.StoreFragment;
 import fcul.cm.g20.ecopack.utils.Utils;

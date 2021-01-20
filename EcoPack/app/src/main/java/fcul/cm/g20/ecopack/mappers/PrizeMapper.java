@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.Mappers;
+package fcul.cm.g20.ecopack.mappers;
 
 import android.os.Build;
 
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import fcul.cm.g20.ecopack.Models.Prize;
+import fcul.cm.g20.ecopack.models.Prize;
 
 public class PrizeMapper {
 

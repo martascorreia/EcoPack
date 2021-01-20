@@ -24,10 +24,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import fcul.cm.g20.ecopack.Mappers.PrizeMapper;
-import fcul.cm.g20.ecopack.Mappers.UserMapper;
-import fcul.cm.g20.ecopack.Models.Prize;
-import fcul.cm.g20.ecopack.Models.User;
+import fcul.cm.g20.ecopack.mappers.PrizeMapper;
+import fcul.cm.g20.ecopack.mappers.UserMapper;
+import fcul.cm.g20.ecopack.models.Prize;
+import fcul.cm.g20.ecopack.models.User;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.points.recyclerview.GridItemDecorator;
 import fcul.cm.g20.ecopack.fragments.points.recyclerview.PrizesAdapter;

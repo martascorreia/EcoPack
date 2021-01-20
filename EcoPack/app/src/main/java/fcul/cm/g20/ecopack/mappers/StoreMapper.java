@@ -1,4 +1,4 @@
-package fcul.cm.g20.ecopack.Mappers;
+package fcul.cm.g20.ecopack.mappers;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,7 @@ import com.google.firebase.firestore.WriteBatch;
 import java.util.HashMap;
 import java.util.Map;
 
-import fcul.cm.g20.ecopack.Models.Store;
+import fcul.cm.g20.ecopack.models.Store;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class StoreMapper {

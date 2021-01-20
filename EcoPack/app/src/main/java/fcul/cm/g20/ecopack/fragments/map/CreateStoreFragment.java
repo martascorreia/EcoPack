@@ -47,8 +47,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import fcul.cm.g20.ecopack.MainActivity;
-import fcul.cm.g20.ecopack.Mappers.StoreMapper;
-import fcul.cm.g20.ecopack.Models.Store;
+import fcul.cm.g20.ecopack.mappers.StoreMapper;
+import fcul.cm.g20.ecopack.models.Store;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.PreviewImageAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;

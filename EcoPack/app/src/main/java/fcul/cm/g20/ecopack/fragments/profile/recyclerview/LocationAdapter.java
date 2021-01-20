@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import fcul.cm.g20.ecopack.Models.MarkerTypes;
-import fcul.cm.g20.ecopack.Models.StoreVisit;
+import fcul.cm.g20.ecopack.models.MarkerTypes;
+import fcul.cm.g20.ecopack.models.StoreVisit;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.utils.Utils;
 
