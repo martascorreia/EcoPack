@@ -42,6 +42,7 @@
             </TextView>
 
         </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +100,6 @@
                 </RelativeLayout>
 
 
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,7 +111,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-
 
 
                         <RelativeLayout
@@ -165,7 +164,6 @@
                             </RelativeLayout>
 
 
-
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -185,7 +183,7 @@
                                         android:id="@+id/razao2"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:maxLines="2"
+                                        android:maxLines="4"
                                         android:text="@string/razaoalimentacao2"
                                         android:textSize="@dimen/_11sdp"
                                         app:layout_constraintBottom_toBottomOf="parent"
@@ -198,7 +196,7 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_90sdp">
+                                android:layout_marginTop="@dimen/_115sdp">
 
                                 <ImageView
                                     android:layout_width="@dimen/_15sdp"
@@ -270,7 +268,6 @@
 
                     </RelativeLayout>
                 </LinearLayout>
-
 
 
                 <RelativeLayout
@@ -434,7 +431,6 @@
 
 
             </LinearLayout>
-
 
 
         </ScrollView>
