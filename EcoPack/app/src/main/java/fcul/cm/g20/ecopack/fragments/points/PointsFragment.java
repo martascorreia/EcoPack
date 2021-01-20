@@ -150,7 +150,7 @@ public class PointsFragment extends Fragment {
         Bitmap starbucks_Icon = Utils.getBitmapFromVectorDrawable(getActivity().getApplicationContext(), R.drawable.ic_temp_starbucks);
         prizeModels.add(new Prize("Fitness", 8, fitness_Icon));
         prizeModels.add(new Prize("Heathcare", 100, heathcare_Icon));
-        prizeModels.add(new Prize("McDonalds", 2, mcdonalds_Icon));
+        prizeModels.add(new Prize("McDonald's", 2, mcdonalds_Icon));
         prizeModels.add(new Prize("Pizza", 4, pizza_Icon));
         prizeModels.add(new Prize("Starbucks", 3, starbucks_Icon));
 
