@@ -478,7 +478,7 @@
                                         android:id="@+id/reduzir3"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:maxLines="2"
+                                        android:maxLines="3"
                                         android:text="@string/reduzir3"
                                         android:textSize="@dimen/_11sdp"
                                         app:layout_constraintBottom_toBottomOf="parent"
@@ -491,7 +491,7 @@
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_90sdp">
+                                android:layout_marginTop="@dimen/_105sdp">
 
                                 <ImageView
                                     android:layout_width="@dimen/_15sdp"
