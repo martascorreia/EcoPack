@@ -1,6 +1,5 @@
 package fcul.cm.g20.ecopack;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,8 +20,6 @@ import java.util.Stack;
 
 import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.Models.StoreVisit;
-import fcul.cm.g20.ecopack.fragments.points.PointsFragment;
-import fcul.cm.g20.ecopack.fragments.points.PrizeCodeFragment;
 import fcul.cm.g20.ecopack.fragments.profile.ProfileSettingsFragment;
 
 public class MainActivity extends AppCompatActivity implements ProfileSettingsFragment.OnProfileSettingsFragmentActiveListener {

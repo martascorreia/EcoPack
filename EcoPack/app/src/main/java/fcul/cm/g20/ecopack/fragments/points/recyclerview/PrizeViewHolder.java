@@ -1,7 +1,5 @@
 package fcul.cm.g20.ecopack.fragments.points.recyclerview;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;

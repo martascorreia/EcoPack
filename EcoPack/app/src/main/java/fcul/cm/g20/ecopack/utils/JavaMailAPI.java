@@ -1,7 +1,7 @@
 package fcul.cm.g20.ecopack.utils;
 
-import android.os.AsyncTask;
 import android.content.Context;
+import android.os.AsyncTask;
 
 import java.util.Properties;
 

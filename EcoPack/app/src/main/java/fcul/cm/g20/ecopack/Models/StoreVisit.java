@@ -6,8 +6,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Optional;
-import java.util.stream.Collector;
 
 public class StoreVisit implements Serializable {
     private String storeId;

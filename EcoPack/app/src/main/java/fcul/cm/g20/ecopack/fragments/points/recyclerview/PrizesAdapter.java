@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.Models.Prize;
+import fcul.cm.g20.ecopack.R;
 
 public class PrizesAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
     public interface OnPrizeClickListener {

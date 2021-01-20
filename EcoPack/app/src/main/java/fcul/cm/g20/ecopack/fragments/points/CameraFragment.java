@@ -1,8 +1,6 @@
 package fcul.cm.g20.ecopack.fragments.points;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

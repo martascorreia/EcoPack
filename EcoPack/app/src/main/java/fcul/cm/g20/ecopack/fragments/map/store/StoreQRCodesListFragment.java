@@ -1,6 +1,9 @@
 package fcul.cm.g20.ecopack.fragments.map.store;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,18 +13,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.QRCodeTypeAdapter;
 import fcul.cm.g20.ecopack.fragments.map.store.objects.QR_Code_Type;
+import fcul.cm.g20.ecopack.fragments.map.store.recyclerview.QRCodeTypeAdapter;
 
 public class StoreQRCodesListFragment extends Fragment {
     DocumentSnapshot storeDocument;

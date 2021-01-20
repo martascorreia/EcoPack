@@ -7,21 +7,15 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -30,13 +24,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import fcul.cm.g20.ecopack.IOnBackPressed;
 import fcul.cm.g20.ecopack.Mappers.PrizeMapper;
-import fcul.cm.g20.ecopack.Models.AppSession;
+import fcul.cm.g20.ecopack.Mappers.UserMapper;
+import fcul.cm.g20.ecopack.Models.Prize;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.Models.Prize;
-import fcul.cm.g20.ecopack.Mappers.UserMapper;
 import fcul.cm.g20.ecopack.fragments.points.recyclerview.GridItemDecorator;
 import fcul.cm.g20.ecopack.fragments.points.recyclerview.PrizesAdapter;
 import fcul.cm.g20.ecopack.utils.Utils;

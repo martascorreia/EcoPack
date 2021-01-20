@@ -1,6 +1,11 @@
 package fcul.cm.g20.ecopack.fragments.tree.information;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -8,13 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-
-import fcul.cm.g20.ecopack.Models.AppSession;
 import fcul.cm.g20.ecopack.R;
 import fcul.cm.g20.ecopack.fragments.tree.EcoPackageFragment;
 import fcul.cm.g20.ecopack.fragments.tree.alimentacao.AlimentacaoFragment;

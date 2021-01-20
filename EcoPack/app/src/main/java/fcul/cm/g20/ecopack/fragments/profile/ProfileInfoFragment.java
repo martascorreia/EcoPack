@@ -13,7 +13,6 @@ import java.util.Calendar;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.utils.Utils;
 
 public class ProfileInfoFragment extends Fragment {
     private MainActivity mainActivity;

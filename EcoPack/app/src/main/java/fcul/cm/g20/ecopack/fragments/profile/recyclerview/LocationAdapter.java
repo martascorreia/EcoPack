@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import fcul.cm.g20.ecopack.Models.MarkerTypes;
 import fcul.cm.g20.ecopack.Models.StoreVisit;

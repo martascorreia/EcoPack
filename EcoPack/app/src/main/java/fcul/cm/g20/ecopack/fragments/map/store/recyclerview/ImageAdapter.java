@@ -5,14 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ImageAdapter extends PagerAdapter {
     private Context context;

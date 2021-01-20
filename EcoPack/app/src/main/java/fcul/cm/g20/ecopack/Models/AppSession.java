@@ -1,8 +1,6 @@
 package fcul.cm.g20.ecopack.Models;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Stack;
 
 public class AppSession {

@@ -16,13 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Objects;
 
 public class Utils {
     public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId) {

@@ -12,14 +12,10 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.map.CreateStoreFragment;
 import fcul.cm.g20.ecopack.fragments.map.UpdateImageThreshold;
-import fcul.cm.g20.ecopack.fragments.points.OnBackButtonPressed;
-import fcul.cm.g20.ecopack.utils.Utils;
 
 public class PreviewImageAdapter extends RecyclerView.Adapter<PreviewImageAdapter.PreviewImageViewHolder> {
     private Context context;

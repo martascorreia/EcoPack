@@ -16,9 +16,7 @@ import com.google.firebase.firestore.WriteBatch;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import fcul.cm.g20.ecopack.Mappers.UserMapper;
 import fcul.cm.g20.ecopack.utils.Utils;
 
 public class test {

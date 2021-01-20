@@ -34,7 +34,6 @@ import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.Models.StoreVisit;
 import fcul.cm.g20.ecopack.Models.User;
 import fcul.cm.g20.ecopack.R;
-import fcul.cm.g20.ecopack.fragments.profile.ProfileFragment;
 import fcul.cm.g20.ecopack.fragments.tree.information.InformationFragment;
 
 public class TreeFragment extends Fragment {
