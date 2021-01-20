@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.R;
+import fcul.cm.g20.ecopack.models.Store;
 
 // TODO: HANDLE CONNECTION ON SENDING COMMENT
 
@@ -28,7 +30,8 @@ public class StoreFragment extends Fragment {
     DocumentSnapshot userDocument;
     FirebaseFirestore database;
 
-    public StoreFragment() {}
+    public StoreFragment() {
+    }
 
     public StoreFragment(DocumentSnapshot storeDocument) {
         this.storeDocument = storeDocument;
@@ -84,7 +87,7 @@ public class StoreFragment extends Fragment {
         ImageButton editButton = storeFragmentView.findViewById(R.id.edit_button);
         ImageButton qrCodeButton = storeFragmentView.findViewById(R.id.qr_codes_button);
 
-        if(mainActivity.userDocumentID.equals(storeDocument.get("owner"))){
+        if (mainActivity.userDocumentID.equals(storeDocument.get("owner"))) {
             editButton.setVisibility(View.VISIBLE);
             editButton.setClickable(true);
             qrCodeButton.setVisibility((View.VISIBLE));
@@ -128,7 +131,7 @@ public class StoreFragment extends Fragment {
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.store_tab_content, new StoreInfoFragment(storeDocument)).commit();
     }
-    
+
 
     private TabLayout.OnTabSelectedListener handleTabItemClick() {
         return new TabLayout.OnTabSelectedListener() {
@@ -136,7 +139,15 @@ public class StoreFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 Fragment fragment;
 
-                //updateStoreDocument();
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                database.document(storeDocument.getReference().getPath())
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot snapshot) {
+                                storeDocument = snapshot;
+                            }
+                        });
 
                 int position = tab.getPosition();
                 if (position == 0) fragment = new StoreInfoFragment(storeDocument);
