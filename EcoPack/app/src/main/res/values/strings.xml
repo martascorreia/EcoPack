@@ -18,11 +18,89 @@
     <string name="published_opinions">Opiniões Publicadas</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cinco_Rs">Política dos 5 Rs</string>
-    <string name="cinco_Titulo">O que são os 5 Rs?</string>
+    <string name="cinco_Titulo">O que são os 5 Rs da Sustentabilidade?</string>
     <string name="granel">Lojas a Granel</string>
     <string name="emabalagens_eco">Embalagens Ecológicas</string>
     <string name="alimentacao">Alimentação</string>
-    <string name="text_R">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum imperdiet est, vitae ornare ligula gravida eu. Donec malesuada arcu sit amet eros volutpat, eu convallis elit pulvinar. Suspendisse pellentesque ornare magna, ac efficitur nisi blandit ut. Aliquam at euismod lacus. Sed mattis arcu id elit elementum, sit amet consequat mauris condimentum. Fusce quis purus molestie, vehicula nulla ut, pellentesque ante. Praesent mauris felis, lobortis accumsan dui non, pharetra posuere ante. Curabitur malesuada tortor erat, nec euismod velit mattis at.            Proin tempor ornare justo, et convallis odio aliquam ac. Quisque gravida felis sed luctus efficitur. Nullam et fringilla arcu, ac eleifend ligula. Maecenas eget interdum ante, et imperdiet justo. Pellentesque sodales gravida tellus at convallis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam dapibus, augue ut dictum luctus, nisi nulla pulvinar tortor, a condimentum tortor nulla sed ipsum. Ut pellentesque, velit quis tristique sagittis, eros massa dapibus nulla, vel maximus erat neque at metus. Nullam ornare nisl in porta cursus. Quisque et mattis ligula, et lacinia dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc cursus enim nec nunc porta, vel congue nisi lacinia. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</string>
+    <string name="alimentacaosustentavel">De que forma a nossa alimentação nos pode ajudar a ser mais sustentáveis?</string>
+    <string name="textoalimentacao">A maioria de nós ao pensar em alimentação não pensa com certeza em sustentabilidade. Mas a verdade é que a produção da nossa alimentação tem um impacto no nosso planeta, cuja dimensão varia consoante o tipo de alimentos que escolhemos consumir, do local onde eles são produzidos, no que é que eles estão envoltos e como são transportados.
+            Segundo investigações realizadas nos últimos anos, cerca de 20 a 35% do total de gases efeitos estufa que são emitidos anualmente, advêm da produção da nossa alimentação, a qual é responsável também por ocupar 40% do solo disponível no nosso planeta.
+            No que toca ao consumo nacional, segundo um estudo publicado no ano de 2020, 29% da pegada ecológica da população deve-se à alimentação. Mas porque será que temos valores tão altos?
+            </string>
+    <string name="greenKitchen">Imagem adaptada do site Green Kitchen Stories - de Luise Vindahl e David Frenkiel</string>
+    <string name="razaoalimentacao1">Grande dependência de outros países para mais de 60% das nossas necessidade alimentares - o que implica transportes destes alimentos para o nosso país;</string>
+    <string name="razaoalimentacao2">Mais de 3.5 milhões de portugueses tem um consumo de carne superior a 100g/dia - onde existe um grande consumo de água (98%) para a produção de ração animal;</string>
+    <string name="razaoalimentacao3">Plástico é o material de eleição para embalamento da maioria dos produtos alimentares.</string>
+    <string name="textoalimentacao2">Tendo em conta uma vida mais sustentável, de que forma podemos então reduzir o nosso impacto ambiental através da alimentação?</string>
+    <string name="iniciativaalimentacao1">Redução dos desperdício alimentar;</string>
+    <string name="iniciativaalimentacao2">Redução do consumo de carne; </string>
+    <string name="iniciativaalimentacao3">Aumento do consumo de alimentos sazonais e de produção local;</string>
+    <string name="iniciativaalimentacao4">Redução da compra de alimentos embalados em plástico de uso único.</string>
+    <string name="text_R">Uma das primeiras perguntas que qualquer pessoa faz quando quer começar a ser mais sustentável, é “Por onde é que posso começar?”.
+        Pois bem, o primeiro passo é fazer uma vistoria à nossa vida, mais especificamente ao nosso lixo. Ao começarmos desta forma, teremos uma noção de que tipo de
+        resíduos produzimos e em que quantidades, permitindo-nos fazer uma melhor gestão das nossas compras alimentares.</string>
+    <string name="textR_2">Após esta primeira etapa, devemos então passar à análise da “Política dos 5 Rs”:</string>
+    <string name="beaJohnson">Imagem adaptada do livro "Desperdício zero" de Bea Johnson</string>
+    <string name="textR_31">Recusar</string>
+    <string name="textR_32">Esta é talvez a mais importante etapa de uma vida mais sustentável e também a mais fácil de ser implementada. Além disso, sendo a sua ação
+        tão impactante, faz com que se encontre no topo da pirâmide da Política dos 5 Rs. Sendo assim, o que poderemos fazer? O que podemos recusar?</string>
+    <string name="recusar1">Recusar amostras de lojas, eventos e conferências;</string>
+
+    <string name="recusar3">Recusar descartáveis  tais como talheres, palhetas de café, copos, loiça...</string>
+    <string name="recusar4">Recusar produtos desnecessariamente embalados em plástico;</string>
+    <string name="recusar5">Sempre que realizadas compras ou pagamentos, recusar faturas impressas em papel.</string>
+
+    <string name="textR_reduzirtitulo">Reduzir</string>
+    <string name="reduzirtexto">Esta etapa, é aquela que deve ser aplicada quando não podemos ou não conseguimos recusar algo. Talvez esta seja uma das mais difíceis de
+        fazer, porque se trata daquela em que olhamos para os objetos que possuímos e aos quais temos algum apego emocional como também aquela que mais nos obriga a mudar
+        os nossos hábitos de compras. É também nesta etapa que temos a oportunidade de olhar para os nossos hábitos de consumo, e de assinalar tudo aquilo que possuímos e
+        no qual não é necessário adquirir de novo, e de entender o que é realmente importante comprar. Sendo assim, no que é que podemos reduzir? Ou o que é que nos pode
+        ajudar a reduzir nas nossas compras?</string>
+    <string name="reduzir1">Reduzir a compra de produtos embalados em plástico;</string>
+    <string name="reduzir2">Dar prioridade, sempre que possível, às compras de produtos a granel;</string>
+    <string name="reduzir3">Planificar as nossas compras, de modo a termos uma melhor noção do que realmente necessitamos, por exemplo no que toca aos produtos alimentares;</string>
+    <string name="reduzir4">Comprar  localmente.</string>
+    <string name="textR_reutilizartitulo">Reutilizar</string>
+    <string name="reutilizartexto">O próximo passo é a reutilização do que já temos. Ao darmos uso ao que já possuímos, evitando desta forma a compra de algo novo, estamos a contribuir
+        para uma diminuição do desgaste do nosso  planeta. Porquê? Porque ao fazê-lo estamos a evitar a extração de novas matérias primas, o gasto de energia no transporte deste novo
+        produto, bem como o impacto produzido pelo descarte do antigo. Para além de uma das melhores armas contra os descartáveis, tem também um impacto nas nossas poupanças pessoais.
+        Sendo assim, o que pode ser reutilizado?</string>
+    <string name="reutilizar1">Frascos que temos em casa;</string>
+    <string name="reutilizar2">Sacos que fomos recebendo e acumulando ao longo do tempo;</string>
+    <string name="reutilizar3">Marmitas e tupperwares;</string>
+    <string name="reutilizar4">Caixas de cartão de encomendas antigas.</string>
+    <string name="textR_reciclartitulo">Reciclar</string>
+    <string name="reciclartexto">Esta é a etapa a que devemos passar se todas as etapas anteriores falharem/ já não poderem ser aplicadas, devemos então reciclar de forma a permitir que os
+        materiais possam então ser utilizados no fabrico de outros produtos. Em relação a esta temática, o que é que devemos fazer?</string>
+    <string name="reciclar1">Pesquisar em que zonas na nossa área existem caixotes de reciclagem;</string>
+    <string name="reciclar2">Pesquisar que tipo de materiais podem ser reciclados na sua área;</string>
+    <string name="reciclar3">Criar um sistema de reciclagem em casa.</string>
+    <string name="textR_compostagemtitulo">Compostagem(Rot)</string>
+    <string name="compostagemtexto">Compostar, é na verdade fazer a reciclagem dos resíduos dos resíduos orgânicos pois ao fazê-lo, estamos a dar nova vida aos resíduos orgânicos que produzimos.
+        Esta pode ser realizada na nossa própria casa, utilizando métodos como vermicompostagem, ou caso não queiramos, podemos entregar os nossos resíduos orgânicos a quem faça compostagem.</string>
+
+    <string name="tituloecologica">O que são consideradas embalagens ecológicas?</string>
+    <string name="textoecologica">O que pode ser considerado uma embalagem ecológica? Bem, na verdade de tudo um pouco, desde embalagens reutilizadas a embalagens compostáveis. Mas vamos a alguns exemplos:</string>
+    <string name="embalagem1">Frascos de vidro reutilizados, por exemplo de molho de tomate;</string>
+    <string name="embalagem2">Garrafas de água/sumo de vidro reutilizadas; </string>
+    <string name="embalagem3">Tapparwares;</string>
+    <string name="embalagem4">Recipientes de vidro para alimentos;</string>
+    <string name="embalagem5">Sacos de pano;</string>
+    <string name="embalagem6">Embalagens compostáveis de celulose.</string>
+    <string name="insentivo">Pronto para mudar o mundo uma compra de cada vez?</string>
+    <string name="graneltitulo">Granel e a Sustentabilidade</string>
+    <string name="graneltexto">A compra a granel está ligada a uma compra de produtos mais consciente. Porquê? Porque desta forma, estamos a reduzir as emissões de carbono para a atmosfera e a quantidade de resíduos
+        destinados a aterros e incineradoras. Além disso, ao adquirirmos apenas o que necessitamos, estamos também a contribuir para a diminuição do desperdício alimentar.
+    </string>
+    <string name="legendagranel">Adaptado do site da loja Maria Granel</string>
+    <string name="introducaoopcao">Ao consumir a granel:</string>
+    <string name="opcaogranel1">Controla a quantidade que adquire e contribui para uma diminuição do desperdício;</string>
+    <string name="opcaogranel2">Reduz o número de embalagens adquiridas e desperdiçadas;</string>
+    <string name="opcaogranel3">Contribui para o consumo no comércio local;</string>
+    <string name="opcaogranel4">Apoia produtores e fornecedores nacionais.</string>
+    <string name="textogranel2">Ao contrário da ideia normalmente associada a este tipo de consumo, não necessita de ser realizada necessariamente numa loja especializada neste tipo de comércio. A compra a granel pode ser
+        realizada em qualquer tipo de loja que possua alguma área que seja a granel: mercado de produtores da sua zona, mercearia do seu bairro, no minimercado ou até mesmo no supermercado mais próximo.
+    Ao usar a nossa aplicação, estará a contribuir para a ideia de que a compra a granel é possível em qualquer lado e ao mesmo tempo a contribuir para um mundo mais sustentável. Boas compras!</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Entrar</string>
