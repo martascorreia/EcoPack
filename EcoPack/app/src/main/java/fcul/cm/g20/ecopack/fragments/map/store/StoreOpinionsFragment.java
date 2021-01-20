@@ -477,6 +477,8 @@ public class StoreOpinionsFragment extends Fragment {
         }
 
         rv_comments.add(new Comment(com, drawable, avatar, user, date, name));
+        CommentAdapter commentAdapter = new CommentAdapter(getContext(), rv_comments);
+        recyclerView.setAdapter(commentAdapter);
     }
 
     public boolean isNetworkAvailable(Context context) {
