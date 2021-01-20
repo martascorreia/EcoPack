@@ -456,21 +456,20 @@ public class StoreEditFragment extends Fragment {
 
                 Bitmap bitmap = BitmapFactory.decodeByteArray(byteBuffer.toByteArray(), 0, byteBuffer.toByteArray().length);
 
-                Bitmap resizedBitmap = getResizedBitmapToSize(bitmap, 150, 150);
+                Bitmap resizedBitmap = (imageSize > 500000)? getResizedBitmapToSize(bitmap, 500, 500) : bitmap;
 
                 // To get resized image size
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 int resizedImageSize = stream.size();
 
-                if (resizedImageSize > 200000) {
+                if (resizedImageSize > 600000) {
                     showToast("A imagem que está a tentar carregar é demasiado grande.", getContext());
                     return;
                 }
 
                 imageSizeThreshold += resizedImageSize;
-                Log.d("Here", "io  imageSizeThreshold " + imageSizeThreshold);
-                if (imageSizeThreshold > 150000) { // Firebase limit 10 MB
+                if (imageSizeThreshold > 600000) {
                     imageSizeThreshold -= resizedImageSize;
                     showToast("Não foi possível carregar mais imagens porque o limite de memória foi atingido.", getContext());
                     return;

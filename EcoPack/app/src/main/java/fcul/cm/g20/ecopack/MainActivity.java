@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
             createStoreLatitude = savedInstanceState.getDouble("createStoreLatitude");
             createStoreLongitude = savedInstanceState.getDouble("createStoreLongitude");
             createStoreOptions = savedInstanceState.getBooleanArray("createStoreOptions");
-            createStorePhotos = savedInstanceState.getStringArrayList("createStorePhotos");
+            //createStorePhotos = savedInstanceState.getStringArrayList("createStorePhotos");
         }
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements ProfileSettingsFr
         outState.putDouble("createStoreLatitude", createStoreLatitude);
         outState.putDouble("createStoreLongitude", createStoreLongitude);
         outState.putBooleanArray("createStoreOptions", createStoreOptions);
-        outState.putStringArrayList("createStorePhotos", createStorePhotos);
+        //outState.putStringArrayList("createStorePhotos", createStorePhotos);
 
         super.onSaveInstanceState(outState);
     }
