@@ -22,6 +22,20 @@
     <string name="granel">Lojas a Granel</string>
     <string name="emabalagens_eco">Embalagens Ecológicas</string>
     <string name="alimentacao">Alimentação</string>
+    <string name="alimentacaosustentavel">De que forma a nossa alimentação nos pode ajudar a ser mais sustentáveis?</string>
+    <string name="textoalimentacao">A maioria de nós ao pensar em alimentação não pensa com certeza em sustentabilidade. Mas a verdade é que a produção da nossa alimentação tem um impacto no nosso planeta, cuja dimensão varia consoante o tipo de alimentos que escolhemos consumir, do local onde eles são produzidos, no que é que eles estão envoltos e como são transportados.
+            Segundo investigações realizadas nos últimos anos, cerca de 20 a 35% do total de gases efeitos estufa que são emitidos anualmente, advêm da produção da nossa alimentação, a qual é responsável também por ocupar 40% do solo disponível no nosso planeta.
+            No que toca ao consumo nacional, segundo um estudo publicado no ano de 2020, 29% da pegada ecológica da população deve-se à alimentação. Mas porque será que temos valores tão altos?
+            </string>
+    <string name="greenKitchen">Imagem adaptada do site Green Kitchen Stories - de Luise Vindahl e David Frenkiel</string>
+    <string name="razaoalimentacao1">Grande dependência de outros países para mais de 60% das nossas necessidade alimentares - o que implica transportes destes alimentos para o nosso país;</string>
+    <string name="razaoalimentacao2">Mais de 3.5 milhões de portugueses tem um consumo de carne superior a 100g/dia - onde existe um grande consumo de água (98%) para a produção de ração animal;</string>
+    <string name="razaoalimentacao3">Plástico é o material de eleição para embalamento da maioria dos produtos alimentares.</string>
+    <string name="textoalimentacao2">Tendo em conta uma vida mais sustentável, de que forma podemos então reduzir o nosso impacto ambiental através da alimentação?</string>
+    <string name="iniciativaalimentacao1">Redução dos desperdício alimentar;</string>
+    <string name="iniciativaalimentacao2">Redução do consumo de carne; </string>
+    <string name="iniciativaalimentacao3">Aumento do consumo de alimentos sazonais e de produção local;</string>
+    <string name="iniciativaalimentacao4">Redução da compra de alimentos embalados em plástico de uso único; </string>
     <string name="text_R">Uma das primeiras perguntas que qualquer pessoa faz quando quer começar a ser mais sustentável, é “Por onde é que posso começar?”
         Pois bem, o primeiro passo é fazer uma vistoria à nossa vida, mais especificamente ao nosso lixo. Ao começarmos desta forma, teremos uma noção de que tipo de
         resíduos produzimos e em que quantidades, permitindo-nos fazer uma melhor gestão das nosssas compras alimentares.</string>
@@ -64,6 +78,29 @@
     <string name="textR_compostagemtitulo">Compostagem(Rot)</string>
     <string name="compostagemtexto">Compostar, é na verdade fazer a reciclagem dos resíduos dos resíduos orgânicos pois ao fazê-lo, estamos a dar nova vida aos resíduos orgânicos que produzimos.
         Esta pode ser realizada na nossa própria casa, utilizando métodos como vermicompostagem, ou caso não queiramos, podemos entregar os nossos resíduos orgânicos a quem faça compostagem.</string>
+
+    <string name="tituloecologica">O que são consideradas embalagens ecológicas?</string>
+    <string name="textoecologica">O que pode ser considerado uma embalagem ecológica? Bem, na verdade de tudo um pouco, desde embalagens reutilizadas a embalagens compostáveis. Mas vamos a alguns exemplos:</string>
+    <string name="embalagem1">Frascos de vidro reutilizados, por exemplo de molho de tomate;</string>
+    <string name="embalagem2">Garrafas de água/sumo de vidro reutilizadas; </string>
+    <string name="embalagem3">Tapparwares;</string>
+    <string name="embalagem4">Recipientes de vidro para alimentos;</string>
+    <string name="embalagem5">Sacos de pano;</string>
+    <string name="embalagem6">Embalagens compostáveis de celulose.</string>
+    <string name="insentivo">Pronto para mudar o mundo uma compra de cada vez?</string>
+    <string name="graneltitulo">Granel e a Sustentabilidade</string>
+    <string name="graneltexto">A compra a granel está ligada a uma compra de produtos mais consciente. Porquê? Porque desta forma, estamos a reduzir as emissões de carbono para a atmosfera e a quantidade de resíduos
+        destinados a aterros e incineradoras. Além disso, ao adquirirmos apenas o que necessitamos, estamos também a contribuir para a diminuição do desperdício alimentar.
+    </string>
+    <string name="legendagranel">Adaptado do site da loja Maria Granel</string>
+    <string name="introducaoopcao">Ao consumir a granel:</string>
+    <string name="opcaogranel1">Controla a quantidade que adquire e contribui para uma diminuição do desperdício;</string>
+    <string name="opcaogranel2">Reduz o número de embalagens adquiridas e desperdiçadas;</string>
+    <string name="opcaogranel3">Contribui para o consumo no comércio local;</string>
+    <string name="opcaogranel4">Apoia produtores e fornecedores nacionais.</string>
+    <string name="textogranel2">Ao contrário da ideia normalmente associada a este tipo de consumo, não necessita de ser realizada necessariamente numa loja especializada neste tipo de comércio. A compra a granel pode ser
+        realizada em qualquer tipo de loja que possua alguma área que seja a granel: mercado de produtores da sua zona, mercearia do seu bairro, no minimercado ou até mesmo no supermercado mais próximo.
+    Ao usar a nossa aplicação, estará a contribuir para a ideia de que a compra a granel é possível em qualquer lado e ao mesmo tempo a contribuir para um mundo mais sustentável. Boas compras!</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Entrar</string>
