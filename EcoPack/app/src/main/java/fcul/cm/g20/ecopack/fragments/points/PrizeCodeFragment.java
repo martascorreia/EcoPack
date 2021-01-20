@@ -39,6 +39,7 @@ public class PrizeCodeFragment extends Fragment {
 
     Prize prizeModel;
     User userModel;
+    Map<String, String> code;
 
     public PrizeCodeFragment() {
         // Required empty public constructcor
@@ -85,7 +86,8 @@ public class PrizeCodeFragment extends Fragment {
     }
 
     private void generateCode() {
-        Map<String, String> code = prizeModel.generateCode();
+        code = prizeModel.generateCode();
+
         TextView codeText = getView().findViewById(R.id.points_prizeCode_codeText);
         codeText.setText(code.get("code"));
 
@@ -131,7 +133,6 @@ public class PrizeCodeFragment extends Fragment {
                 uri = resultData.getData();
                 String subject = getResources().getString(R.string.email_subject) + prizeModel.getTitle() + "\n\n";
 
-                Map<String, String> code = prizeModel.generateCode();
                 String text = "Código: " + code.get("code") + "\n" + code.get("company") + "\n" + code.get("date");
                 PDF.create(uri,subject + text, getContext());
             }
@@ -147,7 +148,6 @@ public class PrizeCodeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String subject = getResources().getString(R.string.email_subject) + ": " + prizeModel.getTitle();
-                Map<String, String> code = prizeModel.generateCode();
                 String text = "Olá " + userModel.getUserName() + "! \n" + getResources().getString(R.string.email_text) + "\n" + "Código: "
                         + code.get("code") + "\n" + code.get("company") + "\n" + code.get("date");
                 if(userModel != null){
