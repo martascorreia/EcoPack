@@ -241,7 +241,7 @@ public class CreateStoreFragment extends Fragment {
                     else counters.put("paper", 0l);
                     if (mainActivity.createStoreOptions[3]) counters.put("plastic", 10l);
                     else counters.put("plastic", 0l);
-                    if (mainActivity.createStoreOptions[4]) counters.put("home", 10l);
+                    if (mainActivity.createStoreOptions[4]) counters.put("home", 1l);
                     else counters.put("home", 0l);
                     store.setCounters(counters);
 

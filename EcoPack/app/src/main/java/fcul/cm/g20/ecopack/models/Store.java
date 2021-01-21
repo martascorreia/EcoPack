@@ -105,7 +105,11 @@ public class Store {
         long newValue = i;
         if (counters != null) {
             if (counters.containsKey(type)) {
-                newValue = counters.get(type) + i;
+                if(type.equals(PackageTypes.home.toString()) && counters.get(type) == 1){
+                    newValue = counters.get(type);
+                } else{
+                    newValue = counters.get(type) + i;
+                }
             }
         } else {
             counters = new HashMap<>();
