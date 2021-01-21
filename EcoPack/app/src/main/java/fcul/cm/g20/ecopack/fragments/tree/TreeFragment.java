@@ -382,11 +382,11 @@ public class TreeFragment extends Fragment {
 
                     }else if (semanal.isEmpty() == false){
                         //CONTADORES DOS MARKERS
-                        countMarkerPlastic =+ Collections.frequency(semanal,"marker_plastic");
-                        coutMarkerPaper =+ Collections.frequency(semanal,"marker_paper");
-                        coutMarkerHome =+ Collections.frequency(semanal,"marker_home");
-                        coutMarkerReusable =+ Collections.frequency(semanal,"marker_reusable");
-                        coutMarkerBio =+ Collections.frequency(semanal,"marker_bio");
+                        countMarkerPlastic += Collections.frequency(semanal,"marker_plastic");
+                        coutMarkerPaper += Collections.frequency(semanal,"marker_paper");
+                        coutMarkerHome += Collections.frequency(semanal,"marker_home");
+                        coutMarkerReusable += Collections.frequency(semanal,"marker_reusable");
+                        coutMarkerBio += Collections.frequency(semanal,"marker_bio");
 
                         //CRIAÇÃO DE UMA ARRAYLIST COM OS CONTADORES DE TODOS OS MARKERS
                         contadorMarcadores.add(countMarkerPlastic);
