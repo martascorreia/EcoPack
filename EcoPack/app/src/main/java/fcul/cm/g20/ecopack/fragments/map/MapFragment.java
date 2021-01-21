@@ -165,7 +165,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
                                         counters[4] = countersMap.get("home");
 
                                         long mostFrequentIndex = getMostFrequentPackageType(counters);
-                                        if (counters[4] == 1) {
+                                        if (counters[4] >= 1) {
                                             if (mostFrequentIndex == 0) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_reusable_home));
                                             else if (mostFrequentIndex == 1) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_bio_home));
                                             else if (mostFrequentIndex == 2) currMarker.setIcon(drawableToBitmap(mainActivity.getApplicationContext(), R.drawable.ic_marker_paper_home));
@@ -328,7 +328,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.ConnectionC
     private long getMostFrequentPackageType(long[] counters) {
         long max = counters[0], index = 0;
 
-        for (int i = 0; i < counters.length; i++) {
+        for (int i = 0; i < counters.length - 2; i++) {
             if (max < counters[i]) {
                 max = counters[i];
                 index = i;

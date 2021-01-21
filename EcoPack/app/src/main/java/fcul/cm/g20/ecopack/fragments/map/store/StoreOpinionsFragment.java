@@ -341,27 +341,27 @@ public class StoreOpinionsFragment extends Fragment {
     private Map<String, Long> setCounter() {
         Map<String, Long> counters = (Map<String, Long>) storeDocument.get("counters");
         if (currentIcon.equals("ic_marker_paper_home_round")) {
-            counters.put("paper", counters.get("paper") + 1);
-            counters.put("home", counters.get("home") + 1);
+            counters.put("paper", counters.get("paper") + 3);
+            counters.put("home", counters.get("home") + 3);
         } else if (currentIcon.equals("ic_marker_plastic_home_round")) {
-            counters.put("plastic", counters.get("plastic") + 1);
-            counters.put("home", counters.get("home") + 1);
+            counters.put("plastic", counters.get("plastic") + 3);
+            counters.put("home", counters.get("home") + 3);
         } else if (currentIcon.equals("ic_marker_bio_home_round")) {
-            counters.put("bio", counters.get("bio") + 1);
-            counters.put("home", counters.get("home") + 1);
+            counters.put("bio", counters.get("bio") + 3);
+            counters.put("home", counters.get("home") + 3);
         } else if (currentIcon.equals("ic_marker_reusable_home_round")) {
-            counters.put("reusable", counters.get("reusable") + 1);
-            counters.put("home", counters.get("home") + 1);
+            counters.put("reusable", counters.get("reusable") + 3);
+            counters.put("home", counters.get("home") + 3);
         } else if (currentIcon.equals("ic_marker_home_round")) {
-            counters.put("home", counters.get("home") + 1);
+            counters.put("home", counters.get("home") + 3);
         } else if (currentIcon.equals("ic_marker_paper_round")) {
-            counters.put("paper", counters.get("paper") + 1);
+            counters.put("paper", counters.get("paper") + 3);
         } else if (currentIcon.equals("ic_marker_plastic_round")) {
-            counters.put("plastic", counters.get("plastic") + 1);
+            counters.put("plastic", counters.get("plastic") + 3);
         } else if (currentIcon.equals("ic_marker_bio_round")) {
-            counters.put("bio", counters.get("bio") + 1);
+            counters.put("bio", counters.get("bio") + 3);
         } else if (currentIcon.equals("ic_marker_reusable_round")) {
-            counters.put("reusable", counters.get("reusable") + 1);
+            counters.put("reusable", counters.get("reusable") + 3);
         }
         return counters;
     }
