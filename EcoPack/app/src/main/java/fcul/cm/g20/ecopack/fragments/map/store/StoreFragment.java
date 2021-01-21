@@ -69,7 +69,7 @@ public class StoreFragment extends Fragment {
         long mostFrequentIndex = getMostFrequentPackageType(counters);
         FloatingActionButton marker_icon = storeFragmentView.findViewById(R.id.marker_icon);
 
-        if (counters[4] >= 1) {
+        if (counters[4] == 1) {
             if (mostFrequentIndex == 0) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_reusable_home_round));
             else if (mostFrequentIndex == 1) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_bio_home_round));
             else if (mostFrequentIndex == 2) marker_icon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_marker_paper_home_round));
@@ -169,7 +169,7 @@ public class StoreFragment extends Fragment {
         long max = counters[0];
         long index = 0;
 
-        for (int i = 0; i < counters.length - 2; i++) {
+        for (int i = 0; i < counters.length; i++) {
             if (max < counters[i]) {
                 max = counters[i];
                 index = i;

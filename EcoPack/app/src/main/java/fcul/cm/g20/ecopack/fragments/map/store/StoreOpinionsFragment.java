@@ -316,6 +316,7 @@ public class StoreOpinionsFragment extends Fragment {
                                         Utils.showToast("Não foi possível publicar o seu comentário. Por favor, tente mais tarde.", getContext());
                                     }
                                 });
+
                         database.document("users/" + mainActivity.userDocumentID)
                                 .update(user)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -328,7 +329,6 @@ public class StoreOpinionsFragment extends Fragment {
                                     public void onFailure(@NonNull Exception e) {
                                     }
                                 });
-
                     } else {
                         progressDialog.dismiss();
                         Utils.showToast("Não foi possível publicar o seu comentário. Por favor, verifique a sua conexão à Internet.", getContext());
@@ -341,27 +341,27 @@ public class StoreOpinionsFragment extends Fragment {
     private Map<String, Long> setCounter() {
         Map<String, Long> counters = (Map<String, Long>) storeDocument.get("counters");
         if (currentIcon.equals("ic_marker_paper_home_round")) {
-            counters.put("paper", counters.get("paper") + 3);
-            counters.put("home", counters.get("home") + 3);
+            counters.put("paper", counters.get("paper") + 3l);
+            if (counters.get("home") == 0) counters.put("home", 1l);
         } else if (currentIcon.equals("ic_marker_plastic_home_round")) {
-            counters.put("plastic", counters.get("plastic") + 3);
-            counters.put("home", counters.get("home") + 3);
+            counters.put("plastic", counters.get("plastic") + 3l);
+            if (counters.get("home") == 0) counters.put("home", 1l);
         } else if (currentIcon.equals("ic_marker_bio_home_round")) {
-            counters.put("bio", counters.get("bio") + 3);
-            counters.put("home", counters.get("home") + 3);
+            counters.put("bio", counters.get("bio") + 3l);
+            if (counters.get("home") == 0) counters.put("home", 1l);
         } else if (currentIcon.equals("ic_marker_reusable_home_round")) {
-            counters.put("reusable", counters.get("reusable") + 3);
-            counters.put("home", counters.get("home") + 3);
+            counters.put("reusable", counters.get("reusable") + 3l);
+            if (counters.get("home") == 0) counters.put("home", 1l);
         } else if (currentIcon.equals("ic_marker_home_round")) {
-            counters.put("home", counters.get("home") + 3);
+            counters.put("home", counters.get("home") + 3l);
         } else if (currentIcon.equals("ic_marker_paper_round")) {
-            counters.put("paper", counters.get("paper") + 3);
+            counters.put("paper", counters.get("paper") + 3l);
         } else if (currentIcon.equals("ic_marker_plastic_round")) {
-            counters.put("plastic", counters.get("plastic") + 3);
+            counters.put("plastic", counters.get("plastic") + 3l);
         } else if (currentIcon.equals("ic_marker_bio_round")) {
-            counters.put("bio", counters.get("bio") + 3);
+            counters.put("bio", counters.get("bio") + 3l);
         } else if (currentIcon.equals("ic_marker_reusable_round")) {
-            counters.put("reusable", counters.get("reusable") + 3);
+            counters.put("reusable", counters.get("reusable") + 1);
         }
         return counters;
     }
