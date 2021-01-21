@@ -98,8 +98,6 @@ public class TreeFragment extends Fragment {
 
     }
 
-
-
     //METODO PARA MUDAR PARA O FRAGMENTO DO HISTÓRICO
     private void informationPage(){
         infoBt = getView().findViewById(R.id.floating_action_info);
@@ -384,7 +382,7 @@ public class TreeFragment extends Fragment {
 
                     }else if (semanal.isEmpty() == false){
                         //CONTADORES DOS MARKERS
-                        countMarkerPlastic = Collections.frequency(semanal,"marker_plastic");
+                        countMarkerPlastic =+ Collections.frequency(semanal,"marker_plastic");
                         coutMarkerPaper =+ Collections.frequency(semanal,"marker_paper");
                         coutMarkerHome =+ Collections.frequency(semanal,"marker_home");
                         coutMarkerReusable =+ Collections.frequency(semanal,"marker_reusable");
@@ -425,11 +423,5 @@ public class TreeFragment extends Fragment {
                }
             }
         });
-
-
-
-
-
-
     }
 }
