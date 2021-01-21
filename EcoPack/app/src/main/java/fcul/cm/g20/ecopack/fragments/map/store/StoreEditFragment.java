@@ -280,6 +280,15 @@ public class StoreEditFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int selected = 0;
+                for (int i = 0; i < options.length - 1; i++)
+                    if (options[i]) selected++;
+
+                if (selected == 0) {
+                    showToast("Por favor, escolha um tipo de embalagem.", getContext());
+                    return;
+                }
+
                 final ProgressDialog progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_DayNight_Dialog);
                 progressDialog.setMessage("A submeter alterações...");
                 progressDialog.setIndeterminate(true);
