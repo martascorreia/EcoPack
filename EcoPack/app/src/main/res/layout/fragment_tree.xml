@@ -14,7 +14,7 @@
         android:cropToPadding="false"
         android:scaleType="fitXY"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_arvoren"
+        android:src="@drawable/ic_arvoreneutra"
         android:contentDescription="@string/tree" />
 
     <TextView
