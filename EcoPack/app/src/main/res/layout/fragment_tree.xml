@@ -15,7 +15,8 @@
         android:scaleType="fitXY"
         android:layout_height="match_parent"
         android:src="@drawable/ic_arvoreneutra"
-        android:contentDescription="@string/tree" />
+        android:contentDescription="@string/tree"
+        android:layout_marginBottom="@dimen/_40sdp" />
 
     <TextView
         android:id="@+id/pontosarvore"
