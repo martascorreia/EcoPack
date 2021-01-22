@@ -28,7 +28,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 import fcul.cm.g20.ecopack.MainActivity;
 import fcul.cm.g20.ecopack.models.StoreVisit;
@@ -74,7 +73,6 @@ public class TreeFragment extends Fragment {
     private SimpleDateFormat formatdate;
     private MainActivity mainActivity;
     private FirebaseFirestore db;
-    private Locale locale = new Locale("pr", "PT");//PARA SABER A DATA EM PORTUGAL
     private String hojeSemana;
 
     @Override
@@ -228,7 +226,6 @@ public class TreeFragment extends Fragment {
                     //VAMOS BUSCAR A DATA DAS VISITA DADA
                     /*------------------------------HASHMAP COM AS VISITAS--------------------------------------*/
                     //SABER O DIA DA SEMANA ATUAL
-                    //SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", locale);
                     Calendar calendarWeekDay = Calendar.getInstance();
                     //FORMATO DE DATA PARA O HASHMAP
                     Date d = new Date();
