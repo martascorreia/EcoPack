@@ -430,12 +430,19 @@ public class TreeFragment extends Fragment {
                             data = nivel;
                             pontosArvore.setText(nivel);
                             img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorep));
-                        }else if (coutMarkerHome == n || coutMarkerReusable == n ){
+                        }else if (coutMarkerHome == n ){
                             nivel = "Excelente! Continua assim!";
                             data = nivel;
                             //strpoints = String.valueOf(mainActivity.userVisits.get(0).getMarkerTag());
                             pontosArvore.setText(nivel);
                             img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorep));//ALTERAR DEPOIS PARA O NOME DA IMAGEM ALTERADA DO NÍVEL EXCELENTE
+                        }else if (coutMarkerReusable == n){
+                            nivel = "Excelente! Continua assim!";
+                            data = nivel;
+                            //strpoints = String.valueOf(mainActivity.userVisits.get(0).getMarkerTag());
+                            pontosArvore.setText(nivel);
+                            img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorep));//ALTERAR DEPOIS PARA O NOME DA IMAGEM ALTERADA DO NÍVEL EXCELENTE
+
                         }
                     }
                }
