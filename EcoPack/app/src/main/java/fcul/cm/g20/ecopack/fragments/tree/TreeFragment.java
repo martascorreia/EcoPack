@@ -393,7 +393,7 @@ public class TreeFragment extends Fragment {
                    ArrayList contadorMarcadores = new ArrayList();
 
                     if (semanal.isEmpty() == true){
-                        pontosArvore.setText(nomeDiaSemana+" "+hd);
+                        pontosArvore.setText(hd);
                         img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvoreneutra));
 
                     }else if (semanal.isEmpty() == false){
@@ -429,7 +429,7 @@ public class TreeFragment extends Fragment {
                             nivel = "Muito bem! Vais num bom caminho.";
                             data = nivel;
                             pontosArvore.setText(nivel);
-                            img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvorep));
+                            img.setImageDrawable(getResources().getDrawable(R.drawable.ic_arvoren));
                         }else if (coutMarkerHome == n ){
                             nivel = "Excelente! Continua assim!";
                             data = nivel;
